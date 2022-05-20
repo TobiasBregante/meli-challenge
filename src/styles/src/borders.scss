@@ -1,0 +1,9 @@
+@for $i from 1 through 4 {
+    .rounded-#{$i*4} {
+        border-radius: #{$i * 4}px;
+    }
+}
+
+.rounded-circle {
+    border-radius: 50%;
+}
