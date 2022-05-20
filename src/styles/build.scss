@@ -1,1 +1,8 @@
-@import "../../node_modules//bootstrap/scss/bootstrap.scss"; 
+@import "./src/bootstrap.scss";
+@import "./src/colors.scss";
+@import "./src/fonts.scss";
+@import "./src/borders.scss";
+@import "./src/forms.scss";
+@import "./src/interactions.scss";
+@import "./src/spacing.scss";
+@import "../../node_modules/animate.css/animate.min.css"
