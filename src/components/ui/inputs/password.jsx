@@ -13,25 +13,36 @@ const Input = ({
     className,
     icon,
     iconRight,
+    onChange,
+    min,
+    max,
     ...htmlProps
 }) => {
 
-    const [state, setState] = useState(value || ""),
-        [visible, setVisible] = useState(false)
+    const [visible, setVisible] = useState(false),
+    [state, setState] = useState(isValid || 0)
+    const status = [color || "gray-500", "danger-500", "success-300"]
 
+    const check = (v) => {
+        let checkValue = validate({
+            value: v,
+            type: visible?"text":"password",
+            max: max,
+            min: min
+        }) ? 2 : 1
 
-    const onChangeHandler = (e) => {
-        if (htmlProps.onChange) {
-            return htmlProps.onChange(e.target.value)
+        return (max || min) && v.length > 0 ? checkValue : 0
+    }
+
+    const onChangeHandler = (e)=>{
+        if (isValid == undefined) {
+            setState(check(e.target.value))
         }
-        setState(e.target.value)
+        onChange(e)
     }
 
     const clear = () => {
-        if (htmlProps.onChange) {
-            return htmlProps.onChange("")
-        }
-        return setState("")
+        onChange({target:{value:""}})
     }
 
     return (
@@ -43,20 +54,22 @@ const Input = ({
                 </label>
             }
             <div className={
-                `rounded-12 d-flex px-2 py-1 bg-gray-500`
+                `rounded-12 d-flex px-2 py-1 bg-${status[isValid || state]}`
             }>
                 <Icon id="lock" />
                 <input
                     type={visible?"text":"password"}
                     className="w-100 border-0 bg-transparent"
-                    value={state}
+                    value={value}
                     onChange={onChangeHandler}
                     placeholder={placeholder}
                     {...htmlProps} />
                 {
                     <Icon
                         id="cancel"
-                        className={`fs-5 mt-1 pointer  ${clearable && state.length == 0 && 'invisible'}`}
+                        className={`fs-5 mt-1 pointer  ${(
+                            clearable && value && value.length > 0)
+                            ? "":'invisible'}`}
                         onClick={clear} />
 
                 }
