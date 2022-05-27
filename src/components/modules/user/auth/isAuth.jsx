@@ -8,12 +8,14 @@ const IsAuth = ({ user }) => {
     }
     return (
         <Link href="/./user/auth/signin" passHref>
-            <Button color="white">
-                <Text className="d-none d-sm-block">
-                    Ingresar
-                </Text>
-                <Icon id="person" />
-            </Button>
+            <a className="text-decoration-none">
+                <Button color="white">
+                    <Text className="d-none d-sm-block">
+                        Ingresar
+                    </Text>
+                    <Icon id="person" />
+                </Button>
+            </a>
         </Link>
     )
 

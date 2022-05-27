@@ -1,37 +1,42 @@
-import { nanoid } from "nanoid"
 import Image from "next/image"
 import { useState } from "react"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import Modal from "@/ui/modals";
-import Card from "@/src/components/ui/cards";
 
 const ProductImageCarrousel = ({ imgs }) => {
     const [imgSelected, setImgSelected] = useState(0),
-        [swiper, setSwiper] = useState(null)
+        [swiper, setSwiper] = useState(null),
+        [subSwiper, setSubSwiper] = useState(null)
 
     const handleThumbnailClick = (index) => () => {
+        //Sync desktop side swiper images list
         swiper.slideTo(index)
         setImgSelected(index)
     }
+    const handleSwiperChange = (e)=>{
+        //Sync mobile sub swiper activeIndex with main swiper
+        subSwiper.slideTo(e.activeIndex)
+        setImgSelected(e.activeIndex)
+    }
 
     return (
-        <div className="row p-2">
+        <div className="row no-select">
             <div className="col-12 col-md-2 col-lg-2 d-none d-sm-block">
                 {
-                    imgs.slice(0, 5).map((img, imgIndex) => (
-                        <Image
-                            key={img}
-                            className={`rounded-8 my-2 pointer ${imgSelected == imgIndex ? "" : "opacity-50"}`}
-                            src={`/img/${img}`}
-                            width={100}
-                            height={100}
-                            layout="responsive"
-                            onClick={handleThumbnailClick(imgIndex)}
-                            alt={nanoid()}
-                        />
+                    imgs.slice(0, 5).map((img, imgI) => (
+                        <div className="my-2 ms-2" key={imgI}>
+                            <Image
+                                className={`rounded-8 transition-25 pointer ${imgSelected == imgI ? "" : "opacity-25"}`}
+                                src={`/img/${img}`}
+                                width={100}
+                                height={100}
+                                layout="responsive"
+                                onClick={handleThumbnailClick(imgI)}
+                                alt={`image-${imgI}`}
+                            />
+                        </div>
                     ))
                 }
             </div>
@@ -43,26 +48,52 @@ const ProductImageCarrousel = ({ imgs }) => {
                     navigation
                     slidesPerView={1}
                     direction="horizontal"
-                    onSlideChange={(e) => setImgSelected(e.activeIndex)}
+                    onSlideChange={handleSwiperChange}
                 >
                     {
-                        imgs.map(img => (
-                            <SwiperSlide key={nanoid()}>
+                        imgs.map((img, imgI) => (
+                            <SwiperSlide key={imgI}>
                                 <Image
-                                    key={img}
-                                    className="rounded-8 my-2 pointer"
+                                    className="rounded-top-8 pointer"
                                     src={`/img/${img}`}
                                     width={100}
                                     height={100}
                                     layout="responsive"
-                                    alt={nanoid()}
+                                    priority={imgI == 0}
+                                    alt={`image-${imgI}`}
                                 />
                             </SwiperSlide>
                         ))
                     }
 
                 </Swiper>
+                <div className="d-block d-sm-none mt-2 px-1">
+                    <Swiper
+                        onSwiper={setSubSwiper}
+                        spaceBetween={5}
+                        slidesPerView={4.1}
+                        direction="horizontal"
+                    >
+                        {
+                            imgs.map((img, imgI) => (
+                                <SwiperSlide key={imgI}>
+                                    <Image
+                                        className={`rounded-8 transition-25 ${imgSelected == imgI ? "" : "opacity-50"}`}
+                                        src={`/img/${img}`}
+                                        width={100}
+                                        height={100}
+                                        layout="responsive"
+                                        onClick={handleThumbnailClick(imgI)}
+                                        alt={`image-${imgI}`}
+                                    />
+                                </SwiperSlide>
+                            ))
+                        }
+
+                    </Swiper>
+                </div>
             </div>
+
         </div>
     )
 }

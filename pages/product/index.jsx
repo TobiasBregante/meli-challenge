@@ -6,7 +6,7 @@ const ProductPage = () => {
   
   return (
     <Page>
-      <div className="container pt-5">
+      <div className="container pt-3">
         <ProductModule data={data[0]} />
       </div>
     </Page>

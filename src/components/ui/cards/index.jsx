@@ -1,6 +1,6 @@
 const Card = ({children,rounded, className, htmlProps})=>{
     return (
-        <div className={`card rounded-${rounded} ${className}`} {...htmlProps}>
+        <div className={`card border-0 rounded-${rounded} ${className}`} {...htmlProps}>
             {
                 children ?? null
             }
