@@ -21,9 +21,18 @@ const removeFromShoppingCart = (_id)=>{
     window.localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart))
 }
 
+const isShoppingCartEmpty = ()=>{
+    const shoppingCart = window.localStorage.getItem('shoppingCart');
+    if (shoppingCart) {
+        return JSON.parse(shoppingCart).length == 0
+    }
+    return true
+}
+
 export {
     getShoppingCart,
     isInShoppingCart,
     addToShoppingCart,
-    removeFromShoppingCart
+    removeFromShoppingCart,
+    isShoppingCartEmpty
 }
