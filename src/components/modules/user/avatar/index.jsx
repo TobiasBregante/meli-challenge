@@ -4,10 +4,17 @@ import PopOver from '@/ui/popovers'
 import Card from "@/ui/cards";
 import Button from '@/ui/buttons';
 import { useState } from "react";
+import jsCookie from 'js-cookie'
+import { useRouter } from "next/router";
 
 const UserAvatar = () => {
+    const router = useRouter()
     const [isOpen, setOpen] = useState(false)
 
+    const Logout = ()=>{
+        jsCookie.remove("sldtoken")
+        router.reload()
+    }
 
     const ListItem = ({ icon, text, ...htmlProps }) => {
         return (
@@ -33,7 +40,7 @@ const UserAvatar = () => {
                         </>
                     }
                     <ListItem icon="support_agent" text="Servicio al cliente" />
-                    <ListItem icon="logout" text="Cerrar sesión"  />
+                    <ListItem icon="logout" text="Cerrar sesión" onClick={Logout} />
                 </div>
             </Card>
         }>
