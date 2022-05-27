@@ -15,7 +15,7 @@ const Icon = ({ id, className, width, height, ...htmlProps}) => {
   }
   return (
     <span
-      className={`material-icons-round ${className}`}
+      className={`material-icons-round no-select ${className}`}
       {...htmlProps}>
       {id}
     </span>

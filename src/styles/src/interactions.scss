@@ -12,3 +12,11 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.no-select{
+  user-select: none;
+}
+
+.transition-25{
+  transition: all 0.25s !important;
+}

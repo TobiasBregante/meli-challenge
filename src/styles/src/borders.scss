@@ -2,6 +2,9 @@
     .rounded-#{$i*4} {
         border-radius: #{$i * 4}px;
     }
+    .rounded-top-#{$i*4} {
+        border-radius: #{$i * 4}px #{$i * 4}px 0 0; 
+    }
 }
 
 .rounded-circle {

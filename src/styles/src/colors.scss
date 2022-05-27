@@ -192,6 +192,11 @@
     background-color: #111111;
 }
 
+.bg-blur{
+    backdrop-filter: blur(2px);
+    background-color: #e0e0e04d;
+}
+
 input{
     color:inherit;
 }
@@ -205,3 +210,6 @@ body{
     background-color: #dedede;
 }
 
+.swiper-button-next, .swiper-button-prev{
+    color: black !important;
+}

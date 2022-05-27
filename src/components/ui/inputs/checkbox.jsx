@@ -10,19 +10,9 @@ const Checkbox = ({
     ...htmlProps
 }) => {
 
-    const [state, setState] = useState(checked ?? false)
-
-
-    const onChangeHandler = (e) => {
-        if (htmlProps.onChange) {
-            htmlProps.onChange(e.target.checked)
-        }
-        setState(e.target.checked)
-    }
-
     return (
-        <label className={`checkBoxParent fs-${size} ${className}`}>
-            <input type="checkbox" className="checkbox" checked={state}  onChange={onChangeHandler} />
+        <label className={`checkBoxParent pointer fs-${size} ${className}`}>
+            <input type="checkbox" className="checkbox pointer" checked={checked}  {...htmlProps} />
             {
                 label
             }

@@ -13,42 +13,30 @@ const Input = ({
     className,
     icon,
     iconRight,
+    onChange,
     ...htmlProps
 }) => {
 
-    const [state, setState] = useState({
-        value: value || "",
-        isValid: isValid || 0 // Tree state, 0=Initial state, 1=false 2=true
-    })
+    const [state, setState] = useState(isValid || 0)
     const status = [color || "gray-500", "danger-500", "success-300"]
 
-
-    const stateHandler = (v) => {
-        const check = validate({
+    const check = (v) => {
+        const checkValue = validate({
             value: v,
             type: type,
             max: htmlProps.max,
             min: htmlProps.min
         }) ? 2 : 1
-        return {
-            value: v,
-            //If min or max is declared and value length is greater than 0 change color else use default color
-            isValid: (htmlProps.max || htmlProps.min) && v.length > 0 ? check : 0
-        }
+        return (htmlProps.max || htmlProps.min) && v.length > 0 ? checkValue : 0
     }
 
-    const onChangeHandler = (e) => {
-        if (htmlProps.onChange) {
-            return htmlProps.onChange(stateHandler(e.target.value).value)
-        }
-        setState(stateHandler(e.target.value))
+    const onChangeHandler = (e)=>{
+        setState(check(e.target.value))
+        onChange(e)
     }
 
     const clear = () => {
-        if (htmlProps.onChange) {
-            return htmlProps.onChange("")
-        }
-        return setState(stateHandler(""))
+        onChange({target:{value:""}})
     }
 
     return (
@@ -60,7 +48,7 @@ const Input = ({
                 </label>
             }
             <div className={
-                `rounded-12 d-flex px-2 py-1 bg-${status[state.isValid]}`
+                `rounded-12 d-flex px-2 py-1 bg-${status[state]}`
             }>
                 {
                     iconRight || null
@@ -68,14 +56,16 @@ const Input = ({
                 <input
                     type={type}
                     className="w-100 border-0 bg-transparent"
-                    value={state.value}
+                    value={value}
                     onChange={onChangeHandler}
                     placeholder={placeholder}
                     {...htmlProps} />
                 {
                     <Icon
                         id="cancel"
-                        className={`fs-5 mt-1 pointer  ${clearable && state.value.length == 0 && 'invisible'}`}
+                        className={`fs-5 mt-1 pointer  ${(
+                            clearable && value && value.length > 0)
+                            ? "":'invisible'}`}
                         onClick={clear} />
 
                 }

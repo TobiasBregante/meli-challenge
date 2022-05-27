@@ -2,7 +2,7 @@ import Joi from "joi"
 
 const validate = ({value,type,max,min})=>{
     const schema = Joi
-    if (type == "text") {
+    if (type == "text" || type == "password") {
         schema = schema.string()
     }
     if (type == "number") {
