@@ -164,7 +164,11 @@ const SignUpModule = () => {
             .then(res=>{
                 toast(res.data.msg)
                 jsCookie.set("sldtoken",res.data.sldtoken)
-                //router.push("/./")
+
+                if(router.query.redirect){
+                    return router.push(`/.${router.query.redirect}`)
+                }
+                return router.push(`/.`)
             })
             .catch(err=>{
                 if (err.response) {

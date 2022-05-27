@@ -3,14 +3,19 @@ import Text from "@/ui/texts";
 import Icon from "@/ui/icons";
 import { useState } from 'react';
 import Input from "@/ui/inputs"
-import InputPassword from "@/ui/inputs/password"    
+import InputPassword from "@/ui/inputs/password"
 import Button from "@/ui/buttons"
 import Link from 'next/link';
 import { toast } from 'react-toastify';
-import Put from '@/utils/hooks/put'
+import Post from '@/utils/hooks/post'
 import Joi from 'joi'
+import jsCookie from 'js-cookie'
+import {useRouter} from 'next/router';
 
 const SignInModule = () => {
+
+    const router = useRouter()
+
     const [state, setState] = useState({
         email: "",
         password: "",
@@ -23,13 +28,35 @@ const SignInModule = () => {
     const submit = () => {
         const Schema = Joi.object({
             email: Joi.string().email({ tlds: { allow: false } }).required(),
-            password: Joi.string().required()
+            password: Joi.string().min(6).required()
         })
 
         const { error } = Schema.validate(state)
         if (error) {
-            toast("Completa todos los campos")
-            console.log(error);
+            console.error(error);
+            return toast("Completa todos los campos")
+        }
+
+        if (!error) {
+            Post("user/auth/signin", {
+                email: state.email,
+                password: state.password
+            })
+                .then(res => {
+                    toast(res.data.msg)
+                    jsCookie.set("sldtoken", res.data.sldtoken)
+                    if(router.query.redirect){
+                        return router.push(`/.${router.query.redirect}`)
+                    }
+                    return router.push(`/./`)
+                })
+                .catch(err => {
+                    if (err.response) {
+                        return toast(err.response.data.msg)
+                    }
+                    console.error(err);
+                    return toast("hubo un error de red al enviar el formulario")
+                })
         }
 
     }
@@ -60,7 +87,7 @@ const SignInModule = () => {
                             clearable
                             value={state.password}
                             onChange={handleInput("password")}
-                            min={8} />
+                            min={6} />
 
                     </div>
 
