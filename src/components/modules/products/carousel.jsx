@@ -2,7 +2,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { nanoid } from 'nanoid';
 import ProductCard from '@/components/modules/products/card';
 import Text from '@/ui/texts'
 import Icon from '@/ui/icons';
@@ -55,8 +54,8 @@ const ProductCarousel = ({ title, data }) => {
         }}
       >
         {
-          data.map(cardData => (
-            <SwiperSlide key={nanoid()}>
+          data.map((cardData,cardI) => (
+            <SwiperSlide key={cardI}>
               <ProductCard data={cardData} />
             </SwiperSlide>
           ))

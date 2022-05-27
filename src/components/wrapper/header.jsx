@@ -9,7 +9,7 @@ const Header = () => {
     return (
         <nav className="navbar bg-primary-500">
             <div className="container d-flex justify-content-between">
-                <Link href="/./">
+                <Link href="/./" passHref>
                     <div className="d-flex pointer">
                         <Image
                             src="/logo.png"

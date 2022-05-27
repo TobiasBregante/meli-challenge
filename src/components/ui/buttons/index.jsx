@@ -4,7 +4,7 @@ const Button = ({
     ...htmlProps }) => {
 
     return (
-        <button className={`btn bg-${color} d-flex ${className} rounded-${rounded ? "circle":"12"}`} 
+        <button className={`btn bg-${color} d-flex ${className} rounded-${rounded ?? "12"}`} 
         {...htmlProps}>
             {children}
         </button>
