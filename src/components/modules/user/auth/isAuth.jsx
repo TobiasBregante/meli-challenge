@@ -2,8 +2,10 @@ import Icon from "@/ui/icons"
 import Button from "@/ui/buttons"
 import Text from "@/ui/texts"
 import Link from "next/link"
-const IsAuth = ({ user }) => {
-    if (user) {
+import {useUserContext} from "@/utils/user/provider"
+
+const IsAuth = () => {
+    if (useUserContext()) {
         return null
     }
     return (
