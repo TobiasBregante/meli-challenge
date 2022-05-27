@@ -4,11 +4,12 @@ import Text from "@/ui/texts"
 import Link from "next/link"
 import {useUserContext} from "@/utils/user/provider"
 import {useRouter} from 'next/router'
+import UserAvatar from "@/components/modules/user/avatar"
 
 const IsAuth = () => {
     const router = useRouter()
     if (useUserContext()) {
-        return null
+        return <UserAvatar/>
     }
   
     return (
