@@ -11,8 +11,8 @@ const Checkbox = ({
 }) => {
 
     return (
-        <label className={`checkBoxParent fs-${size} ${className}`}>
-            <input type="checkbox" className="checkbox" checked={checked}  {...htmlProps} />
+        <label className={`checkBoxParent pointer fs-${size} ${className}`}>
+            <input type="checkbox" className="checkbox pointer" checked={checked}  {...htmlProps} />
             {
                 label
             }

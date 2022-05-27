@@ -10,9 +10,11 @@ import Link from 'next/link';
 import { toast } from 'react-toastify';
 import Put from '@/utils/hooks/put'
 import Joi from 'joi'
+import jsCookie from 'js-cookie'
+import {useRouter} from 'next/router';
 
 const Option = ({ value, text, icon, isSelected, onClick }) => (
-    <div onClick={() => onClick(value)} className={`d-flex flex-column rounded-16 p-3 pointer mx-2 bg-gray-${isSelected ? "500" : "100"} border ${isSelected ? "border-dark":""}`}>
+    <div onClick={() => onClick(value)} className={`d-flex flex-column rounded-16 p-3 pointer mx-2 bg-gray-${isSelected ? "500" : "100"} border ${isSelected ? "border-dark" : ""}`}>
         <Icon id={icon} className="fs-1 text-center" />
         <Text weight={600}>
             {text}
@@ -21,28 +23,39 @@ const Option = ({ value, text, icon, isSelected, onClick }) => (
 )
 
 const SignUpModule = () => {
+
+    const router = useRouter()
+
+    //STATE
     const [state, setState] = useState({
-        accountType: "",
-        sellLocation: "",
+        isSeller: null,
+        location: null,
         name: "",
-        lastname: "",
+        lastName: "",
         email: "",
-        cellphone: "",
+        cellPhone: "",
         password: "",
         rePassword: "",
         sellingMode: {
-            retail: false,
             wholesale: false,
+            retail: false,
         },
-        acceptTermsOfService: false
     }),
+        [acceptTermsOfService, setAcceptTermsOfService] = useState(false),
         [isValidRepassword, validateRepassword] = useState(0)
 
+    //HANDLERS
     const handleOption = (key) => (v) => {
         setState({ ...state, [key]: v })
     }
 
     const handleInput = (key) => (e) => {
+        if (key == 'lastName') {
+            return setState({ ...state, [key]: e.target.value.replace(/[^\w\s]/g, "") })
+        }
+        if (key == 'cellPhone') {
+            return setState({ ...state, [key]: e.target.value.trim().replace(/[^0-9]/g, "") })
+        }
         setState({ ...state, [key]: e.target.value.trim() })
     }
 
@@ -75,45 +88,92 @@ const SignUpModule = () => {
         })
     }
     const handleTerms = e => {
-        setState({ ...state, acceptTermsOfService: e.target.checked })
+        setAcceptTermsOfService(e.target.checked)
     }
 
 
+    //SUBMIT
     const submit = () => {
+        //CHECKING
         const Schema = Joi.object({
-            accountType: Joi.string().valid("comprador", "vendedor").required(),
-            sellLocation: Joi.string().valid("salada", "flores", "online", "").required(),
-            name: Joi.string().min(3).required(),
-            lastname: Joi.string().min(3),
-            email: Joi.string().email({ tlds: { allow: false } }).required(),
-            cellphone: Joi.string().min(8).required(),
-            password: Joi.string().required(),
-            rePassword: Joi.string().valid(Joi.ref("password")).required(),
+            isSeller: Joi.boolean(),
+            location: state.isSeller ==true ? Joi.number().min(0).max(2):Joi.string().allow(null) ,
+            name:
+                Joi
+                    .string()
+                    .min(3).max(32)
+                    .alphanum(),
+            lastName:
+                Joi
+                    .string()
+                    .min(3).max(32)
+                    .pattern(new RegExp(/^\w+(?:\s+\w+)*$/)),
+            email:
+                Joi
+                    .string()
+                    .min(6).max(320)
+                    .email({ tlds: { allow: false } }).required(),
+            cellPhone:
+                Joi
+                    .string()
+                    .min(8).max(10),
             sellingMode: Joi.object({
-                retail: Joi.boolean(),
-                wholesale: Joi.boolean().required(),
+                wholesale: Joi.boolean(),
+                retail: Joi.boolean()
             }),
-            acceptTermsOfService: Joi.boolean().valid(true).required(),
+            password:
+                Joi
+                    .string()
+                    .min(6).max(2048),
+            rePassword: Joi.string().valid(Joi.ref("password"))
         })
 
         const { error } = Schema.validate(state)
+
         if (error) {
-            toast("Completa todos los campos")
-            console.log(error);
+            toast("Completa todos los campos correctamente")
+            console.error(error);
         }
-        if (state.accountType == "") {
-            toast("Elige una opción entre Comprador/a o Vendedor/a")
+        if (state.isSeller == null) {
+            return toast("Elige una opción entre Comprador/a o Vendedor/a")
         }
-        if (state.accountType == "vendedor" && state.sellLocation == "") {
-            toast("Elige donde venderas")
+        if (state.isSeller == true && state.location == null) {
+            return toast("Elige donde venderas")
         }
         if (state.password != state.rePassword) {
-            toast("Las contraseñas deben coincidir")
+            return toast("Las contraseñas deben coincidir")
         }
-        if (!state.acceptTermsOfService) {
-            toast("Debes aceptar los terminos y condiciones")
+        if (state.isSeller == true && state.sellingMode.retail == false && state.sellingMode.wholesale ==false) {
+            return toast("Debes elegir si venderas al por menor, al por mayor o ambas")
+        }
+        if (!acceptTermsOfService) {
+            return toast("Debes aceptar los terminos y condiciones")
         }
 
+        if (!error) {
+            Put("user/auth/signup",{
+                isSeller:state.isSeller,
+                location: state.isSeller == true ? state.location : undefined,
+                name: state.name,
+                lastName: state.lastName,
+                email: state.email,
+                cellPhone: state.cellPhone,
+                sellingMode: state.isSeller == true ? state.sellingMode : undefined,
+                password: state.password
+            })
+            .then(res=>{
+                toast(res.data.msg)
+                jsCookie.set("sldtoken",res.data.sldtoken)
+                //router.push("/./")
+            })
+            .catch(err=>{
+                if (err.response) {
+                    return toast(err.response.data.msg)
+                }
+                console.error(err);
+                return toast("hubo un error de red al enviar el formulario")
+            })
+        }
     }
 
 
@@ -131,19 +191,19 @@ const SignUpModule = () => {
                         <Option
                             text="Comprador/a"
                             icon="shopping_cart"
-                            isSelected={state.accountType == "comprador"}
-                            value="comprador"
-                            onClick={handleOption("accountType")} />
+                            isSelected={state.isSeller == false}
+                            value={false}
+                            onClick={handleOption("isSeller")} />
                         <Option
                             text="Vendedor/a"
                             icon="store"
-                            isSelected={state.accountType == "vendedor"}
-                            value="vendedor"
-                            onClick={handleOption("accountType")} />
+                            isSelected={state.isSeller == true}
+                            value={true}
+                            onClick={handleOption("isSeller")} />
                     </div>
 
                     {
-                        state.accountType == "vendedor" &&
+                        state.isSeller == true &&
                         <>
                             <Text tag="h4">
                                 ¿Donde planeas vender?
@@ -152,21 +212,21 @@ const SignUpModule = () => {
                                 <Option
                                     text="La salada"
                                     icon="pin_drop"
-                                    isSelected={state.sellLocation == "salada"}
-                                    value="salada"
-                                    onClick={handleOption("sellLocation")} />
+                                    isSelected={state.location == 0}
+                                    value={0}
+                                    onClick={handleOption("location")} />
                                 <Option
                                     text="Flores"
                                     icon="pin_drop"
-                                    isSelected={state.sellLocation == "flores"}
-                                    value="flores"
-                                    onClick={handleOption("sellLocation")} />
+                                    isSelected={state.location == 1}
+                                    value={1}
+                                    onClick={handleOption("location")} />
                                 <Option
                                     text="Online"
                                     icon="language"
-                                    isSelected={state.sellLocation == "online"}
-                                    value="online"
-                                    onClick={handleOption("sellLocation")} />
+                                    isSelected={state.location == 2}
+                                    value={2}
+                                    onClick={handleOption("location")} />
                             </div>
                         </>
                     }
@@ -189,8 +249,8 @@ const SignUpModule = () => {
                             placeholder="Escribe aqui tu apellido"
                             className="mb-2"
                             clearable
-                            value={state.lastname}
-                            onChange={handleInput("lastname")}
+                            value={state.lastName}
+                            onChange={handleInput("lastName")}
                             min={3} />
                         <Input
                             iconRight={<Icon id="mail" />}
@@ -204,14 +264,15 @@ const SignUpModule = () => {
                             max={128} />
                         <Input
                             iconRight={<Icon id="call" />}
-                            type="number"
+                            type="text"
                             label="Numero de celular"
                             placeholder="Escribe aqui tu celular"
                             className="mb-2"
                             clearable
-                            value={state.cellphone}
-                            onChange={handleInput("cellphone")}
-                            max={9999999999} />
+                            value={state.cellPhone}
+                            onChange={handleInput("cellPhone")}
+                            min={8}
+                            max={10} />
                         <InputPassword
                             label="Contraseña"
                             placeholder="Escribe aqui tu contraseña"
@@ -219,7 +280,7 @@ const SignUpModule = () => {
                             clearable
                             value={state.password}
                             onChange={handlePassword("password")}
-                            min={8} />
+                            min={6} />
                         <InputPassword
                             label="Confirmar contraseña"
                             placeholder="Escribe aqui tu contraseña otra vez"
@@ -228,26 +289,31 @@ const SignUpModule = () => {
                             value={state.rePassword}
                             isValid={isValidRepassword}
                             onChange={handlePassword("rePassword")}
-                            min={8} />
+                            min={6} />
 
                     </div>
-                    <Text tag="h5">
-                        ¿De que manera venderas?
-                    </Text>
-                    <div className="d-flex mb-4">
-                        <Checkbox
-                            label="por menor"
-                            size={5}
-                            className="me-4"
-                            checked={state.sellingMode.retail}
-                            onChange={handleCheckboxSellingMode("retail")} />
+                    {
+                        state.isSeller == true &&
+                        <>
+                            <Text tag="h5">
+                                ¿De que manera venderas?
+                            </Text>
+                            <div className="d-flex mb-4">
+                                <Checkbox
+                                    label="por menor"
+                                    size={5}
+                                    className="me-4"
+                                    checked={state.sellingMode.retail}
+                                    onChange={handleCheckboxSellingMode("retail")} />
 
-                        <Checkbox
-                            label="por mayor"
-                            size={5}
-                            checked={state.sellingMode.wholesale}
-                            onChange={handleCheckboxSellingMode("wholesale")} />
-                    </div>
+                                <Checkbox
+                                    label="por mayor"
+                                    size={5}
+                                    checked={state.sellingMode.wholesale}
+                                    onChange={handleCheckboxSellingMode("wholesale")} />
+                            </div>
+                        </>
+                    }
 
                     <Text tag="h5">
                         Terminos y condiciones
@@ -267,7 +333,7 @@ const SignUpModule = () => {
                         </Text>
                     }
                         size={5}
-                        checked={state.acceptTermsOfService}
+                        checked={acceptTermsOfService}
                         onChange={handleTerms} />
 
                     <div className="d-flex justify-content-center mb-4">
