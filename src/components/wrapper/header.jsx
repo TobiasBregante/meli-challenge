@@ -6,14 +6,16 @@ import IsAuth from "@/components/modules/user/auth/isAuth";
 import Image from "next/image";
 import Button from '@/ui/buttons'
 import { isShoppingCartEmpty } from "@/utils/product/shoppingCart";
-import {useEffect,useState} from 'react'
+import { useEffect, useState } from 'react'
+import PopOver from '@/ui/popovers'
+import Card from "../ui/cards";
 
 const Header = () => {
     const [shoppingCartState, setShoppingCartState] = useState(false)
 
-    useEffect(()=>{
+    useEffect(() => {
         setShoppingCartState(isShoppingCartEmpty())
-    },[shoppingCartState])
+    }, [shoppingCartState])
 
     return (
         <nav className="navbar bg-primary-500">
@@ -47,10 +49,11 @@ const Header = () => {
                     <Link href={`/./user/shoppingCart`} passHref>
                         <a className="text-decoration-none ms-2">
                             <Button color="white" className="px-2">
-                                <Icon id="shopping_cart" className={`${shoppingCartState?"":"text-warning"}`} />
+                                <Icon id="shopping_cart" className={`${shoppingCartState ? "" : "text-warning"}`} />
                             </Button>
                         </a>
                     </Link>
+                    
                 </div>
             </div>
         </nav>
