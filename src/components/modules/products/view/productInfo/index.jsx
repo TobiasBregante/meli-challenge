@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Button from '@/src/components/ui/buttons';
 import Stars from '@/src/components/ui/stars'
 import SaveBookmark from '@/components/modules/products/saveBookmark'
-import AddToShoppingCart from '@/components/modules/products/addToShoppingCart'
 
 const ProductInfo = ({ data }) => {
     return (
@@ -13,7 +12,6 @@ const ProductInfo = ({ data }) => {
             <div className="mx-3">
                 <div className="d-flex justify-content-end">
                     <SaveBookmark _id={data._id} className="me-2"/>
-                    <AddToShoppingCart _id={data._id} />
                 </div>
                 <div className="d-flex ">
                     <Text tag="h2" weight={700}>
