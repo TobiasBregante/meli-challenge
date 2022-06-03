@@ -4,7 +4,6 @@ import Text from '@/ui/texts'
 import currency from 'currency.js'
 import Icon from '../../ui/icons'
 import Link from 'next/link'
-import AddToShoppingCart from '@/components/modules/products/addToShoppingCart'
 import SaveBookmark from '@/components/modules/products/saveBookmark'
 
 const ProductCard = ({ data }) => {
@@ -39,7 +38,6 @@ const ProductCard = ({ data }) => {
             <div className="card-footer d-flex justify-content-between">
                 <div>
                     <SaveBookmark _id={data._id}  className="me-2"/>
-                    <AddToShoppingCart _id={data._id} />
                 </div>
                 <Text weight={900}>
                     {currency(data.price, { decimal: ",", separator: "." }).format()}
