@@ -165,8 +165,8 @@ const SignUpModule = () => {
                 toast(res.data.msg)
                 jsCookie.set("sldtoken",res.data.sldtoken)
 
-                if(router.query.redirect){
-                    return router.push(`/.${router.query.redirect}`)
+                if (state.isSeller && state.location > 2) {
+                    return router.push('/./user/auth/claimPosition')
                 }
                 return router.push(`/.`)
             })
