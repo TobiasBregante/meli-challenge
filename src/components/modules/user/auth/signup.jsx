@@ -30,6 +30,7 @@ const SignUpModule = () => {
     const [state, setState] = useState({
         isSeller: null,
         location: null,
+        brandname: "",
         name: "",
         lastName: "",
         email: "",
@@ -40,7 +41,7 @@ const SignUpModule = () => {
             wholesale: false,
             retail: false,
         },
-        privacy:{
+        privacy: {
             phoneVisible: false
         }
     }),
@@ -53,7 +54,7 @@ const SignUpModule = () => {
     }
 
     const handleInput = (key) => (e) => {
-        if (key == 'lastName') {
+        if (key == 'lastName' || key == "brandname") {
             return setState({ ...state, [key]: e.target.value.replace(/[^\w\s]/g, "") })
         }
         if (key == 'cellPhone') {
@@ -243,9 +244,21 @@ const SignUpModule = () => {
                                     value={2}
                                     onClick={handleOption("location")} />
                             </div>
+                            <Text tag="h4" weight={700}>
+                                Datos de tu marca
+                            </Text>
+                            <Input
+                                iconRight={<Icon id="storefront" />}
+                                label="Nombre de tu marca"
+                                placeholder="Escribe aqui el nombre de tu marca"
+                                className="mb-4"
+                                clearable
+                                value={state.brandname}
+                                onChange={handleInput("brandname")}
+                                min={3} />
                         </>
                     }
-                    <Text tag="h4">
+                    <Text tag="h4" weight={700}>
                         Tus datos personales
                     </Text>
                     <div className="col-12 col-lg-12">
