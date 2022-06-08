@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import Put from '@/utils/hooks/put'
 import Joi from 'joi'
 import jsCookie from 'js-cookie'
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 
 const Option = ({ value, text, icon, isSelected, onClick }) => (
     <div onClick={() => onClick(value)} className={`d-flex flex-column rounded-16 p-3 pointer mx-2 bg-gray-${isSelected ? "500" : "100"} border ${isSelected ? "border-dark" : ""}`}>
@@ -40,6 +40,9 @@ const SignUpModule = () => {
             wholesale: false,
             retail: false,
         },
+        privacy:{
+            phoneVisible: false
+        }
     }),
         [acceptTermsOfService, setAcceptTermsOfService] = useState(false),
         [isValidRepassword, validateRepassword] = useState(0)
@@ -87,6 +90,14 @@ const SignUpModule = () => {
             }
         })
     }
+    const handlePrivacy = (key) => (e) => {
+        setState({
+            ...state, privacy: {
+                ...state.privacy,
+                [key]: e.target.checked
+            }
+        })
+    }
     const handleTerms = e => {
         setAcceptTermsOfService(e.target.checked)
     }
@@ -97,7 +108,7 @@ const SignUpModule = () => {
         //CHECKING
         const Schema = Joi.object({
             isSeller: Joi.boolean(),
-            location: state.isSeller ==true ? Joi.number().min(0).max(2):Joi.string().allow(null) ,
+            location: state.isSeller == true ? Joi.number().min(0).max(2) : Joi.string().allow(null),
             name:
                 Joi
                     .string()
@@ -143,7 +154,7 @@ const SignUpModule = () => {
         if (state.password != state.rePassword) {
             return toast("Las contraseñas deben coincidir")
         }
-        if (state.isSeller == true && state.sellingMode.retail == false && state.sellingMode.wholesale ==false) {
+        if (state.isSeller == true && state.sellingMode.retail == false && state.sellingMode.wholesale == false) {
             return toast("Debes elegir si venderas al por menor, al por mayor o ambas")
         }
         if (!acceptTermsOfService) {
@@ -151,8 +162,8 @@ const SignUpModule = () => {
         }
 
         if (!error) {
-            Put("user/auth/signup",{
-                isSeller:state.isSeller,
+            Put("user/auth/signup", {
+                isSeller: state.isSeller,
                 location: state.isSeller == true ? state.location : undefined,
                 name: state.name,
                 lastName: state.lastName,
@@ -161,22 +172,22 @@ const SignUpModule = () => {
                 sellingMode: state.isSeller == true ? state.sellingMode : undefined,
                 password: state.password
             })
-            .then(res=>{
-                toast(res.data.msg)
-                jsCookie.set("sldtoken",res.data.sldtoken)
+                .then(res => {
+                    toast(res.data.msg)
+                    jsCookie.set("sldtoken", res.data.sldtoken)
 
-                if (state.isSeller && state.location > 2) {
-                    return router.push('/./user/auth/claimPosition')
-                }
-                return router.push(`/.`)
-            })
-            .catch(err=>{
-                if (err.response) {
-                    return toast(err.response.data.msg)
-                }
-                console.error(err);
-                return toast("hubo un error de red al enviar el formulario")
-            })
+                    if (state.isSeller && state.location > 2) {
+                        return router.push('/./user/auth/claimPosition')
+                    }
+                    return router.push(`/.`)
+                })
+                .catch(err => {
+                    if (err.response) {
+                        return toast(err.response.data.msg)
+                    }
+                    console.error(err);
+                    return toast("hubo un error de red al enviar el formulario")
+                })
         }
     }
 
@@ -277,10 +288,19 @@ const SignUpModule = () => {
                             onChange={handleInput("cellPhone")}
                             min={8}
                             max={10} />
+                        {
+                            state.isSeller == true &&
+                            <Checkbox
+                                label="¿Hacer tu numero de telefono publico?"
+                                size={5}
+                                checked={state.privacy.phoneVisible}
+                                className="my-2"
+                                onChange={handlePrivacy("phoneVisible")} />
+                        }
                         <InputPassword
                             label="Contraseña"
                             placeholder="Escribe aqui tu contraseña"
-                            className="mb-2"
+                            className="my-2"
                             clearable
                             value={state.password}
                             onChange={handlePassword("password")}
