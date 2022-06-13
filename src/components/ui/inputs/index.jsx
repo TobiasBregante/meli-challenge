@@ -30,13 +30,13 @@ const Input = ({
         return (htmlProps.max || htmlProps.min) && v.length > 0 ? checkValue : 0
     }
 
-    const onChangeHandler = (e)=>{
+    const onChangeHandler = (e) => {
         setState(check(e.target.value))
         onChange(e)
     }
 
     const clear = () => {
-        onChange({target:{value:""}})
+        onChange({ target: { value: "" } })
     }
 
     return (
@@ -60,15 +60,10 @@ const Input = ({
                     onChange={onChangeHandler}
                     placeholder={placeholder}
                     {...htmlProps} />
-                {
-                    <Icon
-                        id="cancel"
-                        className={`fs-5 mt-1 pointer  ${(
-                            clearable && value && value.length > 0)
-                            ? "":'invisible'}`}
-                        onClick={clear} />
-
-                }
+                <Icon
+                    id="cancel"
+                    className={`fs-5 mt-1 pointer animate__animated animate__ultrafast ${(clearable && value && value.length > 0) ? "animate__zoomIn" : "animate__zoomOut invisible"}`}
+                    onClick={clear} />
                 {
                     icon || null
                 }

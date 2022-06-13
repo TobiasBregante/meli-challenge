@@ -1,10 +1,10 @@
 import Page from "@Page";
-import ClaimPositionModule from "@/src/components/modules/user/auth/claimPosition";
+import ClaimBrand from "@/src/components/modules/user/auth/claimBrand";
 
 const SignUpPage = () => {
     return (
         <Page title="SaladaApp - Reclamar puesto" >
-            <ClaimPositionModule/>
+            <ClaimBrand/>
         </Page>
     )
 }
