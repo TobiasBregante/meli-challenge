@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 
-const Icon = ({ id, className, width, height, ...htmlProps}) => {
+const Icon = ({ id, className, alt, width, height, ...htmlProps}) => {
   if (id.indexOf('/') > -1) {
     return (
       <Image

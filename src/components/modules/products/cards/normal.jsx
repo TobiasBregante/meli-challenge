@@ -2,11 +2,11 @@ import Card from '@/ui/cards'
 import Image from 'next/image'
 import Text from '@/ui/texts'
 import currency from 'currency.js'
-import Icon from '../../ui/icons'
+import Icon from '../../../ui/icons'
 import Link from 'next/link'
 import SaveBookmark from '@/components/modules/products/saveBookmark'
 
-const ProductCard = ({ data }) => {
+const ProductCard = ({ data}) => {
     return (
         <Card rounded={16}>
             <Link href="/./product">

@@ -2,6 +2,13 @@
     cursor: pointer;
 }
 
+.cursor-zoomIn{
+  cursor:zoom-in;
+}
+.cursor-zoomOut{
+  cursor:zoom-out;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
