@@ -5,6 +5,9 @@
     .rounded-top-#{$i*4} {
         border-radius: #{$i * 4}px #{$i * 4}px 0 0; 
     }
+    .rounded-left-#{$i*4} {
+        border-radius: #{$i * 4}px 0 0 #{$i * 4}px ; 
+    }
 }
 
 .rounded-circle {

@@ -48,7 +48,7 @@ const Input = ({
                 </label>
             }
             <div className={
-                `rounded-12 d-flex px-2 py-1 bg-${status[state]}`
+                `rounded-12 d-flex px-2 py-1 text-dark bg-${status[state]}`
             }>
                 {
                     iconRight || null
@@ -62,7 +62,7 @@ const Input = ({
                     {...htmlProps} />
                 <Icon
                     id="cancel"
-                    className={`fs-5 mt-1 pointer animate__animated animate__ultrafast ${(clearable && value && value.length > 0) ? "animate__zoomIn" : "animate__zoomOut invisible"}`}
+                    className={`fs-5 mt-1 pointer  animate__animated animate__ultrafast ${(clearable && value && value.length > 0) ? "animate__zoomIn" : "animate__zoomOut invisible"}`}
                     onClick={clear} />
                 {
                     icon || null

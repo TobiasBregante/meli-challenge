@@ -160,7 +160,12 @@
 }
 
 .bg-white{
-    color: black;
+    background-color: white;
+}
+
+.bg-gradient-instagram{
+    background: #f09433; 
+    background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
 }
 
 
@@ -191,10 +196,16 @@
 .bg-gray-900{
     background-color: #111111;
 }
+.bg-black-traslucent-50{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.text-gray-800{
+    color: #666666;
+}
 
 .bg-blur{
     backdrop-filter: blur(2px);
-    background-color: #e0e0e04d;
 }
 
 input{
@@ -213,3 +224,5 @@ body{
 .swiper-button-next, .swiper-button-prev{
     color: black !important;
 }
+
+

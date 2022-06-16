@@ -2,7 +2,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import ProductCard from '@/components/modules/products/card';
+import ProductCard from '@/src/components/modules/products/cards/normal';
 import Text from '@/ui/texts'
 import Icon from '@/ui/icons';
 import { useState } from 'react'

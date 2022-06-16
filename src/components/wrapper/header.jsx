@@ -58,7 +58,7 @@ const Header = () => {
                             value={searchValue}
                             onChange={handleSearch}
                             placeholder="Busca entre cientos de productos"
-                            icon={<Icon id="search" />}
+                            icon={<Icon id="search" className="text-dark"/>}
                             className="me-2 d-none d-sm-block" />
 
                         <Button color="white" className="me-2 d-block d-sm-none" onClick={() => openSearchBar(true)}>

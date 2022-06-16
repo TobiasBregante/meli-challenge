@@ -3,7 +3,7 @@ const data = [
         _id:"jsmclas",
         title: "Nike air force 1",
         location: {
-            shed: "Galerias",
+            shed: "Urkupiña",
             gallery:"27 de mayo",
             corridor: "4",
             store: "65"
