@@ -15,7 +15,7 @@ const Comment = ({ data, canReply }) => {
 
             <div className="me-3">
                 <Image
-                    src={`/./img/avatars/${data.user.img}`}
+                    src={`/img/avatars/${data.user.img}`}
                     className="rounded-circle"
                     width={100}
                     height={100}
