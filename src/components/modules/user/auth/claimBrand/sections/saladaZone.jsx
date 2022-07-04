@@ -20,14 +20,15 @@ const SaladaZone = ({ state, onChange }) => {
                     <Input
                         label="Numero de puesto"
                         placeholder="Escribe aqui tu numero de puesto"
-                        value={state.stallPosition}
-                        onChange={onChange("stallPosition")}
+                        value={state.stallNumber}
+                        onChange={onChange("stallNumber")}
                         iconRight={<Icon id="share_location" />}
                         clearable />
                 </div>
             </div>
             <div className="d-flex mt-3">
                 <Input
+                type="number"
                     label="Numero de pasillo"
                     placeholder="Escribe aqui tu numero de pasillo"
                     className="me-2"
@@ -37,7 +38,7 @@ const SaladaZone = ({ state, onChange }) => {
                     clearable />
                 {
                     state.shed == "urkupiña" &&
-                    <Input
+                    <Input type="number"
                         label="Numero de fila"
                         placeholder="Escribe aqui tu numero de fila"
                         value={state.rowNumber}

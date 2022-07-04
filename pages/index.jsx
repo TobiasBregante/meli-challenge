@@ -7,7 +7,11 @@ const Index = () => {
   return (
     <Page>
       <div className="container pt-3">
+        <ProductCarousel title="Productos recien ingresados" data={data} />
+        <ProductCarousel title="Productos destacados" data={data} />
         <ProductCarousel title="Lo mas populares" data={data} />
+        <ProductCarousel title="Visto recientemente" data={data} />
+        <ProductCarousel title="Ofertas del dia" data={data} />
       </div>
     </Page>
   )

@@ -10,179 +10,183 @@ import ShouldLogin from '@/components/modules/user/errors/shouldLogin';
 import ShouldBeSeller from '@/components/modules/user/errors/shouldBeSeller';
 import Select from '@/ui/selects';
 import Checkbox from '@/src/components/ui/inputs/checkbox';
-import SellingMode from '@/components/modules/user/auth/claimBrand/sections/sellingMode'
-import SellZone from '@/components/modules/user/auth/claimBrand/sections/sellZone'
-//Section: Zones
-import SaladaZone from '@/components/modules/user/auth/claimBrand/sections/saladaZone'
-import FloresZone from '@/components/modules/user/auth/claimBrand/sections/floresZone'
+import RetailPerUnit from './sections/retailPerUnit';
 //Validation
-import { numberMessages, stringMessages, booleanMessages } from '@/utils/joi/customMessages'
-import Joi from 'joi';
 import { toast } from 'react-toastify'
+import PriceTable from '@/components/modules/products/view/productInfo/priceTable'
+import { FileUploader } from "react-drag-drop-files";
+import Image from 'next/image';
+import categories from '@/src/utils/user/brand/categories';
+import RetailPerDozen from './sections/retailPerDozen';
+import WholesalePerUnit from './sections/wholesalePerUnit';
+import WholesalePerDozen from './sections/wholesalePerDozen';
+import WholesalePerCurve from './sections/wholesalePerCurve';
 
-const ClaimPositionModule = () => {
+const AddProduct = () => {
 
     const router = useRouter()
     const user = useUserContext()
 
+
+
     const [state, setState] = useState({
-        name: "",
+        title: "",
         category: "",
-        stock:0,
+        stock: "",
         description: "",
-        retail:{
-            isPerUnitOrDozen:null,
-            perUnit:{
-                minimumForShipment:0,
-                priceForWholeSale:0
+        retailPrice: "",
+        prices: [],
+        imgs: [],
+        isPerDozenElseCurve: null,
+        minimun: "",
+        pricePerUnit: "",
+        prices: {
+            retail: {
+                isPerUnit: null,
+                minPerUnit: "",
+                pricePerUnit: "",
+
+                minPerDozen: "",
+                pricePerDozen: ""
             },
-            perDozen:{
-                minimumForShipment:0,
-                pricePerUnitPerDozen:0,
-                pricePerDozen:0
-            }
-        },
-        wholesale:{
-            sellingMode: "",//Should be por unidad, por docena, por curva
-            perUnit:{
-                minimumForShipment:0,
-                priceForWholeSale:0
-            },
-            perDozen:{
-                minimumForShipment:0,
-                pricePerUnitPerDozen:0,
-                
+            wholesale: {
+                sellMode: null,
+                minPerUnit: "",
+                pricePerUnit: "",
+
+                minPerDozen: "",
+                pricePerDozen: "",
+
+                sizesPerCurve: "",
+                minPerCurve:"",
+                pricePerCurve: "",
             }
         }
     })
 
-    if (false) {
+    if (!user) {
         return (
             <ShouldLogin />
         )
     }
-    if (false) {
+    if (!user.isSeller) {
         return (
             <ShouldBeSeller />
         )
     }
 
-    const handleBrandName = (e) => {
-        setState({ ...state, brandName: e.target.value })
-    }
-
-    const handleSellingMode = (key) => (e) => {
+    const handleRetailSellMode = v => (e) => {
         setState({
-            ...state, sellingMode: {
-                ...state.sellingMode,
-                [key]: e.target.checked
-            }
-        })
-    }
-    const handlePrivacy = (key) => (e) => {
-        setState({
-            ...state, privacy: {
-                ...state.privacy,
-                [key]: e.target.checked
-            }
-        })
-    }
-
-    const handleZone = (v) => {
-        setState({
-            ...state, location: {
-                ...state.location,
-                zone: v
-            }
-        })
-    }
-
-    const handleLocation = (key) => (e) => {
-        if (key == "isInGallery") {
-            return setState({
-                ...state, location: {
-                    ...state.location,
-                    isInGallery: e.target.checked
+            ...state, prices: {
+                ...state.prices,
+                retail: {
+                    ...state.prices.retail,
+                    isPerUnit: v
                 }
-            })
-        }
-        setState({
-            ...state, location: {
-                ...state.location,
-                [key]: e.target.value
             }
         })
     }
 
-    const handleGenericString = (key) => e => {
+    const handleRetail = key => (e) => {
+        setState({
+            ...state, prices: {
+                ...state.prices,
+                retail: {
+                    ...state.prices.retail,
+                    [key]: e.target.value
+                }
+            }
+        })
+    }
+
+    const handleWholesaleSellMode = v => (e) => {
+        setState({
+            ...state, prices: {
+                ...state.prices,
+                wholesale: {
+                    ...state.prices.wholesale,
+                    sellMode: v
+                }
+            }
+        })
+    }
+
+    const handleWholesale = key => (e) => {
+        setState({
+            ...state, prices: {
+                ...state.prices,
+                wholesale: {
+                    ...state.prices.wholesale,
+                    [key]: e.target.value
+                }
+            }
+        })
+    }
+
+    const handleGenericString = key => (e) => {
         setState({
             ...state,
             [key]: e.target.value
         })
     }
 
-    //SUBMIT
-    const submit = () => {
-        const { zone } = state.location
 
-        //zone: la salada
-        const isInLaSalada = zone == "la salada"
-        const isInUrkupiña = isInLaSalada && state.location.shed == "urkupiña"
+    const handleSellingMode = (value) => (e) => {
 
-        //zone: flores
-        const isInFlores = zone == "flores"
-        const isInGallery = isInFlores && state.location.isInGallery
-
-
-        //CHECKING
-        const Schema = Joi.object({
-            brandName: Joi.string().min(2).max(32).messages(stringMessages("Nombre de la marca")),
-            sellingMode: Joi.object({
-                wholesale: Joi.boolean().messages(booleanMessages("mayorista")),
-                retail: Joi.boolean().messages(booleanMessages("minorista"))
-            }).required(),
-            privacy: Joi.object({
-                phoneVisible: Joi.boolean().messages(booleanMessages("Visibilidad del celular")),
-            }),
-            location: Joi.object({
-                zone: Joi.string().min(0).max(16).valid("la salada", "flores", "online").messages(stringMessages("Ubicación")),
-                //in case of: la salada
-                shed: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Galpón")),
-                stallPosition: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Numero de puesto")),
-                hallwayNumber: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Numero de pasillo")),
-                rowNumber: Joi.string().min(isInUrkupiña ? 1 : 0).max(32).messages(stringMessages("Nombre de marca")),
-                //In case of: flores
-                isInGallery: Joi.boolean().messages(booleanMessages("Esta en una galeria")),
-                galleryName: Joi.string().min(isInGallery ? 1 : 0).max(32).messages(stringMessages("Nombre de la galeria")),
-                positionInGallery: Joi.string().min(isInGallery ? 1 : 0).max(32).messages(stringMessages("Posicion en la galeria")),
-                street: Joi.string().min(isInFlores ? 1 : 0).max(32).messages(stringMessages("Nombre de la calle")),
-                streetNumber: Joi.string().min(isInFlores ? 1 : 0).max(32).messages(stringMessages("Numero de calle"))
-            }),
-            category: Joi.string().min(1).max(128).messages(stringMessages("Categoria")),
-            shippingBy: Joi.string().min(1).max(128).messages(stringMessages("Transporte de envios")),
-            payMethod: Joi.string().min(1).max(128).messages(stringMessages("Metodo de pago"))
+        setState({
+            ...state,
+            isPerDozenElseCurve: value
         })
+    }
 
-        const { error } = Schema.validate(state)
-
-        if (error) {
-            toast.error(error.details[0].message)
+    const addPrice = () => {
+        if (state.pricePerUnit == "") {
+            return toast("Añade un precio antes")
         }
-
-        if (!state.sellingMode.retail && !state.sellingMode.wholesale) {
-            toast.error("Elegie si vas a vender por menor o por mayor")
+        if (state.minimun == "") {
+            return toast("Añade una cantidad minima antes")
         }
+        setState({
+            ...state,
+            prices: [...state.prices, {
+                isPerDozenElseCurve: state.isPerDozenElseCurve,
+                minimun: state.minimun,
+                value: state.pricePerUnit
+            }],
+            minimun: "",
+            pricePerUnit: "",
+            isPerDozenElseCurve: null
+        })
+    }
 
-        if (!error) {
-            console.log("subdio")
-        }
+    const removePrice = (id) => {
+        setState({
+            ...state,
+            prices: state.prices.filter((x, xI) => xI != id)
+        })
+    }
+
+    const addImg = (e) => {
+
+        const flArray = Array.from(e)
+
+        setState({
+            ...state,
+            imgs: [...state.imgs, ...flArray.map(img => URL.createObjectURL(img))]
+        })
+    }
+    const removeImg = (id) => () => {
+        setState({
+            ...state,
+            imgs: state.imgs.filter((x, xI) => xI !== id)
+        })
     }
 
     return (
         <div className="container d-flex justify-content-center">
             <Card className="mt-3 col-12 col-lg-7 p-3 mb-5">
                 <Text weight={600} tag="h3" className="text-center">
-                    Añade los datos de tu marca
+                    Registra un producto
                 </Text>
                 <Text weight={600} tag="h4" className="d-flex flex-row">
                     <Icon id="info" className={"mt-01"} />
@@ -190,80 +194,118 @@ const ClaimPositionModule = () => {
                 </Text>
                 <Input
                     type="text"
-                    label="Nombre de la marca"
+                    label="Titulo del producto"
                     placeholder="Escribe aqui"
                     min={2}
                     max={64}
-                    onChange={handleBrandName}
                     iconRight={<Icon id="title" />}
-                    value={state.brandName}
+                    value={state.title}
+                    onChange={handleGenericString("title")}
                     clearable />
 
-                <Text weight={400} tag="h5" className="mt-3">
-                    Privacidad:
+                <Select className="my-2" label={"Categoria"}>
+                    <Select.Option>Elige una categoria</Select.Option>
+                    {
+                        categories.map((category, i) => (
+                            <Select.Option key={i} value={category}>{category}</Select.Option>
+                        ))
+                    }
+                </Select>
+                <Text tag="label" className="d-flex flex-row">
+                    Descripción:
                 </Text>
-                <Checkbox
-                    label="¿Quiere que su numero de telefono sea publico?"
-                    className="mb-3"
-                    size={6}
-                    onChange={handlePrivacy("phoneVisible")} />
-
-                <SellingMode isRetail={state.sellingMode.retail} isWholesale={state.sellingMode.wholesale} onChange={handleSellingMode} />
-
-
-                <Text weight={400} tag="h5" className="mt-3">
-                    Datos administrativos:
-                </Text>
-                <div className="d-flex flex-row mb-4">
-                    <Select
-                        label="Categoria"
-                        onChange={handleGenericString("category")}
-                        value={state.category}
-                        className="">
-                        <Select.Option value="">Elige una opción</Select.Option>
-                        <Select.Option value="deportivo">Deportivo</Select.Option>
-                        <Select.Option value="lenceria">Lenceria</Select.Option>
-                    </Select>
-                    <Select
-                        label="Medio de envio"
-                        onChange={handleGenericString("shippingBy")}
-                        value={state.shippingBy}
-                        className="ms-3">
-                        <Select.Option value="">Elige una opción</Select.Option>
-                        <Select.Option value="correo">Correo</Select.Option>
-                        <Select.Option value="moto">Moto</Select.Option>
-                    </Select>
-                    <Select
-                        label="Metodo de pago"
-                        onChange={handleGenericString("payMethod")}
-                        value={state.payMethod}
-                        className="ms-3">
-                        <Select.Option value="">Elige una opción</Select.Option>
-                        <Select.Option value="Efectivo">Efectivo</Select.Option>
-                        <Select.Option value="MercadoPago">MercadoPago</Select.Option>
-                        <Select.Option value="Transferencia">Transferencia</Select.Option>
-                    </Select>
+                <div className="form-floating mb-3">
+                    <textarea className="form-control" placeholder="Escriba aqui la descripción" id="description"></textarea>
+                    <label htmlFor="description">Escriba aqui siendo lo mas descriptivo posible</label>
                 </div>
+                <Input
+                    type="number"
+                    label="Cantidad disponible (stock)"
+                    placeholder="Escribe aqui"
+                    min={0}
+                    max={999999}
+                    iconRight={<Icon id="inventory" />}
+                    value={state.stock}
+                    onChange={handleGenericString("stock")}
+                    clearable />
 
-                <Text weight={600} tag="h4" className="d-flex flex-row">
-                    <Icon id="my_location" />
-                    Ubicación:
+                <Text weight={600} tag="h4" className="d-flex flex-row mt-3">
+                    <Icon id="attach_money" className={"mt-01"} />
+                    Por menor:
                 </Text>
-                <SellZone zone={state.location.zone} onClick={handleZone} />
+                <div className="d-flex flex-row mb-2">
+                    <Checkbox onChange={handleRetailSellMode(true)} checked={state.prices.retail.isPerUnit == true} label="Por unidad" className="me-3" />
+                    <Checkbox onChange={handleRetailSellMode(false)} checked={state.prices.retail.isPerUnit == false} label="Por docena" />
+                </div>
                 {
-                    state.location.zone == "la salada" &&
-                    <SaladaZone state={state.location} onChange={handleLocation} />
+                    state.prices.retail.isPerUnit &&
+                    <RetailPerUnit state={state.prices.retail} handleState={handleRetail} />
                 }
                 {
-                    state.location.zone == "flores" &&
-                    <FloresZone state={state.location} onChange={handleLocation} />
+                    state.prices.retail.isPerUnit == false &&
+                    <RetailPerDozen state={state.prices.retail} handleState={handleRetail} />
                 }
-                <div className="d-flex justify-content-center">
-                    <Button color="info-300" className="col-12 col-lg-4 mt-4 d-flex justify-content-center" onClick={submit}>
-                        <Text weight="700">
-                            Registrar marca
+
+
+
+
+                <Text weight={600} tag="h4" className="d-flex flex-row mt-3">
+                    <Icon id="attach_money" className={"mt-01"} />
+                    Por mayor:
+                </Text>
+                <div className="d-flex flex-row mb-2">
+                    <Checkbox onChange={handleWholesaleSellMode(0)} checked={state.prices.wholesale.sellMode == 0} label="Por unidad" className="me-3" />
+                    <Checkbox onChange={handleWholesaleSellMode(1)} checked={state.prices.wholesale.sellMode == 1} label="Por docena" className="me-3" />
+                    <Checkbox onChange={handleWholesaleSellMode(2)} checked={state.prices.wholesale.sellMode == 2} label="Por curva" />
+                </div>
+                {
+                    state.prices.wholesale.sellMode == 0 &&
+                    <WholesalePerUnit state={state.prices.wholesale} handleState={handleWholesale} />
+                }
+                {
+                    state.prices.wholesale.sellMode == 1 &&
+                    <WholesalePerDozen state={state.prices.wholesale} handleState={handleWholesale} />
+                }
+                {
+                    state.prices.wholesale.sellMode == 2 &&
+                    <WholesalePerCurve state={state.prices.wholesale} handleState={handleWholesale} />
+                }
+
+
+                <Text weight={600} tag="h4" className="d-flex flex-row mt-3">
+                    <Icon id="image" className={"mt-01"} />
+                    Imagenes:
+                </Text>
+                <div className="border-dashed border-2 d-flex flex-column justify-content-center rounded-16 p-3 ">
+                    <FileUploader handleChange={addImg} multiple={true} name="file" types={["jpg", "png"]} >
+                        <Text>
+                            Arrastra y suelta tus fotos aqui
                         </Text>
-                        <Icon id="add_business" className="ms-2" />
+                    </FileUploader>
+
+                </div>
+                <Card className="d-flex flex-row flex-wrap mt-3">
+                    {
+                        state.imgs.map((img, i) => (
+                            <div key={i} className="rounded-12 m-1 position-relative animate__animated animate__bounceIn">
+                                <Image
+                                    src={img}
+                                    width={100}
+                                    height={100}
+                                    className="rounded-16"
+                                    alt="a" />
+                                <Icon id="delete" className="position-absolute z-index-infinite right-1 top-1 pointer" onClick={removeImg(i)} />
+                            </div>
+                        ))
+                    }
+                </Card>
+
+                <div className="d-flex justify-content-center">
+                    <Button color="info-300" className="col-12 col-lg-4 mt-4 d-flex justify-content-center" >
+                        <Text weight="700">
+                            Cargar producto
+                        </Text>
+                        <Icon id="add" className="ms-2" />
                     </Button>
                 </div>
             </Card>
@@ -271,4 +313,4 @@ const ClaimPositionModule = () => {
     )
 }
 
-export default ClaimPositionModule
+export default AddProduct

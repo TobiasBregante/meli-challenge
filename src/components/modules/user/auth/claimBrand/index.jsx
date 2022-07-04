@@ -19,6 +19,8 @@ import FloresZone from '@/components/modules/user/auth/claimBrand/sections/flore
 import { numberMessages, stringMessages, booleanMessages } from '@/utils/joi/customMessages'
 import Joi from 'joi';
 import { toast } from 'react-toastify'
+import Put from '@/src/utils/hooks/put';
+import categories from '@/src/utils/user/brand/categories';
 
 const ClaimPositionModule = () => {
 
@@ -27,21 +29,15 @@ const ClaimPositionModule = () => {
 
     const [state, setState] = useState({
         brandName: "",
-        privacy: {
-            phoneVisible: false,
-        },
-        sellingMode: {
-            retail: false,
-            wholesale: false,
-        },
+        isWholesaleAndRetail: null,
         category: "",
         shippingBy: "",
-        payMethod: "",
+        payMethod: [],
         location: {
             zone: "",
             //this is in case of: la salada
             shed: "",
-            stallPosition: "",
+            stallNumber: "",
             hallwayNumber: "",
             rowNumber: "",
             //this is in case of: flores
@@ -53,12 +49,12 @@ const ClaimPositionModule = () => {
         },
     })
 
-    if (false) {
+    if (!user) {
         return (
             <ShouldLogin />
         )
     }
-    if (false) {
+    if (!user.isSeller) {
         return (
             <ShouldBeSeller />
         )
@@ -68,20 +64,10 @@ const ClaimPositionModule = () => {
         setState({ ...state, brandName: e.target.value })
     }
 
-    const handleSellingMode = (key) => (e) => {
+    const handleSellingMode = (value) => (e) => {
         setState({
-            ...state, sellingMode: {
-                ...state.sellingMode,
-                [key]: e.target.checked
-            }
-        })
-    }
-    const handlePrivacy = (key) => (e) => {
-        setState({
-            ...state, privacy: {
-                ...state.privacy,
-                [key]: e.target.checked
-            }
+            ...state,
+            isWholesaleAndRetail: value
         })
     }
 
@@ -117,6 +103,19 @@ const ClaimPositionModule = () => {
             [key]: e.target.value
         })
     }
+    const handlePaymethod = (key) => e => {
+        if (e.target.checked) {
+            setState({
+                ...state,
+                payMethod: [...state.payMethod, key]
+            })
+        } else {
+            setState({
+                ...state,
+                payMethod: state.payMethod.filter(x => x !== key)
+            })
+        }
+    }
 
     //SUBMIT
     const submit = () => {
@@ -133,45 +132,52 @@ const ClaimPositionModule = () => {
 
         //CHECKING
         const Schema = Joi.object({
-            brandName: Joi.string().min(2).max(32).messages(stringMessages("Nombre de la marca")),
-            sellingMode: Joi.object({
-                wholesale: Joi.boolean().messages(booleanMessages("mayorista")),
-                retail: Joi.boolean().messages(booleanMessages("minorista"))
-            }).required(),
-            privacy: Joi.object({
-                phoneVisible: Joi.boolean().messages(booleanMessages("Visibilidad del celular")),
-            }),
-            location: Joi.object({
-                zone: Joi.string().min(0).max(16).valid("la salada", "flores", "online").messages(stringMessages("Ubicación")),
-                //in case of: la salada
-                shed: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Galpón")),
-                stallPosition: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Numero de puesto")),
-                hallwayNumber: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Numero de pasillo")),
-                rowNumber: Joi.string().min(isInUrkupiña ? 1 : 0).max(32).messages(stringMessages("Nombre de marca")),
-                //In case of: flores
-                isInGallery: Joi.boolean().messages(booleanMessages("Esta en una galeria")),
-                galleryName: Joi.string().min(isInGallery ? 1 : 0).max(32).messages(stringMessages("Nombre de la galeria")),
-                positionInGallery: Joi.string().min(isInGallery ? 1 : 0).max(32).messages(stringMessages("Posicion en la galeria")),
-                street: Joi.string().min(isInFlores ? 1 : 0).max(32).messages(stringMessages("Nombre de la calle")),
-                streetNumber: Joi.string().min(isInFlores ? 1 : 0).max(32).messages(stringMessages("Numero de calle"))
-            }),
+            brandName: Joi.string().min(3).max(32).messages(stringMessages("Nombre de marca")),
+            isWholesaleAndRetail: Joi.boolean().valid(null, true, false).messages(booleanMessages("Forma de vender")),
             category: Joi.string().min(1).max(128).messages(stringMessages("Categoria")),
             shippingBy: Joi.string().min(1).max(128).messages(stringMessages("Transporte de envios")),
-            payMethod: Joi.string().min(1).max(128).messages(stringMessages("Metodo de pago"))
+            payMethod: Joi.array().items(Joi.string().min(1).max(128).messages(stringMessages("Metodo de pago"))),
+            location: Joi.object({
+                zone: Joi.string().valid("la salada", "flores", "online").messages(stringMessages("Donde planeas vender")),
+                //in case of: la salada
+                shed: Joi.string().valid("punta mogote", "urkupiña", "los coreanos", "oceans", "galerias", "").messages(stringMessages("Galpón")),
+                stallNumber: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Numero de puesto")),
+                hallwayNumber: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Numero de pasillo")),
+                rowNumber: Joi.string().min(isInUrkupiña ? 1 : 0).max(32).messages(stringMessages("Numero de fila")),
+                //In case of: flores
+                isInGallery: Joi.boolean().messages(booleanMessages("Esta en una galeria")),
+                galleryName: Joi.string().min(isInGallery ? 1 : 0).max(64).messages(stringMessages("Nombre de la galeria")),
+                positionInGallery: Joi.string().min(isInGallery ? 1 : 0).max(32).messages(stringMessages("Numero en la galeria")),
+                street: Joi.string().min(isInFlores ? 1 : 0).max(64).messages(stringMessages("Nombre de la calle")),
+                streetNumber: Joi.string().min(isInFlores ? 1 : 0).max(32).messages(stringMessages("Altura de la calle"))
+            })
         })
 
-        const { error } = Schema.validate(state)
+        const { error, value } = Schema.validate(state)
 
         if (error) {
-            toast.error(error.details[0].message)
+            return toast.error(error.details[0].message)
+        }
+        if (isInLaSalada && state.location.shed == "") {
+            return toast.error("Elige en que galpon planeas vender")
         }
 
-        if (!state.sellingMode.retail && !state.sellingMode.wholesale) {
-            toast.error("Elegie si vas a vender por menor o por mayor")
+        if (state.isWholesaleAndRetail == null) {
+            return toast.error("Elige si vas a vender por menor o por mayor")
+        }
+        if (state.payMethod.length == 0) {
+            return toast.error("Elige al menos un metodo de pago")
         }
 
         if (!error) {
-            console.log("subdio")
+            Put("user/auth/claimbrand", value).then(res => {
+                toast(res.data.msg)
+            }).catch(err => {
+                if (err.response.data) {
+                    toast.error(err.response.data);
+                }
+                toast.error("Ocurrio un error de nuestro lado")
+            })
         }
     }
 
@@ -194,18 +200,10 @@ const ClaimPositionModule = () => {
                     onChange={handleBrandName}
                     iconRight={<Icon id="title" />}
                     value={state.brandName}
-                    clearable />
+                    clearable
+                    className="mb-3" />
 
-                <Text weight={400} tag="h5" className="mt-3">
-                    Privacidad:
-                </Text>
-                <Checkbox
-                    label="¿Quiere que su numero de telefono sea publico?"
-                    className="mb-3"
-                    size={6}
-                    onChange={handlePrivacy("phoneVisible")} />
-
-                <SellingMode isRetail={state.sellingMode.retail} isWholesale={state.sellingMode.wholesale} onChange={handleSellingMode} />
+                <SellingMode isWholesaleAndRetail={state.isWholesaleAndRetail} onChange={handleSellingMode} />
 
 
                 <Text weight={400} tag="h5" className="mt-3">
@@ -218,8 +216,11 @@ const ClaimPositionModule = () => {
                         value={state.category}
                         className="">
                         <Select.Option value="">Elige una opción</Select.Option>
-                        <Select.Option value="deportivo">Deportivo</Select.Option>
-                        <Select.Option value="lenceria">Lenceria</Select.Option>
+                        {
+                            categories.map((category, i) => (
+                                <Select.Option key={i} value={category}>{category}</Select.Option>
+                            ))
+                        }
                     </Select>
                     <Select
                         label="Medio de envio"
@@ -230,16 +231,20 @@ const ClaimPositionModule = () => {
                         <Select.Option value="correo">Correo</Select.Option>
                         <Select.Option value="moto">Moto</Select.Option>
                     </Select>
-                    <Select
-                        label="Metodo de pago"
-                        onChange={handleGenericString("payMethod")}
-                        value={state.payMethod}
-                        className="ms-3">
-                        <Select.Option value="">Elige una opción</Select.Option>
-                        <Select.Option value="Efectivo">Efectivo</Select.Option>
-                        <Select.Option value="MercadoPago">MercadoPago</Select.Option>
-                        <Select.Option value="Transferencia">Transferencia</Select.Option>
-                    </Select>
+                </div>
+                <Text weight={400} tag="h5" >
+                    Metodos de pago
+                </Text>
+                <div className="d-flex flex-row mb-4">
+                    <Checkbox label="Transferencia" size={6} className="me-2"
+                        checked={state.payMethod.some(x => x === "transferencia")}
+                        onChange={handlePaymethod("transferencia")} />
+                    <Checkbox label="Efectivo" size={6} className="me-2"
+                        checked={state.payMethod.some(x => x === "efectivo")}
+                        onChange={handlePaymethod("efectivo")} />
+                    <Checkbox label="Mercadopago" size={6} className="me-2"
+                        checked={state.payMethod.some(x => x === "mercadopago")}
+                        onChange={handlePaymethod("mercadopago")} />
                 </div>
 
                 <Text weight={600} tag="h4" className="d-flex flex-row">

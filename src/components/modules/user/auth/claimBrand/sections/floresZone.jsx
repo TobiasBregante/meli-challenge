@@ -26,7 +26,7 @@ const SaladaZone = ({ state, onChange }) => {
                     </div>
                     <div>
                         <Input
-                            label="Posicion en la galeria"
+                            label="Numero en la galeria"
                             placeholder="Escribe aqui el nombre de la galeria"
                             value={state.positionInGallery}
                             onChange={onChange("positionInGallery")}
@@ -48,6 +48,7 @@ const SaladaZone = ({ state, onChange }) => {
                 </div>
                 <div>
                     <Input
+                        type="number"
                         label="Altura de la calle"
                         placeholder="Escribe aqui la altura de la calle"
                         value={state.streetNumber}

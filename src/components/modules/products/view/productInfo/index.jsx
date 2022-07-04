@@ -5,15 +5,16 @@ import Image from 'next/image';
 import Button from '@/src/components/ui/buttons';
 import Stars from '@/src/components/ui/stars'
 import SaveBookmark from '@/components/modules/products/saveBookmark'
-import ProductShare from './share';
+import Share from '@/components/modules/common/share';
 import { useState } from 'react';
+import PriceTable from '@/components/modules/products/view/productInfo/priceTable'
 
 const ProductInfo = ({ data }) => {
     const [isShareOpen,setShareState] = useState(false)
     return (
         <>
             <div>
-                <ProductShare isVisible={isShareOpen} close={setShareState}/>
+                <Share isVisible={isShareOpen} close={setShareState}/>
                 <div className="mb-3">
                     <div className="d-flex justify-content-end">
                         <SaveBookmark _id={data._id} className="me-2" />
@@ -44,48 +45,7 @@ const ProductInfo = ({ data }) => {
                     </div>
                 </div>
                 <div>
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Cantidad minima</th>
-                                <th scope="col">Precio x Unid.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <Text tag="th" scope="row">
-                                    1 o más
-                                </Text>
-                                <Text tag="th" >
-                                    {currency(data.price, { decimal: ",", separator: "." }).format()}
-                                </Text>
-                            </tr>
-                            <tr>
-                                <Text tag="th" scope="row">
-                                    6 o más
-                                </Text>
-                                <Text tag="th" >
-                                    {currency(11500, { decimal: ",", separator: "." }).format()}
-                                </Text>
-                            </tr>
-                            <tr>
-                                <Text tag="th" scope="row">
-                                    10 docena o más
-                                </Text>
-                                <Text tag="th" >
-                                    {currency(10800, { decimal: ",", separator: "." }).format()}
-                                </Text>
-                            </tr>
-                            <tr>
-                                <Text tag="th" scope="row">
-                                    1000 o más
-                                </Text>
-                                <Text tag="th" >
-                                    {currency(10000, { decimal: ",", separator: "." }).format()}
-                                </Text>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <PriceTable prices={[{title:"minimo 10", value:100}]}/>
                 </div>
             </div>
             <div className="">

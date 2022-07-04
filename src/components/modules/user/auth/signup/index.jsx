@@ -89,7 +89,7 @@ const SignUpModule = () => {
 
         if (error) {
             toast("Completa todos los campos correctamente")
-            console.error(error);
+            return console.error(error);
         }
         if (state.isSeller == null) {
             return toast("Elige una opción entre Comprador/a o Vendedor/a")

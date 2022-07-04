@@ -26,14 +26,9 @@ const CarouselTitle = ({title}) => {
 }
 
 const ProductCarousel = ({ title, data }) => {
-  const [selected,setSelected] = useState(false)
-
-  const onClick = ()=>{
-    
-  }
 
   return (
-    <div>
+    <div className="mt-4">
       <CarouselTitle title={title}/>
       <Swiper
         spaceBetween={10}
@@ -54,7 +49,7 @@ const ProductCarousel = ({ title, data }) => {
         }}
       >
         {
-          data.map((cardData,cardI) => (
+          data.sort( () => .5 - Math.random() ).map((cardData,cardI) => (
             <SwiperSlide key={cardI}>
               <ProductCard data={cardData} />
             </SwiperSlide>

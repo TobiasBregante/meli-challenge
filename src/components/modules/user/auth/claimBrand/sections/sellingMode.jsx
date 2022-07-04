@@ -1,7 +1,7 @@
 import Text from '@/ui/texts'
 import Checkbox from '@/src/components/ui/inputs/checkbox'
 
-const SellingMode = ({isRetail,isWholesale,onChange}) => {
+const SellingMode = ({isWholesaleAndRetail,onChange}) => {
     return (
         <>
             <Text tag="h5">
@@ -12,14 +12,14 @@ const SellingMode = ({isRetail,isWholesale,onChange}) => {
                     label="por menor"
                     size={6}
                     className="me-4"
-                    checked={isRetail}
-                    onChange={onChange("retail")} />
+                    checked={isWholesaleAndRetail==false}
+                    onChange={onChange(false)} />
 
                 <Checkbox
-                    label="por mayor"
+                    label="por mayor y menor"
                     size={6}
-                    checked={isWholesale}
-                    onChange={onChange("wholesale")} />
+                    checked={isWholesaleAndRetail==true}
+                    onChange={onChange(true)} />
             </div>
         </>
     )

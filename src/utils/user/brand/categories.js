@@ -1,0 +1,25 @@
+const categories = [
+    "Ropa Informal",
+    "Ropa de Vestir",
+    "Ropa Deportiva",
+    "Ropa Infantil",
+    "Ropa de Trabajo",
+    "Calzado",
+    "Accesorios de Moda",
+    "Lencería",
+    "Bijouterie",
+    "Blanquería",
+    "Marroquinería",
+    "Juguetería",
+    "Accesorios para Autos",
+    "Accesorios para Celulares",
+    "Accesorios para Mascotas",
+    "Artículos para el Hogar",
+    "Accesorios",
+    "Artesanías",
+    "Artículo de Temporada",
+    "Electrónica",
+    "Estanterías",
+]
+
+export default categories
