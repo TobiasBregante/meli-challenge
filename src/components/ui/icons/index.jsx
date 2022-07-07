@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
+import { styled } from '@nextui-org/react';
 
-const Icon = ({ id, className, alt, width, height, ...htmlProps}) => {
+const Icon = ({ id, className, css, alt, width, height, ...htmlProps}) => {
   if (id.indexOf('/') > -1) {
     return (
       <Image
@@ -13,12 +14,15 @@ const Icon = ({ id, className, alt, width, height, ...htmlProps}) => {
         {...htmlProps}/>
     )
   }
+  const Span = styled("span",{
+    ...css
+  })
   return (
-    <span
+    <Span
       className={`material-icons-round no-select ${className}`}
       {...htmlProps}>
       {id}
-    </span>
+    </Span>
   );
 }
 

@@ -1,51 +1,66 @@
-import Card from '@/ui/cards'
-import Text from "@/ui/texts";
 import Icon from "@/ui/icons";
 import { useState } from 'react';
-import Input from "@/ui/inputs"
-import InputPassword from "@/ui/inputs/password"
-import Button from "@/ui/buttons"
 import Link from 'next/link';
 import { toast } from 'react-toastify';
 import Post from '@/utils/hooks/post'
 import Joi from 'joi'
 import jsCookie from 'js-cookie'
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
+import { Button, Card, Grid, Input, Text } from '@nextui-org/react';
+import stringMessages from "@/src/utils/joi/customMessages";
+
 
 const SignInModule = () => {
-
-    const router = useRouter()
-
     const [state, setState] = useState({
-        email: "",
-        password: "",
+        email: {
+            value: "",
+            error: false
+        },
+        password: {
+            value: "",
+            error: false
+        },
     })
+    const router = useRouter()
     const handleInput = (key) => (e) => {
-        setState({ ...state, [key]: e.target.value.trim() })
+        setState({
+            ...state, [key]: {
+                error: false,
+                value: e.target.value.trim()
+            }
+        })
     }
 
 
     const submit = () => {
         const Schema = Joi.object({
-            email: Joi.string().email({ tlds: { allow: false } }).required(),
-            password: Joi.string().min(6).required()
+            email: Joi.string().email({ tlds: { allow: false } }).messages(stringMessages("Correo electrónico")).required(),
+            password: Joi.string().min(6).messages(stringMessages("Contraseña")).required()
         })
 
-        const { error } = Schema.validate(state)
+        const { error } = Schema.validate({
+            email: state.email.value,
+            password: state.password.value
+        })
         if (error) {
-            console.error(error);
-            return toast("Completa todos los campos")
+            return setState({
+                ...state,
+                [error.details[0].path[0]]: {
+                    ...state[error.details[0].path[0]],
+                    error: error.details[0].message
+                }
+            })
         }
 
         if (!error) {
             Post("user/auth/signin", {
-                email: state.email,
-                password: state.password
+                email: state.email.value,
+                password: state.password.value
             })
                 .then(res => {
                     toast(res.data.msg)
                     jsCookie.set("sldtoken", res.data.sldtoken)
-                    if(router.query.redirect){
+                    if (router.query.redirect) {
                         return router.push(`/.${router.query.redirect}`)
                     }
                     return router.push(`/./`)
@@ -54,64 +69,69 @@ const SignInModule = () => {
                     if (err.response) {
                         return toast(err.response.data.msg)
                     }
-                    console.error(err);
                     return toast("hubo un error de red al enviar el formulario")
                 })
         }
 
     }
 
-
     return (
-        <div className="container d-flex justify-content-center">
-            <Card className="mt-3 col-12 col-lg-5 p-3 mb-5">
-                <Text weight={600} tag="h3" className="text-center">
-                    Iniciar Sesión en SaladaApp
-                </Text>
-                <div className="d-flex flex-column mt-3">
-                    <div className="col-12 col-lg-12">
+        <Grid.Container justify="center" css={{ mt: 20 }}>
+            <Grid xs={12} sm={4} md={3}>
+                <Card variant="flat" css={{bg:"$white"}}>
+                    <Card.Header>
+                        <Grid.Container justify="center">
+                            <Grid>
+                                <Text h3 weight="bold">
+                                    Iniciar Sesión en SaladaApp
+                                </Text>
+                            </Grid>
+                        </Grid.Container>
+                    </Card.Header>
+                    <Card.Body>
                         <Input
-                            iconRight={<Icon id="mail" />}
-                            type="email"
-                            label="Email"
-                            placeholder="Escribe aqui tu email"
-                            className="mb-2"
                             clearable
-                            value={state.email}
+                            contentLeft={<Icon id="mail" />}
+                            type="email"
+                            label="Correo electrónico"
+                            placeholder="Escribe aqui tu correo electrónico"
+                            helperText={state.email.error}
+                            helperColor="error"
+                            status={state.email.error ? "error" : "default"}
+                            value={state.email.value}
                             onChange={handleInput("email")}
-                            max={128} />
-                        <InputPassword
+                            css={{ mb: 30 }}
+                        />
+                        <Input.Password
+                            clearable
+                            contentLeft={<Icon id="lock" />}
                             label="Contraseña"
                             placeholder="Escribe aqui tu contraseña"
-                            className="mb-2"
-                            clearable
-                            value={state.password}
+                            helperText={state.password.error}
+                            helperColor="error"
+                            status={state.password.error ? "error" : "default"}
+                            value={state.password.value}
                             onChange={handleInput("password")}
-                            min={6} />
-
-                    </div>
-
-                    <div className="d-flex justify-content-center mb-4">
-                        <Button color="info-300" className="col-12 col-lg-4 mt-4 d-flex justify-content-center" onClick={submit}>
-
-                            <Text weight="700">
-                                Ingresar
-                            </Text>
-                            <Icon id="arrow_forward" className="ms-2" />
-                        </Button>
-                    </div>
-
-                    <Text>
-                        ¿No tienes cuenta? &nbsp;
-                        <Link href="/./user/auth/signup">
-                            <Text weight="700" color="primary" className="pointer">
+                            css={{ mb: 30 }}
+                        />
+                        <Grid.Container justify="flex-end">
+                            <Button css={{ bg: "$secondary" }} onPress={submit}>
+                                <Text weight="bold">
+                                    Ingresar
+                                </Text>
+                                <Icon id="arrow_forward" css={{ color: "$black" }} />
+                            </Button>
+                        </Grid.Container>
+                        <Text>
+                            ¿No tienes cuenta? &nbsp;
+                            <Link href="/./user/auth/signup">
                                 Registrarme
-                            </Text>
-                        </Link>
-                    </Text>
-                </div>
-            </Card>
-        </div>
+                            </Link>
+                        </Text>
+                    </Card.Body>
+                </Card>
+            </Grid>
+        </Grid.Container>
     )
 }
 
