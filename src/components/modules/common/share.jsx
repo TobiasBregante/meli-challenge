@@ -1,42 +1,48 @@
-import Button from "@/src/components/ui/buttons";
 import Icon from "@/src/components/ui/icons";
-import Modal from '@/ui/modals'
-import Card from "@/src/components/ui/cards";
-import Text from "@/src/components/ui/texts";
+import { Button, Card, Grid, Modal, Text } from "@nextui-org/react";
+import { useState } from "react";
 
-const Share = ({ isVisible, close }) => {
+const Share = ({  }) => {
+    const [state,setState] = useState(false);
+
+
     return (
-        <Modal isVisible={isVisible} outSideHide={true} close={close}>
-            <Card className="p-3">
+        <>
+        <Button auto onClick={()=>setState(true)}>
+            Compartir
+            <Icon id="share" color="white"/>
+        </Button>
+            <Modal open={state} closeButton onClose={()=>setState(false)}>
                 <div className="d-flex flex-column">
                     <div className="d-flex flex-row justify-content-between">
-                        <Text tag="h4" weight={700}>
+                        <Text h4 weight="bold">
                             Compartir en
                         </Text>
-                        <Icon id="close" onClick={()=>{close(false)}} className="pointer"/>
                     </div>
-                    <div className="d-flex flex-row flex-wrap">
-                        <Button color="success-700" className="me-1 mb-1 text-white">
-                            <Icon id="whatsapp" />
-                            Whatsapp
-                        </Button>
-                        <Button color="info-700" className="me-1 mb-1 text-white">
-                            <Icon id="facebook" />
-                            Facebook
-                        </Button>
-                        <Button color="gradient-instagram" className="me-1 text-white">
-                            <Icon id="/./icons/white/instagram.svg" alt="instagram"/>
-                            Instagram
-                        </Button>
-                        <Button color="gray-100" className="me-1 text-dark">
-                            <Icon id="link" alt="instagram"/>
-                            Copiar link
-                        </Button>
-                    </div>
+                    <Modal.Body>
+                        <Grid.Container  justify="center">
+                            <Button auto css={{bg:"success-700",color:"$white",mr:5,mb:5}} className="me-1 mb-1 text-white">
+                                <Icon id="whatsapp" color="$white"/>
+                                Whatsapp
+                            </Button>
+                            <Button auto css={{bg:"info-700",color:"$white",mr:5,mb:5}} className="me-1 mb-1 text-white">
+                                <Icon id="facebook" color="$white"/>
+                                Facebook
+                            </Button>
+                            <Button auto css={{bg:"gradient-instagram",color:"$white",mr:5,mb:5}} className="me-1 text-white">
+                                <Icon id="/./icons/white/instagram.svg" alt="instagram" />
+                                Instagram
+                            </Button>
+                            <Button auto css={{bg:"gray-100",color:"$white",mr:5,mb:5}} className="me-1 text-dark">
+                                <Icon id="link"  color="$white" />
+                                Copiar link
+                            </Button>
+                        </Grid.Container>
+                    </Modal.Body>
                 </div>
-            </Card>
 
-        </Modal>
+            </Modal>
+        </>
     )
 }
 

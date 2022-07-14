@@ -1,24 +1,23 @@
 import Icon from "@/ui/icons"
 import Link from "next/link"
 import { useUserContext } from "@/utils/user/provider"
-import { useRouter } from 'next/router'
 import UserAvatar from "@/components/modules/user/avatar"
-import { Button, Text } from "@nextui-org/react"
+import { Button } from "@nextui-org/react"
 
 const IsAuth = () => {
-    const router = useRouter()
-    if (useUserContext()) {
+    const user = useUserContext()
+    if (user) {
         return <UserAvatar />
     }
 
     return (
-        <Link href={`/./user/auth/signin?redirect=${router.asPath}`} passHref>
-            <Button auto css={{ bg: "$white", color: "$black" }}>
-                <Text css={{ "@smMax": { display: "none" } }}>
+        <Link href={`/./user/auth/signin`}>
+            <a>
+                <Button auto css={{ bg: "$white", color: "$black", "@smMax": { display: "none" } }} icon={<Icon id="person" />} >
                     Ingresar
-                </Text>
-                <Icon id="person" />
-            </Button>
+                </Button>
+                <Button auto css={{ bg: "$white", color: "$black", "@sm": { display: "none" } }} icon={<Icon id="person" />} />
+            </a>
         </Link>
     )
 

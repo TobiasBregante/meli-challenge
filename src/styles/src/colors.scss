@@ -5,3 +5,18 @@ body{
 html{
     background-color: #dedede;
 }
+
+.swiper-button-prev, .swiper-rtl .swiper-button-next {
+    color:black !important;
+}
+.swiper-button-next, .swiper-rtl .swiper-button-prev{
+    color:black !important;
+}
+
+.blured{
+    filter:blur(2px) brightness(0.5);
+}
+
+.shadow{
+    box-shadow: 0px 1px 7px 0px #8d8d8d;
+}

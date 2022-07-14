@@ -11,7 +11,7 @@ import PersonalData from './sections/personalData';
 import { Button, Card, Checkbox, Grid, Text } from '@nextui-org/react';
 import stringMessages from "@/src/utils/joi/customMessages";
 
-const SignUpModule2 = () => {
+const SignUpModule = () => {
     const router = useRouter()
     const [state, setState] = useState({
         isSeller: null,
@@ -109,7 +109,7 @@ const SignUpModule2 = () => {
                     if (state.isSeller) {
                         return router.push('/./user/claimBrand')
                     }
-                    return router.push(`/.`)
+                    return router.push(`/./`)
                 })
                 .catch(err => {
                     if (err.response) {
@@ -180,4 +180,4 @@ const SignUpModule2 = () => {
     )
 }
 
-export default SignUpModule2
+export default SignUpModule

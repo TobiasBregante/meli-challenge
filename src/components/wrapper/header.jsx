@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { Button, Card, Container, Grid, Input, Text } from "@nextui-org/react";
 
 const Header = () => {
-    const [isSearchBarOpen, openSearchBar] = useState(false),
+    const [isSearchOpen, openSearchBar] = useState(false),
         [searchValue, setSearchValue] = useState("")
 
     const handleSearch = (e) => {
@@ -15,57 +15,76 @@ const Header = () => {
 
     return (
         <Card css={{ borderRadius: 0, bg: "$primary" }}>
-            <Container>
-                <Grid.Container css={{ my: 10, }} justify="space-between">
-                    <Grid>
-                        <Link href="/./" passHref>
-                            <Grid.Container direction="row">
-                                <Grid>
-                                    <Image
-                                        src="/logo.png"
-                                        width={50}
-                                        height={50}
-                                        alt="salada-app-logo" />
-                                </Grid>
-                                <Grid>
-                                    <Grid.Container direction="column" justify="center">
-                                        <Grid.Container css={{ my: "auto" }}>
-                                            <Text h2 weight="bold" >
-                                                Salada
-                                            </Text>
-                                            <Text h2 color="black" weight="normal" >
-                                                App
-                                            </Text>
-                                        </Grid.Container>
+            <Container lg>
+                {
+                    isSearchOpen ?
+                        <Grid.Container css={{ my: 10, }} justify="center">
+                            <Input
+                                clearable
+                                css={{w:"100%"}}
+                                value={searchValue}
+                                onChange={handleSearch}
+                                id="headerSearch"
+                                aria-label="Busqueda"
+                                placeholder="Busca entre cientos de productos"
+                                contentRight={<Icon id="search" className="text-dark" />}
+                                contentLeft={<Icon id="arrow_back" onClick={() => openSearchBar(false)} css={{m:10}} />}
+                                contentLeftStyling={false}
+                            />
+                        </Grid.Container>
+                        :
+                        <Grid.Container css={{ my: 10, }} justify="space-between">
+                            <Grid>
+                                <Link href="/./" passHref>
+                                    <Grid.Container direction="row">
+                                        <Grid>
+                                            <Image
+                                                src="/logo.png"
+                                                width={50}
+                                                height={50}
+                                                alt="salada-app-logo" />
+                                        </Grid>
+                                        <Grid>
+                                            <Grid.Container direction="column" justify="center">
+                                                <Grid.Container css={{ my: "auto" }}>
+                                                    <Text h2 weight="bold" >
+                                                        Salada
+                                                    </Text>
+                                                    <Text h2 color="black" weight="normal" >
+                                                        App
+                                                    </Text>
+                                                </Grid.Container>
+                                            </Grid.Container>
+                                        </Grid>
                                     </Grid.Container>
-                                </Grid>
-                            </Grid.Container>
-                        </Link>
-                    </Grid>
-                    <Grid>
-                        <Grid.Container gap={.3}>
-                            <Grid css={{ "@smMax": { display: "none" } }}>
-                                <Input
-                                    color="white"
-                                    clearable
-                                    value={searchValue}
-                                    onChange={handleSearch}
-                                    placeholder="Busca entre cientos de productos"
-                                    contentRight={<Icon id="search" className="text-dark" />}
-                                />
-                            </Grid>
-                            <Grid css={{ "@sm": { display: "none" } }}>
-                                <Button auto css={{ bg: "$white", color: "$black" }}>
-                                    <Icon id="search" />
-                                </Button>
+                                </Link>
                             </Grid>
                             <Grid>
-                                <UserHeaderMenu />
-                            </Grid>
+                                <Grid.Container gap={.5}>
+                                    <Grid css={{ "@smMax": { display: "none" } }}>
+                                        <Input
+                                            color="white"
+                                            clearable
+                                            value={searchValue}
+                                            onChange={handleSearch}
+                                            id="headerSearch"
+                                            aria-label="Busqueda"
+                                            placeholder="Busca entre cientos de productos"
+                                            contentRight={<Icon id="search" className="text-dark" />}
+                                        />
+                                    </Grid>
+                                    <Grid css={{ "@sm": { display: "none" } }}>
+                                        <Button auto css={{ bg: "$white", color: "$black" }} icon={<Icon id="search" />} onClick={() => openSearchBar(true)} />
+                                    </Grid>
+                                    <Grid>
+                                        <UserHeaderMenu />
+                                    </Grid>
 
+                                </Grid.Container>
+                            </Grid>
                         </Grid.Container>
-                    </Grid>
-                </Grid.Container>
+                }
+
             </Container>
         </Card>
     )

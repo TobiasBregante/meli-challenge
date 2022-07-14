@@ -3,24 +3,22 @@ import { Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import ProductCard from '@/src/components/modules/products/cards/normal';
-import Text from '@/ui/texts'
 import Icon from '@/ui/icons';
 import { useState } from 'react'
+import { Grid, Text } from '@nextui-org/react';
 
 const CarouselTitle = ({title}) => {
-  const [hovering, setHover] = useState(false)
   return (
-    <div className="d-flex flex-row"
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}>
-      <Text tag="h3">
+    <Grid.Container css={{mt:10}}>
+      <Text h3>
         {title}
       </Text>
-      <Text className={`ms-3 mt-1 d-flex pointer animate__animated animate__fadeInLeft animate__faster ${hovering ? "" : "d-none"}`} color="primary">
+      <Text css={{pt:3, ml:10}} color="primary">
         Ver mas
-        <Icon id="chevron_right" className="animate__animated animate__fadeInLeft " />
+        
       </Text>
-    </div>
+      <Icon id="chevron_right" css={{pt:8}} color="primary" />
+    </Grid.Container>
   )
 
 }
@@ -28,7 +26,7 @@ const CarouselTitle = ({title}) => {
 const ProductCarousel = ({ title, data }) => {
 
   return (
-    <div className="mt-4">
+    <div>
       <CarouselTitle title={title}/>
       <Swiper
         spaceBetween={10}
@@ -36,20 +34,20 @@ const ProductCarousel = ({ title, data }) => {
         navigation
         breakpoints={{
           // when window width is >= 640px
-          640: {
-            slidesPerView: 1.2,
+          350: {
+            slidesPerView: 1.4,
           },
           // when window width is >= 768px
           768: {
-            slidesPerView: 2.2,
+            slidesPerView: 3.2,
           },
           1280: {
-            slidesPerView: 4.2,
+            slidesPerView: 5.2,
           },
         }}
       >
         {
-          data.sort( () => .5 - Math.random() ).map((cardData,cardI) => (
+          data.map((cardData,cardI) => (
             <SwiperSlide key={cardI}>
               <ProductCard data={cardData} />
             </SwiperSlide>

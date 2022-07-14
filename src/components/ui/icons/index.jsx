@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
-import { styled } from '@nextui-org/react';
+import { styled, Text } from '@nextui-org/react';
 
-const Icon = ({ id, className, css, alt, width, height, ...htmlProps}) => {
+const Icon = ({ id, className,as, css, alt, width, height, ...htmlProps }) => {
   if (id.indexOf('/') > -1) {
     return (
       <Image
@@ -10,26 +10,24 @@ const Icon = ({ id, className, css, alt, width, height, ...htmlProps}) => {
         className={className}
         width={width}
         height={height}
-        alt={alt} 
-        {...htmlProps}/>
+        alt={alt}
+        {...htmlProps} />
     )
   }
-  const Span = styled("span",{
-    ...css
-  })
   return (
-    <Span
+    <Text as={as || "span"}
+      css={{...css}}
       className={`material-icons-round no-select ${className}`}
       {...htmlProps}>
       {id}
-    </Span>
+    </Text>
   );
 }
 
 Icon.defaultProps = {
-    id:"add",
-    width:"25px",
-    height:"25px"
+  id: "add",
+  width: "25px",
+  height: "25px"
 }
 
 export default Icon

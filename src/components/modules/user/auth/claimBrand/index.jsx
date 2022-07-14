@@ -1,15 +1,9 @@
-import Card from '@/ui/cards'
-import Text from "@/ui/texts";
 import Icon from "@/ui/icons";
 import { useState } from 'react';
-import Input from "@/ui/inputs"
-import Button from "@/ui/buttons"
 import { useRouter } from 'next/router';
 import { useUserContext } from '@/src/utils/user/provider';
 import ShouldLogin from '@/components/modules/user/errors/shouldLogin';
 import ShouldBeSeller from '@/components/modules/user/errors/shouldBeSeller';
-import Select from '@/ui/selects';
-import Checkbox from '@/src/components/ui/inputs/checkbox';
 import SellingMode from '@/components/modules/user/auth/claimBrand/sections/sellingMode'
 import SellZone from '@/components/modules/user/auth/claimBrand/sections/sellZone'
 //Section: Zones
@@ -21,6 +15,7 @@ import Joi from 'joi';
 import { toast } from 'react-toastify'
 import Put from '@/src/utils/hooks/put';
 import categories from '@/src/utils/user/brand/categories';
+import { Card, Grid, Input, Text } from "@nextui-org/react";
 
 const ClaimPositionModule = () => {
 
@@ -49,12 +44,12 @@ const ClaimPositionModule = () => {
         },
     })
 
-    if (!user) {
+    if (!user && false) {
         return (
             <ShouldLogin />
         )
     }
-    if (!user.isSeller) {
+    if (!user.isSeller && false) {
         return (
             <ShouldBeSeller />
         )
@@ -180,6 +175,48 @@ const ClaimPositionModule = () => {
             })
         }
     }
+
+    return (
+        <Grid.Container justify="center" css={{ my: 20 }}>
+            <Grid xs={12} sm={4} >
+                <Card variant="flat" css={{ bg: "$white", pb: 20 }}>
+                    <Card.Header>
+                        <Grid.Container justify="center">
+                            <Grid>
+                                <Text h3 weight="bold">
+                                    Añade los datos de tu marca
+                                </Text>
+                            </Grid>
+                        </Grid.Container>
+                    </Card.Header>
+                    <Card.Body>
+                        <Grid.Container >
+                            <Icon id="info" />
+                            <Text weight="bold" h4>
+                                Información:
+                            </Text>
+                        </Grid.Container>
+                        <Grid.Container direction="column" gap={1}>
+                            <Grid>
+                                <Input
+                                    clearable
+                                    label="Nombre de la marca"
+                                    placeholder="Escribe aqui"
+                                    onChange={handleBrandName}
+                                    iconRight={<Icon id="title" />}
+                                    value={state.brandName}
+                                    css={{w:"100%"}} />
+                            </Grid>
+                            <Grid>
+                                <SellingMode isWholesaleAndRetail={state.isWholesaleAndRetail} onChange={handleSellingMode}/>
+                            </Grid>
+                        </Grid.Container>
+
+                    </Card.Body>
+                </Card>
+            </Grid>
+        </Grid.Container>
+    )
 
     return (
         <div className="container d-flex justify-content-center">

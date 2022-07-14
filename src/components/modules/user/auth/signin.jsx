@@ -94,6 +94,7 @@ const SignInModule = () => {
                             contentLeft={<Icon id="mail" />}
                             type="email"
                             label="Correo electrónico"
+                            aria-label="Correo electrónico"
                             placeholder="Escribe aqui tu correo electrónico"
                             helperText={state.email.error}
                             helperColor="error"
@@ -106,6 +107,7 @@ const SignInModule = () => {
                             clearable
                             contentLeft={<Icon id="lock" />}
                             label="Contraseña"
+                            aria-label="Contraseña"
                             placeholder="Escribe aqui tu contraseña"
                             helperText={state.password.error}
                             helperColor="error"
