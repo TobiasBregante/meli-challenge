@@ -4,7 +4,7 @@ import ProductInfo from '@/components/modules/products/view/productInfo';
 import ProductLocation from '@/components/modules/products/view/location';
 import ProductComments from '@/components/modules/products/view/comments';
 import ProductSideBarRecomendation from '@/components/modules/products/view/relateds/sidebar';
-import ProductBottomRecomendation from '@/src/components/modules/products/carouseles/carousel';
+import ProductBottomRecomendation from '@/src/components/modules/products/carouseles/product';
 import BrandProfileMinimal from '../../brand/minimalProfile';
 import Data from '@/utils/sampleProducts'
 

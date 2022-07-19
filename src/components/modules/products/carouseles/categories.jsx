@@ -19,7 +19,19 @@ const CategoriesCarousel = () => {
           spaceBetween={10}
           modules={[Autoplay]}
           autoplay
-          slidesPerView={6}
+          breakpoints={{
+            // when window width is >= 640px
+            350: {
+              slidesPerView: 2,
+            },
+            // when window width is >= 768px
+            768: {
+              slidesPerView: 3,
+            },
+            1280: {
+              slidesPerView: 6,
+            },
+          }}
         >
           {
             categories.map((elem, i) => (

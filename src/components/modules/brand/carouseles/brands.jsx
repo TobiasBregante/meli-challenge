@@ -36,7 +36,7 @@ const BrandCarousel = ({ title, data }) => {
         breakpoints={{
           // when window width is >= 640px
           350: {
-            slidesPerView: 1.4,
+            slidesPerView: 1.1,
           },
           // when window width is >= 768px
           768: {

@@ -9,9 +9,9 @@ const BrandCard = ({ data }) => {
         <Card variant="flat" css={{ bg: "$white" }} isHoverable isPressable>
             <Image src={`/./img/${data.bgImg}.webp`} width={1280} height={720} alt="bg"
                 className="blured" />
-            <Grid.Container justify="center" css={{ position: 'absolute', mt: 80, }}>
+            <Grid.Container justify="center" css={{ position: 'absolute', mt:95, "@xsMax":{mt: 10}, }}>
                 <Grid >
-                    <Image src={`/./img/${data.img}.jpg`} width={120} height={120} alt="bg" className="rounded-circle " />
+                    <Image src={`/./img/${data.img}.jpg`} width={"90vw"} height={"90vh"} alt="bg" className="rounded-circle " />
                 </Grid>
             </Grid.Container>
             <Card.Body css={{ pb: 0 }}>

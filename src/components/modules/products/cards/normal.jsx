@@ -8,14 +8,16 @@ import { Avatar, Card, Grid, Text } from '@nextui-org/react'
 const ProductCard = ({ data }) => {
     return (
         <Card variant="flat" css={{ bg: "$white" }} isHoverable>
-            <Image
-                className="rounded-top-16 pointer"
-                src={`/img/${data.img}`}
-                width={100}
-                height={100}
-                layout="responsive"
-                alt={data.title}
-            />
+            <Link href={`/./product/${data._id}`}>
+                <Image
+                    className="rounded-top-16 pointer"
+                    src={`/img/${data.img}`}
+                    width={100}
+                    height={100}
+                    layout="responsive"
+                    alt={data.title}
+                />
+            </Link>
             <Grid.Container css={{ position: "absolute", mt: 5, mr: 10 }} justify="flex-end">
                 <SaveBookmark _id={data._id} />
             </Grid.Container>

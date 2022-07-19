@@ -3,31 +3,36 @@ import Icon from '@/ui/icons';
 import { useState } from 'react'
 import { Grid, Text } from '@nextui-org/react';
 
-const CarouselTitle = ({ title }) => {
+const CarouselTitle = ({ title, showSeeMore }) => {
     return (
         <Grid.Container css={{ mt: 10 }}>
             <Text h3>
                 {title}
             </Text>
-            <Text css={{ pt: 3, ml: 10 }} color="primary">
-                Ver mas
+            {
+                showSeeMore &&
+                <>
+                    <Text css={{ pt: 3, ml: 10 }} color="primary">
+                        Ver mas
 
-            </Text>
-            <Icon id="chevron_right" css={{ pt: 8 }} color="primary" />
+                    </Text>
+                    <Icon id="chevron_right" css={{ pt: 8 }} color="primary" />
+                </>
+            }
         </Grid.Container>
     )
 
 }
 
-const UnorderedList = ({ title, data }) => {
+const UnorderedList = ({ title, data, showSeeMore, breakpoints }) => {
 
     return (
         <>
-            <CarouselTitle title={title} />
+            <CarouselTitle title={title} showSeeMore={showSeeMore} />
             <Grid.Container gap={1}>
                 {
                     data.map((cardData, cardI) => (
-                        <Grid key={cardI} lg={2} >
+                        <Grid key={cardI} xs={breakpoints?.xs ? breakpoints.xs : 6} sm={breakpoints?.sm ? breakpoints.sm : 4} md={breakpoints?.md ? breakpoints.md : 3} lg={breakpoints?.lg ? breakpoints.lg : 2}  >
                             <ProductCard data={cardData} />
                         </Grid>
                     ))

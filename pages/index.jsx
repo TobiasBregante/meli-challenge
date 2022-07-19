@@ -19,7 +19,7 @@ const Index = ({highlights,products, stores, popular}) => {
         <ProductCarousel title="Productos venta por menor y mayor" data={products} />
         <CategoriesCarousel />
         <BrandCarousel title="Marcas mas populares" data={stores} />
-        <UnorderedList title="Productos mas populares" data={popular}/>
+        <UnorderedList title="Productos mas populares" data={popular} showSeeMore={true}/>
       </Container>
     </Page>
   )
