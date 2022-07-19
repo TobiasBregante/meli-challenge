@@ -6,8 +6,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import Button from "@/src/components/ui/buttons";
 import Icon from "@/src/components/ui/icons";
-import Modal from '@/ui/modals'
-import Card from "@/src/components/ui/cards";
+import { Grid } from "@nextui-org/react";
 
 const ProductImageCarrousel = ({ imgs }) => {
     const [imgSelected, setImgSelected] = useState(0),
@@ -25,6 +24,59 @@ const ProductImageCarrousel = ({ imgs }) => {
         subSwiper.slideTo(e.activeIndex)
         setImgSelected(e.activeIndex)
     }
+
+
+    return (
+        <Grid.Container direction="column">
+            <Grid>
+                <Swiper
+                    modules={[Navigation]}
+                    navigation
+                    slidesPerView={1}
+                    direction="horizontal"
+                    onSlideChange={handleSwiperChange}
+
+                >
+                    {
+                        imgs.map((img, imgI) => (
+                            <SwiperSlide key={imgI}>
+                                <Image
+                                    src={`/img/${img}`}
+                                    width={800}
+                                    height={600}
+                                    priority={imgI == 0}
+                                    alt={`image-${imgI}`}
+                                />
+                            </SwiperSlide>
+                        ))
+                    }
+
+                </Swiper>
+            </Grid>
+            <Grid>
+                <Swiper
+                    spaceBetween={5}
+                    slidesPerView={5}
+                    direction="horizontal"
+                >
+                    {
+                        imgs.map((img, imgI) => (
+                            <SwiperSlide key={imgI}>
+                                <Image
+                                    src={`/img/${img}`}
+                                    width={100}
+                                    height={100}
+                                    onClick={handleThumbnailClick(imgI)}
+                                    alt={`image-${imgI}`}
+                                />
+                            </SwiperSlide>
+                        ))
+                    }
+
+                </Swiper>
+            </Grid>
+        </Grid.Container>
+    )
 
     return (
         <div className="row no-select">

@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 
-const imgs = [...Array(4).keys()].map((e,i) => (`e${i}.webp`))
+const imgs = [...Array(10).keys()].map((e,i) => (`e${i+1}.webp`))
 
 const data = (limit=10)=>(
     [...Array(limit).keys()].map(() => ({
