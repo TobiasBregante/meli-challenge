@@ -15,11 +15,11 @@ const Index = ({highlights,products, stores, popular}) => {
     <Page>
       <Container lg css={{mb:"$10"}}>
         <HighLightCarousel data={highlights}/>
-        <ProductCarousel title="Productos venta por menor" data={products} />
-        <ProductCarousel title="Productos venta por menor y mayor" data={products} />
+        <ProductCarousel title="Productos venta por menor" data={products} link="/./page/retail" />
+        <ProductCarousel title="Productos venta por menor y mayor" data={products}  link="/./page/wholesale" />
         <CategoriesCarousel />
         <BrandCarousel title="Marcas mas populares" data={stores} />
-        <UnorderedList title="Productos mas populares" data={popular} showSeeMore={true}/>
+        <UnorderedList title="Productos mas populares" data={popular} link="/./page/popular" showSeeMore={true}/>
       </Container>
     </Page>
   )

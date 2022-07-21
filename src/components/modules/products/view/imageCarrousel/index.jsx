@@ -6,7 +6,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import Button from "@/src/components/ui/buttons";
 import Icon from "@/src/components/ui/icons";
-import { Grid } from "@nextui-org/react";
+import { Grid, Modal } from "@nextui-org/react";
 
 const ProductImageCarrousel = ({ imgs }) => {
     const [imgSelected, setImgSelected] = useState(0),
@@ -27,55 +27,73 @@ const ProductImageCarrousel = ({ imgs }) => {
 
 
     return (
-        <Grid.Container direction="column">
-            <Grid>
-                <Swiper
-                    modules={[Navigation]}
-                    navigation
-                    slidesPerView={1}
-                    direction="horizontal"
-                    onSlideChange={handleSwiperChange}
+        <>
+            <Modal width="100vw" noPadding open={isZoomed} onClose={() => setIsZoomed(false)}
+            >
+                <Image
+                    src={`/img/${imgs[imgSelected]}`}
+                    css={{ h: "auto", w: "50vw !important", "@mdMax": { w: "100vw !important" } }}
+                    width={100}
+                    height={100}
+                    layout="responsive"
+                    priority={imgSelected == 0}
+                    alt={`image-${imgSelected}`}
+                />
+            </Modal>
+            <Grid.Container direction="column">
+                <Grid css={{ w: "100%" }}>
+                    <Swiper
+                        onSwiper={setSwiper}
+                        modules={[Navigation]}
+                        navigation
+                        slidesPerView={1}
+                        direction="horizontal"
+                        onSlideChange={handleSwiperChange}
+                    >
+                        {
+                            imgs.map((img, imgI) => (
+                                <SwiperSlide key={imgI}>
+                                    <Image
+                                        src={`/img/${img}`}
+                                        width={100}
+                                        height={100}
+                                        layout="responsive"
+                                        priority={imgI == 0}
+                                        onClick={() => setIsZoomed(true)}
+                                        alt={`image-${imgI}`}
+                                    />
+                                </SwiperSlide>
+                            ))
+                        }
 
-                >
-                    {
-                        imgs.map((img, imgI) => (
-                            <SwiperSlide key={imgI}>
-                                <Image
-                                    src={`/img/${img}`}
-                                    width={800}
-                                    height={600}
-                                    priority={imgI == 0}
-                                    alt={`image-${imgI}`}
-                                />
-                            </SwiperSlide>
-                        ))
-                    }
+                    </Swiper>
+                </Grid>
+                <Grid css={{ w: "100%", mt: 10 }}>
+                    <Swiper
+                        onSwiper={setSubSwiper}
+                        spaceBetween={0}
+                        slidesPerView={7}
+                    >
+                        {
+                            imgs.map((img, imgI) => (
+                                <SwiperSlide key={imgI}>
+                                    <Image
+                                        src={`/img/${img}`}
+                                        width={100}
+                                        height={100}
+                                        layout="responsive"
+                                        onClick={handleThumbnailClick(imgI)}
+                                        className={`rounded-12 ${imgSelected == imgI ? "" : "opacity-25"}`}
+                                        alt={`image-${imgI}`}
+                                    />
+                                </SwiperSlide>
+                            ))
+                        }
 
-                </Swiper>
-            </Grid>
-            <Grid>
-                <Swiper
-                    spaceBetween={5}
-                    slidesPerView={5}
-                    direction="horizontal"
-                >
-                    {
-                        imgs.map((img, imgI) => (
-                            <SwiperSlide key={imgI}>
-                                <Image
-                                    src={`/img/${img}`}
-                                    width={100}
-                                    height={100}
-                                    onClick={handleThumbnailClick(imgI)}
-                                    alt={`image-${imgI}`}
-                                />
-                            </SwiperSlide>
-                        ))
-                    }
-
-                </Swiper>
-            </Grid>
-        </Grid.Container>
+                    </Swiper>
+                </Grid>
+            </Grid.Container>
+        </>
     )
 
     return (

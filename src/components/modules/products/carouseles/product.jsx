@@ -6,28 +6,30 @@ import ProductCard from '@/src/components/modules/products/cards/normal';
 import Icon from '@/ui/icons';
 import { useState } from 'react'
 import { Grid, Text } from '@nextui-org/react';
+import Link from 'next/link';
 
-const CarouselTitle = ({title}) => {
+const CarouselTitle = ({ title,link }) => {
   return (
-    <Grid.Container css={{mt:10}}>
+    <Grid.Container css={{ mt: 10 }}>
       <Text h3>
         {title}
       </Text>
-      <Text css={{pt:3, ml:10}} color="primary">
-        Ver mas
-        
-      </Text>
-      <Icon id="chevron_right" css={{pt:8}} color="primary" />
+      <Link href={link || "/./"}>
+        <Text css={{ pt: 3, ml: 10 }} color="primary">
+          Ver mas
+        </Text>
+      </Link>
+      <Icon id="chevron_right" css={{ pt: 8 }} color="primary" />
     </Grid.Container>
   )
 
 }
 
-const ProductCarousel = ({ title, data }) => {
+const ProductCarousel = ({ title, data, link }) => {
 
   return (
     <div>
-      <CarouselTitle title={title}/>
+      <CarouselTitle title={title} link={link} />
       <Swiper
         spaceBetween={10}
         modules={[Navigation]}
@@ -47,7 +49,7 @@ const ProductCarousel = ({ title, data }) => {
         }}
       >
         {
-          data.map((cardData,cardI) => (
+          data.map((cardData, cardI) => (
             <SwiperSlide key={cardI}>
               <ProductCard data={cardData} />
             </SwiperSlide>

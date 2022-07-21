@@ -2,8 +2,9 @@ import ProductCard from '@/src/components/modules/products/cards/normal';
 import Icon from '@/ui/icons';
 import { useState } from 'react'
 import { Grid, Text } from '@nextui-org/react';
+import Link from 'next/link';
 
-const CarouselTitle = ({ title, showSeeMore }) => {
+const CarouselTitle = ({ title, showSeeMore, link }) => {
     return (
         <Grid.Container css={{ mt: 10 }}>
             <Text h3>
@@ -12,10 +13,11 @@ const CarouselTitle = ({ title, showSeeMore }) => {
             {
                 showSeeMore &&
                 <>
-                    <Text css={{ pt: 3, ml: 10 }} color="primary">
-                        Ver mas
-
-                    </Text>
+                    <Link href={link || "/./"}>
+                        <Text css={{ pt: 3, ml: 10 }} color="primary">
+                            Ver mas
+                        </Text>
+                    </Link>
                     <Icon id="chevron_right" css={{ pt: 8 }} color="primary" />
                 </>
             }
@@ -24,11 +26,11 @@ const CarouselTitle = ({ title, showSeeMore }) => {
 
 }
 
-const UnorderedList = ({ title, data, showSeeMore, breakpoints }) => {
+const UnorderedList = ({ title, data, showSeeMore, breakpoints, link }) => {
 
     return (
         <>
-            <CarouselTitle title={title} showSeeMore={showSeeMore} />
+            <CarouselTitle title={title} showSeeMore={showSeeMore} link={link}/>
             <Grid.Container gap={1}>
                 {
                     data.map((cardData, cardI) => (
