@@ -1,63 +1,76 @@
-import Input from "@/ui/inputs"
 import Icon from "@/ui/icons"
-import Checkbox from '@/ui/inputs/checkbox'
+import { Checkbox, Grid, Input } from "@nextui-org/react"
 
 const SaladaZone = ({ state, onChange }) => {
     return (
-        <div className="d-flex flex-column">
-            <div className="d-flex flex-row mb-2">
-                <Checkbox 
-                label="¿El local esta en una galería?" 
-                checked={state.isInGallery}
-                onChange={onChange("isInGallery")}/>
-            </div>
-            {
-                state.isInGallery &&
-                <div className="d-flex flex-row flex-wrap mb-2">
-                    <div className="me-2 mb-2">
+        <Grid.Container direction="column" >
+            <Grid>
+                <Grid.Container>
+                    <Grid>
+                        <Checkbox isSelected={state.isInGallery} onChange={onChange("isInGallery")} label="¿El local es una galeria?" />
+                    </Grid>
+                </Grid.Container>
+            </Grid>
+            <Grid>
+                <Grid.Container gap={1}>
+                    {
+                        state.isInGallery &&
+                        <>
+                            <Grid>
+                                <Input
+                                    clearable
+                                    label="Nombre de la galeria"
+                                    contentLeft={<Icon id="share_location" />}
+                                    placeholder="Escribe aqui la galeria"
+                                    helperText={state.galleryName.error}
+                                    helperColor="error"
+                                    status={state.galleryName.error ? "error" : "default"}
+                                    value={state.galleryName.value}
+                                    onChange={onChange("galleryName")} />
+                            </Grid>
+                            <Grid>
+                                <Input
+                                    clearable
+                                    label="Posición en la galeria"
+                                    contentLeft={<Icon id="share_location" />}
+                                    placeholder="Escribe aqui la posición"
+                                    helperText={state.positionInGallery.error}
+                                    helperColor="error"
+                                    status={state.positionInGallery.error ? "error" : "default"}
+                                    value={state.positionInGallery.value}
+                                    onChange={onChange("positionInGallery")} />
+                            </Grid>
+                        </>
+                    }
+                    <Grid>
                         <Input
-                            label="Nombre de la galeria"
-                            placeholder="Escribe aqui el nombre de la galeria"
-                            value={state.galleryName}
-                            onChange={onChange("galleryName")}
-                            iconRight={<Icon id="store"/>}
                             clearable
-                        />
-                    </div>
-                    <div>
+                            label="Calle"
+                            contentLeft={<Icon id="share_location" />}
+                            placeholder="Escribe aqui la calle"
+                            helperText={state.street.error}
+                            helperColor="error"
+                            status={state.street.error ? "error" : "default"}
+                            value={state.street.value}
+                            onChange={onChange("street")} />
+                    </Grid>
+                    <Grid>
                         <Input
-                            label="Numero en la galeria"
-                            placeholder="Escribe aqui el nombre de la galeria"
-                            value={state.positionInGallery}
-                            onChange={onChange("positionInGallery")}
-                            iconRight={<Icon id="share_location"/>}
-                            clearable />
-                    </div>
-                </div>
-            }
-            <div className="d-flex flex-row flex-wrap">
-                <div className="me-2 mb-2">
-                    <Input
-                        label="Calle"
-                        placeholder="Escribe aqui la calle"
-                        value={state.street}
-                        onChange={onChange("street")}
-                        iconRight={<Icon id="share_location"/>}
-                        clearable
-                    />
-                </div>
-                <div>
-                    <Input
-                        type="number"
-                        label="Altura de la calle"
-                        placeholder="Escribe aqui la altura de la calle"
-                        value={state.streetNumber}
-                        onChange={onChange("streetNumber")}
-                        iconRight={<Icon id="share_location"/>}
-                        clearable />
-                </div>
-            </div>
-        </div>
+                            clearable
+                            type="number"
+                            label="Altura de calle"
+                            contentLeft={<Icon id="share_location" />}
+                            placeholder="Escribe aqui la altura de la calle"
+                            helperText={state.streetNumber.error}
+                            helperColor="error"
+                            status={state.streetNumber.error ? "error" : "default"}
+                            value={state.streetNumber.value}
+                            onChange={onChange("streetNumber")} />
+                    </Grid>
+
+                </Grid.Container>
+            </Grid>
+        </Grid.Container>
     )
 }
 

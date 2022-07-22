@@ -15,7 +15,8 @@ import Joi from 'joi';
 import { toast } from 'react-toastify'
 import Put from '@/src/utils/hooks/put';
 import categories from '@/src/utils/user/brand/categories';
-import { Card, Grid, Input, Text } from "@nextui-org/react";
+import { Button, Card, Grid, Input, Loading, Text } from "@nextui-org/react";
+import Clasification from "./sections/clasification";
 
 const ClaimPositionModule = () => {
 
@@ -23,26 +24,66 @@ const ClaimPositionModule = () => {
     const user = useUserContext()
 
     const [state, setState] = useState({
-        brandName: "",
+        brandName: {
+            error: "",
+            value: ""
+        },
         isWholesaleAndRetail: null,
-        category: "",
-        shippingBy: "",
-        payMethod: [],
+        category: {
+            error: "",
+            value: ""
+        },
+        shippingBy: {
+            error: "",
+            value: ""
+        },
+        payMethod: {
+            error: "",
+            value: []
+        },
         location: {
-            zone: "",
+            zone: {
+                error:"",
+                value:""
+            },
             //this is in case of: la salada
-            shed: "",
-            stallNumber: "",
-            hallwayNumber: "",
-            rowNumber: "",
+            shed: {
+                error: "",
+                value: ""
+            },
+            stallNumber: {
+                error: "",
+                value: ""
+            },
+            hallwayNumber: {
+                error: "",
+                value: ""
+            },
+            rowNumber: {
+                error: "",
+                value: ""
+            },
             //this is in case of: flores
             isInGallery: false,
-            galleryName: "",
-            positionInGallery: "",
-            street: "",
-            streetNumber: "",
+            galleryName: {
+                error: "",
+                value: ""
+            },
+            positionInGallery: {
+                error: "",
+                value: ""
+            },
+            street: {
+                error: "",
+                value: ""
+            },
+            streetNumber: {
+                error: "",
+                value: ""
+            },
         },
-    })
+    }),
+    [isSubmiting,setSubmiting] = useState(false)
 
     if (!user && false) {
         return (
@@ -56,7 +97,12 @@ const ClaimPositionModule = () => {
     }
 
     const handleBrandName = (e) => {
-        setState({ ...state, brandName: e.target.value })
+        setState({
+            ...state, brandName: {
+                error: "",
+                value: e.target.value
+            }
+        })
     }
 
     const handleSellingMode = (value) => (e) => {
@@ -70,7 +116,10 @@ const ClaimPositionModule = () => {
         setState({
             ...state, location: {
                 ...state.location,
-                zone: v
+                zone: {
+                    error:"",
+                    value: v
+                }
             }
         })
     }
@@ -80,14 +129,17 @@ const ClaimPositionModule = () => {
             return setState({
                 ...state, location: {
                     ...state.location,
-                    isInGallery: e.target.checked
+                    isInGallery: e
                 }
             })
         }
         setState({
             ...state, location: {
                 ...state.location,
-                [key]: e.target.value
+                [key]: {
+                    error: "",
+                    value: e.target.value
+                }
             }
         })
     }
@@ -95,30 +147,21 @@ const ClaimPositionModule = () => {
     const handleGenericString = (key) => e => {
         setState({
             ...state,
-            [key]: e.target.value
+            [key]: {
+                error: "",
+                value: e.target.value
+            }
         })
-    }
-    const handlePaymethod = (key) => e => {
-        if (e.target.checked) {
-            setState({
-                ...state,
-                payMethod: [...state.payMethod, key]
-            })
-        } else {
-            setState({
-                ...state,
-                payMethod: state.payMethod.filter(x => x !== key)
-            })
-        }
     }
 
     //SUBMIT
     const submit = () => {
-        const { zone } = state.location
+        setSubmiting(true)
+        const zone = state.location.zone.value
 
         //zone: la salada
         const isInLaSalada = zone == "la salada"
-        const isInUrkupiña = isInLaSalada && state.location.shed == "urkupiña"
+        const isInUrkupiña = isInLaSalada && state.location.shed.value == "urkupiña"
 
         //zone: flores
         const isInFlores = zone == "flores"
@@ -135,7 +178,7 @@ const ClaimPositionModule = () => {
             location: Joi.object({
                 zone: Joi.string().valid("la salada", "flores", "online").messages(stringMessages("Donde planeas vender")),
                 //in case of: la salada
-                shed: Joi.string().valid("punta mogote", "urkupiña", "los coreanos", "oceans", "galerias", "").messages(stringMessages("Galpón")),
+                shed: Joi.string().valid(isInLaSalada ? "punta mogote":"", "urkupiña", "los coreanos", "oceans", "galerias").messages(stringMessages("Galpón")),
                 stallNumber: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Numero de puesto")),
                 hallwayNumber: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Numero de pasillo")),
                 rowNumber: Joi.string().min(isInUrkupiña ? 1 : 0).max(32).messages(stringMessages("Numero de fila")),
@@ -148,32 +191,83 @@ const ClaimPositionModule = () => {
             })
         })
 
-        const { error, value } = Schema.validate(state)
+        const { error, value } = Schema.validate({
+            brandName: state.brandName.value,
+            isWholesaleAndRetail: state.isWholesaleAndRetail,
+            category: state.category.value,
+            shippingBy: state.shippingBy.value,
+            payMethod: state.payMethod.value,
+            location: {
+                zone: state.location.zone.value,
+                shed: state.location.shed.value,
+                stallNumber: state.location.stallNumber.value,
+                hallwayNumber: state.location.hallwayNumber.value,
+                rowNumber: state.location.rowNumber.value,
+                isInGallery: state.location.isInGallery,
+                galleryName: state.location.galleryName.value,
+                positionInGallery: state.location.positionInGallery.value,
+                street: state.location.street.value,
+                streetNumber: state.location.streetNumber.value,
+            }
+        })
 
-        if (error) {
-            return toast.error(error.details[0].message)
-        }
-        if (isInLaSalada && state.location.shed == "") {
-            return toast.error("Elige en que galpon planeas vender")
-        }
 
         if (state.isWholesaleAndRetail == null) {
-            return toast.error("Elige si vas a vender por menor o por mayor")
+            setSubmiting(false)
+            toast.error("Elige si vas a vender por menor o por mayor")
         }
-        if (state.payMethod.length == 0) {
-            return toast.error("Elige al menos un metodo de pago")
+        if (state.payMethod.value.length == 0) {
+            setSubmiting(false)
+            return setState({
+                ...state,
+                payMethod: {
+                    value: [],
+                    error: "Elige al menos un metodo de pago"
+                }
+            })
+        }
+
+        if (error) {
+            setSubmiting(false)
+            if (error.details[0].path.length == 2 ) {
+                return setState({
+                    ...state,
+                    [error.details[0].path[0]]: {
+                        ...state[error.details[0].path[0]],
+                        [error.details[0].path[1]]:{
+                            value: state[error.details[0].path[0]][error.details[0].path[1]].value,
+                            error: error.details[0].message
+                        }
+                    }
+                })
+            }
+            return setState({
+                ...state,
+                [error.details[0].path[0]]: {
+                    value: state[error.details[0].path[0]].value,
+                    error: error.details[0].message
+                }
+            })
+        }
+
+        if (isInLaSalada && state.location.shed.value == "") {
+            setSubmiting(false)
+            return toast.error("Elige en que galpon planeas vender")
         }
 
         if (!error) {
             Put("user/auth/claimbrand", value).then(res => {
                 toast(res.data.msg)
+                setSubmiting(false)
             }).catch(err => {
                 if (err.response.data) {
                     toast.error(err.response.data);
                 }
                 toast.error("Ocurrio un error de nuestro lado")
+                setSubmiting(false)
             })
         }
+        
     }
 
     return (
@@ -202,16 +296,48 @@ const ClaimPositionModule = () => {
                                     clearable
                                     label="Nombre de la marca"
                                     placeholder="Escribe aqui"
+                                    helperText={state.brandName.error}
+                                    helperColor="error"
+                                    status={state.brandName.error ? "error" : "default"}
                                     onChange={handleBrandName}
-                                    iconRight={<Icon id="title" />}
-                                    value={state.brandName}
-                                    css={{w:"100%"}} />
+                                    contentLeft={<Icon id="title" />}
+                                    value={state.brandName.value}
+                                    css={{ w: "100%" }} />
+                            </Grid>
+                            <Grid css={{ mt: 5 }}>
+                                <SellingMode isWholesaleAndRetail={state.isWholesaleAndRetail} onChange={handleSellingMode} />
                             </Grid>
                             <Grid>
-                                <SellingMode isWholesaleAndRetail={state.isWholesaleAndRetail} onChange={handleSellingMode}/>
+                                <Clasification state={state} onChange={handleGenericString} />
+                            </Grid>
+                            <Grid>
+                                <SellZone zone={state.location.zone} onClick={handleZone} />
+                            </Grid>
+                            <Grid>
+                                {
+                                    state.location.zone.value == "la salada" &&
+                                    <SaladaZone state={state.location} onChange={handleLocation} />
+                                }
+                                {
+                                    state.location.zone.value == "flores" &&
+                                    <FloresZone state={state.location} onChange={handleLocation} />
+                                }
                             </Grid>
                         </Grid.Container>
-
+                        <Grid.Container justify="center">
+                            <Button auto
+                                color="secondary"
+                                css={{ color: "$dark" }}
+                                iconRight={<Icon id="add_business" />}
+                                disabled={isSubmiting}
+                                onPress={submit}>
+                                    {
+                                        isSubmiting &&
+                                        <Loading type="points" color="currentColor" size="sm" />
+                                    }
+                                Registrar marca
+                            </Button>
+                        </Grid.Container>
                     </Card.Body>
                 </Card>
             </Grid>

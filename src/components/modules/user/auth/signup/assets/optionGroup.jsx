@@ -5,7 +5,7 @@ const OptionGroup = ({ value, text, icon, isSelected, onClick }) => (
     <Card onClick={() => onClick(value)} isPressable variant="flat" css={{bg:isSelected?"$primary":""}}>
         <Card.Body>
             <Grid.Container justify="center">
-                <Icon id={icon} className="fs-1 text-center" />
+                <Icon id={icon} />
             </Grid.Container>
             <Text weight={600}>
                 {text}

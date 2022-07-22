@@ -69,16 +69,16 @@ const SignUpModule = () => {
         })
 
         if (error) {
+            if (state.isSeller == null) {
+                return toast("Elige una opción entre Comprador/a o Vendedor/a")
+            }
             return setState({
                 ...state,
                 [error.details[0].path[0]]: {
-                    ...state[error.details[0].path[0]],
+                    value:state[error.details[0].path[0]].value,
                     error: error.details[0].message
                 }
             })
-        }
-        if (state.isSeller == null) {
-            return toast("Elige una opción entre Comprador/a o Vendedor/a")
         }
         if (state.password.value != state.rePassword.value) {
             return setState({
@@ -121,6 +121,7 @@ const SignUpModule = () => {
         }
     }
 
+    console.log(state);
     return (
         <Grid.Container justify="center" css={{ my: 20 }}>
             <Grid xs={12} sm={4} >
@@ -159,9 +160,11 @@ const SignUpModule = () => {
                                 isSelected={acceptTermsOfService}
                                 onChange={setAcceptTermsOfService} />
                             <Grid.Container justify="center">
-                                <Button color="secondary" css={{ fontWeight: "$bold", color: "$black", mt: "$10" }} onPress={submit}>
-                                    {state.isSeller ? "Siguiente paso" : "Registrarme"}
-                                    <Icon css={{ color: "$black" }} id={state.isSeller ? "arrow_forward" : "person_add"} />
+                                <Button color="secondary" 
+                                css={{ fontWeight: "$bold", color: "$black", mt: "$10" }} 
+                                onPress={submit}>
+                                    {state.isSeller == true ? "Siguiente paso" : "Registrarme"}
+                                    <Icon css={{ color: "$black" }} id={state.isSeller == true ? "arrow_forward" : "person_add"} />
                                 </Button>
                             </Grid.Container>
                         </Grid.Container>

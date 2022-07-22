@@ -4,19 +4,19 @@ import { Checkbox, Grid, Text } from "@nextui-org/react"
 const SellingMode = ({ isWholesaleAndRetail, onChange }) => {
     return (
         <>
-            <Text tag="h5">
+            <Text h4 >
                 ¿De que manera venderas?
             </Text>
             <Grid.Container>
                 <Checkbox
                     label="por menor"
-                    checked={isWholesaleAndRetail == false}
+                    isSelected={isWholesaleAndRetail == false}
                     onChange={onChange(false)}
                     css={{mr:15}} />
 
                 <Checkbox
                     label="por mayor y menor"
-                    checked={isWholesaleAndRetail == true}
+                    isSelected={isWholesaleAndRetail == true}
                     onChange={onChange(true)} />
             </Grid.Container>
         </>
