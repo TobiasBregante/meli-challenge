@@ -1,26 +1,18 @@
-import Card from '@/ui/cards'
-import Text from "@/ui/texts";
 import Icon from "@/ui/icons";
 import { useState } from 'react';
-import Input from "@/ui/inputs"
-import Button from "@/ui/buttons"
 import { useRouter } from 'next/router';
 import { useUserContext } from '@/src/utils/user/provider';
 import ShouldLogin from '@/components/modules/user/errors/shouldLogin';
 import ShouldBeSeller from '@/components/modules/user/errors/shouldBeSeller';
-import Select from '@/ui/selects';
-import Checkbox from '@/src/components/ui/inputs/checkbox';
 import RetailPerUnit from './sections/retailPerUnit';
-//Validation
-import { toast } from 'react-toastify'
-import PriceTable from '@/components/modules/products/view/productInfo/priceTable'
-import { FileUploader } from "react-drag-drop-files";
-import Image from 'next/image';
-import categories from '@/src/utils/user/brand/categories';
 import RetailPerDozen from './sections/retailPerDozen';
 import WholesalePerUnit from './sections/wholesalePerUnit';
 import WholesalePerDozen from './sections/wholesalePerDozen';
 import WholesalePerCurve from './sections/wholesalePerCurve';
+import { Button, Card, Checkbox, Grid, Input, Text, Textarea } from "@nextui-org/react";
+import Clasification from "./sections/clasification";
+import ImagesSection from "./sections/images";
+//Validation
 
 const AddProduct = () => {
 
@@ -30,46 +22,49 @@ const AddProduct = () => {
 
 
     const [state, setState] = useState({
-        title: "",
-        category: "",
-        stock: "",
-        description: "",
-        retailPrice: "",
-        prices: [],
-        imgs: [],
-        isPerDozenElseCurve: null,
-        minimun: "",
-        pricePerUnit: "",
+        title: {error:"",value:""},
+        category: {error:"",value:""},
+        stock: {error:"",value:""},
+        description: {error:"",value:""},
+        imgs: {error:"",value:[]},
         prices: {
             retail: {
-                isPerUnit: null,
-                minPerUnit: "",
-                pricePerUnit: "",
+                isPerUnit: {error:"",value:null},
+                minPerUnit: {error:"",value:""},
+                pricePerUnit: {error:"",value:""},
 
-                minPerDozen: "",
-                pricePerDozen: ""
+                minPerDozen: {error:"",value:""},
+                pricePerDozen: {error:"",value:""}
             },
             wholesale: {
-                sellMode: null,
-                minPerUnit: "",
-                pricePerUnit: "",
+                sellMode: {error:"",value:null},
 
-                minPerDozen: "",
-                pricePerDozen: "",
+                minPerUnit: {error:"",value:""},
+                pricePerUnit: {error:"",value:""},
+                minPerBigUnit: {error:"",value:""},
+                pricePerBigUnit: {error:"",value:""},
 
-                sizesPerCurve: "",
-                minPerCurve:"",
-                pricePerCurve: "",
+                minPerDozen: {error:"",value:""},
+                pricePerDozen: {error:"",value:""},
+                minPerBigDozen: {error:"",value:""},
+                pricePerBigDozen: {error:"",value:""},
+
+                sizesPerCurve: {error:"",value:""},
+                minPerCurve: {error:"",value:""},
+                pricePerCurve: {error:"",value:""},
+                minPerBigCurve: {error:"",value:""},
+                pricePerBigCurve: {error:"",value:""},
             }
         }
-    })
+    }),
+    [isSubmiting,setSubmiting] = useState(false)
 
-    if (!user) {
+    if (!user && false) {
         return (
             <ShouldLogin />
         )
     }
-    if (!user.isSeller) {
+    if (!user.isSeller && false) {
         return (
             <ShouldBeSeller />
         )
@@ -81,7 +76,10 @@ const AddProduct = () => {
                 ...state.prices,
                 retail: {
                     ...state.prices.retail,
-                    isPerUnit: v
+                    isPerUnit: {
+                        error: "",
+                        value: v
+                    }
                 }
             }
         })
@@ -93,7 +91,10 @@ const AddProduct = () => {
                 ...state.prices,
                 retail: {
                     ...state.prices.retail,
-                    [key]: e.target.value
+                    [key]: {
+                        error: "",
+                        value: e.target.value
+                    }
                 }
             }
         })
@@ -105,7 +106,10 @@ const AddProduct = () => {
                 ...state.prices,
                 wholesale: {
                     ...state.prices.wholesale,
-                    sellMode: v
+                    sellMode: {
+                        error:"",
+                        value:v
+                    }
                 }
             }
         })
@@ -117,7 +121,10 @@ const AddProduct = () => {
                 ...state.prices,
                 wholesale: {
                     ...state.prices.wholesale,
-                    [key]: e.target.value
+                    [key]: {
+                        error:"",
+                        value:e.target.value
+                    }
                 }
             }
         })
@@ -126,191 +133,268 @@ const AddProduct = () => {
     const handleGenericString = key => (e) => {
         setState({
             ...state,
-            [key]: e.target.value
+            [key]: {
+                error: "",
+                value: e.target.value
+            }
         })
     }
 
+    //SUBMIT
+    const submit = () => {
+        setSubmiting(true)
 
-    const handleSellingMode = (value) => (e) => {
-
-        setState({
-            ...state,
-            isPerDozenElseCurve: value
+        //CHECKING
+        const Schema = Joi.object({
+            title: Joi.string().min(2).max(64).messages(stringMessages("Nombre de marca")),
+            category: Joi.string().min(2).max(64).messages(stringMessages("Categoria")),
+            stock: Joi.number().min(0).max(999999).messages(stringMessages("Stock")),
+            description: Joi.string().min(2).max(5000).messages(stringMessages("Descripción")),
+            imgs: Joi.array().items(Joi.string().min(1).max(128).messages(stringMessages("Imagenes"))),
+            prices: Joi.object({
+                retail: {
+                    isPerUnit: Joi.boolean().valid(null, true, false).messages(booleanMessages("Por menor")),
+                    minPerUnit: Joi.number().min(0).max(999999),
+                    
+                }  
+            })
         })
-    }
 
-    const addPrice = () => {
-        if (state.pricePerUnit == "") {
-            return toast("Añade un precio antes")
+        const { error, value } = Schema.validate({
+            brandName: state.brandName.value,
+            isWholesaleAndRetail: state.isWholesaleAndRetail,
+            category: state.category.value,
+            shippingBy: state.shippingBy.value,
+            payMethod: state.payMethod.value,
+            location: {
+                zone: state.location.zone.value,
+                shed: state.location.shed.value,
+                stallNumber: state.location.stallNumber.value,
+                hallwayNumber: state.location.hallwayNumber.value,
+                rowNumber: state.location.rowNumber.value,
+                isInGallery: state.location.isInGallery,
+                galleryName: state.location.galleryName.value,
+                positionInGallery: state.location.positionInGallery.value,
+                street: state.location.street.value,
+                streetNumber: state.location.streetNumber.value,
+            }
+        })
+
+
+        if (state.isWholesaleAndRetail == null) {
+            setSubmiting(false)
+            toast.error("Elige si vas a vender por menor o por mayor")
         }
-        if (state.minimun == "") {
-            return toast("Añade una cantidad minima antes")
+        if (state.payMethod.value.length == 0) {
+            setSubmiting(false)
+            return setState({
+                ...state,
+                payMethod: {
+                    value: [],
+                    error: "Elige al menos un metodo de pago"
+                }
+            })
         }
-        setState({
-            ...state,
-            prices: [...state.prices, {
-                isPerDozenElseCurve: state.isPerDozenElseCurve,
-                minimun: state.minimun,
-                value: state.pricePerUnit
-            }],
-            minimun: "",
-            pricePerUnit: "",
-            isPerDozenElseCurve: null
-        })
-    }
 
-    const removePrice = (id) => {
-        setState({
-            ...state,
-            prices: state.prices.filter((x, xI) => xI != id)
-        })
-    }
+        if (error) {
+            setSubmiting(false)
+            if (error.details[0].path.length == 2 ) {
+                return setState({
+                    ...state,
+                    [error.details[0].path[0]]: {
+                        ...state[error.details[0].path[0]],
+                        [error.details[0].path[1]]:{
+                            value: state[error.details[0].path[0]][error.details[0].path[1]].value,
+                            error: error.details[0].message
+                        }
+                    }
+                })
+            }
+            return setState({
+                ...state,
+                [error.details[0].path[0]]: {
+                    value: state[error.details[0].path[0]].value,
+                    error: error.details[0].message
+                }
+            })
+        }
 
-    const addImg = (e) => {
+        if (isInLaSalada && state.location.shed.value == "") {
+            setSubmiting(false)
+            return toast.error("Elige en que galpon planeas vender")
+        }
 
-        const flArray = Array.from(e)
+        if (!error) {
+            Put("user/auth/claimbrand", value).then(res => {
+                toast(res.data.msg)
+                setSubmiting(false)
+            }).catch(err => {
+                if (err.response.data) {
+                    toast.error(err.response.data);
+                }
+                toast.error("Ocurrio un error de nuestro lado")
+                setSubmiting(false)
+            })
+        }
+        
+    }
+    
 
-        setState({
-            ...state,
-            imgs: [...state.imgs, ...flArray.map(img => URL.createObjectURL(img))]
-        })
-    }
-    const removeImg = (id) => () => {
-        setState({
-            ...state,
-            imgs: state.imgs.filter((x, xI) => xI !== id)
-        })
-    }
 
     return (
-        <div className="container d-flex justify-content-center">
-            <Card className="mt-3 col-12 col-lg-7 p-3 mb-5">
-                <Text weight={600} tag="h3" className="text-center">
-                    Registra un producto
-                </Text>
-                <Text weight={600} tag="h4" className="d-flex flex-row">
-                    <Icon id="info" className={"mt-01"} />
-                    Información:
-                </Text>
-                <Input
-                    type="text"
-                    label="Titulo del producto"
-                    placeholder="Escribe aqui"
-                    min={2}
-                    max={64}
-                    iconRight={<Icon id="title" />}
-                    value={state.title}
-                    onChange={handleGenericString("title")}
-                    clearable />
+        <Grid.Container justify="center" css={{ my: 20 }}>
+            <Grid xs={12} sm={4} >
+                <Card variant="flat" css={{ bg: "$white", pb: 20 }}>
+                    <Card.Header>
+                        <Grid.Container justify="center">
+                            <Grid>
+                                <Text h3 weight="bold">
+                                    Registra un producto
+                                </Text>
+                            </Grid>
+                        </Grid.Container>
+                    </Card.Header>
+                    <Card.Body>
+                        <Grid.Container direction="column" gap={1.5}>
+                            <Grid>
+                                <Grid.Container>
+                                    <Icon id="info" />
+                                    <Text h4>
+                                        Información:
+                                    </Text>
+                                </Grid.Container>
+                            </Grid>
+                            <Grid>
+                                <Grid.Container>
+                                    <Input
+                                        clearable
+                                        label="Titulo del producto"
+                                        placeholder="Escribe aqui el titulo"
+                                        helperColor="error"
+                                        helperText={state.title.error}
+                                        status={state.title.error ? "error" : "default"}
+                                        contentLeft={<Icon id="title" />}
+                                        value={state.title.value}
+                                        onChange={handleGenericString("title")} />
+                                </Grid.Container>
+                            </Grid>
+                            <Grid>
+                                <Grid.Container>
+                                    <Clasification state={state} onChange={handleGenericString} />
+                                </Grid.Container>
+                            </Grid>
+                            <Grid>
+                                <Grid.Container>
+                                    <Textarea
+                                        width="100%"
+                                        label="Descripción"
+                                        placeholder="Escribe aqui lo mas detalladamente posible tu producto"
+                                        helperColor="error"
+                                        helperText={state.description.error}
+                                        status={state.description.error ? "error" : "default"}
+                                        value={state.description.value}
+                                        onChange={handleGenericString("description")} />
+                                </Grid.Container>
+                            </Grid>
+                            <Grid>
+                                <Grid.Container>
+                                    <Input
+                                        type="number"
+                                        clearable
+                                        label="Cantidad disponible (stock)"
+                                        placeholder="Escribe aqui el stock"
+                                        contentLeft={<Icon id="inventory" />}
+                                        value={state.stock.value}
+                                        onChange={handleGenericString("stock")} />
+                                </Grid.Container>
+                            </Grid>
 
-                <Select className="my-2" label={"Categoria"}>
-                    <Select.Option>Elige una categoria</Select.Option>
-                    {
-                        categories.map((category, i) => (
-                            <Select.Option key={i} value={category}>{category}</Select.Option>
-                        ))
-                    }
-                </Select>
-                <Text tag="label" className="d-flex flex-row">
-                    Descripción:
-                </Text>
-                <div className="form-floating mb-3">
-                    <textarea className="form-control" placeholder="Escriba aqui la descripción" id="description"></textarea>
-                    <label htmlFor="description">Escriba aqui siendo lo mas descriptivo posible</label>
-                </div>
-                <Input
-                    type="number"
-                    label="Cantidad disponible (stock)"
-                    placeholder="Escribe aqui"
-                    min={0}
-                    max={999999}
-                    iconRight={<Icon id="inventory" />}
-                    value={state.stock}
-                    onChange={handleGenericString("stock")}
-                    clearable />
+                            <Grid>
+                                <Text h3>
+                                    Formas de vender
+                                </Text>
+                            </Grid>
+                            <Grid>
+                                <Grid.Container>
+                                    <Icon id="attach_money" className={"mt-01"} />
+                                    <Text h4>
+                                        Por menor:
+                                    </Text>
+                                    <Grid.Container>
+                                        <Checkbox
+                                            onChange={handleRetailSellMode(true)}
+                                            isSelected={state.prices.retail.isPerUnit.value == true}
+                                            label="Por unidad"
+                                            css={{ mr: 15 }} />
+                                        <Checkbox
+                                            onChange={handleRetailSellMode(false)}
+                                            isSelected={state.prices.retail.isPerUnit.value == false}
+                                            label="Por docena" />
+                                    </Grid.Container>
+                                    {
+                                        state.prices.retail.isPerUnit.value &&
+                                        <RetailPerUnit state={state.prices.retail} handleState={handleRetail} />
+                                    }
+                                    {
+                                        state.prices.retail.isPerUnit.value == false &&
+                                        <RetailPerDozen state={state.prices.retail} handleState={handleRetail} />
+                                    }
+                                    <Icon id="attach_money" className={"mt-01"} />
+                                    <Text h4>
+                                        Por mayor:
+                                    </Text>
 
-                <Text weight={600} tag="h4" className="d-flex flex-row mt-3">
-                    <Icon id="attach_money" className={"mt-01"} />
-                    Por menor:
-                </Text>
-                <div className="d-flex flex-row mb-2">
-                    <Checkbox onChange={handleRetailSellMode(true)} checked={state.prices.retail.isPerUnit == true} label="Por unidad" className="me-3" />
-                    <Checkbox onChange={handleRetailSellMode(false)} checked={state.prices.retail.isPerUnit == false} label="Por docena" />
-                </div>
-                {
-                    state.prices.retail.isPerUnit &&
-                    <RetailPerUnit state={state.prices.retail} handleState={handleRetail} />
-                }
-                {
-                    state.prices.retail.isPerUnit == false &&
-                    <RetailPerDozen state={state.prices.retail} handleState={handleRetail} />
-                }
-
-
-
-
-                <Text weight={600} tag="h4" className="d-flex flex-row mt-3">
-                    <Icon id="attach_money" className={"mt-01"} />
-                    Por mayor:
-                </Text>
-                <div className="d-flex flex-row mb-2">
-                    <Checkbox onChange={handleWholesaleSellMode(0)} checked={state.prices.wholesale.sellMode == 0} label="Por unidad" className="me-3" />
-                    <Checkbox onChange={handleWholesaleSellMode(1)} checked={state.prices.wholesale.sellMode == 1} label="Por docena" className="me-3" />
-                    <Checkbox onChange={handleWholesaleSellMode(2)} checked={state.prices.wholesale.sellMode == 2} label="Por curva" />
-                </div>
-                {
-                    state.prices.wholesale.sellMode == 0 &&
-                    <WholesalePerUnit state={state.prices.wholesale} handleState={handleWholesale} />
-                }
-                {
-                    state.prices.wholesale.sellMode == 1 &&
-                    <WholesalePerDozen state={state.prices.wholesale} handleState={handleWholesale} />
-                }
-                {
-                    state.prices.wholesale.sellMode == 2 &&
-                    <WholesalePerCurve state={state.prices.wholesale} handleState={handleWholesale} />
-                }
-
-
-                <Text weight={600} tag="h4" className="d-flex flex-row mt-3">
-                    <Icon id="image" className={"mt-01"} />
-                    Imagenes:
-                </Text>
-                <div className="border-dashed border-2 d-flex flex-column justify-content-center rounded-16 p-3 ">
-                    <FileUploader handleChange={addImg} multiple={true} name="file" types={["jpg", "png"]} >
-                        <Text>
-                            Arrastra y suelta tus fotos aqui
-                        </Text>
-                    </FileUploader>
-
-                </div>
-                <Card className="d-flex flex-row flex-wrap mt-3">
-                    {
-                        state.imgs.map((img, i) => (
-                            <div key={i} className="rounded-12 m-1 position-relative animate__animated animate__bounceIn">
-                                <Image
-                                    src={img}
-                                    width={100}
-                                    height={100}
-                                    className="rounded-16"
-                                    alt="a" />
-                                <Icon id="delete" className="position-absolute z-index-infinite right-1 top-1 pointer" onClick={removeImg(i)} />
-                            </div>
-                        ))
-                    }
+                                    <Grid.Container>
+                                        <Checkbox
+                                            onChange={handleWholesaleSellMode(0)}
+                                            isSelected={state.prices.wholesale.sellMode.value == 0}
+                                            label="Por unidad"
+                                            css={{ mr: 15 }} />
+                                        <Checkbox
+                                            onChange={handleWholesaleSellMode(1)}
+                                            isSelected={state.prices.wholesale.sellMode.value == 1}
+                                            label="Por docena"
+                                            css={{ mr: 15 }} />
+                                        <Checkbox
+                                            onChange={handleWholesaleSellMode(2)}
+                                            isSelected={state.prices.wholesale.sellMode.value == 2}
+                                            label="Por curva" />
+                                    </Grid.Container>
+                                    {
+                                        state.prices.wholesale.sellMode.value == 0 &&
+                                        <WholesalePerUnit state={state.prices.wholesale} handleState={handleWholesale} />
+                                    }
+                                    {
+                                        state.prices.wholesale.sellMode.value == 1 &&
+                                        <WholesalePerDozen state={state.prices.wholesale} handleState={handleWholesale} />
+                                    }
+                                    {
+                                        state.prices.wholesale.sellMode.value == 2 &&
+                                        <WholesalePerCurve state={state.prices.wholesale} handleState={handleWholesale} />
+                                    }
+                                </Grid.Container>
+                            </Grid>
+                            <Grid>
+                                <ImagesSection state={state} setState={setState} />
+                            </Grid>
+                        </Grid.Container>
+                        <Grid.Container justify="center">
+                            <Button 
+                            auto 
+                            color="secondary" 
+                            css={{color:"$dark"}} 
+                            iconRight={<Icon id="add"/>}
+                            onPress={submit}>
+                                Añadir producto
+                            </Button>
+                        </Grid.Container>
+                    </Card.Body>
                 </Card>
-
-                <div className="d-flex justify-content-center">
-                    <Button color="info-300" className="col-12 col-lg-4 mt-4 d-flex justify-content-center" >
-                        <Text weight="700">
-                            Cargar producto
-                        </Text>
-                        <Icon id="add" className="ms-2" />
-                    </Button>
-                </div>
-            </Card>
-        </div>
+            </Grid>
+        </Grid.Container>
     )
+
+    
 }
 
 export default AddProduct
