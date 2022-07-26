@@ -1,5 +1,5 @@
 import Icon from '@/ui/icons/'
-import { Grid, Input, Text } from '@nextui-org/react'
+import { Grid, Input, Text, Tooltip } from '@nextui-org/react'
 
 const WholesalePerDozen = ({ state, handleState }) => {
     const total = () => {
@@ -89,18 +89,20 @@ const WholesalePerDozen = ({ state, handleState }) => {
                         clearable />
                 </Grid>
                 <Grid>
-                    <Input
-                        type="number"
-                        label={`Precio para ventas por gran cantidad por cada unidad en la dozena`}
-                        className="mt-2"
-                        placeholder={`el precio debe ser menor a ${state.pricePerDozen.value}`}
-                        helperText={state.pricePerBigDozen.error}
-                        helperColor="error"
-                        status={state.pricePerBigDozen.error ? "error" : "default"}
-                        labelLeft="$"
-                        value={state.pricePerBigDozen.value}
-                        onChange={handleState("pricePerBigDozen")}
-                        clearable />
+                    <Tooltip content={`El precio debe ser menor a ${state.pricePerDozen.value}`}>
+                        <Input
+                            type="number"
+                            label={`Precio para ventas por gran cantidad por cada unidad en la dozena`}
+                            className="mt-2"
+                            placeholder={`el precio debe ser menor a ${state.pricePerDozen.value}`}
+                            helperText={state.pricePerBigDozen.error}
+                            helperColor="error"
+                            status={state.pricePerBigDozen.error ? "error" : "default"}
+                            labelLeft="$"
+                            value={state.pricePerBigDozen.value}
+                            onChange={handleState("pricePerBigDozen")}
+                            clearable />
+                    </Tooltip>
                 </Grid>
                 <Grid>
                     <Input

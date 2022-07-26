@@ -42,7 +42,7 @@ const WholesalePerUnit = ({ state, handleState }) => {
                 <Grid>
                     <Input
                         type="number"
-                        label="Coloque aquí la cantidad de dozenas para ventas en cantidad"
+                        label="Coloque aquí la cantidad de unidades para ventas en cantidad"
                         className="mt-2"
                         placeholder="Escribe aqui"
                         helperText={state.minPerBigUnit.error}
@@ -56,7 +56,7 @@ const WholesalePerUnit = ({ state, handleState }) => {
                 <Grid>
                     <Input
                         type="number"
-                        label={`Precio para ventas por gran cantidad por cada unidad en la dozena`}
+                        label={`Precio para ventas por gran cantidad por cada unidad`}
                         className="mt-2"
                         placeholder={`el precio debe ser menor a ${state.pricePerUnit.value}`}
                         helperText={state.pricePerBigUnit.error}

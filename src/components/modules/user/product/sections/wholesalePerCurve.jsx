@@ -1,5 +1,5 @@
 import Icon from '@/ui/icons/'
-import { Grid, Input, Text } from '@nextui-org/react'
+import { Grid, Input, Text, Tooltip } from '@nextui-org/react'
 import currency from 'currency.js'
 
 const WholesalePerDozen = ({ state, handleState }) => {
@@ -103,18 +103,20 @@ const WholesalePerDozen = ({ state, handleState }) => {
                         clearable />
                 </Grid>
                 <Grid>
-                    <Input
-                        type="number"
-                        label={`Precio para ventas por gran cantidad por cada unidad en la curva`}
-                        className="mt-2"
-                        placeholder={`el precio debe ser menor a ${state.pricePerCurve.value}`}
-                        helperText={state.pricePerBigCurve.error}
-                        helperColor="error"
-                        status={state.pricePerBigCurve.error ? "error" : "default"}
-                        labelLeft="$"
-                        value={state.pricePerBigCurve.value}
-                        onChange={handleState("pricePerBigCurve")}
-                        clearable />
+                    <Tooltip content={`El precio debe ser menor a ${state.pricePerCurve.value}`}>
+                        <Input
+                            type="number"
+                            label={`Precio para ventas por gran cantidad por cada unidad en la curva`}
+                            className="mt-2"
+                            placeholder={`el precio debe ser menor a ${state.pricePerCurve.value}`}
+                            helperText={state.pricePerBigCurve.error}
+                            helperColor="error"
+                            status={state.pricePerBigCurve.error ? "error" : "default"}
+                            labelLeft="$"
+                            value={state.pricePerBigCurve.value}
+                            onChange={handleState("pricePerBigCurve")}
+                            clearable />
+                    </Tooltip>
                 </Grid>
                 <Grid>
                     <Input

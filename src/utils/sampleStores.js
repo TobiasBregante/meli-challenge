@@ -11,7 +11,8 @@ const stores = ()=>(
         seller: faker.company.companyName(1),
         img: `c${faker.mersenne.rand(1,6)}`,
         bgImg: `t${faker.mersenne.rand(1,6)}`,
-        rating: faker.mersenne.rand(3, 6)
+        rating: faker.mersenne.rand(3, 6),
+        followers: faker.mersenne.rand(100, 500)
     }))
 )
 
