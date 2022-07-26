@@ -1,26 +1,24 @@
-import Text from '@/ui/texts'
-import Checkbox from '@/src/components/ui/inputs/checkbox'
+import { Checkbox, Grid, Text } from "@nextui-org/react"
 
-const SellingMode = ({isRetail,isWholesale,onChange}) => {
+
+const SellingMode = ({ isWholesaleAndRetail, onChange }) => {
     return (
         <>
-            <Text tag="h5">
+            <Text h4 >
                 ¿De que manera venderas?
             </Text>
-            <div className="d-flex">
+            <Grid.Container>
                 <Checkbox
                     label="por menor"
-                    size={6}
-                    className="me-4"
-                    checked={isRetail}
-                    onChange={onChange("retail")} />
+                    isSelected={isWholesaleAndRetail == false}
+                    onChange={onChange(false)}
+                    css={{mr:15}} />
 
                 <Checkbox
-                    label="por mayor"
-                    size={6}
-                    checked={isWholesale}
-                    onChange={onChange("wholesale")} />
-            </div>
+                    label="por mayor y menor"
+                    isSelected={isWholesaleAndRetail == true}
+                    onChange={onChange(true)} />
+            </Grid.Container>
         </>
     )
 }

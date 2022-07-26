@@ -2,9 +2,8 @@ import Page from "@Page";
 import AddProduct from "@/src/components/modules/user/product/add";
 
 const AddProductPage = () => {
-    return null
     return (
-        <Page title="SaladaApp - Reclamar puesto" >
+        <Page title="SaladaApp - Añadir producto" >
             <AddProduct/>
         </Page>
     )

@@ -1,13 +1,17 @@
 import Card from '@/ui/cards'
 import Image from 'next/image'
 import Text from '@/ui/texts'
+import Icon from '@/ui/icons'
+import Button from '@/ui/buttons'
+import { useState } from 'react'
+import Share from '@/components/modules/common/share'
 import Link from 'next/link'
-import Icon from '../../ui/icons'
-import Button from '../../ui/buttons'
 
 const BrandProfileMinimal = ({ data }) => {
+    const [isShareOpen, setShareState] = useState(false)
     return (
         <Card rounded={16} className="d-flex flex-column p-3">
+            <Share isVisible={isShareOpen} close={setShareState} />
             <div className="d-flex flex-row justify-content-center">
                 <Image
                     className="rounded-circle pointer"
@@ -38,11 +42,16 @@ const BrandProfileMinimal = ({ data }) => {
                     flete
                 </Text>
             </div>
-            <Button color="primary-500" className="d-flex flex-row justify-content-center text-white">
-                Ver catalogo completo
-                <Icon id="open_in_new"/>
+            <Link href="/./brand/mk">
+                <Button color="primary-500" className="d-flex flex-row justify-content-center text-white">
+                    Ver catalogo completo
+                    <Icon id="open_in_new" />
+                </Button>
+            </Link>
+            <Button color="info-500" className="d-flex flex-row justify-content-center text-white mt-2" onClick={() => setShareState(true)}>
+                Compartir catalogo
+                <Icon id="share" />
             </Button>
-
         </Card>
     )
 }
