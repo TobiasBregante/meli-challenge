@@ -7,7 +7,7 @@ const SearchModule = ({ data, query }) => {
 
     return (
         <Grid.Container gap={2}>
-            <Grid xs={0} lg={0}>
+            <Grid xs={3.5} lg={3.5}>
                 <Grid >
                     <Card css={{ h: "auto" }}>
                         <Card.Header>
@@ -20,12 +20,12 @@ const SearchModule = ({ data, query }) => {
                     </Card>
                 </Grid>
             </Grid>
-            <Grid xs={12} lg={12}>
+            <Grid xs={12} lg={8.5}>
                 <Grid.Container direction="column">
                     <Text h3>
                         Resultados para: {query}
                     </Text>
-                    <UnorderedList data={data} breakpoints={{ lg: 2 }} />
+                    <UnorderedList data={data} breakpoints={{ lg: 3 }} />
                 </Grid.Container>
             </Grid>
         </Grid.Container>

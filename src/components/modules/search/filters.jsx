@@ -1,4 +1,4 @@
-import { Button, Dropdown, Grid, Text } from "@nextui-org/react"
+import { Button, Dropdown, Grid, Input, Text } from "@nextui-org/react"
 import { useMemo, useState } from "react"
 import Icon from "@/ui/icons"
 import categories from "@/src/utils/user/brand/categories"
@@ -8,11 +8,12 @@ const SearchFilters = () => {
         orderBy: new Set(["Más popular"]),
         isWholeSale: null,
         category: null,
-        isStore:null,
-        location:new Set(["Todas las ubicaciones"])
+        isStore: true,
+        location: new Set(["Todas las ubicaciones"]),
+        shed: new Set(["punta mogote"]),
     })
 
-    const handleSelect = name=>e => {
+    const handleSelect = name => e => {
         setState({
             ...state,
             [name]: e
@@ -27,6 +28,11 @@ const SearchFilters = () => {
     const location = useMemo(
         () => Array.from(state.location),
         [state.location]
+    );
+
+    const shed = useMemo(
+        () => Array.from(state.shed),
+        [state.shed]
     );
 
     const handleState = name => e => {
@@ -91,13 +97,13 @@ const SearchFilters = () => {
 
             </Grid>
             <Grid>
-                <Text h4 css={{mt:10}}>
+                <Text h4 css={{ mt: 10 }}>
                     Ubicación
                 </Text>
                 <Dropdown>
                     <Dropdown.Button color="secondary" css={{ color: "$black" }}>
                         {
-                            location 
+                            location
                         }
                     </Dropdown.Button>
                     <Dropdown.Menu
@@ -111,6 +117,32 @@ const SearchFilters = () => {
                     </Dropdown.Menu>
                 </Dropdown>
             </Grid>
+            {
+                location == "La salada" &&
+                <Grid>
+                <Text h4 css={{ mt: 10 }}>
+                    ¿En que galpón estan?
+                </Text>
+                <Dropdown>
+                    <Dropdown.Button color="secondary" css={{ color: "$black" }}>
+                        {
+                            shed
+                        }
+                    </Dropdown.Button>
+                    <Dropdown.Menu
+                        selectionMode="single"
+                        selectedKeys={shed}
+                        onSelectionChange={handleSelect("shed")}
+                    >
+                        <Dropdown.Item key="punta mogote">Punta mogote</Dropdown.Item>
+                        <Dropdown.Item key="urkupiña">Urkupiña</Dropdown.Item>
+                        <Dropdown.Item key="los coreanos">Los koreanos</Dropdown.Item>
+                        <Dropdown.Item key="oceans">Oceans</Dropdown.Item>
+                        <Dropdown.Item key="galerias">Galerias</Dropdown.Item>
+                    </Dropdown.Menu>
+
+                </Dropdown>
+            </Grid>}
 
             <Text h4 css={{ mt: 10 }}>
                 Buscar por
@@ -120,8 +152,8 @@ const SearchFilters = () => {
                     <Grid>
                         <Button auto
                             icon={<Icon id="checkroom" />}
-                            ghost={state.isStore == true || state.isStore == null}
-                            onPress={() => handleState("isStore")({ target: { value: false } })}
+                            ghost={!state.isStore == true}
+                            onPress={() => handleState("isStore")({ target: { value: true } })}
                             color="secondary"
                             css={{ color: "$black", mb: 5 }}>
                             Producto
@@ -131,8 +163,8 @@ const SearchFilters = () => {
                         <Button auto
 
                             icon={<Icon id="store" />}
-                            ghost={state.isStore == false || state.isStore == null}
-                            onPress={() => handleState("isStore")({ target: { value: true } })}
+                            ghost={!state.isStore == false}
+                            onPress={() => handleState("isStore")({ target: { value: false } })}
                             color="secondary"
                             css={{ color: "$black", mb: 5 }}>
                             Tienda

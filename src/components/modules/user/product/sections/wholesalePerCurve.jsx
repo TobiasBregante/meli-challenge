@@ -62,7 +62,7 @@ const WholesalePerDozen = ({ state, handleState }) => {
                 <Grid>
                     <Input
                         type="number"
-                        label="Precio para ventas por mayor por cada unidad en la curva"
+                        label="Precio por unidad en la curva"
                         className="mt-2"
                         placeholder="Escribe aqui"
                         helperText={state.pricePerCurve.error}
@@ -91,7 +91,7 @@ const WholesalePerDozen = ({ state, handleState }) => {
                 <Grid>
                     <Input
                         type="number"
-                        label="Coloque aquí la cantidad de curvas para ventas en cantidad"
+                        label="Cantidad de curvas para ventas en cantidad"
                         className="mt-2"
                         placeholder="Escribe aqui"
                         helperText={state.minPerBigCurve.error}
@@ -106,7 +106,7 @@ const WholesalePerDozen = ({ state, handleState }) => {
                     <Tooltip content={`El precio debe ser menor a ${state.pricePerCurve.value}`}>
                         <Input
                             type="number"
-                            label={`Precio para ventas por gran cantidad por cada unidad en la curva`}
+                            label={`Precio por unidad en la curva por gran cantidad`}
                             className="mt-2"
                             placeholder={`el precio debe ser menor a ${state.pricePerCurve.value}`}
                             helperText={state.pricePerBigCurve.error}

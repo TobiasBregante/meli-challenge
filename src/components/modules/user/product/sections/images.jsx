@@ -39,7 +39,7 @@ const ImagesSection = ({ state, setState }) => {
             <Grid css={{ border: "dashed 2px", p: "$10", textAlign: "center" }} className="rounded-16">
                 <FileUploader handleChange={addImg} multiple={true} name="file" types={["jpg", "png"]} >
                     <Text>
-                        Arrastra y suelta tus fotos aqui
+                        Arrastra y suelta tus fotos aqui o presiona aqui
                     </Text>
                 </FileUploader>
             </Grid>

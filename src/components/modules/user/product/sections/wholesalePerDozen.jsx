@@ -49,7 +49,7 @@ const WholesalePerDozen = ({ state, handleState }) => {
                 <Grid>
                     <Input
                         type="number"
-                        label="Precio de cada unidad en la docena para ventas por mayor"
+                        label="Precio por unidad en la docena para por mayor"
                         className="mt-2"
                         placeholder="Escribe aqui"
                         helperText={state.pricePerDozen.error}
@@ -77,7 +77,7 @@ const WholesalePerDozen = ({ state, handleState }) => {
                 <Grid>
                     <Input
                         type="number"
-                        label="Coloque aquí la cantidad de dozenas para ventas en cantidad"
+                        label="Cantidad de docenas para ventas en cantidad"
                         className="mt-2"
                         placeholder="Escribe aqui"
                         helperText={state.minPerBigDozen.error}
@@ -92,7 +92,11 @@ const WholesalePerDozen = ({ state, handleState }) => {
                     <Tooltip content={`El precio debe ser menor a ${state.pricePerDozen.value}`}>
                         <Input
                             type="number"
-                            label={`Precio para ventas por gran cantidad por cada unidad en la dozena`}
+                            label={
+                                <Text small>
+                                    Precio por unidad en docena para ventas en cantidad
+                                </Text>
+                            }
                             className="mt-2"
                             placeholder={`el precio debe ser menor a ${state.pricePerDozen.value}`}
                             helperText={state.pricePerBigDozen.error}
@@ -106,7 +110,7 @@ const WholesalePerDozen = ({ state, handleState }) => {
                 </Grid>
                 <Grid>
                     <Input
-                        label={`Precio total por gran cantidad por ${state.minPerBigDozen.value} dozenas`}
+                        label={`Precio total por gran cantidad por ${state.minPerBigDozen.value} docenas`}
                         labelLeft="$"
                         value={totalBigDozen()}
                         readOnly />
