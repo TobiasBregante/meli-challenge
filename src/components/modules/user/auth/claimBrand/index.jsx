@@ -17,6 +17,7 @@ import Put from '@/src/utils/hooks/put';
 import categories from '@/src/utils/user/brand/categories';
 import { Button, Card, Grid, Input, Loading, Text } from "@nextui-org/react";
 import Clasification from "./sections/clasification";
+import sheds from "@/src/utils/user/brand/sheds";
 
 const ClaimPositionModule = () => {
 
@@ -37,14 +38,18 @@ const ClaimPositionModule = () => {
             error: "",
             value: ""
         },
+        shippingRange: {
+            error: "",
+            value: ""
+        },
         payMethod: {
             error: "",
             value: []
         },
         location: {
             zone: {
-                error:"",
-                value:""
+                error: "",
+                value: ""
             },
             //this is in case of: la salada
             shed: {
@@ -55,11 +60,19 @@ const ClaimPositionModule = () => {
                 error: "",
                 value: ""
             },
-            hallwayNumber: {
+            hallway: {
                 error: "",
                 value: ""
             },
-            rowNumber: {
+            row: {
+                error: "",
+                value: ""
+            },
+            floor: {
+                error: "",
+                value: ""
+            },
+            side: {
                 error: "",
                 value: ""
             },
@@ -83,7 +96,7 @@ const ClaimPositionModule = () => {
             },
         },
     }),
-    [isSubmiting,setSubmiting] = useState(false)
+        [isSubmiting, setSubmiting] = useState(false)
 
     if (!user && false) {
         return (
@@ -117,7 +130,7 @@ const ClaimPositionModule = () => {
             ...state, location: {
                 ...state.location,
                 zone: {
-                    error:"",
+                    error: "",
                     value: v
                 }
             }
@@ -161,7 +174,6 @@ const ClaimPositionModule = () => {
 
         //zone: la salada
         const isInLaSalada = zone == "la salada"
-        const isInUrkupiña = isInLaSalada && state.location.shed.value == "urkupiña"
 
         //zone: flores
         const isInFlores = zone == "flores"
@@ -174,14 +186,17 @@ const ClaimPositionModule = () => {
             isWholesaleAndRetail: Joi.boolean().valid(null, true, false).messages(booleanMessages("Forma de vender")),
             category: Joi.string().min(1).max(128).messages(stringMessages("Categoria")),
             shippingBy: Joi.string().min(1).max(128).messages(stringMessages("Transporte de envios")),
+            shippingRange: Joi.string().min(1).max(128).messages(stringMessages("Alcanze del envio")),
             payMethod: Joi.array().items(Joi.string().min(1).max(128).messages(stringMessages("Metodo de pago"))),
             location: Joi.object({
                 zone: Joi.string().valid("la salada", "flores", "online").messages(stringMessages("Donde planeas vender")),
                 //in case of: la salada
-                shed: Joi.string().valid(isInLaSalada ? "punta mogote":"", "urkupiña", "los coreanos", "oceans", "galerias").messages(stringMessages("Galpón")),
-                stallNumber: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Numero de puesto")),
-                hallwayNumber: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Numero de pasillo")),
-                rowNumber: Joi.string().min(isInUrkupiña ? 1 : 0).max(32).messages(stringMessages("Numero de fila")),
+                shed: Joi.string().messages(stringMessages("Galpón")),
+                stallNumber: Joi.string().min(0).max(32).messages(stringMessages("Numero de puesto")),
+                hallway: Joi.string().min(0).max(32).messages(stringMessages("Numero de pasillo")),
+                row: Joi.string().min(0).max(32).messages(stringMessages("Numero de fila")),
+                floor: Joi.string().min(0).max(32).messages(stringMessages("Piso")),
+                side: Joi.string().min(0).max(32).messages(stringMessages("Lado")),
                 //In case of: flores
                 isInGallery: Joi.boolean().messages(booleanMessages("Esta en una galeria")),
                 galleryName: Joi.string().min(isInGallery ? 1 : 0).max(64).messages(stringMessages("Nombre de la galeria")),
@@ -196,13 +211,16 @@ const ClaimPositionModule = () => {
             isWholesaleAndRetail: state.isWholesaleAndRetail,
             category: state.category.value,
             shippingBy: state.shippingBy.value,
+            shippingRange: state.shippingRange.value,
             payMethod: state.payMethod.value,
             location: {
                 zone: state.location.zone.value,
                 shed: state.location.shed.value,
                 stallNumber: state.location.stallNumber.value,
-                hallwayNumber: state.location.hallwayNumber.value,
-                rowNumber: state.location.rowNumber.value,
+                hallway: state.location.hallway.value,
+                row: state.location.row.value,
+                floor: state.location.floor.value,
+                side: state.location.side.value,
                 isInGallery: state.location.isInGallery,
                 galleryName: state.location.galleryName.value,
                 positionInGallery: state.location.positionInGallery.value,
@@ -229,12 +247,12 @@ const ClaimPositionModule = () => {
 
         if (error) {
             setSubmiting(false)
-            if (error.details[0].path.length == 2 ) {
+            if (error.details[0].path.length == 2) {
                 return setState({
                     ...state,
                     [error.details[0].path[0]]: {
                         ...state[error.details[0].path[0]],
-                        [error.details[0].path[1]]:{
+                        [error.details[0].path[1]]: {
                             value: state[error.details[0].path[0]][error.details[0].path[1]].value,
                             error: error.details[0].message
                         }
@@ -267,7 +285,7 @@ const ClaimPositionModule = () => {
                 setSubmiting(false)
             })
         }
-        
+
     }
 
     return (
@@ -331,10 +349,10 @@ const ClaimPositionModule = () => {
                                 iconRight={<Icon id="add_business" />}
                                 disabled={isSubmiting}
                                 onPress={submit}>
-                                    {
-                                        isSubmiting &&
-                                        <Loading type="points" color="currentColor" size="sm" />
-                                    }
+                                {
+                                    isSubmiting &&
+                                    <Loading type="points" color="currentColor" size="sm" />
+                                }
                                 Registrar marca
                             </Button>
                         </Grid.Container>
