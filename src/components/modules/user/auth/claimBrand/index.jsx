@@ -1,9 +1,10 @@
 import Icon from "@/ui/icons";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useUserContext } from '@/src/utils/user/provider';
 import ShouldLogin from '@/components/modules/user/errors/shouldLogin';
 import ShouldBeSeller from '@/components/modules/user/errors/shouldBeSeller';
+import CantRegisterBrand from '@/components/modules/user/errors/cantRegisterBrand'
 import SellingMode from '@/components/modules/user/auth/claimBrand/sections/sellingMode'
 import SellZone from '@/components/modules/user/auth/claimBrand/sections/sellZone'
 //Section: Zones
@@ -14,10 +15,10 @@ import { numberMessages, stringMessages, booleanMessages } from '@/utils/joi/cus
 import Joi from 'joi';
 import { toast } from 'react-toastify'
 import Put from '@/src/utils/hooks/put';
-import categories from '@/src/utils/user/brand/categories';
 import { Button, Card, Grid, Input, Loading, Text } from "@nextui-org/react";
 import Clasification from "./sections/clasification";
-import sheds from "@/src/utils/user/brand/sheds";
+import jsCookie from 'js-cookie'
+import get from '@/utils/hooks/get'
 
 const ClaimPositionModule = () => {
 
@@ -25,85 +26,43 @@ const ClaimPositionModule = () => {
     const user = useUserContext()
 
     const [state, setState] = useState({
-        brandName: {
-            error: "",
-            value: ""
-        },
+        brandName: { error: "", value: "" },
         isWholesaleAndRetail: null,
-        category: {
-            error: "",
-            value: ""
-        },
-        shippingBy: {
-            error: "",
-            value: ""
-        },
-        shippingRange: {
-            error: "",
-            value: ""
-        },
-        payMethod: {
-            error: "",
-            value: []
-        },
+        category: { error: "", value: "" },
+        shippingBy: { error: "", value: "" },
+        shippingRange: { error: "", value: "" },
+        payMethod: { error: "", value: [] },
         location: {
-            zone: {
-                error: "",
-                value: ""
-            },
+            zone: { error: "", value: "" },
             //this is in case of: la salada
-            shed: {
-                error: "",
-                value: ""
-            },
-            stallNumber: {
-                error: "",
-                value: ""
-            },
-            hallway: {
-                error: "",
-                value: ""
-            },
-            row: {
-                error: "",
-                value: ""
-            },
-            floor: {
-                error: "",
-                value: ""
-            },
-            side: {
-                error: "",
-                value: ""
-            },
+            shed: { error: "", value: "" },
+            stallNumber: { error: "", value: "" },
+            hallway: { error: "", value: "" },
+            row: { error: "", value: "" },
+            floor: { error: "", value: "" },
+            side: { error: "", value: "" },
             //this is in case of: flores
             isInGallery: false,
-            galleryName: {
-                error: "",
-                value: ""
-            },
-            positionInGallery: {
-                error: "",
-                value: ""
-            },
-            street: {
-                error: "",
-                value: ""
-            },
-            streetNumber: {
-                error: "",
-                value: ""
-            },
+            galleryName: { error: "", value: "" },
+            positionInGallery: { error: "", value: "" },
+            street: { error: "", value: "" },
+            streetNumber: { error: "", value: "" },
         },
     }),
-        [isSubmiting, setSubmiting] = useState(false)
+        [isSubmiting, setSubmiting] = useState(false),
+        [alreadyHasBrand, setAlreadyHasBrand] = useState(false)
 
-    if (!user && false) {
+    
+
+
+    
+
+    if (!user) {
         return (
             <ShouldLogin />
         )
     }
-    if (!user.isSeller && false) {
+    if (!user.isSeller) {
         return (
             <ShouldBeSeller />
         )
@@ -169,6 +128,7 @@ const ClaimPositionModule = () => {
 
     //SUBMIT
     const submit = () => {
+        
         setSubmiting(true)
         const zone = state.location.zone.value
 
@@ -186,13 +146,13 @@ const ClaimPositionModule = () => {
             isWholesaleAndRetail: Joi.boolean().valid(null, true, false).messages(booleanMessages("Forma de vender")),
             category: Joi.string().min(1).max(128).messages(stringMessages("Categoria")),
             shippingBy: Joi.string().min(1).max(128).messages(stringMessages("Transporte de envios")),
-            shippingRange: Joi.string().min(1).max(128).messages(stringMessages("Alcanze del envio")),
+            shippingRange: Joi.string().min(1).max(128).messages(stringMessages("Alcance del envio")),
             payMethod: Joi.array().items(Joi.string().min(1).max(128).messages(stringMessages("Metodo de pago"))),
             location: Joi.object({
-                zone: Joi.string().valid("la salada", "flores", "online").messages(stringMessages("Donde planeas vender")),
+                zone: Joi.string().messages(stringMessages("Donde planeas vender")),
                 //in case of: la salada
                 shed: Joi.string().messages(stringMessages("Galpón")),
-                stallNumber: Joi.string().min(0).max(32).messages(stringMessages("Numero de puesto")),
+                stallNumber: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Numero de puesto")),
                 hallway: Joi.string().min(0).max(32).messages(stringMessages("Numero de pasillo")),
                 row: Joi.string().min(0).max(32).messages(stringMessages("Numero de fila")),
                 floor: Joi.string().min(0).max(32).messages(stringMessages("Piso")),
@@ -244,6 +204,7 @@ const ClaimPositionModule = () => {
                 }
             })
         }
+        
 
         if (error) {
             setSubmiting(false)
@@ -272,9 +233,15 @@ const ClaimPositionModule = () => {
             setSubmiting(false)
             return toast.error("Elige en que galpon planeas vender")
         }
+        
 
         if (!error) {
-            Put("user/auth/claimbrand", value).then(res => {
+            
+            Put("user/auth/claimbrand", value, {
+                headers: {
+                    sldtoken: jsCookie.get("sldtoken")
+                }
+            }).then(res => {
                 toast(res.data.msg)
                 setSubmiting(false)
             }).catch(err => {

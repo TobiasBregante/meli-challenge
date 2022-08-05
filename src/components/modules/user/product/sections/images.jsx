@@ -8,11 +8,12 @@ const ImagesSection = ({ state, setState }) => {
 
         const flArray = Array.from(e)
 
+        //TRELLO: Add limit of 5 photos for non-premiun users
         setState({
             ...state,
             imgs: {
                 error: "",
-                value: [...state.imgs.value, ...flArray.map(img => URL.createObjectURL(img))]
+                value: [...state.imgs.value, ...flArray].slice(0,5)
             }
         })
     }
@@ -45,12 +46,12 @@ const ImagesSection = ({ state, setState }) => {
             </Grid>
             <Card css={{ mt: 10 }} variant="flat">
                 <Card.Body>
-                    <Grid.Container>
+                    <Grid.Container gap={1}>
                         {
                             state.imgs.value.map((img, i) => (
-                                <Grid key={i} className="rounded-12 animate__animated animate__bounceIn">
+                                <Grid key={i} className="rounded-12 animate__animated animate__bounceIn" >
                                     <Image
-                                        src={img}
+                                        src={URL.createObjectURL(img)}
                                         width={100}
                                         height={100}
                                         className="rounded-16"

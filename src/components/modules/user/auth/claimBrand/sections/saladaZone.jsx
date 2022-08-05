@@ -78,7 +78,6 @@ const SaladaZone = ({ state, onChange, }) => {
     }
 
     const handleStallNumber = (e) => {
-        const r = /^[A-Za-z]+$/
         if (GalleryProps().stallLetter == true ) {
             return onChange("stallNumber")({target: { value: e.target.value.replace(/[0-9]/g, '')}})
         }

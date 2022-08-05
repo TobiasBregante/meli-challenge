@@ -1,53 +1,42 @@
 import { useUserContext } from "@/utils/user/provider"
 import Icon from "@/src/components/ui/icons"
-import PopOver from '@/ui/popovers'
-import Card from "@/ui/cards";
-import Button from '@/ui/buttons';
 import { useState } from "react";
 import jsCookie from 'js-cookie'
 import { useRouter } from "next/router";
+import { Button, Dropdown } from "@nextui-org/react";
 
 const UserAvatar = () => {
     const router = useRouter()
     const [isOpen, setOpen] = useState(false)
+    const user = useUserContext()
 
-    const Logout = ()=>{
+    const logout = () => {
         jsCookie.remove("sldtoken")
         router.reload()
     }
 
-    const ListItem = ({ icon, text, ...htmlProps }) => {
-        return (
-            <a className="list-group-item list-group-item-action border-0 rounded-12 my-1 d-flex pointer" 
-            {...htmlProps}>
-                {icon && <Icon id={icon} className="me-1" />}
-                {text}
-            </a>
-        )
+    const handleSelection = (e) => {
+        if (e == "logout") {
+            logout()
+        }
     }
-    return (
 
-        <PopOver isOpen={isOpen} content={
-            <Card className="p-2 mt-1 shadow">
-                <div className="list-group border-0">
-                    <ListItem icon="person" text="Mi perfil" />
-                    {
-                        !useUserContext().isSeller &&
-                        <>
-                        <ListItem icon="subscriptions" text="Suscripción" />
-                        <ListItem icon="store" text="Mis puestos" />
-                        <ListItem icon="add_business" text="Reclamar puesto" />
-                        </>
-                    }
-                    <ListItem icon="support_agent" text="Servicio al cliente" />
-                    <ListItem icon="logout" text="Cerrar sesión" onClick={Logout} />
-                </div>
-            </Card>
-        }>
-            <Button color="white" className="px-2" onClick={() => setOpen(!isOpen)}>
-                <Icon id="person" className="text-dark" />
-            </Button>
-        </PopOver>
+
+    return (
+        <Dropdown>
+            <Dropdown.Button icon={<Icon id="person" css={{ mt: 0 }} />} css={{ bg: 'white' }} />
+            <Dropdown.Menu onAction={handleSelection}>
+                <Dropdown.Item key="profile" icon={<Icon id="person" />}>Mi perfil</Dropdown.Item>
+                {
+                    user.isSeller &&
+                    <Dropdown.Item key="subscriptions" icon={<Icon id="subscriptions" />}>Suscripción</Dropdown.Item>
+                }
+                <Dropdown.Item key="clientService" icon={<Icon id="support_agent" />}>Servicio al cliente</Dropdown.Item>
+                <Dropdown.Item key="faq" icon={<Icon id="quiz" />}>Preguntas frecuentes</Dropdown.Item>
+                <Dropdown.Item key="blog" icon={<Icon id="rss_feed" />}>Blog</Dropdown.Item>
+                <Dropdown.Item key="logout" icon={<Icon id="logout" />} >Cerrar sesión</Dropdown.Item>
+            </Dropdown.Menu>
+        </Dropdown>
     )
 }
 

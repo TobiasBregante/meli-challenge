@@ -42,16 +42,19 @@ const AddProduct = () => {
             wholesale: {
                 sellMode: { error: "", value: null },
 
+                perUnitTalk: { error: "", value: false },
                 minPerUnit: { error: "", value: 0 },
                 pricePerUnit: { error: "", value: 0 },
                 minPerBigUnit: { error: "", value: 0 },
                 pricePerBigUnit: { error: "", value: 0 },
 
+                perDozenTalk: { error: "", value: false },
                 minPerDozen: { error: "", value: 0 },
                 pricePerDozen: { error: "", value: 0 },
                 minPerBigDozen: { error: "", value: 0 },
                 pricePerBigDozen: { error: "", value: 0 },
 
+                perCurveTalk: { error: "", value: false },
                 sizesPerCurve: { error: "", value: 0 },
                 minPerCurve: { error: "", value: 0 },
                 pricePerCurve: { error: "", value: 0 },
@@ -62,12 +65,12 @@ const AddProduct = () => {
     }),
         [isSubmiting, setSubmiting] = useState(false)
 
-    if (!user && false) {
+    if (!user) {
         return (
             <ShouldLogin />
         )
     }
-    if (!user.isSeller && false) {
+    if (!user.isSeller ) {
         return (
             <ShouldBeSeller />
         )
@@ -149,18 +152,31 @@ const AddProduct = () => {
 
         const retailPerUnit = state.prices.retail.isPerUnit.value
 
-        const wholesaleSellMode = v => (state.prices.wholesale.sellMode.value == v)
+        const wholesaleSellMode = v => {
+            if (state.prices.wholesale.perUnitTalk.value == true && v == 0) {
+                return false
+            }
+            if (state.prices.wholesale.perDozenTalk.value == true && v == 1) {
+                return false
+            }
+            if (state.prices.wholesale.perCurveTalk.value == true && v == 2) {
+                return false
+            }
+            return state.prices.wholesale.sellMode.value == v
+        }
 
         const pricePerBigCurve = () => {
-            if (Number(state.prices.wholesale.pricePerCurve.value) != NaN) {
-                return Number(state.prices.wholesale.pricePerCurve.value, 10) - 1
+            const N = Number(state.prices.wholesale.pricePerCurve.value)
+            if (N != NaN && N != 0) {
+                return N - 1
             }
             return 1
         }
 
         const pricePerBigDozen = () => {
-            if (Number(state.prices.wholesale.pricePerDozen.value) != NaN) {
-                return Number(state.prices.wholesale.pricePerDozen.value) - 1
+            const N = Number(state.prices.wholesale.pricePerDozen.value)
+            if (N != NaN && N != 0) {
+                return N - 1
             }
             return 1
         }
@@ -194,16 +210,19 @@ const AddProduct = () => {
                 },
                 wholesale: {
                     sellMode: Joi.number().min(0).max(2).messages(numberMessages("Modo de vender")),
+                    perUnitTalk: Joi.boolean(),
                     minPerUnit: Joi.number().min(wholesaleSellMode(0) ? 1 : 0).max(999999).messages(stringMessages("Cantidad minima")),
                     pricePerUnit: Joi.number().min(wholesaleSellMode(0) ? 1 : 0).max(999999).messages(numberMessages("Precio por unidad")),
                     minPerBigUnit: Joi.number().min(wholesaleSellMode(0) ? 1 : 0).max(999999).messages(numberMessages("Cantidad de unidades en gran cantidad")),
                     pricePerBigUnit: Joi.number().min(wholesaleSellMode(0) ? 1 : 0).max(999999).messages(numberMessages("Precio por unidad en venta de gran cantidad")),
 
+                    perDozenTalk: Joi.boolean(),
                     minPerDozen: Joi.number().min(wholesaleSellMode(1) ? 1 : 0).max(999999).messages(numberMessages("Cantidad de docenas")),
                     pricePerDozen: Joi.number().min(wholesaleSellMode(1) ? 1 : 0).max(999999).messages(numberMessages("Precio por unidad en cada docena")),
                     minPerBigDozen: Joi.number().min(wholesaleSellMode(1) ? 1 : 0).max(999999).messages(numberMessages("Cantidad de docenas para gran cantidad")),
                     pricePerBigDozen: Joi.number().min(wholesaleSellMode(1) ? 1 : 0).max(pricePerBigDozen()).messages(numberMessages("Precio por unidad en docenas de gran cantidad")),
 
+                    perCurveTalk: Joi.boolean(),
                     sizesPerCurve: Joi.number().min(wholesaleSellMode(2) ? 1 : 0).max(999999).messages(numberMessages("Talles por curva")),
                     minPerCurve: Joi.number().min(wholesaleSellMode(2) ? 1 : 0).max(999999).messages(numberMessages("Cantidad de curvas")),
                     pricePerCurve: Joi.number().min(wholesaleSellMode(2) ? 1 : 0).max(999999).messages(numberMessages("Precio por unidad en la curva")),
@@ -251,6 +270,7 @@ const AddProduct = () => {
             }
         })
 
+        console.log(error);
 
         if (error) {
             setSubmiting(false)
