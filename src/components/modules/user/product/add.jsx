@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useUserContext } from '@/src/utils/user/provider';
 import ShouldLogin from '@/components/modules/user/errors/shouldLogin';
 import ShouldBeSeller from '@/components/modules/user/errors/shouldBeSeller';
+import ShouldHaveBrand from '@/components/modules/user/errors/shouldHaveBrand';
 import RetailPerUnit from './sections/retailPerUnit';
 import RetailPerDozen from './sections/retailPerDozen';
 import WholesalePerUnit from './sections/wholesalePerUnit';
@@ -16,6 +17,7 @@ import ImagesSection from "./sections/images";
 import Joi from "joi";
 import { stringMessages, booleanMessages, numberMessages } from "@/src/utils/joi/customMessages";
 import { toast } from "react-toastify";
+import Submit from "./sections/submit";
 
 const AddProduct = () => {
 
@@ -62,18 +64,21 @@ const AddProduct = () => {
                 pricePerBigCurve: { error: "", value: 0 },
             }
         }
-    }),
-        [isSubmiting, setSubmiting] = useState(false)
+    })
+
 
     if (!user) {
         return (
             <ShouldLogin />
         )
     }
-    if (!user.isSeller ) {
+    if (!user.isSeller) {
         return (
             <ShouldBeSeller />
         )
+    }
+    if (user.brand == undefined) {
+        return <ShouldHaveBrand />
     }
 
     const handleRetailSellMode = v => (e) => {
@@ -145,197 +150,6 @@ const AddProduct = () => {
             }
         })
     }
-
-    //SUBMIT
-    const submit = () => {
-        setSubmiting(true)
-
-        const retailPerUnit = state.prices.retail.isPerUnit.value
-
-        const wholesaleSellMode = v => {
-            if (state.prices.wholesale.perUnitTalk.value == true && v == 0) {
-                return false
-            }
-            if (state.prices.wholesale.perDozenTalk.value == true && v == 1) {
-                return false
-            }
-            if (state.prices.wholesale.perCurveTalk.value == true && v == 2) {
-                return false
-            }
-            return state.prices.wholesale.sellMode.value == v
-        }
-
-        const pricePerBigCurve = () => {
-            const N = Number(state.prices.wholesale.pricePerCurve.value)
-            if (N != NaN && N != 0) {
-                return N - 1
-            }
-            return 1
-        }
-
-        const pricePerBigDozen = () => {
-            const N = Number(state.prices.wholesale.pricePerDozen.value)
-            if (N != NaN && N != 0) {
-                return N - 1
-            }
-            return 1
-        }
-
-        //Pre check-in
-        if (retailPerUnit == null) {
-            return toast("Elige una opción para venta por menor")
-        }
-
-        if (wholesaleSellMode(null)) {
-            return toast("Elige una opción para venta por mayor")
-        }
-
-
-
-        //CHECKING
-        const Schema = Joi.object({
-            title: Joi.string().min(2).max(64).messages(stringMessages("Nombre de producto")),
-            category: Joi.string().min(2).max(64).messages(stringMessages("Categoria")),
-            description: Joi.string().min(32).max(5000).messages(stringMessages("Descripción")),
-            stock: Joi.number().min(0).max(999999).messages(numberMessages("Stock")),
-
-            prices: Joi.object({
-                retail: {
-                    isPerUnit: Joi.boolean().valid(null, true, false).messages(booleanMessages("Por menor")),
-                    minPerUnit: Joi.number().min(retailPerUnit ? 1 : 0).max(999999).messages(numberMessages("Cantidad minima")),
-                    pricePerUnit: Joi.number().min(retailPerUnit ? 1 : 0).max(999999).messages(numberMessages("Precio por unidad")),
-
-                    minPerDozen: Joi.number().min(retailPerUnit ? 0 : 1).max(999999).messages(numberMessages("Cantidad minima de docenas por menor")),
-                    pricePerDozen: Joi.number().min(retailPerUnit ? 0 : 1).max(999999).messages(numberMessages("Precio por unidad en la docena"))
-                },
-                wholesale: {
-                    sellMode: Joi.number().min(0).max(2).messages(numberMessages("Modo de vender")),
-                    perUnitTalk: Joi.boolean(),
-                    minPerUnit: Joi.number().min(wholesaleSellMode(0) ? 1 : 0).max(999999).messages(stringMessages("Cantidad minima")),
-                    pricePerUnit: Joi.number().min(wholesaleSellMode(0) ? 1 : 0).max(999999).messages(numberMessages("Precio por unidad")),
-                    minPerBigUnit: Joi.number().min(wholesaleSellMode(0) ? 1 : 0).max(999999).messages(numberMessages("Cantidad de unidades en gran cantidad")),
-                    pricePerBigUnit: Joi.number().min(wholesaleSellMode(0) ? 1 : 0).max(999999).messages(numberMessages("Precio por unidad en venta de gran cantidad")),
-
-                    perDozenTalk: Joi.boolean(),
-                    minPerDozen: Joi.number().min(wholesaleSellMode(1) ? 1 : 0).max(999999).messages(numberMessages("Cantidad de docenas")),
-                    pricePerDozen: Joi.number().min(wholesaleSellMode(1) ? 1 : 0).max(999999).messages(numberMessages("Precio por unidad en cada docena")),
-                    minPerBigDozen: Joi.number().min(wholesaleSellMode(1) ? 1 : 0).max(999999).messages(numberMessages("Cantidad de docenas para gran cantidad")),
-                    pricePerBigDozen: Joi.number().min(wholesaleSellMode(1) ? 1 : 0).max(pricePerBigDozen()).messages(numberMessages("Precio por unidad en docenas de gran cantidad")),
-
-                    perCurveTalk: Joi.boolean(),
-                    sizesPerCurve: Joi.number().min(wholesaleSellMode(2) ? 1 : 0).max(999999).messages(numberMessages("Talles por curva")),
-                    minPerCurve: Joi.number().min(wholesaleSellMode(2) ? 1 : 0).max(999999).messages(numberMessages("Cantidad de curvas")),
-                    pricePerCurve: Joi.number().min(wholesaleSellMode(2) ? 1 : 0).max(999999).messages(numberMessages("Precio por unidad en la curva")),
-                    minPerBigCurve: Joi.number().min(wholesaleSellMode(2) ? 1 : 0).max(999999).messages(numberMessages("Cantidad minima de curvas para gran cantidad")),
-                    pricePerBigCurve: Joi.number().min(wholesaleSellMode(2) ? 1 : 0).max(pricePerBigCurve()).messages(numberMessages("Precio por unidad para ventas en gran cantidad de curvas"))
-                }
-            }),
-            imgs: Joi.array().items(Joi.string().min(1).max(128).messages(stringMessages("Imagenes"))),
-        })
-
-        const { error, value } = Schema.validate({
-            title: state.title.value,
-            category: state.category.value,
-            description: state.description.value,
-            stock: state.stock.value,
-            imgs: state.imgs.value,
-            prices: {
-                retail: {
-                    isPerUnit: state.prices.retail.isPerUnit.value,
-                    minPerUnit: state.prices.retail.minPerUnit.value,
-                    pricePerUnit: state.prices.retail.pricePerUnit.value,
-
-                    minPerDozen: state.prices.retail.minPerDozen.value,
-                    pricePerDozen: state.prices.retail.pricePerDozen.value
-                },
-                wholesale: {
-                    sellMode: state.prices.wholesale.sellMode.value,
-
-                    minPerUnit: state.prices.wholesale.minPerUnit.value,
-                    pricePerUnit: state.prices.wholesale.pricePerUnit.value,
-                    minPerBigUnit: state.prices.wholesale.minPerBigUnit.value,
-                    pricePerBigUnit: state.prices.wholesale.pricePerBigUnit.value,
-
-                    minPerDozen: state.prices.wholesale.minPerDozen.value,
-                    pricePerDozen: state.prices.wholesale.pricePerDozen.value,
-                    minPerBigDozen: state.prices.wholesale.minPerBigDozen.value,
-                    pricePerBigDozen: state.prices.wholesale.pricePerBigDozen.value,
-
-                    sizesPerCurve: state.prices.wholesale.sizesPerCurve.value,
-                    minPerCurve: state.prices.wholesale.minPerCurve.value,
-                    pricePerCurve: state.prices.wholesale.pricePerCurve.value,
-                    minPerBigCurve: state.prices.wholesale.minPerBigCurve.value,
-                    pricePerBigCurve: state.prices.wholesale.pricePerBigCurve.value
-                }
-            }
-        })
-
-        console.log(error);
-
-        if (error) {
-            setSubmiting(false)
-            //Find sub low level error path
-            if (error.details[0].path.length == 3) {
-                return setState({
-                    ...state,
-                    //High level like "title"
-                    [error.details[0].path[0]]: {
-                        ...state[error.details[0].path[0]],
-                        //second level like "retail"
-                        [error.details[0].path[1]]: {
-                            ...state[error.details[0].path[0]][error.details[0].path[1]],
-                            //third level like "isPerUnit"
-                            [error.details[0].path[2]]: {
-                                value: state[error.details[0].path[0]][error.details[0].path[1]][error.details[0].path[2]].value,
-                                error: error.details[0].message
-                            }
-                        }
-                    }
-                })
-            }
-            //Find sub level error path
-            if (error.details[0].path.length == 2) {
-                return setState({
-                    ...state,
-                    [error.details[0].path[0]]: {
-                        ...state[error.details[0].path[0]],
-                        [error.details[0].path[1]]: {
-                            value: state[error.details[0].path[0]][error.details[0].path[1]].value,
-                            error: error.details[0].message
-                        }
-                    }
-                })
-            }
-            return setState({
-                ...state,
-                [error.details[0].path[0]]: {
-                    value: state[error.details[0].path[0]].value,
-                    error: error.details[0].message
-                }
-            })
-        }
-
-        if (state.imgs.value.length === 0) {
-            return toast("Añade al menos una imagen")
-        }
-
-
-        if (!error && false) {
-            Put("user/auth/claimbrand", value).then(res => {
-                toast(res.data.msg)
-                setSubmiting(false)
-            }).catch(err => {
-                if (err.response.data) {
-                    toast.error(err.response.data);
-                }
-                toast.error("Ocurrio un error de nuestro lado")
-                setSubmiting(false)
-            })
-        }
-
-    }
-
-
 
     return (
         <Container lg>
@@ -417,29 +231,36 @@ const AddProduct = () => {
                                 </Grid>
                                 <Grid>
                                     <Grid.Container>
-                                        <Icon id="attach_money" className={"mt-01"} />
-                                        <Text h4>
-                                            Por menor:
-                                        </Text>
-                                        <Grid.Container>
-                                            <Checkbox
-                                                onChange={handleRetailSellMode(true)}
-                                                isSelected={state.prices.retail.isPerUnit.value == true}
-                                                label="Por unidad"
-                                                css={{ mr: 15 }} />
-                                            <Checkbox
-                                                onChange={handleRetailSellMode(false)}
-                                                isSelected={state.prices.retail.isPerUnit.value == false}
-                                                label="Por docena" />
-                                        </Grid.Container>
+
                                         {
-                                            state.prices.retail.isPerUnit.value &&
-                                            <RetailPerUnit state={state.prices.retail} handleState={handleRetail} />
+                                            user.brand.isWholesaleAndRetail &&
+                                            <>
+                                                <Icon id="attach_money" className={"mt-01"} />
+                                                <Text h4>
+                                                    Por menor:
+                                                </Text>
+                                                <Grid.Container>
+                                                    <Checkbox
+                                                        onChange={handleRetailSellMode(true)}
+                                                        isSelected={state.prices.retail.isPerUnit.value == true}
+                                                        label="Por unidad"
+                                                        css={{ mr: 15 }} />
+                                                    <Checkbox
+                                                        onChange={handleRetailSellMode(false)}
+                                                        isSelected={state.prices.retail.isPerUnit.value == false}
+                                                        label="Por docena" />
+                                                </Grid.Container>
+                                                {
+                                                    state.prices.retail.isPerUnit.value &&
+                                                    <RetailPerUnit state={state.prices.retail} handleState={handleRetail} />
+                                                }
+                                                {
+                                                    state.prices.retail.isPerUnit.value == false &&
+                                                    <RetailPerDozen state={state.prices.retail} handleState={handleRetail} />
+                                                }
+                                            </>
                                         }
-                                        {
-                                            state.prices.retail.isPerUnit.value == false &&
-                                            <RetailPerDozen state={state.prices.retail} handleState={handleRetail} />
-                                        }
+
                                         <Icon id="attach_money" className={"mt-01"} />
                                         <Text h4>
                                             Por mayor:
@@ -486,14 +307,7 @@ const AddProduct = () => {
                                 </Grid>
                             </Grid.Container>
                             <Grid.Container justify="center">
-                                <Button
-                                    auto
-                                    color="secondary"
-                                    css={{ color: "$dark" }}
-                                    iconRight={<Icon id="add" />}
-                                    onPress={submit}>
-                                    Añadir producto
-                                </Button>
+                                <Submit state={state} setState={setState} />
                             </Grid.Container>
                         </Card.Body>
                     </Card>

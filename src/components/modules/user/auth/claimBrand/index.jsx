@@ -49,12 +49,8 @@ const ClaimPositionModule = () => {
             streetNumber: { error: "", value: "" },
         },
     }),
-        [isSubmiting, setSubmiting] = useState(false),
-        [alreadyHasBrand, setAlreadyHasBrand] = useState(false)
-
+        [isSubmiting, setSubmiting] = useState(false)
     
-
-
     
 
     if (!user) {
@@ -66,6 +62,10 @@ const ClaimPositionModule = () => {
         return (
             <ShouldBeSeller />
         )
+    }
+
+    if(user.brand != undefined) {
+        return <CantRegisterBrand/>
     }
 
     const handleBrandName = (e) => {
@@ -137,8 +137,15 @@ const ClaimPositionModule = () => {
 
         //zone: flores
         const isInFlores = zone == "flores"
-        const isInGallery = isInFlores && state.location.isInGallery
-
+        const isInGallery = ()=>{
+            if (isInFlores && state.location.isInGallery) {
+                return true
+            }
+            if (state.location.shed.value == "GALERIAS") {
+                return true
+            }
+            return false
+        }
 
         //CHECKING
         const Schema = Joi.object({
@@ -151,7 +158,7 @@ const ClaimPositionModule = () => {
             location: Joi.object({
                 zone: Joi.string().messages(stringMessages("Donde planeas vender")),
                 //in case of: la salada
-                shed: Joi.string().messages(stringMessages("Galpón")),
+                shed: Joi.string().min(isInLaSalada ? 1 : 0).messages(stringMessages("Galpón")),
                 stallNumber: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Numero de puesto")),
                 hallway: Joi.string().min(0).max(32).messages(stringMessages("Numero de pasillo")),
                 row: Joi.string().min(0).max(32).messages(stringMessages("Numero de fila")),
@@ -159,8 +166,8 @@ const ClaimPositionModule = () => {
                 side: Joi.string().min(0).max(32).messages(stringMessages("Lado")),
                 //In case of: flores
                 isInGallery: Joi.boolean().messages(booleanMessages("Esta en una galeria")),
-                galleryName: Joi.string().min(isInGallery ? 1 : 0).max(64).messages(stringMessages("Nombre de la galeria")),
-                positionInGallery: Joi.string().min(isInGallery ? 1 : 0).max(32).messages(stringMessages("Numero en la galeria")),
+                galleryName: Joi.string().min(isInGallery() ? 1 : 0).max(64).messages(stringMessages("Nombre de la galeria")),
+                positionInGallery: Joi.string().min(isInGallery() ? 1 : 0).max(32).messages(stringMessages("Numero en la galeria")),
                 street: Joi.string().min(isInFlores ? 1 : 0).max(64).messages(stringMessages("Nombre de la calle")),
                 streetNumber: Joi.string().min(isInFlores ? 1 : 0).max(32).messages(stringMessages("Altura de la calle"))
             })
@@ -244,6 +251,7 @@ const ClaimPositionModule = () => {
             }).then(res => {
                 toast(res.data.msg)
                 setSubmiting(false)
+                router.push("/./user/products/add")
             }).catch(err => {
                 if (err.response.data) {
                     toast.error(err.response.data);

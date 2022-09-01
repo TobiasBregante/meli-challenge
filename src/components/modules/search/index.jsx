@@ -1,13 +1,15 @@
 import UnorderedList from '@/src/components/modules/products/list/unordered'
+import BrandsList from '../brand/lists'
 import { Card, Grid, Text } from '@nextui-org/react'
 import Icon from '@/ui/icons'
 import SearchFilters from './filters'
 
-const SearchModule = ({ data, query }) => {
+const SearchModule = ({ products, brands, query, categories, params }) => {
 
+    console.log({ products, brands });
     return (
         <Grid.Container gap={2}>
-            <Grid xs={3.5} lg={3.5}>
+            <Grid xs={12} sm={3.5} lg={3.5}>
                 <Grid >
                     <Card css={{ h: "auto" }}>
                         <Card.Header>
@@ -15,17 +17,33 @@ const SearchModule = ({ data, query }) => {
                             <Text h3>Filtros</Text>
                         </Card.Header>
                         <Card.Body>
-                            <SearchFilters />
+                            <SearchFilters categories={categories} params={params} />
                         </Card.Body>
                     </Card>
                 </Grid>
             </Grid>
-            <Grid xs={12} lg={8.5}>
+            <Grid xs={12} sm={8.5} lg={8.5}>
                 <Grid.Container direction="column">
-                    <Text h3>
-                        Resultados para: {query}
-                    </Text>
-                    <UnorderedList data={data} breakpoints={{ lg: 3 }} />
+                    {
+                        query &&
+                        <Text h3>
+                            Resultados para: {query}
+                        </Text>
+                    }
+                    {
+                        products &&
+                        <UnorderedList data={products} breakpoints={{ lg: 3 }} />
+                    }
+                    {
+                        brands &&
+                        <BrandsList data={brands} breakpoints={{ lg: 4, }} />
+                    }
+                    {
+                        ((brands && brands.length == 0) || (products && products.length == 0)) &&
+                        <Text h2>
+                            Sin resultados
+                        </Text>
+                    }
                 </Grid.Container>
             </Grid>
         </Grid.Container>

@@ -15,7 +15,7 @@ function UserWrapper({ children, state }) {
     useEffect(()=>{
         const token = jsCookie.get("sldtoken")
         if (token) {
-            Get("user/me",{
+            Get("user/me?withBrand=true",{
                 headers:{
                     sldtoken: token
                 }

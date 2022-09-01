@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker'
 
 const imgs = [...Array(10).keys()].map((e,i) => (`e${i+1}.webp`))
 
+faker.setLocale("es")
 const data = (limit=10)=>(
     [...Array(limit).keys()].map(() => ({
         _id: faker.database.mongodbObjectId(),

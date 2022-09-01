@@ -1,19 +1,22 @@
 import Icon from "@/src/components/ui/icons"
+import { useUserContext } from "@/src/utils/user/provider"
 import { Card, Grid, Image, Text } from "@nextui-org/react"
 import { FileUploader } from "react-drag-drop-files"
 
 const ImagesSection = ({ state, setState }) => {
+    const user = useUserContext()
 
     const addImg = (e) => {
 
         const flArray = Array.from(e)
 
         //TRELLO: Add limit of 5 photos for non-premiun users
+        const images = user.status.isPremiun ? [...state.imgs.value, ...flArray]: [...state.imgs.value, ...flArray].slice(0, 5)
         setState({
             ...state,
             imgs: {
                 error: "",
-                value: [...state.imgs.value, ...flArray].slice(0,5)
+                value: images
             }
         })
     }
@@ -38,7 +41,7 @@ const ImagesSection = ({ state, setState }) => {
                 </Grid.Container>
             </Grid>
             <Grid css={{ border: "dashed 2px", p: "$10", textAlign: "center" }} className="rounded-16">
-                <FileUploader handleChange={addImg} multiple={true} name="file" types={["jpg", "png"]} >
+                <FileUploader handleChange={addImg} multiple={true} name="file" types={["jpg", "png", "jpeg","avif","webp","jiff"]} >
                     <Text>
                         Arrastra y suelta tus fotos aqui o presiona aqui
                     </Text>

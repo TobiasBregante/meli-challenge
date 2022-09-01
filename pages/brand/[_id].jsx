@@ -1,16 +1,26 @@
 import Page from '@Page'
 import BrandProfileModule from '@/src/components/modules/brand/profile/index'
-import data from '@/utils/sampleProducts'
+import Get from '@/src/utils/hooks/get'
+import { Container } from '@nextui-org/react'
 
-const BrandPage = () => {
+const BrandPage = ({data}) => {
   
   return (
     <Page>
-      <div className="container pt-3">
+      <Container lg>
         <BrandProfileModule data={data} />
-      </div>
+      </Container>
     </Page>
   )
 }
 
 export default BrandPage
+
+export async function getServerSideProps(ctx) {
+
+  return {
+    props: {
+      data: await Get(`brands/brand/${ctx.params._id}?withProducts=true`).then(r=>r.data).catch(()=>({})),
+    }, // will be passed to the page component as props
+  }
+}

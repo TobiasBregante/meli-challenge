@@ -16,9 +16,9 @@ const Header = () => {
         setSearchValue(e.target.value)
     }
 
-    const handleEnter = (e)=>{
-        if (e.key == "Enter") {
-            router.push(`/./search/${searchValue}`)
+    const handleEnter = (e) => {
+        if (e.key == "Enter" && searchValue.length > 0) {
+            router.push(`/./search?text=${searchValue}`)
         }
     }
 
@@ -30,14 +30,14 @@ const Header = () => {
                         <Grid.Container css={{ my: 10, }} justify="center">
                             <Input
                                 clearable
-                                css={{w:"100%"}}
+                                css={{ w: "100%" }}
                                 value={searchValue}
                                 onChange={handleSearch}
                                 id="headerSearch"
                                 aria-label="Busqueda"
                                 placeholder="Busca entre cientos de productos"
                                 contentRight={<Icon id="search" className="text-dark" />}
-                                contentLeft={<Icon id="arrow_back" onClick={() => openSearchBar(false)} css={{m:10}} />}
+                                contentLeft={<Icon id="arrow_back" onClick={() => openSearchBar(false)} css={{ m: 10 }} />}
                                 contentLeftStyling={false}
                             />
                         </Grid.Container>
@@ -48,7 +48,7 @@ const Header = () => {
                                     <Grid.Container direction="row">
                                         <Grid>
                                             <Image
-                                                src="/logo.png"
+                                                src="/logo"
                                                 width={50}
                                                 height={50}
                                                 alt="salada-app-logo" />

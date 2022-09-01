@@ -1,23 +1,29 @@
 import { Button, Dropdown, Grid, Input, Text } from "@nextui-org/react"
 import { useMemo, useState } from "react"
 import Icon from "@/ui/icons"
-import categories from "@/src/utils/user/brand/categories"
+import { useRouter } from "next/router"
+import Sheds from '@/utils/user/brand/sheds'
 
-const SearchFilters = () => {
+const SearchFilters = ({ categories, params }) => {
     const [state, setState] = useState({
         orderBy: new Set(["Más popular"]),
         isWholeSale: null,
         category: null,
         isStore: true,
-        location: new Set(["Todas las ubicaciones"]),
-        shed: new Set(["punta mogote"]),
+        zone: new Set([params.zone || "Todas las ubicaciones"]),
+        shed: new Set(["Todos los galpones"]),
     })
+    const router = useRouter()
 
     const handleSelect = name => e => {
         setState({
             ...state,
             [name]: e
         })
+        if (Array.from(e)[0] == "Todas las ubicaciones" || Array.from(e)[0] == "Todos los galpones") {
+            return handleFilter(name,"all")()
+        }
+        handleFilter(name,Array.from(e)[0])()
     }
 
     const orderBy = useMemo(
@@ -25,9 +31,9 @@ const SearchFilters = () => {
         [state.orderBy]
     );
 
-    const location = useMemo(
-        () => Array.from(state.location),
-        [state.location]
+    const zone = useMemo(
+        () => Array.from(state.zone),
+        [state.zone]
     );
 
     const shed = useMemo(
@@ -42,9 +48,20 @@ const SearchFilters = () => {
         })
     }
 
+    const handleFilter = (key, value) => () => {
+        let queryBuilder = router.query
+
+        queryBuilder = {
+            ...queryBuilder,
+            [key]: value
+        }
+
+        router.push(`/./search/?${new URLSearchParams(queryBuilder).toString()}`)
+    }
+
     return (
         <Grid.Container direction="column" >
-            <Grid>
+            <Grid css={{d:"none"}}>
                 <Text h4>
                     Ordenar por
                 </Text>
@@ -64,7 +81,7 @@ const SearchFilters = () => {
                     </Dropdown.Menu>
                 </Dropdown>
             </Grid>
-            <Grid css={{ mt: 10 }}>
+            <Grid >
                 <Text h4>
                     Solo venta
                 </Text>
@@ -75,74 +92,27 @@ const SearchFilters = () => {
                         <Button auto
 
                             icon={<Icon id="shopping_cart" />}
-                            ghost={state.isWholeSale == true || state.isWholeSale == null}
-                            onPress={() => handleState("isWholeSale")({ target: { value: false } })}
+                            ghost={params.isWholesaleAndRetail == "true" || params.isWholesaleAndRetail == undefined}
                             color="secondary"
+                            onPress={handleFilter("isWholesaleAndRetail", false)}
                             css={{ color: "$black", mb: 5 }}>
-                            por menor
+                            por mayor
                         </Button>
                     </Grid>
                     <Grid>
                         <Button auto
-
                             icon={<Icon id="local_shipping" />}
-                            ghost={state.isWholeSale == false || state.isWholeSale == null}
-                            onPress={() => handleState("isWholeSale")({ target: { value: true } })}
+                            ghost={params.isWholesaleAndRetail == "false" || params.isWholesaleAndRetail == undefined}
                             color="secondary"
+                            onPress={handleFilter("isWholesaleAndRetail", true)}
                             css={{ color: "$black", mb: 5 }}>
-                            por mayor
+                            por mayor y menor
                         </Button>
                     </Grid>
                 </Grid.Container>
 
             </Grid>
-            <Grid>
-                <Text h4 css={{ mt: 10 }}>
-                    Ubicación
-                </Text>
-                <Dropdown>
-                    <Dropdown.Button color="secondary" css={{ color: "$black" }}>
-                        {
-                            location
-                        }
-                    </Dropdown.Button>
-                    <Dropdown.Menu
-                        selectionMode="single"
-                        selectedKeys={location}
-                        onSelectionChange={handleSelect("location")}>
-                        <Dropdown.Item key="Todas las ubicaciones" icon={<Icon id="pin_drop" />}>Todas las ubicaciones</Dropdown.Item>
-                        <Dropdown.Item key="La salada" icon={<Icon id="pin_drop" />}>La salada</Dropdown.Item>
-                        <Dropdown.Item key="Flores" icon={<Icon id="pin_drop" />}>Flores</Dropdown.Item>
-                        <Dropdown.Item key="Online" icon={<Icon id="language" />}>Online</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-            </Grid>
-            {
-                location == "La salada" &&
-                <Grid>
-                <Text h4 css={{ mt: 10 }}>
-                    ¿En que galpón estan?
-                </Text>
-                <Dropdown>
-                    <Dropdown.Button color="secondary" css={{ color: "$black" }}>
-                        {
-                            shed
-                        }
-                    </Dropdown.Button>
-                    <Dropdown.Menu
-                        selectionMode="single"
-                        selectedKeys={shed}
-                        onSelectionChange={handleSelect("shed")}
-                    >
-                        <Dropdown.Item key="punta mogote">Punta mogote</Dropdown.Item>
-                        <Dropdown.Item key="urkupiña">Urkupiña</Dropdown.Item>
-                        <Dropdown.Item key="los coreanos">Los koreanos</Dropdown.Item>
-                        <Dropdown.Item key="oceans">Oceans</Dropdown.Item>
-                        <Dropdown.Item key="galerias">Galerias</Dropdown.Item>
-                    </Dropdown.Menu>
 
-                </Dropdown>
-            </Grid>}
 
             <Text h4 css={{ mt: 10 }}>
                 Buscar por
@@ -152,8 +122,8 @@ const SearchFilters = () => {
                     <Grid>
                         <Button auto
                             icon={<Icon id="checkroom" />}
-                            ghost={!state.isStore == true}
-                            onPress={() => handleState("isStore")({ target: { value: true } })}
+                            ghost={params.useBrand == "true"  /**should return false */}
+                            onPress={handleFilter("useBrand", false)}
                             color="secondary"
                             css={{ color: "$black", mb: 5 }}>
                             Producto
@@ -163,8 +133,8 @@ const SearchFilters = () => {
                         <Button auto
 
                             icon={<Icon id="store" />}
-                            ghost={!state.isStore == false}
-                            onPress={() => handleState("isStore")({ target: { value: false } })}
+                            ghost={params.useBrand == "false" || params.useBrand == null/**should return false */}
+                            onPress={handleFilter("useBrand", true)}
                             color="secondary"
                             css={{ color: "$black", mb: 5 }}>
                             Tienda
@@ -172,6 +142,65 @@ const SearchFilters = () => {
                     </Grid>
                 </Grid.Container>
             </Grid>
+
+
+
+
+            {
+                params.useBrand && params.useBrand == "true" &&
+                <>
+                    <Grid>
+                        <Text h4 css={{ mt: 10 }}>
+                            Ubicación
+                        </Text>
+                        <Dropdown>
+                            <Dropdown.Button color="secondary" css={{ color: "$black" }}>
+                                {
+                                    zone
+                                }
+                            </Dropdown.Button>
+                            <Dropdown.Menu
+                                selectionMode="single"
+                                selectedKeys={zone}
+                                onSelectionChange={handleSelect("zone")}>
+                                <Dropdown.Item key="Todas las ubicaciones" icon={<Icon id="pin_drop" />}>Todas las ubicaciones</Dropdown.Item>
+                                <Dropdown.Item key="la salada" icon={<Icon id="pin_drop" />}>La salada</Dropdown.Item>
+                                <Dropdown.Item key="flores" icon={<Icon id="pin_drop" />}>Flores</Dropdown.Item>
+                                <Dropdown.Item key="online" icon={<Icon id="language" />}>Online</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Grid>
+                    {
+                        zone == "la salada" &&
+                        <Grid>
+                            <Text h4 css={{ mt: 10 }}>
+                                ¿En que galpón estan?
+                            </Text>
+                            <Dropdown>
+                                <Dropdown.Button color="secondary" css={{ color: "$black" }}>
+                                    {
+                                        shed
+                                    }
+                                </Dropdown.Button>
+                                <Dropdown.Menu
+                                    selectionMode="single"
+                                    selectedKeys={shed}
+                                    onSelectionChange={handleSelect("shed")}
+                                >
+                                    <Dropdown.Item key="Todos los galpones">Todos los galpones</Dropdown.Item>
+                                    {
+                                        Sheds.map(shed=>(
+                                            <Dropdown.Item key={shed.shed}>{shed.shed}</Dropdown.Item>
+                                        ))
+                                    }
+                                </Dropdown.Menu>
+
+                            </Dropdown>
+                        </Grid>}
+                </>
+            }
+
+
 
             <Text h4 css={{ mt: 10 }}>
                 Categoria
@@ -183,11 +212,11 @@ const SearchFilters = () => {
                         categories.map((category, i) => (
                             <Grid key={i}>
                                 <Button auto
-                                    ghost={state.category != category || state.category == null}
-                                    onPress={() => handleState("category")({ target: { value: category } })}
+                                    ghost={params.category != category.name || params.category == null}
+                                    onPress={handleFilter("category",category.name)}
                                     color="secondary"
                                     css={{ color: "$black" }}>
-                                    {category}
+                                    {category.name}
                                 </Button>
                             </Grid>
                         ))

@@ -332,7 +332,7 @@ const SaladaZone = ({ state, onChange, }) => {
 
                     </Dropdown>
                     <Text small color="error">
-                        {state.shed.error}
+                        {state.galleryName.error}
                     </Text>
                 </Grid>
             }

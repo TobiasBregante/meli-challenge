@@ -19,6 +19,9 @@ const UserAvatar = () => {
         if (e == "logout") {
             logout()
         }
+        if (e=="profile") {
+            router.push(`/./brand/${user.brand._id}`)
+        }
     }
 
 
@@ -26,7 +29,14 @@ const UserAvatar = () => {
         <Dropdown>
             <Dropdown.Button icon={<Icon id="person" css={{ mt: 0 }} />} css={{ bg: 'white' }} />
             <Dropdown.Menu onAction={handleSelection}>
-                <Dropdown.Item key="profile" icon={<Icon id="person" />}>Mi perfil</Dropdown.Item>
+                {
+                    user.isSeller && 
+                    <Dropdown.Item key="profile" icon={<Icon id="person" />}>Mi perfil</Dropdown.Item>
+                }
+                {
+                    user.isSeller &&
+                    <Dropdown.Item key="panel" icon={<Icon id="dashboard" />}>Panel</Dropdown.Item>
+                }
                 {
                     user.isSeller &&
                     <Dropdown.Item key="subscriptions" icon={<Icon id="subscriptions" />}>Suscripción</Dropdown.Item>

@@ -1,32 +1,29 @@
 import Page from '@Page'
 import CategoriesCarousel from '@/src/components/modules/products/carouseles/categories'
-import productsData from '@/utils/sampleProducts'
 import { Container } from '@nextui-org/react'
 import BrandCarousel from '@/src/components/modules/brand/carouseles/brands'
-import storesData from '@/src/utils/sampleStores'
 import UnorderedList from '@/src/components/modules/products/list/unordered'
+import Get from '@/src/utils/hooks/get'
 
-const Index = ({ products, stores }) => {
+const Curve = ({ products, }) => {
 
     return (
         <Page>
             <Container lg css={{ mb: "$10" }}>
-                <CategoriesCarousel />
-                <BrandCarousel title="Marcas mas populares" data={stores} />
-                <UnorderedList title="Productos populares" data={products} />
+                <UnorderedList title="Productos venta por curva" data={products} />
             </Container>
         </Page>
     )
 }
 
-export default Index
+export default Curve
 
 export async function getServerSideProps(ctx) {
 
     return {
         props: {
-            stores: storesData(),
-            products: productsData(30),
+            products: await Get("products/find/query?popular=true&perCurve=true&limit=100").then(r => r.data).catch(() => []),
+           
         }, // will be passed to the page component as props
     }
 }
