@@ -1,5 +1,6 @@
 import Page from "@Page";
 import ClaimBrand from "@/src/components/modules/user/auth/claimBrand";
+import Get from "@/src/utils/hooks/get";
 
 const SignUpPage = ({ website }) => {
     return (
@@ -14,7 +15,7 @@ const SignUpPage = ({ website }) => {
 export async function getStaticProps(ctx){
     return {
         props:{
-            website:await Get("website").then(r => r.data).catch(() => ({ }))
+            website: await Get("website").then(r => r.data).catch(() => ({ }))
         }
     }
 }
