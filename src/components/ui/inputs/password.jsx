@@ -54,7 +54,7 @@ const Input = ({
                 </label>
             }
             <div className={
-                `rounded-12 d-flex px-2 py-1 bg-${status[isValid || state]}`
+                `rounded-12 d-flex px-2 py-1 text-dark bg-${status[isValid || state]}`
             }>
                 <Icon id="lock" />
                 <input
@@ -67,7 +67,7 @@ const Input = ({
                 {
                     <Icon
                         id="cancel"
-                        className={`fs-5 mt-1 pointer  ${(
+                        className={`fs-5 mt-1 pointer ${(
                             clearable && value && value.length > 0)
                             ? "":'invisible'}`}
                         onClick={clear} />

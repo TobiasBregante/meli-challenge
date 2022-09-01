@@ -1,73 +1,90 @@
 import currency from 'currency.js';
 import Icon from '@/src/components/ui/icons';
-import Text from '@/ui/texts'
 import Image from 'next/image';
-import Button from '@/src/components/ui/buttons';
 import Stars from '@/src/components/ui/stars'
 import SaveBookmark from '@/components/modules/products/saveBookmark'
+import Share from '@/components/modules/common/share';
+import { useState } from 'react';
+import PriceTable from '@/components/modules/products/view/productInfo/priceTable'
+import { Button, Grid, Text } from '@nextui-org/react';
+import LocationBuilder from '../../locationBuilder';
+import { useRouter } from 'next/router';
+import Get from '@/src/utils/hooks/get';
 
 const ProductInfo = ({ data }) => {
+    const router = useRouter()
+
+    const moveToLocation = ()=>{
+        router.push("#location")
+    }
+
+    const lowestPriceSelect = () => {
+        let prices = [data.prices.retail.pricePerUnit, data.prices.retail.pricePerDozen, data.prices.wholesale.pricePerUnit, data.prices.wholesale.pricePerBigUnit, data.prices.wholesale.pricePerDozen, data.prices.wholesale.pricePerBigDozen, data.prices.wholesale.pricePerCurve, data.prices.wholesale.pricePerBigCurve]
+
+        prices = prices.filter(price => price != 0)
+
+        //select priceToTalk if there isn't any price
+        if (prices.length == 0 && (data.prices.wholesale.perUnitTalk || data.prices.wholesale.perDozenTalk || data.prices.wholesale.perCurveTalk)) {
+            return "Precio a conversar"
+        }
+
+        return currency(Math.min(...prices), { decimal: ",", separator: "." }).format()
+    }
+
+    const rating = data.stats?.stars == undefined ? 5 : Math.round(data.stats.stars.reduce((a, b) => a + b, 0) / data.stats.stars.length)
+
+    const contact = ()=>{
+        const msg = "Hola te contacto porque vi tu producto en la plataforma de la salada: "
+        window.open(`https://api.whatsapp.com/send?text=${msg}${window.location.host}/product/${data._id}`)
+        Get(`products/product/${data._id}/whatsappClick`)
+    }
+
     return (
-        <>
-            <div className="mx-3">
-                <div className="d-flex justify-content-end">
-                    <SaveBookmark _id={data._id} className="me-2"/>
-                </div>
-                <div className="d-flex ">
-                    <Text tag="h2" weight={700}>
+        <Grid.Container direction="column" justify="space-between" css={{ m: 15 }}>
+            <Grid.Container direction="column" >
+                <Grid.Container justify="flex-end">
+                    <SaveBookmark _id={data._id} className="me-2" />
+                </Grid.Container>
+                <Grid.Container>
+                    <Text h2 weight="bold">
                         {data.title}
                     </Text>
-                </div>
-                <div className="d-flex ">
-                    <Text tag="h3" >
-                        {currency(data.price, { decimal: ",", separator: "." }).format()}
+                </Grid.Container>
+                <Grid.Container>
+                    <Text h3 weight="normal" >
+                        {lowestPriceSelect()}
                     </Text>
-                </div>
-                <div className="d-flex ">
-                    <Text >
-                        <Icon id="pin_drop" className="fs-6 mt-01 me-1" />
-                        Galpon: {data.location.shed} -
-                        Pasillo: {data.location.corridor} -
-                        Puesto: {data.location.store}
+                </Grid.Container>
+                <Grid.Container>
+                    <LocationBuilder data={data.brand.location} useFull />
+                </Grid.Container>
+                <Grid.Container>
+                    <Stars rating={rating} />
+                    <Text>
+                        {data.stats.stars != undefined ? data.stats.stars : 0} calificaciones
                     </Text>
-                </div>
-                <div className="d-flex">
-                    <Stars rating={5} />
-                    <Text className="mt-01">
-                        359 calificaciones
-                    </Text>
-                </div>
-            </div>
-            <div className="mx-3">
-                <div className="d-flex pointer mt-3 mb-1">
-                    <Button color="success-700" className="w-100 justify-content-center">
-                        <Icon id="whatsapp" />
-                        Contactar
-                    </Button>
-                </div>
-                <div className="d-flex pointer mb-3">
-                    <Button color="info-500" className="w-100 justify-content-center me-1">
-                        <Icon id="pin_drop" />
-                        Ubicación
-                    </Button>
-                    <Button color="primary-500" className="w-100 justify-content-center ">
-                        <Icon id="share" />
-                        Compartir
-                    </Button>
-                </div>
-                <div className="d-flex  pointer">
-                    <Image
-                        className="rounded-circle  "
-                        src={`/img/${data.sellerImage}`}
-                        width={50}
-                        height={50}
-                        alt="sellerImage"
-                    />
-                    <Text tag="h4" className="mt-2 ms-2">
-                        {data.seller}
-                    </Text>
-                </div>
-            </div></>
+                </Grid.Container>
+                <PriceTable prices={data.prices} />
+            </Grid.Container>
+            <Grid.Container>
+                <Button auto 
+                iconRight={<Icon id="/whatsappicon" color="$white"/>} 
+                css={{ bg: "$whatsapp", w:"100%", mb:10 }}
+                onPress={contact}>
+                    CONTACTAR
+                </Button>
+                <Grid.Container justify="space-between">
+                    <Grid>
+                        <Button auto icon={<Icon id="pin_drop" color="$white"/>} onPress={moveToLocation}>
+                            Ubicación
+                        </Button>
+                    </Grid>
+                    <Grid>
+                        <Share link={`/product/${data._id}`}/>
+                    </Grid>
+                </Grid.Container>
+            </Grid.Container>
+        </Grid.Container>
     )
 }
 

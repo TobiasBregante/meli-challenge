@@ -2,6 +2,13 @@
     cursor: pointer;
 }
 
+.cursor-zoomIn{
+  cursor:zoom-in;
+}
+.cursor-zoomOut{
+  cursor:zoom-out;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -17,6 +24,32 @@ input[type=number] {
   user-select: none;
 }
 
+.outline-none:focus-visible{
+  outline: none;
+}
+
 .transition-25{
   transition: all 0.25s !important;
 }
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #797979 #ffffff;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #797979;
+    border-radius: 12px;
+    border: 3px solid #ffffff;
+  }

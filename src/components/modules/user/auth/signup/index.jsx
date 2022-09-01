@@ -1,0 +1,185 @@
+import Icon from "@/ui/icons";
+import { useState } from 'react';
+import Link from 'next/link';
+import { toast } from 'react-toastify';
+import Put from '@/utils/hooks/put'
+import Joi from 'joi'
+import jsCookie from 'js-cookie'
+import { useRouter } from 'next/router';
+import AccountType from '@/components/modules/user/auth/signup/sections/accountType';
+import PersonalData from './sections/personalData';
+import { Button, Card, Checkbox, Grid, Text } from '@nextui-org/react';
+import stringMessages from "@/src/utils/joi/customMessages";
+
+const SignUpModule = () => {
+    const router = useRouter()
+    const [state, setState] = useState({
+        isSeller: null,
+        //personal data
+        name: {
+            error: "",
+            value: ""
+        },
+        lastName: {
+            error: "",
+            value: ""
+        },
+        email: {
+            error: "",
+            value: ""
+        },
+        cellPhone: {
+            error: "",
+            value: ""
+        },
+        password: {
+            error: "",
+            value: ""
+        },
+        rePassword: {
+            error: "",
+            value: ""
+        }
+    }),
+        [acceptTermsOfService, setAcceptTermsOfService] = useState(false)
+
+    const handleOption = (key) => (v) => {
+        setState({ ...state, [key]: v })
+    }
+
+    const submit = () => {
+        const Schema = Joi.object({
+            isSeller: Joi.boolean(),
+            name: Joi.string().min(3).max(32).messages(stringMessages("Nombre")),
+            lastName: Joi.string().min(3).max(32).messages(stringMessages("Apellido")),
+            email: Joi.string().min(6).max(320).email({ tlds: { allow: false } }).messages(stringMessages("Correo electrónico")),
+            cellPhone: Joi.string().min(8).max(10).messages(stringMessages("Numero de celular")),
+            password: Joi.string().min(6).max(2048).messages(stringMessages("Contraseña")),
+            rePassword: Joi.string().min(6).max(2048).messages(stringMessages("Confirmar contraseña"))
+        })
+
+        const { error } = Schema.validate({
+            isSeller: state.isSeller,
+            name:state.name.value,
+            lastName: state.lastName.value,
+            email: state.email.value,
+            cellPhone: state.cellPhone.value,
+            password: state.password.value,
+            rePassword: state.rePassword.value,
+        })
+
+        if (error) {
+            if (state.isSeller == null) {
+                return toast("Elige una opción entre Comprador/a o Vendedor/a")
+            }
+            return setState({
+                ...state,
+                [error.details[0].path[0]]: {
+                    value:state[error.details[0].path[0]].value,
+                    error: error.details[0].message
+                }
+            })
+        }
+        if (state.password.value != state.rePassword.value) {
+            return setState({
+                ...state,
+                rePassword: {
+                    ...state.rePassword,
+                    error: "Las contraseñas deben coincidir"
+                }
+            })
+        }
+        if (!acceptTermsOfService) {
+            return toast("Debes aceptar los terminos y condiciones")
+        }
+
+        if (!error) {
+            Put("user/auth/signup", {
+                isSeller: state.isSeller,
+                name: state.name.value,
+                lastName: state.lastName.value,
+                email: state.email.value,
+                cellPhone: state.cellPhone.value,
+                password: state.password.value
+            })
+                .then(res => {
+                    toast(res.data.msg)
+                    jsCookie.set("sldtoken", res.data.sldtoken)
+
+                    if (state.isSeller) {
+                        return router.push('/./user/claimBrand')
+                    }
+                    return router.push(`/./`)
+                })
+                .catch(err => {
+                    if (err.response) {
+                        return toast(err.response.data.msg)
+                    }
+                    console.error(err);
+                    return toast("hubo un error de red al enviar el formulario")
+                })
+        }
+    }
+
+    return (
+        <Grid.Container justify="center" css={{ my: 20 }}>
+            <Grid xs={12} sm={4} >
+                <Card variant="flat" css={{ bg: "$white", pb: 20 }}>
+                    <Card.Header>
+                        <Grid.Container justify="center">
+                            <Grid>
+                                <Text h3 weight="bold">
+                                    Registrate en SaladaApp
+                                </Text>
+                            </Grid>
+                        </Grid.Container>
+                    </Card.Header>
+                    <Card.Body>
+                        <Grid.Container direction="column" css={{ px: "$10" }}>
+                            <AccountType state={state} onClick={handleOption("isSeller")} />
+                            <PersonalData
+                                state={state}
+                                setState={setState} />
+                            <Text h5>
+                                Terminos y condiciones
+                            </Text>
+                            <Checkbox label={
+                                <Text>
+                                    Acepto los&nbsp;
+                                    <Text as="a"
+                                        css={{ color: "$blue500" }}
+                                        href="/./docs/terms"
+                                        target="_blank">
+                                        terminos y condiciones
+                                        <Icon id="open_in_new" />
+                                    </Text>
+
+                                </Text>
+                            }
+                                isSelected={acceptTermsOfService}
+                                onChange={setAcceptTermsOfService} />
+                            <Grid.Container justify="center">
+                                <Button color="secondary" 
+                                css={{ fontWeight: "$bold", color: "$black", mt: "$10" }} 
+                                onPress={submit}>
+                                    {state.isSeller == true ? "Siguiente paso" : "Registrarme"}
+                                    <Icon css={{ color: "$black" }} id={state.isSeller == true ? "arrow_forward" : "person_add"} />
+                                </Button>
+                            </Grid.Container>
+                        </Grid.Container>
+                    </Card.Body>
+                    <Card.Footer>
+                        <Text>
+                            ¿Ya tienes cuenta? &nbsp;
+                            <Link href="/./user/auth/signin">
+                                Inicia sesión
+                            </Link>
+                        </Text>
+                    </Card.Footer>
+                </Card>
+            </Grid>
+        </Grid.Container>
+    )
+}
+
+export default SignUpModule

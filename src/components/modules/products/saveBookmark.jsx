@@ -23,7 +23,7 @@ const SaveBookmark = ({ _id, className, ...htmlProps }) => {
 
     return (
         <Icon
-            id={state ? "bookmarks" : "bookmark_add"}
+            id={state ? "person" : "person_add"}
             className={`pointer transition-25 ${state && "text-warning"} ${className}`}
             onClick={handleSave}
             {...htmlProps} />

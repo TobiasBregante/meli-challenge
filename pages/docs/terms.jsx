@@ -1,10 +1,10 @@
+import { Container, Text } from '@nextui-org/react'
 import Page from '@Page'
-import Text from '@/ui/texts'
 
 const TermsPage = () => {
     return (
         <Page title="Terminos y condiciones SaladaApp">
-            <div className="container mb-5">
+            <Container lg>
                 <Text >
                     <Text tag="h1">
                         Términos y condiciones de uso del Sitio
@@ -204,7 +204,7 @@ const TermsPage = () => {
 
                     Cualquier controversia derivada del presente acuerdo, su existencia, validez, interpretación, alcance o cumplimiento, será sometida a los tribunales competentes de la Ciudad Autónoma de Buenos Aires.
                 </Text>
-            </div>
+            </Container>
         </Page>
     )
 }

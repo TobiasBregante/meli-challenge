@@ -1,27 +1,55 @@
-
-import Card from '@/ui/cards'
-import ProductImageCarrousel from '@/components/modules/products/view/imageCarrousel'
+import ProductImageCarrousel from '@/src/components/modules/products/view/imageCarrousel'
 import ProductInfo from '@/components/modules/products/view/productInfo';
+import ProductLocation from '@/components/modules/products/view/location';
+import ProductComments from '@/components/modules/products/view/comments';
+import ProductSideBarRecomendation from '@/components/modules/products/view/relateds/sidebar';
+import ProductBottomRecomendation from '@/src/components/modules/products/carouseles/product';
+import BrandProfileMinimal from '../../brand/minimalProfile';
+import { Card, Grid } from '@nextui-org/react';
 
-const ProductModule = ({ data }) => {
+const ProductModule = ({ data, relateds,brandProducts }) => {
+
 
     return (
-        <Card rounded={12}>
-            <div className="row">
-                <div className="col-12 col-lg-8">
-                    <ProductImageCarrousel imgs={data.imgs} />
-                </div>
-                <div className="col-12 col-lg-4 d-flex flex-column justify-content-between p-3">
-                    <ProductInfo data={data}/>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-12 col-lg-8">
-                    
-                </div>
-            </div>
-        </Card>
-    );
+        <>
+            <Grid.Container direction="column">
+                <Card>
+                    <Grid.Container css={{ minWidth: 0 }}>
+                        <Grid xs={12} lg={7}>
+                            <ProductImageCarrousel imgs={data.imgs} />
+                        </Grid>
+                        <Grid xs={12} lg={5}>
+                            <ProductInfo data={data} />
+                        </Grid>
+                    </Grid.Container>
+                </Card>
+
+                <Grid.Container css={{ mt: 20 }} gap={2}>
+                    <Grid xs={12} lg={8}>
+                        <Card>
+                            <Card.Body>
+                                <ProductLocation data={data.brand.location} />
+                            </Card.Body>
+                        </Card>
+                    </Grid>
+                    <Grid xs={12} lg={4}>
+                        <BrandProfileMinimal data={data.brand} />
+                    </Grid>
+                </Grid.Container>
+
+                <Grid.Container css={{ mt: 20 }} gap={2}>
+                    <Grid xs={12} lg={8}>
+                        <ProductComments data={data} />
+
+                    </Grid>
+                </Grid.Container>
+
+            </Grid.Container>
+            <ProductBottomRecomendation data={relateds} title="Recomendados" />
+            <ProductBottomRecomendation data={brandProducts} title="Mas productos del vendedor" />
+        </>
+    )
+
 }
 
 export default ProductModule;

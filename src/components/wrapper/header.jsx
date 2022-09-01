@@ -1,76 +1,103 @@
 import Link from "next/link";
-import Text from '@/ui/texts'
-import Input from '@/ui/inputs'
 import Icon from "@/ui/icons";
-import IsAuth from "@/components/modules/user/auth/isAuth";
+import UserHeaderMenu from "@/src/components/modules/user/avatar/userHeaderMenu";
 import Image from "next/image";
-import Button from '@/ui/buttons'
 import { useState } from 'react'
+import { Button, Card, Container, Grid, Input, Text } from "@nextui-org/react";
+import { useRouter } from "next/router";
+
 const Header = () => {
-    const [isSearchBarOpen, openSearchBar] = useState(false),
+    const [isSearchOpen, openSearchBar] = useState(false),
         [searchValue, setSearchValue] = useState("")
+
+    const router = useRouter()
 
     const handleSearch = (e) => {
         setSearchValue(e.target.value)
     }
 
+    const handleEnter = (e) => {
+        if (e.key == "Enter" && searchValue.length > 0) {
+            router.push(`/./search?text=${searchValue}`)
+        }
+    }
+
     return (
-        <nav className="navbar bg-primary-500">
-            {
-                isSearchBarOpen &&
-                <div className="container d-flex flex-row">
-                    <Input
-                        color="white"
-                        clearable
-                        value={searchValue}
-                        placeholder="Busca entre cientos de productos"
-                        icon={<Icon id="search" />}
-                        iconRight={<Icon id="close" onClick={() => openSearchBar(false)} />}
-                        onChange={handleSearch}
-                    />
-                </div>
-            }
-            {
-                !isSearchBarOpen &&
-                <div className="container d-flex justify-content-between">
-                    <Link href="/./" passHref>
-                        <div className="d-flex pointer">
-                            <Image
-                                src="/logo.png"
-                                width={50}
-                                height={50}
-                                alt="salada-app-logo" />
-                            <div className="">
+        <Card css={{ borderRadius: 0, bg: "$primary" }}>
+            <Container lg>
+                {
+                    isSearchOpen ?
+                        <Grid.Container css={{ my: 10, }} justify="center">
+                            <Input
+                                clearable
+                                css={{ w: "100%" }}
+                                value={searchValue}
+                                onChange={handleSearch}
+                                id="headerSearch"
+                                aria-label="Busqueda"
+                                placeholder="Busca entre cientos de productos"
+                                contentRight={<Icon id="search" className="text-dark" />}
+                                contentLeft={<Icon id="arrow_back" onClick={() => openSearchBar(false)} css={{ m: 10 }} />}
+                                contentLeftStyling={false}
+                            />
+                        </Grid.Container>
+                        :
+                        <Grid.Container css={{ my: 10, }} justify="space-between">
+                            <Grid>
+                                <Link href="/./" passHref>
+                                    <Grid.Container direction="row">
+                                        <Grid>
+                                            <Image
+                                                src="/logo"
+                                                width={50}
+                                                height={50}
+                                                alt="salada-app-logo" />
+                                        </Grid>
+                                        <Grid>
+                                            <Grid.Container direction="column" justify="center">
+                                                <Grid.Container css={{ my: "auto" }}>
+                                                    <Text h2 weight="bold" >
+                                                        Salada
+                                                    </Text>
+                                                    <Text h2 color="black" weight="normal" >
+                                                        App
+                                                    </Text>
+                                                </Grid.Container>
+                                            </Grid.Container>
+                                        </Grid>
+                                    </Grid.Container>
+                                </Link>
+                            </Grid>
+                            <Grid>
+                                <Grid.Container gap={.5}>
+                                    <Grid css={{ "@smMax": { display: "none" } }}>
+                                        <Input
+                                            color="white"
+                                            clearable
+                                            value={searchValue}
+                                            onChange={handleSearch}
+                                            onKeyUp={handleEnter}
+                                            id="headerSearch"
+                                            aria-label="Busqueda"
+                                            placeholder="Busca entre cientos de productos"
+                                            contentRight={<Icon id="search" className="text-dark" />}
+                                        />
+                                    </Grid>
+                                    <Grid css={{ "@sm": { display: "none" } }}>
+                                        <Button auto css={{ bg: "$white", color: "$black" }} icon={<Icon id="search" />} onClick={() => openSearchBar(true)} />
+                                    </Grid>
+                                    <Grid>
+                                        <UserHeaderMenu />
+                                    </Grid>
 
-                                <Text color="black" weight="900" size="2">
-                                    Salada
-                                </Text>
-                                <Text color="black" size="2">
-                                    App
-                                </Text>
-                            </div>
-                        </div>
-                    </Link>
-                    <div className="d-flex">
-                        <Input
-                            color="white"
-                            clearable
-                            value={searchValue}
-                            onChange={handleSearch}
-                            placeholder="Busca entre cientos de productos"
-                            icon={<Icon id="search" />}
-                            className="me-2 d-none d-sm-block" />
+                                </Grid.Container>
+                            </Grid>
+                        </Grid.Container>
+                }
 
-                        <Button color="white" className="me-2 d-block d-sm-none" onClick={() => openSearchBar(true)}>
-                            <Icon id="search" />
-                        </Button>
-                        <IsAuth />
-
-                    </div>
-                </div>
-            }
-        </nav>
+            </Container>
+        </Card>
     )
-};
+}
 
 export default Header;

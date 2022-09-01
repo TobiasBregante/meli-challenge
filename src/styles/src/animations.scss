@@ -1,0 +1,11 @@
+.animate__ultrafast {
+    --animate-duration: 0.25s;
+}
+
+.transition-all-ultrafast {
+    transition: all 0.25s;
+}
+
+.transition-bg-filter-025 {
+    transition: background-color 0.25s cubic-bezier(0.4, 0, 1, 1), backdrop-filter 0.25s;
+}
