@@ -1,10 +1,11 @@
 import Page from "@Page";
 import AddProduct from "@/src/components/modules/user/product/add";
+import Get from "@/src/utils/hooks/get";
 
-const AddProductPage = () => {
+const AddProductPage = ({ website }) => {
     return (
         <Page title="SaladaApp - Añadir producto" >
-            <AddProduct/>
+            <AddProduct website={ website }/>
         </Page>
     )
 }
@@ -12,8 +13,11 @@ const AddProductPage = () => {
 
 //CACHE PAGE
 export async function getStaticProps(ctx){
+
     return {
-        props:{}
+        props:{
+            website:await Get("website").then(r => r.data).catch(() => ({ }))
+        }
     }
 }
 

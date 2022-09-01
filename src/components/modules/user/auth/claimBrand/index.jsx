@@ -20,7 +20,7 @@ import Clasification from "./sections/clasification";
 import jsCookie from 'js-cookie'
 import get from '@/utils/hooks/get'
 
-const ClaimPositionModule = () => {
+const ClaimPositionModule = ({ website }) => {
 
     const router = useRouter()
     const user = useUserContext()
@@ -301,7 +301,7 @@ const ClaimPositionModule = () => {
                                 <SellingMode isWholesaleAndRetail={state.isWholesaleAndRetail} onChange={handleSellingMode} />
                             </Grid>
                             <Grid>
-                                <Clasification state={state} onChange={handleGenericString} />
+                                <Clasification state={state} onChange={handleGenericString} website={ website }/>
                             </Grid>
                             <Grid>
                                 <SellZone zone={state.location.zone} onClick={handleZone} />

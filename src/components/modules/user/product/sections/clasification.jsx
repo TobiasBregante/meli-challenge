@@ -2,7 +2,7 @@ import categories from "@/src/utils/user/brand/categories"
 import { Dropdown, Grid, Text } from "@nextui-org/react"
 import { useState } from "react"
 
-const Clasification = ({state,onChange}) => {
+const Clasification = ({state,onChange, website}) => {
     const [categoryState, setCategory] = useState("")
 
     const handleCategory = e => {
@@ -33,7 +33,7 @@ const Clasification = ({state,onChange}) => {
                     >
                         {
                             categories.map((category, i) => (
-                                <Dropdown.Item key={category}>{category}</Dropdown.Item>
+                                <Dropdown.Item key={category.name}>{category.name}</Dropdown.Item>
                             ))
                         }
                     </Dropdown.Menu>

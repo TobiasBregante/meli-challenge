@@ -4,7 +4,7 @@ import { Checkbox, Dropdown, Grid, Input, Text } from "@nextui-org/react"
 import { useMemo, useState } from "react";
 
 
-const Clasification = ({ state, onChange }) => {
+const Clasification = ({ state, onChange, website }) => {
     const [categoryState, setCategory] = useState(""),
         [shippingBy, setShippingBy] = useState(""),
         [payMethod, setPayMethod] = useState([])
@@ -54,8 +54,8 @@ const Clasification = ({ state, onChange }) => {
                             onSelectionChange={handleCategory}
                         >
                             {
-                                categories.map((category, i) => (
-                                    <Dropdown.Item key={category}>{category}</Dropdown.Item>
+                                website?.categories?.length > 0 && website?.categories?.map(category => (
+                                    <Dropdown.Item key={category.name}>{category.name}</Dropdown.Item>
                                 ))
                             }
                         </Dropdown.Menu>
