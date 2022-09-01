@@ -50,7 +50,7 @@ const SignUpModule = () => {
     const submit = () => {
         const Schema = Joi.object({
             isSeller: Joi.boolean(),
-            name: Joi.string().min(3).max(32).alphanum().messages(stringMessages("Nombre")),
+            name: Joi.string().min(3).max(32).messages(stringMessages("Nombre")),
             lastName: Joi.string().min(3).max(32).messages(stringMessages("Apellido")),
             email: Joi.string().min(6).max(320).email({ tlds: { allow: false } }).messages(stringMessages("Correo electrónico")),
             cellPhone: Joi.string().min(8).max(10).messages(stringMessages("Numero de celular")),
@@ -121,7 +121,6 @@ const SignUpModule = () => {
         }
     }
 
-    console.log(state);
     return (
         <Grid.Container justify="center" css={{ my: 20 }}>
             <Grid xs={12} sm={4} >

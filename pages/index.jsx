@@ -2,27 +2,26 @@ import Page from '@Page'
 import ProductCarousel from '@/src/components/modules/products/carouseles/product'
 import HighLightCarousel from '@/src/components/modules/products/carouseles/highlight'
 import CategoriesCarousel from '@/src/components/modules/products/carouseles/categories'
-import productsData from '@/utils/sampleProducts'
-import highlightsData from '@/utils/sampleHighlights'
 import { Container } from '@nextui-org/react'
 import BrandCarousel from '@/src/components/modules/brand/carouseles/brands'
-import storesData from '@/src/utils/sampleStores'
 import UnorderedList from '@/src/components/modules/products/list/unordered'
+import AdsModals from '@/src/components/modules/products/ads/modals'
+import Get from '@/utils/hooks/get'
 
-const Index = ({highlights,products, stores, popular, perCurve, perTask, perBigQuantity}) => {
+const Index = ({ website, wholesaleProducts, wholesaleAndRetailProducts, perQuantityProducts, perCurveProducts, popularProducts, popularBrands }) => {
 
   return (
     <Page>
-      <Container lg css={{mb:"$10"}}>
-        <HighLightCarousel data={highlights}/>
-        <ProductCarousel title="Productos venta por mayor" data={products} link="/./page/retail" />
-        <ProductCarousel title="Productos venta por menor y mayor" data={products}  link="/./page/wholesale" />
-        <CategoriesCarousel />
-        <BrandCarousel title="Marcas mas populares" data={stores} />
-        <UnorderedList title="Productos mas populares" data={popular} link="/./page/popular" showSeeMore={true}/>
-        <ProductCarousel title="Productos venta por gran cantidad" data={perBigQuantity} link="/./page/retail" />
-        <ProductCarousel title="Productos venta por tarea" data={perTask} link="/./page/retail" />
-        <ProductCarousel title="Productos venta por curva" data={perCurve} link="/./page/retail" />
+      <Container lg css={{ mb: "$10" }}>
+        <AdsModals img={website.popup.img} link={website.popup.link}/>
+        <HighLightCarousel data={website.highlights} />
+        <ProductCarousel title="Productos venta por mayor" data={wholesaleProducts} link="/./page/products/wholesale" />
+        <ProductCarousel title="Productos venta por menor y mayor" data={wholesaleAndRetailProducts} link="/./page/products/wholesaleAndRetail" />
+        <CategoriesCarousel data={website.categories}/>
+        <UnorderedList title="Productos mas populares" data={popularProducts} link="/./page/products/popular" showSeeMore={true} />
+        <BrandCarousel title="Marcas mas populares" data={popularBrands} />
+        <ProductCarousel title="Productos venta por gran cantidad" data={perQuantityProducts} link="/./page/products/bigQuantity" />
+        <ProductCarousel title="Productos venta por curva" data={perCurveProducts} link="/./page/products/curve" />
       </Container>
     </Page>
   )
@@ -34,13 +33,13 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
-      stores:storesData(),
-      products:productsData(),
-      highlights:highlightsData(),
-      popular:productsData(12),
-      perBigQuantity: productsData(),
-      perTask: productsData(),
-      perCurve: productsData(),
+      wholesaleProducts: await Get("products/find/query?popular=true&premiunOnly=true&isWholesaleAndRetail=false&limit=10").then(r => r.data).catch(() => []),
+      wholesaleAndRetailProducts: await Get("products/find/query?popular=true&premiunOnly=true&isWholesaleAndRetail=true&limit=10").then(r => r.data).catch(() => []),
+      perQuantityProducts: await Get("products/find/query?popular=true&premiunOnly=true&perQuantity=true&limit=10").then(r => r.data).catch(() => []),
+      perCurveProducts: await Get("products/find/query?popular=true&premiunOnly=true&perCurve=true&limit=10").then(r => r.data).catch(() => []),
+      popularProducts: await Get("products/find/query?popular=true&limit=10").then(r => r.data).catch(() => []),
+      popularBrands: await Get("brands/find/query?popular=true&limit=10&premiunOnly=true").then(r => r.data).catch(() => []),
+      website: await Get("website").then(r => r.data).catch(() => ({ }))
     }, // will be passed to the page component as props
   }
 }

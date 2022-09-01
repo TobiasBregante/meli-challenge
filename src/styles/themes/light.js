@@ -4,7 +4,8 @@ const lightTheme = createTheme({
     theme: {
         colors: {
             primary: '#F29A36',
-            secondary: '#73cbfd'
+            secondary: '#73cbfd',
+            whatsapp: "#25d366"
         },
     }
 })

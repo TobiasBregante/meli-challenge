@@ -8,7 +8,7 @@ const PersonalData = ({ state, setState, }) => {
             ...state,
             [key]: {
                 error:"",
-                value: e.target.value.trim()
+                value: e.target.value
             }
         })
     }

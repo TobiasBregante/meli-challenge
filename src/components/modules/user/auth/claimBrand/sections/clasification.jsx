@@ -1,5 +1,6 @@
+import Icon from "@/src/components/ui/icons";
 import categories from "@/src/utils/user/brand/categories"
-import { Checkbox, Dropdown, Grid, Text } from "@nextui-org/react"
+import { Checkbox, Dropdown, Grid, Input, Text } from "@nextui-org/react"
 import { useMemo, useState } from "react";
 
 
@@ -88,6 +89,18 @@ const Clasification = ({ state, onChange }) => {
                     <Text small color="error">
                         {state.shippingBy.error}
                     </Text>
+                </Grid>
+                <Grid>
+                    <Input
+                        clearable
+                        label="Alcanze del envio"
+                        placeholder="Escribe aqui"
+                        helperText={state.shippingRange.error}
+                        helperColor="error"
+                        status={state.shippingRange.error ? "error" : "default"}
+                        onChange={onChange("shippingRange")}
+                        value={state.shippingRange.value}
+                        css={{ w: "100%" }} />
                 </Grid>
                 <Grid>
                     <Text>

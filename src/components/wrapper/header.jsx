@@ -4,13 +4,22 @@ import UserHeaderMenu from "@/src/components/modules/user/avatar/userHeaderMenu"
 import Image from "next/image";
 import { useState } from 'react'
 import { Button, Card, Container, Grid, Input, Text } from "@nextui-org/react";
+import { useRouter } from "next/router";
 
 const Header = () => {
     const [isSearchOpen, openSearchBar] = useState(false),
         [searchValue, setSearchValue] = useState("")
 
+    const router = useRouter()
+
     const handleSearch = (e) => {
         setSearchValue(e.target.value)
+    }
+
+    const handleEnter = (e) => {
+        if (e.key == "Enter" && searchValue.length > 0) {
+            router.push(`/./search?text=${searchValue}`)
+        }
     }
 
     return (
@@ -21,14 +30,14 @@ const Header = () => {
                         <Grid.Container css={{ my: 10, }} justify="center">
                             <Input
                                 clearable
-                                css={{w:"100%"}}
+                                css={{ w: "100%" }}
                                 value={searchValue}
                                 onChange={handleSearch}
                                 id="headerSearch"
                                 aria-label="Busqueda"
                                 placeholder="Busca entre cientos de productos"
                                 contentRight={<Icon id="search" className="text-dark" />}
-                                contentLeft={<Icon id="arrow_back" onClick={() => openSearchBar(false)} css={{m:10}} />}
+                                contentLeft={<Icon id="arrow_back" onClick={() => openSearchBar(false)} css={{ m: 10 }} />}
                                 contentLeftStyling={false}
                             />
                         </Grid.Container>
@@ -39,7 +48,7 @@ const Header = () => {
                                     <Grid.Container direction="row">
                                         <Grid>
                                             <Image
-                                                src="/logo.png"
+                                                src="/logo"
                                                 width={50}
                                                 height={50}
                                                 alt="salada-app-logo" />
@@ -67,6 +76,7 @@ const Header = () => {
                                             clearable
                                             value={searchValue}
                                             onChange={handleSearch}
+                                            onKeyUp={handleEnter}
                                             id="headerSearch"
                                             aria-label="Busqueda"
                                             placeholder="Busca entre cientos de productos"

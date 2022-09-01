@@ -1,57 +1,53 @@
-import Card from '@/ui/cards'
 import Image from 'next/image'
-import Text from '@/ui/texts'
 import Icon from '@/ui/icons'
-import Button from '@/ui/buttons'
-import { useState } from 'react'
 import Share from '@/components/modules/common/share'
 import Link from 'next/link'
+import { Button, Card, Grid, Text } from '@nextui-org/react'
 
-const BrandProfileMinimal = ({ data }) => {
-    const [isShareOpen, setShareState] = useState(false)
+const BrandProfileMinimal = ({ data, hideFullProfile }) => {
     return (
         <Card rounded={16} className="d-flex flex-column p-3">
-            <Share isVisible={isShareOpen} close={setShareState} />
-            <div className="d-flex flex-row justify-content-center">
-                <Image
-                    className="rounded-circle pointer"
-                    src={`/img/avatars/3.jpg`}
-                    width={100}
-                    height={100}
-                    alt="als"
-                />
-            </div>
-            <Text tag="h4" className="text-center">
-                Importaciones ambar
-            </Text>
-            <div className="d-flex justify-content-between">
-                <Text weight="800" className="d-flex flex-row">
-                    <Icon id="payments" className="me-1" />
-                    Metodo de pago:
+            <Card.Body>
+                <Grid.Container justify="center">
+                    <Image
+                        className="rounded-circle pointer"
+                        src={data.imgs?.principal !== undefined ? data.imgs.principal : "brandImgDefault"}
+                        width={100}
+                        height={100}
+                        alt="als"
+                    />
+                </Grid.Container>
+                <Text h3 className="text-center">
+                    {data.brandName}
                 </Text>
-                <Text >
-                    Efectivo
-                </Text>
-            </div>
-            <div className="d-flex justify-content-between mb-3">
-                <Text weight="800" className="d-flex flex-row">
-                    <Icon id="local_shipping" className="me-1" />
-                    Medio de envio:
-                </Text>
-                <Text >
-                    flete
-                </Text>
-            </div>
-            <Link href="/./brand/mk">
-                <Button color="primary-500" className="d-flex flex-row justify-content-center text-white">
-                    Ver catalogo completo
-                    <Icon id="open_in_new" />
-                </Button>
-            </Link>
-            <Button color="info-500" className="d-flex flex-row justify-content-center text-white mt-2" onClick={() => setShareState(true)}>
-                Compartir catalogo
-                <Icon id="share" />
-            </Button>
+                <Grid.Container justify="space-between">
+                    <Text weight="800" className="d-flex flex-row">
+                        <Icon id="payments" css={{ mr: 5 }} />
+                        Metodo de pago:
+                    </Text>
+                    <Text >
+                        {data.payMethod.join(",")}
+                    </Text>
+                </Grid.Container>
+                <Grid.Container justify="space-between">
+                    <Text weight="800" className="d-flex flex-row">
+                        <Icon id="local_shipping" css={{ mr: 5 }} />
+                        Medio de envio:
+                    </Text>
+                    <Text >
+                        {data.shippingBy}
+                    </Text>
+                </Grid.Container>
+                {
+                    (hideFullProfile == false || hideFullProfile == undefined) &&
+                    <Link href={`/./brand/${data._id}`}>
+                        <Button color="secondary" icon={<Icon id="open_in_new" color="white" />} css={{ mb: 10 }}>
+                            Ver catalogo completo
+                        </Button>
+                    </Link>
+                }
+                <Share link={`/brand/${data._id}`} />
+            </Card.Body>
         </Card>
     )
 }

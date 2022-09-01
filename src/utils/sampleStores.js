@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker'
 
+faker.setLocale("es")
 const stores = ()=>(
     [...Array(10).keys()].map(() => ({
         _id: faker.database.mongodbObjectId(),

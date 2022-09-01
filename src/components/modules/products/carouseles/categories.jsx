@@ -3,9 +3,9 @@ import { Autoplay } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import { Card, Grid, Text } from '@nextui-org/react';
-import categories from '@/src/utils/user/brand/categories';
+import Link from 'next/link';
 
-const CategoriesCarousel = () => {
+const CategoriesCarousel = ({ data }) => {
 
   return (
     <>
@@ -34,17 +34,19 @@ const CategoriesCarousel = () => {
           }}
         >
           {
-            categories.map((elem, i) => (
+            data.sort((a, b) => b.views - a.views).map((category, i) => (
               <SwiperSlide key={i}>
-                <Card css={{ bg: "$blue600" }} variant="flat" isPressable isHoverable>
-                  <Card.Body>
-                    <Grid.Container justify="center">
-                      <Text h5 color="white">
-                        {elem}
-                      </Text>
-                    </Grid.Container>
-                  </Card.Body>
-                </Card>
+                <Link href={`/./page/category/${category.name}`} passHref>
+                  <Card css={{ bg: "$blue600" }} variant="flat" isPressable isHoverable>
+                    <Card.Body>
+                      <Grid.Container justify="center">
+                        <Text h5 color="white">
+                          {category.name}
+                        </Text>
+                      </Grid.Container>
+                    </Card.Body>
+                  </Card>
+                </Link>
               </SwiperSlide>
             ))
           }

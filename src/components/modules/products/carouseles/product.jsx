@@ -8,18 +8,23 @@ import { useState } from 'react'
 import { Grid, Text } from '@nextui-org/react';
 import Link from 'next/link';
 
-const CarouselTitle = ({ title,link }) => {
+const CarouselTitle = ({ title, link }) => {
   return (
     <Grid.Container css={{ mt: 10 }}>
       <Text h3>
         {title}
       </Text>
-      <Link href={link || "/./"}>
-        <Text css={{ pt: 3, ml: 10 }} color="primary">
-          Ver mas
-        </Text>
-      </Link>
-      <Icon id="chevron_right" css={{ pt: 8 }} color="primary" />
+      {
+        link &&
+        <>
+          <Link href={link || "/./"}>
+            <Text css={{ pt: 3, ml: 10 }} color="primary">
+              Ver mas
+            </Text>
+          </Link>
+          <Icon id="chevron_right" css={{ pt: 8 }} color="primary" />
+        </>
+      }
     </Grid.Container>
   )
 
