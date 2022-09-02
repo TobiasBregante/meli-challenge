@@ -137,7 +137,7 @@ const SearchFilters = ({ categories, params }) => {
                             onPress={handleFilter("useBrand", true)}
                             color="secondary"
                             css={{ color: "$black", mb: 5 }}>
-                            Tienda
+                            Marca
                         </Button>
                     </Grid>
                 </Grid.Container>
