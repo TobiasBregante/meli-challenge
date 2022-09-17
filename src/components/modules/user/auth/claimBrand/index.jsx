@@ -141,8 +141,8 @@ const ClaimPositionModule = ({ website }) => {
             if (isInFlores && state.location.isInGallery) {
                 return true
             }
-            if (state.location.shed.value == "GALERIAS") {
-                return true
+            if (isInLaSalada && state.location.shed.value == "GALERIAS") {
+                return false
             }
             return false
         }
@@ -215,6 +215,7 @@ const ClaimPositionModule = ({ website }) => {
 
         if (error) {
             setSubmiting(false)
+            console.log(error);
             if (error.details[0].path.length == 2) {
                 return setState({
                     ...state,

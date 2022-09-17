@@ -1,7 +1,9 @@
+import { useUserContext } from '@/src/utils/user/provider'
 import Icon from '@/ui/icons/'
 import { Checkbox, Grid, Input, Text, Tooltip } from '@nextui-org/react'
 
-const WholesalePerDozen = ({ state, handleState }) => {
+const WholesalePerDozen = ({ state, handleState, data }) => {
+    const user = useUserContext()
     const total = () => {
         const price = parseInt(state.pricePerDozen.value, 10)
         const unitsInDozen = 12
@@ -30,8 +32,8 @@ const WholesalePerDozen = ({ state, handleState }) => {
         return total
     }
 
-    const handlePerDozenTalk = (e)=>{
-        handleState("perDozenTalk")({target:{value:e}})
+    const handlePerDozenTalk = (e) => {
+        handleState("perDozenTalk")({ target: { value: e } })
     }
 
     return (
@@ -78,54 +80,57 @@ const WholesalePerDozen = ({ state, handleState }) => {
                                 readOnly />
                         </Grid>
                     </Grid.Container>
-                    <Grid.Container gap={2}>
-                        <Grid>
-                            <Text h4>
-                                Ventas por mayor de gran cantidad
-                            </Text>
-                        </Grid>
-                        <Grid>
-                            <Input
-                                type="number"
-                                label="Cantidad de docenas para ventas en cantidad"
-                                className="mt-2"
-                                placeholder="Escribe aqui"
-                                helperText={state.minPerBigDozen.error}
-                                helperColor="error"
-                                status={state.minPerBigDozen.error ? "error" : "default"}
-                                contentLeft={<Icon id="filter_none" />}
-                                value={state.minPerBigDozen.value}
-                                onChange={handleState("minPerBigDozen")}
-                                clearable />
-                        </Grid>
-                        <Grid>
-                            <Tooltip content={`El precio debe ser menor a ${state.pricePerDozen.value}`}>
+                    {
+                        (data?.brand?.isPremiun || user.status.isPremiun) &&
+                        <Grid.Container gap={2} direction="column">
+                            <Grid>
+                                <Text h4>
+                                    Ventas por mayor de gran cantidad
+                                </Text>
+                            </Grid>
+                            <Grid>
                                 <Input
                                     type="number"
-                                    label={
-                                        <Text small>
-                                            Precio por unidad en docena para ventas en cantidad
-                                        </Text>
-                                    }
+                                    label="Cantidad de docenas para ventas en cantidad"
                                     className="mt-2"
-                                    placeholder={`el precio debe ser menor a ${state.pricePerDozen.value}`}
-                                    helperText={state.pricePerBigDozen.error}
+                                    placeholder="Escribe aqui"
+                                    helperText={state.minPerBigDozen.error}
                                     helperColor="error"
-                                    status={state.pricePerBigDozen.error ? "error" : "default"}
-                                    labelLeft="$"
-                                    value={state.pricePerBigDozen.value}
-                                    onChange={handleState("pricePerBigDozen")}
+                                    status={state.minPerBigDozen.error ? "error" : "default"}
+                                    contentLeft={<Icon id="filter_none" />}
+                                    value={state.minPerBigDozen.value}
+                                    onChange={handleState("minPerBigDozen")}
                                     clearable />
-                            </Tooltip>
-                        </Grid>
-                        <Grid>
-                            <Input
-                                label={`Precio total por gran cantidad por ${state.minPerBigDozen.value} docenas`}
-                                labelLeft="$"
-                                value={totalBigDozen()}
-                                readOnly />
-                        </Grid>
-                    </Grid.Container>
+                            </Grid>
+                            <Grid>
+                                <Tooltip content={`El precio debe ser menor a ${state.pricePerDozen.value}`}>
+                                    <Input
+                                        type="number"
+                                        label={
+                                            <Text small>
+                                                Precio por unidad en docena para ventas en cantidad
+                                            </Text>
+                                        }
+                                        className="mt-2"
+                                        placeholder={`el precio debe ser menor a ${state.pricePerDozen.value}`}
+                                        helperText={state.pricePerBigDozen.error}
+                                        helperColor="error"
+                                        status={state.pricePerBigDozen.error ? "error" : "default"}
+                                        labelLeft="$"
+                                        value={state.pricePerBigDozen.value}
+                                        onChange={handleState("pricePerBigDozen")}
+                                        clearable />
+                                </Tooltip>
+                            </Grid>
+                            <Grid>
+                                <Input
+                                    label={`Precio total por gran cantidad por ${state.minPerBigDozen.value} docenas`}
+                                    labelLeft="$"
+                                    value={totalBigDozen()}
+                                    readOnly />
+                            </Grid>
+                        </Grid.Container>
+                    }
                 </>
             }
         </>

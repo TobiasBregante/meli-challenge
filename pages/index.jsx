@@ -33,11 +33,11 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
-      wholesaleProducts: await Get("products/find/query?popular=true&premiunOnly=true&isWholesaleAndRetail=false&limit=10").then(r => r.data).catch(() => []),
-      wholesaleAndRetailProducts: await Get("products/find/query?popular=true&premiunOnly=true&isWholesaleAndRetail=true&limit=10").then(r => r.data).catch(() => []),
-      perQuantityProducts: await Get("products/find/query?popular=true&premiunOnly=true&perQuantity=true&limit=10").then(r => r.data).catch(() => []),
-      perCurveProducts: await Get("products/find/query?popular=true&premiunOnly=true&perCurve=true&limit=10").then(r => r.data).catch(() => []),
-      popularProducts: await Get("products/find/query?popular=true&limit=10").then(r => r.data).catch(() => []),
+      wholesaleProducts: await Get("products/find/query?popular=true&premiunOnly=true&isWholesaleAndRetail=false&limit=10&isPublic=true").then(r => r.data).catch(() => []),
+      wholesaleAndRetailProducts: await Get("products/find/query?popular=true&premiunOnly=true&isWholesaleAndRetail=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
+      perQuantityProducts: await Get("products/find/query?popular=true&premiunOnly=true&perQuantity=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
+      perCurveProducts: await Get("products/find/query?popular=true&premiunOnly=true&perCurve=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
+      popularProducts: await Get("products/find/query?popular=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
       popularBrands: await Get("brands/find/query?popular=true&limit=10&premiunOnly=true").then(r => r.data).catch(() => []),
       website: await Get("website").then(r => r.data).catch(() => ({ }))
     }, // will be passed to the page component as props

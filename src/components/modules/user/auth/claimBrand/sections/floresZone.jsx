@@ -1,7 +1,15 @@
 import Icon from "@/ui/icons"
-import { Checkbox, Grid, Input } from "@nextui-org/react"
+import { Checkbox, Dropdown, Grid, Input, Text } from "@nextui-org/react"
+import galeries from '@/utils/user/brand/galeries'
+import { useState } from "react"
 
 const SaladaZone = ({ state, onChange }) => {
+    const [galery, setGallery] = useState(state.galleryName.value || "")
+
+    const handleGalerySelect = e => {
+        
+    }
+
     return (
         <Grid.Container direction="column" >
             <Grid>
@@ -17,16 +25,35 @@ const SaladaZone = ({ state, onChange }) => {
                         state.isInGallery &&
                         <>
                             <Grid>
-                                <Input
-                                    clearable
-                                    label="Nombre de la galeria"
-                                    contentLeft={<Icon id="share_location" />}
-                                    placeholder="Escribe aqui la galeria"
-                                    helperText={state.galleryName.error}
-                                    helperColor="error"
-                                    status={state.galleryName.error ? "error" : "default"}
-                                    value={state.galleryName.value}
-                                    onChange={onChange("galleryName")} />
+                                <Text>
+                                    ¿En que pasillo esta?
+                                </Text>
+                                <Dropdown>
+                                    <Dropdown.Button flat color="$gray">
+                                        {
+                                            galery.length == 0 ? "Eligé una galleria" : galery
+                                        }
+                                    </Dropdown.Button>
+                                    <Dropdown.Menu
+                                        selectionMode="single"
+                                        disallowEmptySelection
+                                        selectedKeys={galery}
+                                        onSelectionChange={handleGalerySelect}
+                                    >
+                                        {
+                                            galeries.map(g => (
+                                                <Dropdown.Item key={g.name} description={`${g.street} ${g.number}`}>
+                                                    {g.name}
+                                                </Dropdown.Item>
+                                            ))
+                                        }
+
+                                    </Dropdown.Menu>
+
+                                </Dropdown>
+                                <Text small color="error">
+                                    {state.hallway.error}
+                                </Text>
                             </Grid>
                             <Grid>
                                 <Input

@@ -19,6 +19,10 @@ const SideBar = ({selected}) => {
                 <Item name="inicio" icon="home" text="Inicio" href="/./admin"/>
                 <Item name="searchByPhone" icon="search" text="Buscar por telefono" href="/./admin/search/byPhone"/>
                 <Item name="searchByEmail" icon="search" text="Buscar por email" href="/./admin/search/byEmail"/>
+                <Item name="brand" icon="search" text="Marcas" href="/./admin/search/brands"/>
+                <Item name="products" icon="search" text="Productos" href="/./admin/search/products"/>
+                <Item name="PopUp" icon="search" text="PopUp" href="/./admin/website/popup"/>
+                <Item name="highlight" icon="search" text="Banner" href="/./admin/website/highlight"/>
             </Grid.Container>
         </Card>
     )

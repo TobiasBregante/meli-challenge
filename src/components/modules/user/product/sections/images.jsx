@@ -1,6 +1,7 @@
 import Icon from "@/src/components/ui/icons"
 import { useUserContext } from "@/src/utils/user/provider"
-import { Card, Grid, Image, Text } from "@nextui-org/react"
+import { Card, Grid, Text, Image as UiImage } from "@nextui-org/react"
+import Image from "next/image"
 import { FileUploader } from "react-drag-drop-files"
 
 const ImagesSection = ({ state, setState }) => {
@@ -11,7 +12,7 @@ const ImagesSection = ({ state, setState }) => {
         const flArray = Array.from(e)
 
         //TRELLO: Add limit of 5 photos for non-premiun users
-        const images = user.status.isPremiun ? [...state.imgs.value, ...flArray]: [...state.imgs.value, ...flArray].slice(0, 5)
+        const images = user.status.isPremiun ? [...state.imgs.value, ...flArray] : [...state.imgs.value, ...flArray].slice(0, 5)
         setState({
             ...state,
             imgs: {
@@ -41,7 +42,7 @@ const ImagesSection = ({ state, setState }) => {
                 </Grid.Container>
             </Grid>
             <Grid css={{ border: "dashed 2px", p: "$10", textAlign: "center" }} className="rounded-16">
-                <FileUploader handleChange={addImg} multiple={true} name="file" types={["jpg", "png", "jpeg","avif","webp","jiff"]} >
+                <FileUploader handleChange={addImg} multiple={true} name="file" types={["jpg", "png", "jpeg", "avif", "webp", "jiff"]} >
                     <Text>
                         Arrastra y suelta tus fotos aqui o presiona aqui
                     </Text>
@@ -53,13 +54,23 @@ const ImagesSection = ({ state, setState }) => {
                         {
                             state.imgs.value.map((img, i) => (
                                 <Grid key={i} className="rounded-12 animate__animated animate__bounceIn" >
-                                    <Image
-                                        src={URL.createObjectURL(img)}
-                                        width={100}
-                                        height={100}
-                                        className="rounded-16"
-                                        alt="a" />
-                                    <Icon id="delete" css={{position: "absolute", zIndex:999, right:5, top:5, cursor: "pointer",bg:"white"}} className="rounded-8"  onClick={removeImg(i)} />
+                                    {
+                                        typeof img === "object" ?
+                                            <UiImage
+                                                src={URL.createObjectURL(img)}
+                                                width={100}
+                                                height={100}
+                                                className="rounded-16"
+                                                alt="a" />
+                                            :
+                                            <Image
+                                                src={`/${img}`}
+                                                width={100}
+                                                height={100}
+                                                className="rounded-16"
+                                                alt="a" />
+                                    }
+                                    <Icon id="delete" css={{ position: "absolute", zIndex: 999, right: 5, top: 5, cursor: "pointer", bg: "white" }} className="rounded-8" onClick={removeImg(i)} />
                                 </Grid>
                             ))
                         }

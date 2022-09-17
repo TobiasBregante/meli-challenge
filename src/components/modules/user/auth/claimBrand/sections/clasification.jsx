@@ -57,12 +57,9 @@ const Clasification = ({ state, onChange, website }) => {
                 </Grid>
 
                 <Grid>
-                    <Text>
-                        Empresas de envios
-                    </Text>
                     <Input
                         clearable
-                        label="Alcanze del envio"
+                        label="Empresa de envios"
                         placeholder="Escribe aqui"
                         helperText={state.shippingBy.error}
                         helperColor="error"

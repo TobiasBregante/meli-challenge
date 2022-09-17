@@ -9,20 +9,10 @@ const SearchModule = ({ products, brands, query, categories, params }) => {
     console.log({ products, brands });
     return (
         <Grid.Container gap={2}>
-            <Grid xs={12} sm={3.5} lg={3.5}>
-                <Grid >
-                    <Card css={{ h: "auto" }}>
-                        <Card.Header>
-                            <Icon id="filter_list" />
-                            <Text h3>Filtros</Text>
-                        </Card.Header>
-                        <Card.Body>
-                            <SearchFilters categories={categories} params={params} />
-                        </Card.Body>
-                    </Card>
-                </Grid>
+            <Grid xs={12} sm={3.5} >
+                <SearchFilters categories={categories} params={params} />
             </Grid>
-            <Grid xs={12} sm={8.5} lg={8.5}>
+            <Grid xs={12} sm={8.5} >
                 <Grid.Container direction="column">
                     {
                         query &&

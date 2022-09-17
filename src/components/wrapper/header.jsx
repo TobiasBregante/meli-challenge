@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from 'react'
 import { Button, Card, Container, Grid, Input, Text } from "@nextui-org/react";
 import { useRouter } from "next/router";
+import UserNotifications from "../modules/user/notifications";
 
 const Header = () => {
     const [isSearchOpen, openSearchBar] = useState(false),
@@ -33,6 +34,7 @@ const Header = () => {
                                 css={{ w: "100%" }}
                                 value={searchValue}
                                 onChange={handleSearch}
+                                onKeyUp={handleEnter}
                                 id="headerSearch"
                                 aria-label="Busqueda"
                                 placeholder="Busca entre cientos de productos"
@@ -85,6 +87,9 @@ const Header = () => {
                                     </Grid>
                                     <Grid css={{ "@sm": { display: "none" } }}>
                                         <Button auto css={{ bg: "$white", color: "$black" }} icon={<Icon id="search" />} onClick={() => openSearchBar(true)} />
+                                    </Grid>
+                                    <Grid>
+                                        <UserNotifications />
                                     </Grid>
                                     <Grid>
                                         <UserHeaderMenu />

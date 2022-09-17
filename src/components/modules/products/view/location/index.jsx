@@ -9,7 +9,7 @@ const ProductLocation = ({ data }) => {
     const MapGenerator = () => {
         if (data.zone == "la salada") {
             const shedFinder = sheds.find(e => e.shed == data.shed).map
-            return <iframe src={shedFinder} width="100%" height="500px" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            return <iframe src={shedFinder} width="100%" height="500px" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
         }
         return null
     }
