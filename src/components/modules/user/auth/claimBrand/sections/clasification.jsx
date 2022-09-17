@@ -6,7 +6,6 @@ import { useMemo, useState } from "react";
 
 const Clasification = ({ state, onChange, website }) => {
     const [categoryState, setCategory] = useState(""),
-        [shippingBy, setShippingBy] = useState(""),
         [payMethod, setPayMethod] = useState([])
 
     const handleCategory = e => {
@@ -15,15 +14,6 @@ const Clasification = ({ state, onChange, website }) => {
             onChange("category")({ target: { value: Object.values(e)[0] } })
         } else {
             onChange("category")({ target: { value: "" } })
-        }
-
-    }
-    const handleShippingBy = e => {
-        setShippingBy(e)
-        if (Object.values(e)[0] !== undefined) {
-            onChange("shippingBy")({ target: { value: Object.values(e)[0] } })
-        } else {
-            onChange("shippingBy")({ target: { value: "" } })
         }
 
     }
@@ -67,28 +57,16 @@ const Clasification = ({ state, onChange, website }) => {
                 </Grid>
 
                 <Grid>
-                    <Text>
-                        Medio de envio
-                    </Text>
-                    <Dropdown>
-                        <Dropdown.Button flat color="$gray">
-                            {
-                                state.shippingBy.value.length == 0 ? "Eligé un medio " : state.shippingBy.value
-                            }
-                        </Dropdown.Button>
-                        <Dropdown.Menu
-                            selectionMode="single"
-                            selectedKeys={shippingBy}
-                            onSelectionChange={handleShippingBy}
-                        >
-                            <Dropdown.Item key="Correo">Correo</Dropdown.Item>
-                            <Dropdown.Item key="Moto">Moto</Dropdown.Item>
-                        </Dropdown.Menu>
-
-                    </Dropdown>
-                    <Text small color="error">
-                        {state.shippingBy.error}
-                    </Text>
+                    <Input
+                        clearable
+                        label="Empresa de envios"
+                        placeholder="Escribe aqui"
+                        helperText={state.shippingBy.error}
+                        helperColor="error"
+                        status={state.shippingBy.error ? "error" : "default"}
+                        onChange={onChange("shippingBy")}
+                        value={state.shippingBy.value}
+                        css={{ w: "100%" }} />
                 </Grid>
                 <Grid>
                     <Input

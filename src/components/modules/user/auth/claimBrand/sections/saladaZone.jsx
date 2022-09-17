@@ -4,11 +4,11 @@ import { useState } from 'react'
 import sheds from '@/src/utils/user/brand/sheds'
 
 const SaladaZone = ({ state, onChange, }) => {
-    const [shed, setShed] = useState(""),
-        [gallery, setGallery] = useState(""),
-        [hallway, setHallway] = useState(""),
-        [floor, setFloor] = useState(""),
-        [side, setSide] = useState("")
+    const [shed, setShed] = useState(state.shed.value || ""),
+        [gallery, setGallery] = useState(state.galleryName.value || ""),
+        [hallway, setHallway] = useState(state.hallway.value || ""),
+        [floor, setFloor] = useState(state.floor.value || ""),
+        [side, setSide] = useState(state.side.value || "")
 
     const handleShed = e => {
         setShed(e)

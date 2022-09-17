@@ -2,9 +2,13 @@ import Icon from "@/ui/icons";
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useUserContext } from '@/src/utils/user/provider';
+
 import ShouldLogin from '@/components/modules/user/errors/shouldLogin';
 import ShouldBeSeller from '@/components/modules/user/errors/shouldBeSeller';
 import ShouldHaveBrand from '@/components/modules/user/errors/shouldHaveBrand';
+import IsNotOwner from '@/components/modules/user/errors/isNotOwner';
+import ShouldBePremiun from '@/components/modules/user/errors/shouldBePremiun'
+
 import RetailPerUnit from './sections/retailPerUnit';
 import RetailPerDozen from './sections/retailPerDozen';
 import WholesalePerUnit from './sections/wholesalePerUnit';
@@ -19,52 +23,58 @@ import { stringMessages, booleanMessages, numberMessages } from "@/src/utils/joi
 import { toast } from "react-toastify";
 import Submit from "./sections/submit";
 
-const AddProduct = ({ website }) => {
+const ManageProduct = ({ website, data }) => {
 
     const router = useRouter()
     const user = useUserContext()
 
-
-
-    const [state, setState] = useState({
-        title: { error: "", value: "" },
-        category: { error: "", value: "" },
-        stock: { error: "", value: "" },
-        description: { error: "", value: "" },
-        imgs: { error: "", value: [] },
+    const defaultState = {
+        title: { error: "", value: data?.title || "" },
+        category: { error: "", value: data?.category || "" },
+        stock: { error: "", value: data?.stock || "" },
+        description: { error: "", value: data?.description || "" },
+        imgs: { error: "", value: data?.imgs || [] },
         prices: {
             retail: {
-                isPerUnit: { error: "", value: null },
-                minPerUnit: { error: "", value: 0 },
-                pricePerUnit: { error: "", value: 0 },
+                isPerUnit: { error: "", value: data?.prices.retail.isPerUnit || null },
+                minPerUnit: { error: "", value: data?.prices.retail.minPerUnit || 0 },
+                pricePerUnit: { error: "", value: data?.prices.retail.pricePerUnit || 0 },
 
-                minPerDozen: { error: "", value: 0 },
-                pricePerDozen: { error: "", value: 0 }
+                minPerDozen: { error: "", value: data?.prices.retail.minPerDozen || 0 },
+                pricePerDozen: { error: "", value: data?.prices.retail.pricePerDozen || 0 }
             },
             wholesale: {
-                sellMode: { error: "", value: null },
+                sellMode: { error: "", value: data?.prices.wholesale.sellMode || null },
 
-                perUnitTalk: { error: "", value: false },
-                minPerUnit: { error: "", value: 0 },
-                pricePerUnit: { error: "", value: 0 },
-                minPerBigUnit: { error: "", value: 0 },
-                pricePerBigUnit: { error: "", value: 0 },
+                perUnitTalk: { error: "", value: data?.prices.wholesale.perUnitTalk || false },
+                minPerUnit: { error: "", value: data?.prices.wholesale.minPerUnit || 0 },
+                pricePerUnit: { error: "", value: data?.prices.wholesale.pricePerUnit || 0 },
+                minPerBigUnit: { error: "", value: data?.prices.wholesale.minPerBigUnit || 0 },
+                pricePerBigUnit: { error: "", value: data?.prices.wholesale.pricePerBigUnit || 0 },
 
-                perDozenTalk: { error: "", value: false },
-                minPerDozen: { error: "", value: 0 },
-                pricePerDozen: { error: "", value: 0 },
-                minPerBigDozen: { error: "", value: 0 },
-                pricePerBigDozen: { error: "", value: 0 },
+                perDozenTalk: { error: "", value: data?.prices.wholesale.perDozenTalk || false },
+                minPerDozen: { error: "", value: data?.prices.wholesale.minPerDozen || 0 },
+                pricePerDozen: { error: "", value: data?.prices.wholesale.pricePerDozen || 0 },
+                minPerBigDozen: { error: "", value: data?.prices.wholesale.minPerBigDozen || 0 },
+                pricePerBigDozen: { error: "", value: data?.prices.wholesale.pricePerBigDozen || 0 },
 
-                perCurveTalk: { error: "", value: false },
-                sizesPerCurve: { error: "", value: 0 },
-                minPerCurve: { error: "", value: 0 },
-                pricePerCurve: { error: "", value: 0 },
-                minPerBigCurve: { error: "", value: 0 },
-                pricePerBigCurve: { error: "", value: 0 },
+                perCurveTalk: { error: "", value: data?.prices.wholesale.perCurveTalk || false },
+                sizesPerCurve: { error: "", value: data?.prices.wholesale.sizesPerCurve || 0 },
+                minPerCurve: { error: "", value: data?.prices.wholesale.minPerCurve || 0 },
+                pricePerCurve: { error: "", value: data?.prices.wholesale.pricePerCurve || 0 },
+                minPerBigCurve: { error: "", value: data?.prices.wholesale.minPerBigCurve || 0 },
+                pricePerBigCurve: { error: "", value: data?.prices.wholesale.pricePerBigCurve || 0 }
             }
         }
-    })
+    }
+
+    const [state, setState] = useState(defaultState)
+
+    const resetState = () => {
+        if (!data) {
+            setState(defaultState)
+        }
+    }
 
 
     if (!user) {
@@ -72,13 +82,20 @@ const AddProduct = ({ website }) => {
             <ShouldLogin />
         )
     }
-    if (!user.isSeller) {
+    if (!user.isAdmin && !user.isSeller) {
         return (
             <ShouldBeSeller />
         )
     }
-    if (user.brand == undefined) {
+    if (!user.isAdmin && user.brand == undefined) {
         return <ShouldHaveBrand />
+    }
+    if (!user.isAdmin && data?.isOwnedBy != undefined && data?.isOwnedBy != user._id) {
+        return <IsNotOwner />
+    }
+
+    if (user.products == 5 && !user.status.isPremiun ) {
+        return <ShouldBePremiun/>
     }
 
     const handleRetailSellMode = v => (e) => {
@@ -155,13 +172,16 @@ const AddProduct = ({ website }) => {
         <Container lg>
 
             <Grid.Container justify="center" css={{ my: 20 }}>
-                <Grid xs={12} sm={6} md={6} lg={6} >
+                <Grid xs={12} sm={10} >
                     <Card variant="flat" css={{ bg: "$white", pb: 20 }}>
                         <Card.Header>
                             <Grid.Container justify="center">
                                 <Grid>
                                     <Text h3 weight="bold">
-                                        Registra un producto
+                                        {
+                                            data !== undefined ?
+                                            "Actualizar producto":"Registra un producto"
+                                        }
                                     </Text>
                                 </Grid>
                             </Grid.Container>
@@ -192,7 +212,7 @@ const AddProduct = ({ website }) => {
                                 </Grid>
                                 <Grid>
                                     <Grid.Container>
-                                        <Clasification state={state} onChange={handleGenericString} website={ website } />
+                                        <Clasification state={state} onChange={handleGenericString} website={website} />
                                     </Grid.Container>
                                 </Grid>
                                 <Grid>
@@ -233,7 +253,7 @@ const AddProduct = ({ website }) => {
                                     <Grid.Container>
 
                                         {
-                                            user.brand.isWholesaleAndRetail &&
+                                            (data?.brand?.isWholesaleAndRetail || user?.brand?.isWholesaleAndRetail) &&
                                             <>
                                                 <Icon id="attach_money" className={"mt-01"} />
                                                 <Text h4>
@@ -290,15 +310,15 @@ const AddProduct = ({ website }) => {
                                         </Grid.Container>
                                         {
                                             state.prices.wholesale.sellMode.value == 0 &&
-                                            <WholesalePerUnit state={state.prices.wholesale} handleState={handleWholesale} />
+                                            <WholesalePerUnit state={state.prices.wholesale} handleState={handleWholesale} data={data} />
                                         }
                                         {
                                             state.prices.wholesale.sellMode.value == 1 &&
-                                            <WholesalePerDozen state={state.prices.wholesale} handleState={handleWholesale} />
+                                            <WholesalePerDozen state={state.prices.wholesale} handleState={handleWholesale} data={data} />
                                         }
                                         {
                                             state.prices.wholesale.sellMode.value == 2 &&
-                                            <WholesalePerCurve state={state.prices.wholesale} handleState={handleWholesale} />
+                                            <WholesalePerCurve state={state.prices.wholesale} handleState={handleWholesale} data={data} />
                                         }
                                     </Grid.Container>
                                 </Grid>
@@ -307,7 +327,7 @@ const AddProduct = ({ website }) => {
                                 </Grid>
                             </Grid.Container>
                             <Grid.Container justify="center">
-                                <Submit state={state} setState={setState} />
+                                <Submit state={state} setState={setState} data={data} resetState={resetState} />
                             </Grid.Container>
                         </Card.Body>
                     </Card>
@@ -319,4 +339,4 @@ const AddProduct = ({ website }) => {
 
 }
 
-export default AddProduct
+export default ManageProduct

@@ -1,9 +1,11 @@
+import { useUserContext } from '@/src/utils/user/provider'
 import Icon from '@/ui/icons/'
 import { Checkbox, Grid, Input, Text, Tooltip } from '@nextui-org/react'
 import currency from 'currency.js'
 
-const WholesalePerDozen = ({ state, handleState }) => {
+const WholesalePerDozen = ({ state, handleState, data }) => {
 
+    const user = useUserContext()
     const total = () => {
         const price = parseInt(state.pricePerCurve.value, 10)
         const unitsInCurve = parseInt(state.sizesPerCurve.value, 10)
@@ -91,50 +93,53 @@ const WholesalePerDozen = ({ state, handleState }) => {
                         </Grid>
 
                     </Grid.Container>
-                    <Grid.Container gap={2}>
-                        <Grid>
-                            <Text h4>
-                                Ventas por mayor de gran cantidad
-                            </Text>
-                        </Grid>
-                        <Grid>
-                            <Input
-                                type="number"
-                                label="Cantidad de curvas para ventas en cantidad"
-                                className="mt-2"
-                                placeholder="Escribe aqui"
-                                helperText={state.minPerBigCurve.error}
-                                helperColor="error"
-                                status={state.minPerBigCurve.error ? "error" : "default"}
-                                contentLeft={<Icon id="filter_none" />}
-                                value={state.minPerBigCurve.value}
-                                onChange={handleState("minPerBigCurve")}
-                                clearable />
-                        </Grid>
-                        <Grid>
-                            <Tooltip content={`El precio debe ser menor a ${state.pricePerCurve.value}`}>
+                    {
+                        (data?.brand?.isPremiun || user.status.isPremiun) &&
+                        <Grid.Container gap={2} direction="column">
+                            <Grid>
+                                <Text h4>
+                                    Ventas por mayor de gran cantidad
+                                </Text>
+                            </Grid>
+                            <Grid>
                                 <Input
                                     type="number"
-                                    label={`Precio por unidad en la curva por gran cantidad`}
+                                    label="Cantidad de curvas para ventas en cantidad"
                                     className="mt-2"
-                                    placeholder={`el precio debe ser menor a ${state.pricePerCurve.value}`}
-                                    helperText={state.pricePerBigCurve.error}
+                                    placeholder="Escribe aqui"
+                                    helperText={state.minPerBigCurve.error}
                                     helperColor="error"
-                                    status={state.pricePerBigCurve.error ? "error" : "default"}
-                                    labelLeft="$"
-                                    value={state.pricePerBigCurve.value}
-                                    onChange={handleState("pricePerBigCurve")}
+                                    status={state.minPerBigCurve.error ? "error" : "default"}
+                                    contentLeft={<Icon id="filter_none" />}
+                                    value={state.minPerBigCurve.value}
+                                    onChange={handleState("minPerBigCurve")}
                                     clearable />
-                            </Tooltip>
-                        </Grid>
-                        <Grid>
-                            <Input
-                                label={`Precio total por gran cantidad por ${state.minPerBigCurve.value} curvas`}
-                                labelLeft="$"
-                                value={totalBigCurve()}
-                                readOnly />
-                        </Grid>
-                    </Grid.Container>
+                            </Grid>
+                            <Grid>
+                                <Tooltip content={`El precio debe ser menor a ${state.pricePerCurve.value}`}>
+                                    <Input
+                                        type="number"
+                                        label={`Precio por unidad en la curva por gran cantidad`}
+                                        className="mt-2"
+                                        placeholder={`el precio debe ser menor a ${state.pricePerCurve.value}`}
+                                        helperText={state.pricePerBigCurve.error}
+                                        helperColor="error"
+                                        status={state.pricePerBigCurve.error ? "error" : "default"}
+                                        labelLeft="$"
+                                        value={state.pricePerBigCurve.value}
+                                        onChange={handleState("pricePerBigCurve")}
+                                        clearable />
+                                </Tooltip>
+                            </Grid>
+                            <Grid>
+                                <Input
+                                    label={`Precio total por gran cantidad por ${state.minPerBigCurve.value} curvas`}
+                                    labelLeft="$"
+                                    value={totalBigCurve()}
+                                    readOnly />
+                            </Grid>
+                        </Grid.Container>
+                    }
                 </>
             }
         </>
