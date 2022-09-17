@@ -10,7 +10,7 @@ import jsCookie from 'js-cookie'
 import Post from "@/src/utils/hooks/post"
 import { useRouter } from "next/router"
 
-const Submit = ({ state, setState }) => {
+const Submit = ({ state, setState, data, resetState }) => {
 
     const [isSubmiting, setSubmiting] = useState(false)
     const user = useUserContext()
@@ -20,15 +20,15 @@ const Submit = ({ state, setState }) => {
         setSubmiting(true)
 
         const retailPerUnit = state.prices.retail.isPerUnit.value
-        const retailMode = (mode)=>{
-            if (user.brand.isWholesaleAndRetail && retailPerUnit == mode) {
+        const retailMode = (mode) => {
+            if ((data?.brand?.isWholesaleAndRetail || user.brand.isWholesaleAndRetail) && retailPerUnit == mode) {
                 return true
             }
             return false
         }
 
         const wholesaleSellMode = v => {
-            if (user.brand.isWholesaleAndRetail) {
+            if (data?.brand?.isWholesaleAndRetail || user.brand.isWholesaleAndRetail) {
                 return false
             }
             if (state.prices.wholesale.perUnitTalk.value == true && v == 0) {
@@ -41,6 +41,15 @@ const Submit = ({ state, setState }) => {
                 return false
             }
             return state.prices.wholesale.sellMode.value == v
+        }
+
+        const isRequireBigQuantity = v=>{
+            if (wholesaleSellMode(v)) {
+                if (data?.brand?.isPremiun || user.status.isPremiun ) {
+                    return true
+                }
+            }
+            return false
         }
 
         const pricePerBigUnit = () => {
@@ -68,7 +77,7 @@ const Submit = ({ state, setState }) => {
         }
 
         //Pre check-in
-        if (user.brand.isWholesaleAndRetail && retailPerUnit == null) {
+        if ((data?.brand?.isWholesaleAndRetail || user.brand.isWholesaleAndRetail) && retailPerUnit == null) {
             setSubmiting(false)
             return toast("Elige una opción para venta por menor")
         }
@@ -101,21 +110,21 @@ const Submit = ({ state, setState }) => {
                     perUnitTalk: Joi.boolean(),
                     minPerUnit: Joi.number().min(wholesaleSellMode(0) ? 1 : 0).max(999999).messages(numberMessages("Cantidad minima")),
                     pricePerUnit: Joi.number().min(wholesaleSellMode(0) ? 1 : 0).max(999999).messages(numberMessages("Precio por unidad")),
-                    minPerBigUnit: Joi.number().min(wholesaleSellMode(0) ? 1 : 0).max(999999).messages(numberMessages("Cantidad de unidades en gran cantidad")),
-                    pricePerBigUnit: Joi.number().min(wholesaleSellMode(0) ? 1 : 0).max(pricePerBigUnit()).messages(numberMessages("Precio por unidad en venta de gran cantidad")),
+                    minPerBigUnit: Joi.number().min(isRequireBigQuantity(0) ? 1 : 0).max(999999).messages(numberMessages("Cantidad de unidades en gran cantidad")),
+                    pricePerBigUnit: Joi.number().min(isRequireBigQuantity(0) ? 1 : 0).max(pricePerBigUnit()).messages(numberMessages("Precio por unidad en venta de gran cantidad")),
 
                     perDozenTalk: Joi.boolean(),
                     minPerDozen: Joi.number().min(wholesaleSellMode(1) ? 1 : 0).max(999999).messages(numberMessages("Cantidad de docenas")),
                     pricePerDozen: Joi.number().min(wholesaleSellMode(1) ? 1 : 0).max(999999).messages(numberMessages("Precio por unidad en cada docena")),
-                    minPerBigDozen: Joi.number().min(wholesaleSellMode(1) ? 1 : 0).max(999999).messages(numberMessages("Cantidad de docenas para gran cantidad")),
-                    pricePerBigDozen: Joi.number().min(wholesaleSellMode(1) ? 1 : 0).max(pricePerBigDozen()).messages(numberMessages("Precio por unidad en docenas de gran cantidad")),
+                    minPerBigDozen: Joi.number().min(isRequireBigQuantity(1) ? 1 : 0).max(999999).messages(numberMessages("Cantidad de docenas para gran cantidad")),
+                    pricePerBigDozen: Joi.number().min(isRequireBigQuantity(1) ? 1 : 0).max(pricePerBigDozen()).messages(numberMessages("Precio por unidad en docenas de gran cantidad")),
 
                     perCurveTalk: Joi.boolean(),
                     sizesPerCurve: Joi.number().min(wholesaleSellMode(2) ? 1 : 0).max(999999).messages(numberMessages("Talles por curva")),
                     minPerCurve: Joi.number().min(wholesaleSellMode(2) ? 1 : 0).max(999999).messages(numberMessages("Cantidad de curvas")),
                     pricePerCurve: Joi.number().min(wholesaleSellMode(2) ? 1 : 0).max(999999).messages(numberMessages("Precio por unidad en la curva")),
-                    minPerBigCurve: Joi.number().min(wholesaleSellMode(2) ? 1 : 0).max(999999).messages(numberMessages("Cantidad minima de curvas para gran cantidad")),
-                    pricePerBigCurve: Joi.number().min(wholesaleSellMode(2) ? 1 : 0).max(pricePerBigCurve()).messages(numberMessages("Precio por unidad para ventas en gran cantidad de curvas"))
+                    minPerBigCurve: Joi.number().min(isRequireBigQuantity(2) ? 1 : 0).max(999999).messages(numberMessages("Cantidad minima de curvas para gran cantidad")),
+                    pricePerBigCurve: Joi.number().min(isRequireBigQuantity(2) ? 1 : 0).max(pricePerBigCurve()).messages(numberMessages("Precio por unidad para ventas en gran cantidad de curvas"))
                 }
             }),
             imgs: Joi.array(),
@@ -212,7 +221,7 @@ const Submit = ({ state, setState }) => {
         }
 
         if (!error) {
-            const uploadImages = value.imgs.map(async img => {
+            const uploadImages = value.imgs.filter(x => typeof x === "object").map(async img => {
                 let formImage = new FormData();
                 formImage.append("file", img)
 
@@ -231,28 +240,47 @@ const Submit = ({ state, setState }) => {
                         return false
                     })
             })
+            const updateOrAdd = (body) => {
+                if (data) {
+                    Post(`products/product/${data._id}/update`, body, {
+                        headers: {
+                            sldtoken: jsCookie.get("sldtoken")
+                        }
+                    }).then(res => {
+                        toast(res.data.msg)
+                        setSubmiting(false)
+                        resetState()
+
+                    }).catch(err => {
+                        if (err.response.data) {
+                            toast.error(err.response.data);
+                        }
+                        toast.error("Ocurrio un error de nuestro lado")
+                        setSubmiting(false)
+                    })
+                } else {
+                    Put("products/add", body, {
+                        headers: {
+                            sldtoken: jsCookie.get("sldtoken")
+                        }
+                    }).then(res => {
+                        toast(res.data.msg)
+                        setSubmiting(false)
+                        //esetState()
+
+                    }).catch(err => {
+                        if (err.response.data) {
+                            toast.error(err.response.data);
+                        }
+                        toast.error("Ocurrio un error de nuestro lado")
+                        setSubmiting(false)
+                    })
+                }
+            }
 
             Promise.all(uploadImages).then(imgs => {
-                Put("products/add", {
-                    ...value,
-                    imgs: imgs
-                }, {
-                    headers: {
-                        sldtoken: jsCookie.get("sldtoken")
-                    }
-                }).then(res => {
-                    toast(res.data.msg)
-                    setSubmiting(false)
-                    //router.reload()
-                    
-                }).catch(err => {
-                    if (err.response.data) {
-                        toast.error(err.response.data);
-                    }
-                    toast.error("Ocurrio un error de nuestro lado")
-                    setSubmiting(false)
-                })
-
+                const finalImgs = [...value.imgs.filter(x => typeof x !== "object"),...imgs]
+                updateOrAdd({ ...value, imgs: finalImgs })
             })
 
 
@@ -268,7 +296,9 @@ const Submit = ({ state, setState }) => {
             iconRight={isSubmiting ? <Loading type="points" color="currentColor" /> : <Icon id="add" />}
             disabled={isSubmiting}
             onPress={handleClick}>
-            Añadir producto
+            {
+                data?._id !== undefined ? "Actualizar" : "Añadir producto"
+            }
         </Button>
     )
 }

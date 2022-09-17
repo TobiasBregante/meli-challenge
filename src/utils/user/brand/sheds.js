@@ -8,7 +8,8 @@ const sheds = [{
         name:"COLORES",
         hallways:["Rojo","Amarillo","Verde"],
 
-    },{
+    },
+    {
         name:"FELIPE",
         hallways:["Rojo","Amarillo","Verde"],
         sides:["Afuera"]
