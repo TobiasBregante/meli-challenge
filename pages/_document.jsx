@@ -13,14 +13,10 @@ class MyDocument extends Document {
 
     render() {
         return (
-            <Html lang="en">
+            <Html lang="es">
                 <Head>
                     {CssBaseline.flush()}
-                    <link rel="preconnect" href="https://fonts.googleapis.com" />
-                    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-                    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
-                    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round&display=swap"
-                        rel="stylesheet" />
+                    
                 </Head>
                 <body>
                     <Main />

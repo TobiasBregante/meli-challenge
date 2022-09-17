@@ -19,7 +19,7 @@ import { stringMessages, booleanMessages, numberMessages } from "@/src/utils/joi
 import { toast } from "react-toastify";
 import Submit from "./sections/submit";
 
-const AddProduct = () => {
+const AddProduct = ({ website }) => {
 
     const router = useRouter()
     const user = useUserContext()
@@ -192,7 +192,7 @@ const AddProduct = () => {
                                 </Grid>
                                 <Grid>
                                     <Grid.Container>
-                                        <Clasification state={state} onChange={handleGenericString} />
+                                        <Clasification state={state} onChange={handleGenericString} website={ website } />
                                     </Grid.Container>
                                 </Grid>
                                 <Grid>

@@ -1,10 +1,11 @@
 import Page from "@Page";
 import ClaimBrand from "@/src/components/modules/user/auth/claimBrand";
+import Get from "@/src/utils/hooks/get";
 
-const SignUpPage = () => {
+const SignUpPage = ({ website }) => {
     return (
         <Page title="SaladaApp - Reclamar puesto" >
-            <ClaimBrand/>
+            <ClaimBrand website={ website }/>
         </Page>
     )
 }
@@ -13,7 +14,9 @@ const SignUpPage = () => {
 //CACHE PAGE
 export async function getStaticProps(ctx){
     return {
-        props:{}
+        props:{
+            website: await Get("website").then(r => r.data).catch(() => ({ }))
+        }
     }
 }
 
