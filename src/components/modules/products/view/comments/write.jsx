@@ -4,26 +4,48 @@ import { Button, Grid, Loading, Text, Textarea } from "@nextui-org/react"
 import { useState } from "react"
 import jsCookie from 'js-cookie'
 import { toast } from "react-toastify"
+import { useUserContext } from "@/src/utils/user/provider"
 
-const WriteComment = ({ data, isResponse, comment_id, ...htmlProps }) => {
+const WriteComment = ({ data, isResponse, comment_id, comments, setComments, ...htmlProps }) => {
     const [state, setState] = useState(""),
         [isSubmiting, setSubmiting] = useState(false)
+    const user = useUserContext()
 
     const publish = () => {
         const body = {}
         setSubmiting(true)
         if (isResponse) {
-            body.response = state.response
+            body.response = state
             body.comment_id = comment_id
-        }else{
+        } else {
             body.comment = state
         }
+
         Post(`products/product/${data._id}/comment`, body, {
             headers: { sldtoken: jsCookie.get('sldtoken') }
         }).then(res => {
             toast(res.data.msg)
             setState("")
             setSubmiting(false)
+
+            if (isResponse) {
+                setComments(comments.map(c => {
+                    if (c._id === comment_id) {
+                        c.response = state
+                    }
+                    return c
+                }))
+
+            } else {
+                setComments([...comments, {
+                    comment: state,
+                    createdAt: new Date(),
+                    user: {
+                        _id: user._id,
+                        name: user.name
+                    }
+                }])
+            }
         }).catch(err => {
             setSubmiting(false)
             if (err.response) {
@@ -34,7 +56,7 @@ const WriteComment = ({ data, isResponse, comment_id, ...htmlProps }) => {
     }
 
     return (
-        <>
+        <Grid.Container direction="column">
             <Textarea
                 label={<Text weight="bold">
                     {
@@ -47,15 +69,15 @@ const WriteComment = ({ data, isResponse, comment_id, ...htmlProps }) => {
                 {...htmlProps}
             />
             <Grid.Container justify="flex-end" css={{ mt: 10 }}>
-                <Button 
-                auto 
-                disabled={isSubmiting}
-                iconRight={isSubmiting ? <Loading type="points" /> : <Icon id="send" color="white" />}
-                onPress={publish}>
-                    Enviar
+                <Button
+                    auto
+                    disabled={isSubmiting}
+                    iconRight={isSubmiting ? <Loading type="points" color="currentColor" /> : <Icon id="send" color="white" />}
+                    onPress={publish}>
+                    {isResponse ? "Responder" : "Enviar"}
                 </Button>
             </Grid.Container>
-        </>
+        </Grid.Container>
     )
 }
 export default WriteComment
