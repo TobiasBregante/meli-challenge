@@ -34,6 +34,10 @@ const UserNotifications = () => {
         readNotifications()
     }
 
+    const openLink = url=>()=>{
+        router.push(url)
+    }
+
     return (
         <>
             <Badge content={newNotifications.length} color="error" isInvisible={newNotifications.length === 0}>
@@ -52,7 +56,7 @@ const UserNotifications = () => {
                             {
                                 notification.link &&
                                 <Grid.Container justify="flex-end">
-                                    <Button auto iconRight={<Icon id="arrow_forward" color="white" />}>
+                                    <Button auto iconRight={<Icon id="arrow_forward" color="white" />} onPress={openLink(notification.link)}>
                                         Ir
                                     </Button>
                                 </Grid.Container>
