@@ -1,4 +1,4 @@
-import { Card, Container, Grid, Text } from '@nextui-org/react'
+import { Button, Card, Container, Grid, Text } from '@nextui-org/react'
 import Page from '@Page'
 
 const Subscriptions = () => {
@@ -11,7 +11,7 @@ const Subscriptions = () => {
                             <Card.Header>
                                 <Grid.Container justify="center">
                                     <Text h2>
-                                        Plan basico
+                                        Plan premiun
                                     </Text>
                                 </Grid.Container>
                             </Card.Header>
@@ -56,6 +56,12 @@ const Subscriptions = () => {
                                 <Text> - Cantidad total o Stock del producto disponible.</Text>
                                 <Text> - Descripción del producto</Text>
                                 <Text> - Apartir de cuantas  tareas vendes para hacer envios</Text>
+
+                                <Button onPress={()=>{
+                                    window.open("https:api.whatsapp.com/send?text=Hola quiero contratar el plan premiun&phone=541170895828")
+                                }}>
+                                    Contractar
+                                </Button>
                             </Card.Body>
                         </Card>
                     </Grid>
