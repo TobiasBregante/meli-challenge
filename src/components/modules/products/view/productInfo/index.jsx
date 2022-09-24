@@ -10,11 +10,16 @@ import { Button, Grid, Text } from '@nextui-org/react';
 import LocationBuilder from '../../locationBuilder';
 import { useRouter } from 'next/router';
 import Get from '@/src/utils/hooks/get';
+import WriteReview from '../review/write';
+import { useUserContext } from '@/src/utils/user/provider';
 
 const ProductInfo = ({ data }) => {
     const router = useRouter()
+    const user = useUserContext()
 
-    const moveToLocation = ()=>{
+    const [isWritingReview, setWriteReview] = useState(false)
+
+    const moveToLocation = () => {
         router.push("#location")
     }
 
@@ -31,16 +36,25 @@ const ProductInfo = ({ data }) => {
         return currency(Math.min(...prices), { decimal: ",", separator: "." }).format()
     }
 
-    const rating = data.stats?.stars == undefined ? 5 : Math.round(data.stats.stars.reduce((a, b) => a + b, 0) / data.stats.stars.length)
+    let rating = data.reviews?.map(a => a.rating)
+    rating = rating == undefined ? 5 : Math.round(rating.reduce((a, b) => a + b, 0) / rating.length)
 
-    const contact = ()=>{
+
+    const contact = () => {
         const msg = "Hola te contacto porque vi tu producto en la plataforma de la salada: "
-        window.open(`https://api.whatsapp.com/send?text=${msg}${window.location.host}/product/${data._id}`)
+        window.open(`https://api.whatsapp.com/send?text=${msg}${window.location.host}/product/${data._id}&phone=54${data.brand.phone}`)
         Get(`products/product/${data._id}/whatsappClick`)
+
+        if (!data.reviews?.find(r => r.user._id == user._id)) {
+            setWriteReview(true)
+        }
+
     }
 
     return (
         <Grid.Container direction="column" justify="space-between" css={{ m: 15 }}>
+            <WriteReview open={isWritingReview} close={() => setWriteReview(false)} data={data} />
+
             <Grid.Container direction="column" >
                 <Grid.Container justify="flex-end">
                     <SaveBookmark _id={data._id} className="me-2" />
@@ -61,26 +75,28 @@ const ProductInfo = ({ data }) => {
                 <Grid.Container>
                     <Stars rating={rating} />
                     <Text>
-                        {data.stats.stars != undefined ? data.stats.stars : 0} calificaciones
+                        {data.reviews != undefined ? 
+                        data.reviews.length > 1? `${data.reviews.length} Calificaciones`:" 1 Calificación"
+                         : "0 Calificaciones"} 
                     </Text>
                 </Grid.Container>
                 <PriceTable prices={data.prices} />
             </Grid.Container>
             <Grid.Container>
-                <Button auto 
-                iconRight={<Icon id="/whatsappicon" color="$white"/>} 
-                css={{ bg: "$whatsapp", w:"100%", mb:10 }}
-                onPress={contact}>
+                <Button auto
+                    iconRight={<Icon id="/whatsappicon" color="$white" />}
+                    css={{ bg: "$whatsapp", w: "100%", mb: 10 }}
+                    onPress={contact}>
                     CONTACTAR
                 </Button>
                 <Grid.Container justify="space-between">
                     <Grid>
-                        <Button auto icon={<Icon id="pin_drop" color="$white"/>} onPress={moveToLocation}>
+                        <Button auto icon={<Icon id="pin_drop" color="$white" />} onPress={moveToLocation}>
                             Ubicación
                         </Button>
                     </Grid>
                     <Grid>
-                        <Share link={`/product/${data._id}`}/>
+                        <Share link={`/product/${data._id}`} />
                     </Grid>
                 </Grid.Container>
             </Grid.Container>
