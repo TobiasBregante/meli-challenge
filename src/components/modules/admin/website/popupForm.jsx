@@ -6,7 +6,7 @@ import Post from "@/src/utils/hooks/post"
 import jsCookie from 'js-cookie'
 import { toast } from "react-toastify"
 
-const PopupForm = ({ website }) => {
+const   PopupForm = ({ website }) => {
     const [state, setState] = useState({
         link: website.popup.link,
         img: website.popup.img
@@ -47,9 +47,9 @@ const PopupForm = ({ website }) => {
             })
         }
 
-        if (typeof state.img[0] === "object") {
+        if (typeof state.img === "object") {
             let formImage = new FormData();
-            formImage.append("file", state.img[0])
+            formImage.append("file", state.img)
 
             Post("products/addImage", formImage, {
                 headers: {
@@ -66,7 +66,7 @@ const PopupForm = ({ website }) => {
                     return false
                 })
         } else {
-            update(state.img[0])
+            update(state.img)
         }
 
     }
