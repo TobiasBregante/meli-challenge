@@ -60,7 +60,7 @@ const Subscriptions = () => {
                                 <Button onPress={()=>{
                                     window.open("https:api.whatsapp.com/send?text=Hola quiero contratar el plan premiun&phone=541170895828")
                                 }}>
-                                    Contractar
+                                    Contactar
                                 </Button>
                             </Card.Body>
                         </Card>
