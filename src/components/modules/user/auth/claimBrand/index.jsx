@@ -30,7 +30,6 @@ const ClaimPositionModule = ({ website }) => {
         isWholesaleAndRetail: null,
         category: { error: "", value: "" },
         shippingBy: { error: "", value: "" },
-        shippingRange: { error: "", value: "" },
         payMethod: { error: "", value: [] },
         location: {
             zone: { error: "", value: "" },
@@ -153,7 +152,6 @@ const ClaimPositionModule = ({ website }) => {
             isWholesaleAndRetail: Joi.boolean().valid(null, true, false).messages(booleanMessages("Forma de vender")),
             category: Joi.string().min(1).max(128).messages(stringMessages("Categoria")),
             shippingBy: Joi.string().min(1).max(128).messages(stringMessages("Transporte de envios")),
-            shippingRange: Joi.string().min(1).max(128).messages(stringMessages("Alcance del envio")),
             payMethod: Joi.array().items(Joi.string().min(1).max(128).messages(stringMessages("Metodo de pago"))),
             location: Joi.object({
                 zone: Joi.string().messages(stringMessages("Donde planeas vender")),
@@ -178,7 +176,6 @@ const ClaimPositionModule = ({ website }) => {
             isWholesaleAndRetail: state.isWholesaleAndRetail,
             category: state.category.value,
             shippingBy: state.shippingBy.value,
-            shippingRange: state.shippingRange.value,
             payMethod: state.payMethod.value,
             location: {
                 zone: state.location.zone.value,

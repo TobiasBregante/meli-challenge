@@ -9,7 +9,7 @@ const SellingMode = ({ isWholesaleAndRetail, onChange }) => {
             </Text>
             <Grid.Container>
                 <Checkbox
-                    label="por mayor"
+                    label="solo por mayor"
                     isSelected={isWholesaleAndRetail == false}
                     onChange={onChange(false)}
                     css={{mr:15}} />
