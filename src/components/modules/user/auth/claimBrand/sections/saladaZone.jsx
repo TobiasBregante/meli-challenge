@@ -78,8 +78,8 @@ const SaladaZone = ({ state, onChange, }) => {
     }
 
     const handleStallNumber = (e) => {
-        if (GalleryProps().stallLetter == true ) {
-            return onChange("stallNumber")({target: { value: e.target.value.replace(/[0-9]/g, '')}})
+        if (GalleryProps().stallLetter == true) {
+            return onChange("stallNumber")({ target: { value: e.target.value.replace(/[0-9]/g, '') } })
         }
         return onChange("stallNumber")(e)
 
@@ -96,6 +96,23 @@ const SaladaZone = ({ state, onChange, }) => {
     }
 
     const UseHallway = () => {
+        let findInGallery = GalleryProps().sides
+        let findInShed = ShedProps().sides
+        let sides = false
+
+        if (findInGallery != undefined) {
+            sides = findInGallery
+        }
+        if (findInShed != undefined) {
+            sides = findInShed
+        }
+
+        const requestHallway = ()=>{
+            if (Object.values(side)[0] == "Pasillo") {
+                return true
+            }
+        }
+
         if (isHallwayRequired()) {
             if (GalleryProps().hallways != undefined) {
                 return (
@@ -130,7 +147,7 @@ const SaladaZone = ({ state, onChange, }) => {
                     </Grid>
                 )
             }
-            if (ShedProps().requestHallway) {
+            if (requestHallway()) {
                 return (
                     <Grid>
                         <Text>
@@ -204,7 +221,7 @@ const SaladaZone = ({ state, onChange, }) => {
             sides = findInShed
         }
 
-        if (sides != false) {
+        if (sides != false ) {
             return (
                 <Grid>
                     <Text>

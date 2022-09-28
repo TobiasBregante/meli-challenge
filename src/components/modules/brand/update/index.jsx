@@ -32,7 +32,6 @@ const UpdateBrandModule = ({ website, data }) => {
         isWholesaleAndRetail: data.isWholesaleAndRetail,
         category: { error: "", value: data.category },
         shippingBy: { error: "", value: data.shippingBy },
-        shippingRange: { error: "", value: data.shippingRange },
         payMethod: { error: "", value: data.payMethod },
         location: {
             zone: { error: "", value: data.location.zone },
@@ -143,7 +142,6 @@ const UpdateBrandModule = ({ website, data }) => {
             isWholesaleAndRetail: Joi.boolean().valid(null, true, false).messages(booleanMessages("Forma de vender")),
             category: Joi.string().min(1).max(128).messages(stringMessages("Categoria")),
             shippingBy: Joi.string().min(1).max(128).messages(stringMessages("Transporte de envios")),
-            shippingRange: Joi.string().min(1).max(128).messages(stringMessages("Alcance del envio")),
             payMethod: Joi.array().items(Joi.string().min(1).max(128).messages(stringMessages("Metodo de pago"))),
             location: Joi.object({
                 zone: Joi.string().messages(stringMessages("Donde planeas vender")),
@@ -168,7 +166,6 @@ const UpdateBrandModule = ({ website, data }) => {
             isWholesaleAndRetail: state.isWholesaleAndRetail,
             category: state.category.value,
             shippingBy: state.shippingBy.value,
-            shippingRange: state.shippingRange.value,
             payMethod: state.payMethod.value,
             location: {
                 zone: state.location.zone.value,

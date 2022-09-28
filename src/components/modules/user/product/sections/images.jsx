@@ -2,7 +2,9 @@ import Icon from "@/src/components/ui/icons"
 import { useUserContext } from "@/src/utils/user/provider"
 import { Card, Grid, Text, Image as UiImage } from "@nextui-org/react"
 import Image from "next/image"
+import Link from "next/link"
 import { FileUploader } from "react-drag-drop-files"
+import { toast } from "react-toastify"
 
 const ImagesSection = ({ state, setState }) => {
     const user = useUserContext()
@@ -13,6 +15,12 @@ const ImagesSection = ({ state, setState }) => {
 
         //TRELLO: Add limit of 5 photos for non-premiun users
         const images = user.status.isPremiun ? [...state.imgs.value, ...flArray] : [...state.imgs.value, ...flArray].slice(0, 5)
+
+        if ([...state.imgs.value, ...flArray].length > 1) {
+            toast(<Link href="/./docs/subscriptions">
+                Pasate a premiun para subir mas fotos, hace click aca
+            </Link>)
+        }
         setState({
             ...state,
             imgs: {

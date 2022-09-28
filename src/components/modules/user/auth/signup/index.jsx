@@ -10,9 +10,12 @@ import AccountType from '@/components/modules/user/auth/signup/sections/accountT
 import PersonalData from './sections/personalData';
 import { Button, Card, Checkbox, Grid, Text } from '@nextui-org/react';
 import stringMessages from "@/src/utils/joi/customMessages";
+import arg from 'arg.js'
+
 
 const SignUpModule = () => {
     const router = useRouter()
+    
     const [state, setState] = useState({
         isSeller: null,
         //personal data
@@ -53,20 +56,21 @@ const SignUpModule = () => {
             name: Joi.string().min(3).max(32).messages(stringMessages("Nombre")),
             lastName: Joi.string().min(3).max(32).messages(stringMessages("Apellido")),
             email: Joi.string().min(6).max(320).email({ tlds: { allow: false } }).messages(stringMessages("Correo electrónico")),
-            cellPhone: Joi.string().min(8).max(10).messages(stringMessages("Numero de celular")),
+            cellPhone: Joi.string().min(8).max(14).messages(stringMessages("Numero de celular")),
             password: Joi.string().min(6).max(2048).messages(stringMessages("Contraseña")),
             rePassword: Joi.string().min(6).max(2048).messages(stringMessages("Confirmar contraseña"))
         })
 
         const { error } = Schema.validate({
             isSeller: state.isSeller,
-            name:state.name.value,
+            name: state.name.value,
             lastName: state.lastName.value,
             email: state.email.value,
             cellPhone: state.cellPhone.value,
             password: state.password.value,
             rePassword: state.rePassword.value,
         })
+
 
         if (error) {
             if (state.isSeller == null) {
@@ -75,8 +79,17 @@ const SignUpModule = () => {
             return setState({
                 ...state,
                 [error.details[0].path[0]]: {
-                    value:state[error.details[0].path[0]].value,
+                    value: state[error.details[0].path[0]].value,
                     error: error.details[0].message
+                }
+            })
+        }
+        if (typeof arg.phone.clean(state.cellPhone.value) !== "string") {
+            return setState({
+                ...state,
+                cellPhone: {
+                    ...state.cellPhone,
+                    error: "Hay un error con tu numero de telefono"
                 }
             })
         }
@@ -99,7 +112,7 @@ const SignUpModule = () => {
                 name: state.name.value,
                 lastName: state.lastName.value,
                 email: state.email.value,
-                cellPhone: state.cellPhone.value,
+                cellPhone: arg.phone.clean(state.cellPhone.value),
                 password: state.password.value
             })
                 .then(res => {
@@ -159,9 +172,9 @@ const SignUpModule = () => {
                                 isSelected={acceptTermsOfService}
                                 onChange={setAcceptTermsOfService} />
                             <Grid.Container justify="center">
-                                <Button color="secondary" 
-                                css={{ fontWeight: "$bold", color: "$black", mt: "$10" }} 
-                                onPress={submit}>
+                                <Button color="secondary"
+                                    css={{ fontWeight: "$bold", color: "$black", mt: "$10" }}
+                                    onPress={submit}>
                                     {state.isSeller == true ? "Siguiente paso" : "Registrarme"}
                                     <Icon css={{ color: "$black" }} id={state.isSeller == true ? "arrow_forward" : "person_add"} />
                                 </Button>
