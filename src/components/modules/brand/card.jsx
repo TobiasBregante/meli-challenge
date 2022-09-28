@@ -1,5 +1,6 @@
 import { Button, Card, Grid, Text } from "@nextui-org/react"
 import Image from "next/image"
+import Link from "next/link"
 import Stars from "../../ui/stars"
 import Share from "../common/share"
 
@@ -67,8 +68,10 @@ const BrandCard = ({ data }) => {
     }
     return (
         <Card variant="flat" css={{ bg: "$white" }} isHoverable isPressable>
-            <Image src={`/${data.imgs ? data.imgs.background : "brandImgBackground"}`} width={1280} height={720} alt={data.brandName}
-                className="blured" />
+            <Link href={`/./brand/${data._id}`}>
+                <Image src={`/${data.imgs ? data.imgs.background : "brandImgBackground"}`} width={1280} height={720} alt={data.brandName}
+                    className="blured" />
+            </Link>
             <Grid.Container justify="center" css={{ position: 'absolute', mt: 95, "@xsMax": { mt: 10 }, }}>
                 <Grid >
                     <Image src={`/${data.imgs ? data.imgs.principal : "brandImgDefault"}`} width={"90vw"} height={"90vh"} alt={data.brandName} className="rounded-circle " />

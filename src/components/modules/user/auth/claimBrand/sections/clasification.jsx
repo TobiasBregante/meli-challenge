@@ -69,18 +69,6 @@ const Clasification = ({ state, onChange, website }) => {
                         css={{ w: "100%" }} />
                 </Grid>
                 <Grid>
-                    <Input
-                        clearable
-                        label="Alcanze del envio"
-                        placeholder="Escribe aqui"
-                        helperText={state.shippingRange.error}
-                        helperColor="error"
-                        status={state.shippingRange.error ? "error" : "default"}
-                        onChange={onChange("shippingRange")}
-                        value={state.shippingRange.value}
-                        css={{ w: "100%" }} />
-                </Grid>
-                <Grid>
                     <Text>
                         Metodos de pago
                     </Text>
