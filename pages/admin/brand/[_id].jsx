@@ -27,9 +27,12 @@ export default UpdateUser
 
 export async function getServerSideProps(ctx) {
 
+  const brandData = await Get(`brands/brand/${ctx.params._id}?byPass=true`).then(r => r.data).catch(() => ({}))
+  brandData.ownerData = await Get(`user/${brandData.isOwnedBy}`).then(r => r.data).catch(() => ({}))
+
   return {
     props: {
-      data: await Get(`brands/brand/${ctx.params._id}?byPass=true`).then(r => r.data).catch(() => ({})),
+      data: brandData,
       website: await Get("website").then(r => r.data).catch(() => ({}))
     }, // will be passed to the page component as props
   }

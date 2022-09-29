@@ -21,9 +21,10 @@ import jsCookie from 'js-cookie'
 import get from '@/utils/hooks/get'
 import Post from "@/src/utils/hooks/post";
 import timeago from "@/src/utils/timeago";
+import Get from "@/utils/hooks/get";
 
 const UpdateBrandModule = ({ website, data }) => {
-
+    console.log(data);
     const router = useRouter()
     const user = useUserContext()
 
@@ -279,105 +280,156 @@ const UpdateBrandModule = ({ website, data }) => {
         })
     }
 
+    const removeBrand = () => {
+        setSubmiting(true)
+        Get(`brands/brand/${data._id}/delete`, {
+            headers: {
+                sldtoken: jsCookie.get("sldtoken")
+            }
+        }).then(res => {
+            toast(res.data.msg)
+            setSubmiting(false)
+            if (user.isAdmin) {
+                return router.push("/./admin/search/brands")
+            }
+            router.push("/./")
+        }).catch(err => {
+            if (err.response.data) {
+                toast.error(err.response.data);
+            }
+            toast.error("Ocurrio un error de nuestro lado")
+            setSubmiting(false)
+        })
+    }
+
     return (
         <Grid.Container justify="center" >
             <Grid xs={12} sm={9} >
-                <Card variant="flat" css={{ bg: "$white", pb: 20 }}>
-                    <Card.Header>
-                        <Grid.Container justify="center">
-                            <Grid>
-                                <Text h3 weight="bold">
-                                    Añade los datos de tu marca
-                                </Text>
-                            </Grid>
-                        </Grid.Container>
-                    </Card.Header>
-                    <Card.Body>
-                        <Grid.Container >
-                            <Icon id="info" />
-                            <Text weight="bold" h4>
-                                Información:
+                <Grid.Container direction="column">
+                    <Card css={{mb:10}}>
+                        <Card.Header>
+                            <Text h3>
+                                Datos del vendedor
                             </Text>
-                        </Grid.Container>
-                        <Grid.Container direction="column" gap={1}>
-                            <Grid>
-                                <Input
-                                    clearable
-                                    label="Nombre de la marca"
-                                    placeholder="Escribe aqui"
-                                    helperText={state.brandName.error}
-                                    helperColor="error"
-                                    status={state.brandName.error ? "error" : "default"}
-                                    onChange={handleBrandName}
-                                    contentLeft={<Icon id="title" />}
-                                    value={state.brandName.value}
-                                    css={{ w: "100%" }} />
-                            </Grid>
-                            <Grid css={{ mt: 5 }}>
-                                <SellingMode isWholesaleAndRetail={state.isWholesaleAndRetail} onChange={handleSellingMode} />
-                            </Grid>
-                            <Grid>
-                                <Clasification state={state} onChange={handleGenericString} website={website} />
-                            </Grid>
-                            <Grid>
-                                <SellZone zone={state.location.zone} onClick={handleZone} />
-                            </Grid>
-                            <Grid>
-                                {
-                                    state.location.zone.value == "la salada" &&
-                                    <SaladaZone state={state.location} onChange={handleLocation} />
-                                }
-                                {
-                                    state.location.zone.value == "flores" &&
-                                    <FloresZone state={state.location} onChange={handleLocation} />
-                                }
-                            </Grid>
-                            {
-                                user.isAdmin &&
-                                <>
-                                    <Card.Divider />
-                                    <Text h3>
-                                        Validar por:
+                        </Card.Header>
+                        <Card.Body>
+                            <Text b h4>
+                                Nombre: {data.ownerData.name}
+                            </Text>
+                            <Text b h4>
+                                Email: {data.ownerData.email}
+                            </Text>
+                            <Text b h4>
+                                Numero de celular: {data.ownerData.cellPhone}
+                            </Text>
+                        </Card.Body>
+                    </Card>
+                    <Card variant="flat" css={{ bg: "$white", pb: 20 }}>
+                        <Card.Header>
+                            <Grid.Container justify="center">
+                                <Grid>
+                                    <Text h3 weight="bold">
+                                        Actualiza los datos de tu marca
                                     </Text>
-                                    <Grid.Container>
-                                        <Button auto color="error" icon={<Icon id="arrow_downward" color="white" />} onPress={() => validateFor(0)}>
-                                            Desactivar
-                                        </Button>
-                                        <Button auto color="gray" icon={<Icon id="date_range" />} css={{ mx: 10 }} onPress={() => validateFor(1)}>
-                                            1 mes
-                                        </Button>
-                                        <Button auto color="gray" icon={<Icon id="date_range" />} css={{ mx: 5 }} onPress={() => validateFor(2)}>
-                                            3 meses
-                                        </Button>
-                                        <Button auto color="gray" icon={<Icon id="date_range" />} css={{ mx: 5 }} onPress={() => validateFor(3)}>
-                                            6 meses
-                                        </Button>
-                                        <Button auto color="gray" icon={<Icon id="date_range" />} css={{ mx: 5 }} onPress={() => validateFor(4)}>
-                                            1 año
-                                        </Button>
-                                    </Grid.Container>
-                                    <Text css={{ mt: 20 }}>
-                                        Vence: {timeago(data.isActiveUntil) == "justo ahora" ? "Ya vencio" : timeago(data.isActiveUntil)}
-                                    </Text>
-                                </>
-                            }
-                        </Grid.Container>
-                        <Grid.Container justify="center">
-                            <Button auto
-                                color="secondary"
-                                css={{ color: "$dark", mt: 10 }}
-                                iconRight={<Icon id="arrow_upward" />}
-                                disabled={isSubmiting}
-                                onPress={submit}>
+                                </Grid>
+                            </Grid.Container>
+                        </Card.Header>
+                        <Card.Body>
+                            <Grid.Container >
+                                <Icon id="info" />
+                                <Text weight="bold" h4>
+                                    Información:
+                                </Text>
+                            </Grid.Container>
+                            <Grid.Container direction="column" gap={1}>
+                                <Grid>
+                                    <Input
+                                        clearable
+                                        label="Nombre de la marca"
+                                        placeholder="Escribe aqui"
+                                        helperText={state.brandName.error}
+                                        helperColor="error"
+                                        status={state.brandName.error ? "error" : "default"}
+                                        onChange={handleBrandName}
+                                        contentLeft={<Icon id="title" />}
+                                        value={state.brandName.value}
+                                        css={{ w: "100%" }} />
+                                </Grid>
+                                <Grid css={{ mt: 5 }}>
+                                    <SellingMode isWholesaleAndRetail={state.isWholesaleAndRetail} onChange={handleSellingMode} />
+                                </Grid>
+                                <Grid>
+                                    <Clasification state={state} onChange={handleGenericString} website={website} />
+                                </Grid>
+                                <Grid>
+                                    <SellZone zone={state.location.zone} onClick={handleZone} />
+                                </Grid>
+                                <Grid>
+                                    {
+                                        state.location.zone.value == "la salada" &&
+                                        <SaladaZone state={state.location} onChange={handleLocation} />
+                                    }
+                                    {
+                                        state.location.zone.value == "flores" &&
+                                        <FloresZone state={state.location} onChange={handleLocation} />
+                                    }
+                                </Grid>
                                 {
-                                    isSubmiting &&
-                                    <Loading type="points" color="currentColor" size="sm" />
+                                    user.isAdmin &&
+                                    <>
+                                        <Card.Divider />
+                                        <Text h3>
+                                            Validar por:
+                                        </Text>
+                                        <Grid.Container>
+                                            <Button auto color="error" icon={<Icon id="arrow_downward" color="white" />} onPress={() => validateFor(0)}>
+                                                Desactivar
+                                            </Button>
+                                            <Button auto color="gray" icon={<Icon id="date_range" />} css={{ mx: 10 }} onPress={() => validateFor(1)}>
+                                                1 mes
+                                            </Button>
+                                            <Button auto color="gray" icon={<Icon id="date_range" />} css={{ mx: 5 }} onPress={() => validateFor(2)}>
+                                                3 meses
+                                            </Button>
+                                            <Button auto color="gray" icon={<Icon id="date_range" />} css={{ mx: 5 }} onPress={() => validateFor(3)}>
+                                                6 meses
+                                            </Button>
+                                            <Button auto color="gray" icon={<Icon id="date_range" />} css={{ mx: 5 }} onPress={() => validateFor(4)}>
+                                                1 año
+                                            </Button>
+                                        </Grid.Container>
+                                        <Text css={{ mt: 20 }}>
+                                            Vence: {timeago(data.isActiveUntil) == "justo ahora" ? "Ya vencio" : timeago(data.isActiveUntil)}
+                                        </Text>
+                                    </>
                                 }
-                                Actualizar
-                            </Button>
-                        </Grid.Container>
-                    </Card.Body>
-                </Card>
+                            </Grid.Container>
+                            <Grid.Container justify="space-between">
+                                <Button auto
+                                    color="error"
+                                    css={{ color: "$white", mt: 10 }}
+                                    iconRight={isSubmiting ?
+                                        <Loading type="points" color="currentColor" size="sm" /> : <Icon id="delete" color="white" />}
+                                    disabled={isSubmiting}
+                                    onPress={removeBrand}>
+                                    Eliminar marca
+                                </Button>
+                                <Button auto
+                                    color="secondary"
+                                    css={{ color: "$dark", mt: 10 }}
+                                    iconRight={<Icon id="arrow_upward" />}
+                                    disabled={isSubmiting}
+                                    onPress={submit}>
+                                    {
+                                        isSubmiting &&
+                                        <Loading type="points" color="currentColor" size="sm" />
+                                    }
+                                    Actualizar
+                                </Button>
+                            </Grid.Container>
+                        </Card.Body>
+                    </Card>
+                </Grid.Container>
             </Grid>
         </Grid.Container>
     )
