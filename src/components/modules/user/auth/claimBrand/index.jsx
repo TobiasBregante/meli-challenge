@@ -18,7 +18,7 @@ import Put from '@/src/utils/hooks/put';
 import { Button, Card, Grid, Input, Loading, Text } from "@nextui-org/react";
 import Clasification from "./sections/clasification";
 import jsCookie from 'js-cookie'
-import get from '@/utils/hooks/get'
+import BrandImages from './sections/images'
 
 const ClaimPositionModule = ({ website }) => {
 
@@ -31,6 +31,10 @@ const ClaimPositionModule = ({ website }) => {
         category: { error: "", value: "" },
         shippingBy: { error: "", value: "" },
         payMethod: { error: "", value: [] },
+        imgs: {
+            principal: "",
+            background: ""
+        },
         location: {
             zone: { error: "", value: "" },
             //this is in case of: la salada
@@ -49,8 +53,8 @@ const ClaimPositionModule = ({ website }) => {
         },
     }),
         [isSubmiting, setSubmiting] = useState(false)
-    
-    
+
+
 
     if (!user) {
         return (
@@ -63,8 +67,8 @@ const ClaimPositionModule = ({ website }) => {
         )
     }
 
-    if(user.brand != undefined) {
-        return <CantRegisterBrand/>
+    if (user.brand != undefined) {
+        return <CantRegisterBrand />
     }
 
     const handleBrandName = (e) => {
@@ -125,9 +129,19 @@ const ClaimPositionModule = ({ website }) => {
         })
     }
 
+    const handleImgs = (key) => e => {
+        setState({
+            ...state,
+            imgs: {
+                ...state.imgs,
+                [key]: e
+            }
+        })
+    }
+
     //SUBMIT
     const submit = () => {
-        
+
         setSubmiting(true)
         const zone = state.location.zone.value
 
@@ -136,7 +150,7 @@ const ClaimPositionModule = ({ website }) => {
 
         //zone: flores
         const isInFlores = zone == "flores"
-        const isInGallery = ()=>{
+        const isInGallery = () => {
             if (isInFlores && state.location.isInGallery) {
                 return true
             }
@@ -152,6 +166,10 @@ const ClaimPositionModule = ({ website }) => {
             isWholesaleAndRetail: Joi.boolean().valid(null, true, false).messages(booleanMessages("Forma de vender")),
             category: Joi.string().min(1).max(128).messages(stringMessages("Categoria")),
             shippingBy: Joi.string().min(1).max(128).messages(stringMessages("Transporte de envios")),
+            imgs: Joi.object({
+                principal: Joi.string(),
+                background: Joi.string()
+            }),
             payMethod: Joi.array().items(Joi.string().min(1).max(128).messages(stringMessages("Metodo de pago"))),
             location: Joi.object({
                 zone: Joi.string().messages(stringMessages("Donde planeas vender")),
@@ -171,93 +189,115 @@ const ClaimPositionModule = ({ website }) => {
             })
         })
 
-        const { error, value } = Schema.validate({
-            brandName: state.brandName.value,
-            isWholesaleAndRetail: state.isWholesaleAndRetail,
-            category: state.category.value,
-            shippingBy: state.shippingBy.value,
-            payMethod: state.payMethod.value,
-            location: {
-                zone: state.location.zone.value,
-                shed: state.location.shed.value,
-                stallNumber: state.location.stallNumber.value,
-                hallway: state.location.hallway.value,
-                row: state.location.row.value,
-                floor: state.location.floor.value,
-                side: state.location.side.value,
-                isInGallery: state.location.isInGallery,
-                galleryName: state.location.galleryName.value,
-                positionInGallery: state.location.positionInGallery.value,
-                street: state.location.street.value,
-                streetNumber: state.location.streetNumber.value,
+        let formImage = new FormData();
+        formImage.append("file", state.imgs.principal)
+
+        Post("products/addImage", formImage, {
+            headers: {
+                sldtoken: jsCookie.get("sldtoken"),
+                "Content-Type": "multipart/form-data"
             }
-        })
+        }).then(resx => {
 
-
-        if (state.isWholesaleAndRetail == null) {
-            setSubmiting(false)
-            toast.error("Elige si vas a vender por menor o por mayor")
-        }
-        if (state.payMethod.value.length == 0) {
-            setSubmiting(false)
-            return setState({
-                ...state,
-                payMethod: {
-                    value: [],
-                    error: "Elige al menos un metodo de pago"
+            const { error, value } = Schema.validate({
+                brandName: state.brandName.value,
+                isWholesaleAndRetail: state.isWholesaleAndRetail,
+                category: state.category.value,
+                shippingBy: state.shippingBy.value,
+                imgs: {
+                    principal: resx.data.img_id,
+                },
+                payMethod: state.payMethod.value,
+                location: {
+                    zone: state.location.zone.value,
+                    shed: state.location.shed.value,
+                    stallNumber: state.location.stallNumber.value,
+                    hallway: state.location.hallway.value,
+                    row: state.location.row.value,
+                    floor: state.location.floor.value,
+                    side: state.location.side.value,
+                    isInGallery: state.location.isInGallery,
+                    galleryName: state.location.galleryName.value,
+                    positionInGallery: state.location.positionInGallery.value,
+                    street: state.location.street.value,
+                    streetNumber: state.location.streetNumber.value,
                 }
             })
-        }
-        
 
-        if (error) {
-            setSubmiting(false)
-            console.log(error);
-            if (error.details[0].path.length == 2) {
+
+            if (state.isWholesaleAndRetail == null) {
+                setSubmiting(false)
+                toast.error("Elige si vas a vender por menor o por mayor")
+            }
+            if (state.payMethod.value.length == 0) {
+                setSubmiting(false)
                 return setState({
                     ...state,
-                    [error.details[0].path[0]]: {
-                        ...state[error.details[0].path[0]],
-                        [error.details[0].path[1]]: {
-                            value: state[error.details[0].path[0]][error.details[0].path[1]].value,
-                            error: error.details[0].message
-                        }
+                    payMethod: {
+                        value: [],
+                        error: "Elige al menos un metodo de pago"
                     }
                 })
             }
-            return setState({
-                ...state,
-                [error.details[0].path[0]]: {
-                    value: state[error.details[0].path[0]].value,
-                    error: error.details[0].message
-                }
-            })
-        }
 
-        if (isInLaSalada && state.location.shed.value == "") {
-            setSubmiting(false)
-            return toast.error("Elige en que galpon planeas vender")
-        }
-        
 
-        if (!error) {
-            
-            Put("user/auth/claimbrand", value, {
-                headers: {
-                    sldtoken: jsCookie.get("sldtoken")
-                }
-            }).then(res => {
-                toast(res.data.msg)
+            if (error) {
                 setSubmiting(false)
-                router.push("/./user/products/add")
-            }).catch(err => {
-                if (err.response.data) {
-                    toast.error(err.response.data);
+                console.log(error);
+                if (error.details[0].path.length == 2) {
+                    return setState({
+                        ...state,
+                        [error.details[0].path[0]]: {
+                            ...state[error.details[0].path[0]],
+                            [error.details[0].path[1]]: {
+                                value: state[error.details[0].path[0]][error.details[0].path[1]].value,
+                                error: error.details[0].message
+                            }
+                        }
+                    })
                 }
-                toast.error("Ocurrio un error de nuestro lado")
+                return setState({
+                    ...state,
+                    [error.details[0].path[0]]: {
+                        value: state[error.details[0].path[0]].value,
+                        error: error.details[0].message
+                    }
+                })
+            }
+
+            if (isInLaSalada && state.location.shed.value == "") {
                 setSubmiting(false)
+                return toast.error("Elige en que galpon planeas vender")
+            }
+
+
+            if (!error) {
+
+                Put("user/auth/claimbrand", value, {
+                    headers: {
+                        sldtoken: jsCookie.get("sldtoken")
+                    }
+                }).then(res => {
+                    toast(res.data.msg)
+                    setSubmiting(false)
+                    router.push("/./user/products/add")
+                }).catch(err => {
+                    if (err.response.data) {
+                        toast.error(err.response.data);
+                    }
+                    toast.error("Ocurrio un error de nuestro lado")
+                    setSubmiting(false)
+                })
+            }
+        })
+            .catch(err => {
+                console.log(err);
+                setSubmiting(false)
+                toast("Ocurrio un error de nuestro lado al subir las imagenes")
+                return false
             })
-        }
+
+
 
     }
 
@@ -295,11 +335,14 @@ const ClaimPositionModule = ({ website }) => {
                                     value={state.brandName.value}
                                     css={{ w: "100%" }} />
                             </Grid>
+                            <Grid>
+                                <BrandImages state={state.imgs} onChange={handleImgs} />
+                            </Grid>
                             <Grid css={{ mt: 5 }}>
                                 <SellingMode isWholesaleAndRetail={state.isWholesaleAndRetail} onChange={handleSellingMode} />
                             </Grid>
                             <Grid>
-                                <Clasification state={state} onChange={handleGenericString} website={ website }/>
+                                <Clasification state={state} onChange={handleGenericString} website={website} />
                             </Grid>
                             <Grid>
                                 <SellZone zone={state.location.zone} onClick={handleZone} />

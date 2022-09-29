@@ -4,7 +4,7 @@ import { Card, Grid, Text, Image as UiImage } from "@nextui-org/react"
 import Image from "next/image"
 import { FileUploader } from "react-drag-drop-files"
 
-const ImagesSection = ({ state, setState, single }) => {
+const ImagesSection = ({ state, setState, hideLabel }) => {
 
     const addImg = (e) => {
 
@@ -18,14 +18,17 @@ const ImagesSection = ({ state, setState, single }) => {
 
     return (
         <Grid.Container direction="column">
-            <Grid>
-                <Grid.Container>
-                    <Icon id="image" />
-                    <Text h4>
-                        Imagenes
-                    </Text>
-                </Grid.Container>
-            </Grid>
+            {
+                hideLabel == undefined &&
+                <Grid>
+                    <Grid.Container>
+                        <Icon id="image" />
+                        <Text h4>
+                            Imagenes
+                        </Text>
+                    </Grid.Container>
+                </Grid>
+            }
             <Grid css={{ border: "dashed 2px", p: "$10", textAlign: "center" }} className="rounded-16">
                 <FileUploader handleChange={addImg} multiple={true} name="file" types={["jpg", "png", "jpeg", "avif", "webp", "jiff"]} >
                     <Text>
