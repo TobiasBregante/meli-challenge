@@ -66,7 +66,7 @@ const Comment = ({ data, canReply, productData, comments,setComments }) => {
                     <Grid>
                         <Grid.Container>
                             <Avatar
-                                src={`https://res.cloudinary.com/lightweightpipeline/${data.user.img === undefined ? "avatar" : data.user.img}`}
+                                src={`https://res.cloudinary.com/salada/${data.user.img === undefined ? "avatar" : data.user.img}`}
                             />
                             <Text weight="bold" css={{ ml: 10 }}>
                                 {data.user.name}

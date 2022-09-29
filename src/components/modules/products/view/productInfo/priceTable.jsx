@@ -107,6 +107,24 @@ const PriceTable = ({ prices, isWholesaleAndRetail }) => {
                         </Grid.Container>
                     </>
                 }
+                {
+                    prices.wholesale.perUnitTalk &&
+                    <>
+                        <Text h4>
+                            Por Unidad
+                        </Text>
+                        <Grid.Container>
+                            <Grid xs={6}>
+                                <Grid.Container direction="column">
+                                    <Text b>
+                                        Precio a conversar
+                                    </Text>
+                                </Grid.Container>
+                            </Grid>
+                            
+                        </Grid.Container>
+                    </>
+                }
 
 
                 {
@@ -151,6 +169,24 @@ const PriceTable = ({ prices, isWholesaleAndRetail }) => {
                                     <Text ><Price $={prices.wholesale.pricePerBigDozen} /></Text>
                                 </Grid.Container>
                             </Grid>
+                        </Grid.Container>
+                    </>
+                }
+                {
+                    prices.wholesale.perDozenTalk &&
+                    <>
+                        <Text h4>
+                            Por Docena
+                        </Text>
+                        <Grid.Container>
+                            <Grid xs={6}>
+                                <Grid.Container direction="column">
+                                    <Text b>
+                                        Precio a conversar
+                                    </Text>
+                                </Grid.Container>
+                            </Grid>
+                            
                         </Grid.Container>
                     </>
                 }
@@ -203,6 +239,24 @@ const PriceTable = ({ prices, isWholesaleAndRetail }) => {
                                     <Text ><Price $={prices.wholesale.pricePerBigDozen} /></Text>
                                 </Grid.Container>
                             </Grid>
+                        </Grid.Container>
+                    </>
+                }
+                {
+                    prices.wholesale.perCurveTalk &&
+                    <>
+                        <Text h4>
+                            Por Curva
+                        </Text>
+                        <Grid.Container>
+                            <Grid xs={6}>
+                                <Grid.Container direction="column">
+                                    <Text b>
+                                        Precio a conversar
+                                    </Text>
+                                </Grid.Container>
+                            </Grid>
+                            
                         </Grid.Container>
                     </>
                 }

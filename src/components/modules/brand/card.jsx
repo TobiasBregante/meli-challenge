@@ -74,7 +74,9 @@ const BrandCard = ({ data }) => {
             </Link>
             <Grid.Container justify="center" css={{ position: 'absolute', mt: 95, "@xsMax": { mt: 10 }, }}>
                 <Grid >
-                    <Image src={`/${data.imgs ? data.imgs.principal : "brandImgDefault"}`} width={"90vw"} height={"90vh"} alt={data.brandName} className="rounded-circle " />
+                    <Link href={`/./brand/${data._id}`}>
+                        <Image src={`/${data.imgs ? data.imgs.principal : "brandImgDefault"}`} width={"90vw"} height={"90vh"} alt={data.brandName} className="rounded-circle " />
+                    </Link>
                 </Grid>
             </Grid.Container>
             <Card.Body css={{ pb: 0 }}>

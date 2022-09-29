@@ -5,17 +5,21 @@ import { Container } from '@nextui-org/react'
 import BrandNotFound from '@/src/components/modules/brand/notFound'
 
 const BrandPage = ({ data }) => {
-  console.log(data);
+
+  if (data.msg) {
+    return (
+      <Page title={data.msg == "Pausado" ? "Marca pausada" : "Marca no encontrada"}>
+        <Container lg>
+          <BrandNotFound isPaused={data.msg === "Pausado"} />
+        </Container>
+      </Page>
+    )
+  }
 
   return (
-    <Page>
+    <Page title={`${data.brandName} - SaladaApp`}>
       <Container lg>
-        {
-          data.msg ?
-            <BrandNotFound isPaused={data.msg === "Pausado"} />
-            :
-            <BrandProfileModule data={data} />
-        }
+        <BrandProfileModule data={data} />
       </Container>
     </Page>
   )
