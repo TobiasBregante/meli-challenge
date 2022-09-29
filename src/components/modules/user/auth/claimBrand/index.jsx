@@ -19,6 +19,7 @@ import { Button, Card, Grid, Input, Loading, Text } from "@nextui-org/react";
 import Clasification from "./sections/clasification";
 import jsCookie from 'js-cookie'
 import BrandImages from './sections/images'
+import Post from "@/src/utils/hooks/post";
 
 const ClaimPositionModule = ({ website }) => {
 
