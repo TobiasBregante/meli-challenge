@@ -297,7 +297,7 @@ const Submit = ({ state, setState, data, resetState }) => {
             disabled={isSubmiting}
             onPress={handleClick}>
             {
-                data?._id !== undefined ? "Actualizar" : "Añadir producto"
+                data?._id !== undefined ? "Actualizar" : "Guardar producto"
             }
         </Button>
     )

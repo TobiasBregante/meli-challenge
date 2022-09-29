@@ -36,7 +36,7 @@ const ManageProduct = ({ website, data }) => {
         imgs: { error: "", value: data?.imgs || [] },
         prices: {
             retail: {
-                isPerUnit: { error: "", value: data?.prices.retail.isPerUnit || null },
+                isPerUnit: { error: "", value: data?.prices.retail.isPerUnit || true },
                 minPerUnit: { error: "", value: data?.prices.retail.minPerUnit || 0 },
                 pricePerUnit: { error: "", value: data?.prices.retail.pricePerUnit || 0 },
 
@@ -44,7 +44,7 @@ const ManageProduct = ({ website, data }) => {
                 pricePerDozen: { error: "", value: data?.prices.retail.pricePerDozen || 0 }
             },
             wholesale: {
-                sellMode: { error: "", value: data?.prices.wholesale.sellMode || null },
+                sellMode: { error: "", value: data?.prices.wholesale.sellMode || 0 },
 
                 perUnitTalk: { error: "", value: data?.prices.wholesale.perUnitTalk || false },
                 minPerUnit: { error: "", value: data?.prices.wholesale.minPerUnit || 0 },
@@ -94,8 +94,8 @@ const ManageProduct = ({ website, data }) => {
         return <IsNotOwner />
     }
 
-    if (user.products == 5 && !user.status.isPremiun ) {
-        return <ShouldBePremiun/>
+    if (user.products == 5 && !user.status.isPremiun) {
+        return <ShouldBePremiun />
     }
 
     const handleRetailSellMode = v => (e) => {
@@ -180,7 +180,7 @@ const ManageProduct = ({ website, data }) => {
                                     <Text h3 weight="bold">
                                         {
                                             data !== undefined ?
-                                            "Actualizar producto":"Registra un producto"
+                                                "Actualizar producto" : "Registra un producto"
                                         }
                                     </Text>
                                 </Grid>
@@ -265,10 +265,13 @@ const ManageProduct = ({ website, data }) => {
                                                         isSelected={state.prices.retail.isPerUnit.value == true}
                                                         label="Por unidad"
                                                         css={{ mr: 15 }} />
-                                                    <Checkbox
-                                                        onChange={handleRetailSellMode(false)}
-                                                        isSelected={state.prices.retail.isPerUnit.value == false}
-                                                        label="Por docena" />
+                                                    {
+                                                        user.status.isPremiun &&
+                                                        <Checkbox
+                                                            onChange={handleRetailSellMode(false)}
+                                                            isSelected={state.prices.retail.isPerUnit.value == false}
+                                                            label="Por docena" />
+                                                    }
                                                 </Grid.Container>
                                                 {
                                                     state.prices.retail.isPerUnit.value &&
@@ -294,19 +297,24 @@ const ManageProduct = ({ website, data }) => {
                                                     label="Por unidad"
                                                     css={{ mr: 15 }} />
                                             </Grid>
-                                            <Grid>
-                                                <Checkbox
-                                                    onChange={handleWholesaleSellMode(1)}
-                                                    isSelected={state.prices.wholesale.sellMode.value == 1}
-                                                    label="Por docena"
-                                                    css={{ mr: 15 }} />
-                                            </Grid>
-                                            <Grid>
-                                                <Checkbox
-                                                    onChange={handleWholesaleSellMode(2)}
-                                                    isSelected={state.prices.wholesale.sellMode.value == 2}
-                                                    label="Por curva" />
-                                            </Grid>
+                                            {
+                                                user.status.isPremiun &&
+                                                <>
+                                                    <Grid>
+                                                        <Checkbox
+                                                            onChange={handleWholesaleSellMode(1)}
+                                                            isSelected={state.prices.wholesale.sellMode.value == 1}
+                                                            label="Por docena"
+                                                            css={{ mr: 15 }} />
+                                                    </Grid>
+                                                    <Grid>
+                                                        <Checkbox
+                                                            onChange={handleWholesaleSellMode(2)}
+                                                            isSelected={state.prices.wholesale.sellMode.value == 2}
+                                                            label="Por curva" />
+                                                    </Grid>
+                                                </>
+                                            }
                                         </Grid.Container>
                                         {
                                             state.prices.wholesale.sellMode.value == 0 &&

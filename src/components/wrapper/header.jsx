@@ -50,7 +50,7 @@ const Header = () => {
                                     <Grid.Container direction="row">
                                         <Grid>
                                             <Image
-                                                src="/logo"
+                                                src="/logo2"
                                                 width={50}
                                                 height={50}
                                                 alt="salada-app-logo" />
