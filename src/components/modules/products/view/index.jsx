@@ -6,6 +6,7 @@ import ProductSideBarRecomendation from '@/components/modules/products/view/rela
 import ProductBottomRecomendation from '@/src/components/modules/products/carouseles/product';
 import BrandProfileMinimal from '../../brand/minimalProfile';
 import { Card, Grid } from '@nextui-org/react';
+import ProductReviews from './review';
 
 const ProductModule = ({ data, relateds,brandProducts }) => {
 
@@ -15,32 +16,36 @@ const ProductModule = ({ data, relateds,brandProducts }) => {
             <Grid.Container direction="column">
                 <Card>
                     <Grid.Container css={{ minWidth: 0 }}>
-                        <Grid xs={12} lg={7}>
+                        <Grid xs={12} md={7} >
                             <ProductImageCarrousel imgs={data.imgs} />
                         </Grid>
-                        <Grid xs={12} lg={5}>
+                        <Grid xs={12} md={5}>
                             <ProductInfo data={data} />
                         </Grid>
                     </Grid.Container>
                 </Card>
 
                 <Grid.Container css={{ mt: 20 }} gap={2}>
-                    <Grid xs={12} lg={8}>
+                    <Grid xs={12} md={8}>
                         <Card>
                             <Card.Body>
                                 <ProductLocation data={data.brand.location} />
                             </Card.Body>
                         </Card>
                     </Grid>
-                    <Grid xs={12} lg={4}>
+                    <Grid xs={12} md={4}>
                         <BrandProfileMinimal data={data.brand} />
                     </Grid>
                 </Grid.Container>
 
                 <Grid.Container css={{ mt: 20 }} gap={2}>
-                    <Grid xs={12} lg={8}>
+                    <Grid xs={12} md={8}>
                         <ProductComments data={data} />
-
+                    </Grid>
+                </Grid.Container>
+                <Grid.Container css={{ mt: 20 }} gap={2}>
+                    <Grid xs={12} md={8}>
+                        <ProductReviews data={data} />
                     </Grid>
                 </Grid.Container>
 
