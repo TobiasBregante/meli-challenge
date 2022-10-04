@@ -281,7 +281,12 @@ const ClaimPositionModule = ({ website }) => {
                 }).then(res => {
                     toast(res.data.msg)
                     setSubmiting(false)
-                    router.push("/./user/products/add")
+                    if (state.location.zone == "online") {
+                        window.open("https://api.whatsapp.com/send?text=Hola%20quiero%20contratar%20el%20plan%20premiun&phone=+541170895828")
+                    }else{
+                        router.push("/./user/products/add")
+                    }
+
                 }).catch(err => {
                     if (err.response.data) {
                         toast.error(err.response.data);

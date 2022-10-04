@@ -7,7 +7,7 @@ const BrandImages = ({ state, onChange }) => {
         <Grid.Container direction="column">
             <Grid>
                 <Text b h4>
-                    Imagen de perfil
+                    Añadir logo
                 </Text>
             </Grid>
             <Grid>

@@ -9,15 +9,8 @@ import LocationBuilder from '../locationBuilder'
 const ProductCard = ({ data }) => {
 
     const lowestPriceSelect = () => {
-        let prices = [data.prices.retail.pricePerUnit, data.prices.retail.pricePerDozen, data.prices.wholesale.pricePerUnit, data.prices.wholesale.pricePerBigUnit, data.prices.wholesale.pricePerDozen, data.prices.wholesale.pricePerBigDozen, data.prices.wholesale.pricePerCurve, data.prices.wholesale.pricePerBigCurve]
-
-        prices = prices.filter(price => price != 0)
-
-        //select priceToTalk if there isn't any price
-        if (prices.length == 0 && (data.prices.wholesale.perUnitTalk || data.prices.wholesale.perDozenTalk || data.prices.wholesale.perCurveTalk)) {
-            return "Precio a conversar"
-        }
-
+        let prices = [data.prices.retail, data.prices.wholesale, data.prices.perDozen, data.prices.perCurve, data.prices.perQuantity]
+        prices = prices.filter(price => price != 0 && price != undefined)
         return currency(Math.min(...prices), { decimal: ",", separator: "." }).format()
     }
 
@@ -57,7 +50,7 @@ const ProductCard = ({ data }) => {
                 <Grid.Container justify="flex-end">
                     {
                         data?.brand?.imgs?.principal &&
-                        <Avatar src={`/./img/${data.brand.imgs.principal}.jpg`} size="sm" />
+                        <Avatar src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${data.brand.imgs.principal}`} size="sm" />
                     }
                     <Text css={{ ml: 5 }}>
                         {data.brand.brandName}

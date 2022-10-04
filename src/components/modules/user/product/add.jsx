@@ -8,18 +8,12 @@ import ShouldBeSeller from '@/components/modules/user/errors/shouldBeSeller';
 import ShouldHaveBrand from '@/components/modules/user/errors/shouldHaveBrand';
 import IsNotOwner from '@/components/modules/user/errors/isNotOwner';
 import ShouldBePremiun from '@/components/modules/user/errors/shouldBePremiun'
+import HardLimit from '@/components/modules/user/errors/hardLimit'
 
-import RetailPerUnit from './sections/retailPerUnit';
-import RetailPerDozen from './sections/retailPerDozen';
-import WholesalePerUnit from './sections/wholesalePerUnit';
-import WholesalePerDozen from './sections/wholesalePerDozen';
-import WholesalePerCurve from './sections/wholesalePerCurve';
 import { Button, Card, Checkbox, Container, Grid, Input, Loading, Text, Textarea } from "@nextui-org/react";
 import Clasification from "./sections/clasification";
 import ImagesSection from "./sections/images";
 //Validation
-import Joi from "joi";
-import { stringMessages, booleanMessages, numberMessages } from "@/src/utils/joi/customMessages";
 import { toast } from "react-toastify";
 import Submit from "./sections/submit";
 import Get from "@/src/utils/hooks/get";
@@ -37,36 +31,11 @@ const ManageProduct = ({ website, data }) => {
         description: { error: "", value: data?.description || "" },
         imgs: { error: "", value: data?.imgs || [] },
         prices: {
-            retail: {
-                isPerUnit: { error: "", value: data?.prices.retail.isPerUnit || true },
-                minPerUnit: { error: "", value: data?.prices.retail.minPerUnit || 0 },
-                pricePerUnit: { error: "", value: data?.prices.retail.pricePerUnit || 0 },
-
-                minPerDozen: { error: "", value: data?.prices.retail.minPerDozen || 0 },
-                pricePerDozen: { error: "", value: data?.prices.retail.pricePerDozen || 0 }
-            },
-            wholesale: {
-                sellMode: { error: "", value: data?.prices.wholesale.sellMode || 0 },
-
-                perUnitTalk: { error: "", value: data?.prices.wholesale.perUnitTalk || false },
-                minPerUnit: { error: "", value: data?.prices.wholesale.minPerUnit || 0 },
-                pricePerUnit: { error: "", value: data?.prices.wholesale.pricePerUnit || 0 },
-                minPerBigUnit: { error: "", value: data?.prices.wholesale.minPerBigUnit || 0 },
-                pricePerBigUnit: { error: "", value: data?.prices.wholesale.pricePerBigUnit || 0 },
-
-                perDozenTalk: { error: "", value: data?.prices.wholesale.perDozenTalk || false },
-                minPerDozen: { error: "", value: data?.prices.wholesale.minPerDozen || 0 },
-                pricePerDozen: { error: "", value: data?.prices.wholesale.pricePerDozen || 0 },
-                minPerBigDozen: { error: "", value: data?.prices.wholesale.minPerBigDozen || 0 },
-                pricePerBigDozen: { error: "", value: data?.prices.wholesale.pricePerBigDozen || 0 },
-
-                perCurveTalk: { error: "", value: data?.prices.wholesale.perCurveTalk || false },
-                sizesPerCurve: { error: "", value: data?.prices.wholesale.sizesPerCurve || 0 },
-                minPerCurve: { error: "", value: data?.prices.wholesale.minPerCurve || 0 },
-                pricePerCurve: { error: "", value: data?.prices.wholesale.pricePerCurve || 0 },
-                minPerBigCurve: { error: "", value: data?.prices.wholesale.minPerBigCurve || 0 },
-                pricePerBigCurve: { error: "", value: data?.prices.wholesale.pricePerBigCurve || 0 }
-            }
+            retail: { error: "", value: data?.prices.retail || 0 },
+            wholesale: { error: "", value: data?.prices.wholesale || 0 },
+            perDozen: { error: "", value: data?.prices.perDozen || 0 },
+            perCurve: { error: "", value: data?.prices.perCurve || 0 },
+            perQuantity: { error: "", value: data?.prices.perQuantity || 0 }
         }
     }
 
@@ -97,69 +66,13 @@ const ManageProduct = ({ website, data }) => {
         return <IsNotOwner />
     }
 
-    if (user.products == 5 && !user.status.isPremiun) {
+    if (user.products == 5 && !user.status.isPremiun && data === undefined) {
+        return <ShouldBePremiun />
+    }
+    if (user.products == 40 && user.status.isPremiun && user.status.premiunPlan == "feriante" && data === undefined) {
         return <ShouldBePremiun />
     }
 
-    const handleRetailSellMode = v => (e) => {
-        setState({
-            ...state, prices: {
-                ...state.prices,
-                retail: {
-                    ...state.prices.retail,
-                    isPerUnit: {
-                        error: "",
-                        value: v
-                    }
-                }
-            }
-        })
-    }
-
-    const handleRetail = key => (e) => {
-        setState({
-            ...state, prices: {
-                ...state.prices,
-                retail: {
-                    ...state.prices.retail,
-                    [key]: {
-                        error: "",
-                        value: e.target.value
-                    }
-                }
-            }
-        })
-    }
-
-    const handleWholesaleSellMode = v => (e) => {
-        setState({
-            ...state, prices: {
-                ...state.prices,
-                wholesale: {
-                    ...state.prices.wholesale,
-                    sellMode: {
-                        error: "",
-                        value: v
-                    }
-                }
-            }
-        })
-    }
-
-    const handleWholesale = key => (e) => {
-        setState({
-            ...state, prices: {
-                ...state.prices,
-                wholesale: {
-                    ...state.prices.wholesale,
-                    [key]: {
-                        error: "",
-                        value: e.target.value
-                    }
-                }
-            }
-        })
-    }
 
     const handleGenericString = key => (e) => {
         setState({
@@ -167,6 +80,18 @@ const ManageProduct = ({ website, data }) => {
             [key]: {
                 error: "",
                 value: e.target.value
+            }
+        })
+    }
+    const handlePrices = key => (e) => {
+        setState({
+            ...state,
+            prices: {
+                ...state.prices,
+                [key]: {
+                    error: "",
+                    value: e.target.value
+                }
             }
         })
     }
@@ -193,7 +118,6 @@ const ManageProduct = ({ website, data }) => {
         })
     }
 
-    console.log(data);
     return (
         <Container lg>
 
@@ -219,7 +143,7 @@ const ManageProduct = ({ website, data }) => {
                                         Numero: {data.brand.phone}
                                     </Text>
                                     <Text b h4>
-                                        Es premiun: {data.brand.isPremiun ? "Si":"No"}
+                                        Es premiun: {data.brand.isPremiun ? "Si" : "No"}
                                     </Text>
                                 </Card.Body>
                             </Card>
@@ -301,91 +225,90 @@ const ManageProduct = ({ website, data }) => {
                                         </Text>
                                     </Grid>
                                     <Grid>
-                                        <Grid.Container>
-
+                                        <Grid.Container gap={1}>
                                             {
-                                                (data?.brand?.isWholesaleAndRetail || user?.brand?.isWholesaleAndRetail) &&
-                                                <>
-                                                    <Icon id="attach_money" className={"mt-01"} />
-                                                    <Text h4>
-                                                        Por menor:
-                                                    </Text>
-                                                    <Grid.Container>
-                                                        <Checkbox
-                                                            onChange={handleRetailSellMode(true)}
-                                                            isSelected={state.prices.retail.isPerUnit.value == true}
-                                                            label="Por unidad"
-                                                            css={{ mr: 15 }} />
-                                                        {
-                                                            user.status.isPremiun &&
-                                                            <Checkbox
-                                                                onChange={handleRetailSellMode(false)}
-                                                                isSelected={state.prices.retail.isPerUnit.value == false}
-                                                                label="Por docena" />
-                                                        }
-                                                    </Grid.Container>
-                                                    {
-                                                        state.prices.retail.isPerUnit.value &&
-                                                        <RetailPerUnit state={state.prices.retail} handleState={handleRetail} />
-                                                    }
-                                                    {
-                                                        state.prices.retail.isPerUnit.value == false &&
-                                                        <RetailPerDozen state={state.prices.retail} handleState={handleRetail} />
-                                                    }
-                                                </>
-                                            }
-
-                                            <Icon id="attach_money" className={"mt-01"} />
-                                            <Text h4>
-                                                Por mayor:
-                                            </Text>
-
-                                            <Grid.Container direction="row" >
+                                                user.isWholesaleAndRetail &&
                                                 <Grid>
-                                                    <Checkbox
-                                                        onChange={handleWholesaleSellMode(0)}
-                                                        isSelected={state.prices.wholesale.sellMode.value == 0}
-                                                        label="Por unidad"
-                                                        css={{ mr: 15 }} />
+                                                    <Input
+                                                        type="number"
+                                                        clearable
+                                                        label="Precio por menor"
+                                                        placeholder="Escribe aqui el precio por menor"
+                                                        helperColor="error"
+                                                        helperText={state.prices.retail.error}
+                                                        status={state.prices.retail.error ? "error" : "default"}
+                                                        contentLeft={<Icon id="inventory" />}
+                                                        value={state.prices.retail.value}
+                                                        onChange={handlePrices("retail")} />
                                                 </Grid>
-                                                {
-                                                    user.status.isPremiun &&
-                                                    <>
-                                                        <Grid>
-                                                            <Checkbox
-                                                                onChange={handleWholesaleSellMode(1)}
-                                                                isSelected={state.prices.wholesale.sellMode.value == 1}
-                                                                label="Por docena"
-                                                                css={{ mr: 15 }} />
-                                                        </Grid>
-                                                        <Grid>
-                                                            <Checkbox
-                                                                onChange={handleWholesaleSellMode(2)}
-                                                                isSelected={state.prices.wholesale.sellMode.value == 2}
-                                                                label="Por curva" />
-                                                        </Grid>
-                                                    </>
-                                                }
-                                            </Grid.Container>
-                                            {
-                                                state.prices.wholesale.sellMode.value == 0 &&
-                                                <WholesalePerUnit state={state.prices.wholesale} handleState={handleWholesale} data={data} />
                                             }
-                                            {
-                                                state.prices.wholesale.sellMode.value == 1 &&
-                                                <WholesalePerDozen state={state.prices.wholesale} handleState={handleWholesale} data={data} />
-                                            }
-                                            {
-                                                state.prices.wholesale.sellMode.value == 2 &&
-                                                <WholesalePerCurve state={state.prices.wholesale} handleState={handleWholesale} data={data} />
-                                            }
+                                            <Grid>
+                                                <Input
+                                                    type="number"
+                                                    clearable
+                                                    label="Precio por mayor"
+                                                    placeholder="Escribe aqui el precio por mayor"
+                                                    helperColor="error"
+                                                    helperText={state.prices.wholesale.error}
+                                                    status={state.prices.wholesale.error ? "error" : "default"}
+                                                    contentLeft={<Icon id="inventory" />}
+                                                    value={state.prices.wholesale.value}
+                                                    onChange={handlePrices("wholesale")} />
+                                            </Grid>
+
                                         </Grid.Container>
+                                        {
+                                            user.isPremiun &&
+                                            <Grid.Container gap={1}>
+                                                <Grid>
+                                                    <Input
+                                                        type="number"
+                                                        clearable
+                                                        label="Precio por docena"
+                                                        placeholder="Escribe aqui el precio por docena"
+                                                        helperColor="error"
+                                                        helperText={state.prices.perDozen.error}
+                                                        status={state.prices.perDozen.error ? "error" : "default"}
+                                                        contentLeft={<Icon id="inventory" />}
+                                                        value={state.prices.perDozen.value}
+                                                        onChange={handlePrices("perDozen")} />
+                                                </Grid>
+                                                <Grid>
+                                                    <Input
+                                                        type="number"
+                                                        clearable
+                                                        label="Precio por curva"
+                                                        placeholder="Escribe aqui el precio por curva"
+                                                        helperColor="error"
+                                                        helperText={state.prices.perCurve.error}
+                                                        status={state.prices.perCurve.error ? "error" : "default"}
+                                                        contentLeft={<Icon id="inventory" />}
+                                                        value={state.prices.perCurve.value}
+                                                        onChange={handlePrices("perCurve")} />
+                                                </Grid>
+                                                <Grid>
+                                                    <Input
+                                                        type="number"
+                                                        clearable
+                                                        label="Precio por cantidad"
+                                                        placeholder="Escribe aqui el precio por cantidad"
+                                                        helperColor="error"
+                                                        helperText={state.prices.perQuantity.error}
+                                                        status={state.prices.perQuantity.error ? "error" : "default"}
+                                                        contentLeft={<Icon id="inventory" />}
+                                                        value={state.prices.perQuantity.value}
+                                                        onChange={handlePrices("perQuantity")} />
+                                                </Grid>
+
+                                            </Grid.Container>
+                                        }
+
                                     </Grid>
                                     <Grid>
                                         <ImagesSection state={state} setState={setState} />
                                     </Grid>
                                 </Grid.Container>
-                                <Grid.Container justify="space-between">
+                                <Grid.Container justify={data ? "space-between" : "flex-end"}>
                                     {
                                         data &&
                                         <Button auto

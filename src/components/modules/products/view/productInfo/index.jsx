@@ -24,15 +24,8 @@ const ProductInfo = ({ data }) => {
     }
 
     const lowestPriceSelect = () => {
-        let prices = [data.prices.retail.pricePerUnit, data.prices.retail.pricePerDozen, data.prices.wholesale.pricePerUnit, data.prices.wholesale.pricePerBigUnit, data.prices.wholesale.pricePerDozen, data.prices.wholesale.pricePerBigDozen, data.prices.wholesale.pricePerCurve, data.prices.wholesale.pricePerBigCurve]
-
-        prices = prices.filter(price => price != 0)
-
-        //select priceToTalk if there isn't any price
-        if (prices.length == 0 && (data.prices.wholesale.perUnitTalk || data.prices.wholesale.perDozenTalk || data.prices.wholesale.perCurveTalk)) {
-            return "Precio a conversar"
-        }
-
+        let prices = [data.prices.retail, data.prices.wholesale, data.prices.perDozen, data.prices.perCurve, data.prices.perQuantity]
+        prices = prices.filter(price => price != 0 && price != undefined)
         return currency(Math.min(...prices), { decimal: ",", separator: "." }).format()
     }
 
@@ -75,9 +68,12 @@ const ProductInfo = ({ data }) => {
                 <Grid.Container>
                     <Stars rating={rating} />
                     <Text>
-                        {data.reviews != undefined ? 
-                        data.reviews.length > 1? `${data.reviews.length} Calificaciones`:" 1 Calificación"
-                         : "0 Calificaciones"} 
+                        {
+                            data.reviews != undefined ?
+                                data.reviews.length > 1 ?
+                                    `${data.reviews.length} Calificaciones` : " 0 Calificaciónes"
+                                : "0 Calificaciones"
+                        }
                     </Text>
                 </Grid.Container>
                 <PriceTable prices={data.prices} />

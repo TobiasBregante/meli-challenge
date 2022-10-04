@@ -14,12 +14,15 @@ const ImagesSection = ({ state, setState }) => {
         const flArray = Array.from(e)
 
         //TRELLO: Add limit of 5 photos for non-premiun users
-        const images = user.status.isPremiun ? [...state.imgs.value, ...flArray] : [...state.imgs.value, ...flArray].slice(0, 5)
+        const images = user.status.isPremiun ? [...state.imgs.value, ...flArray].slice(0,10) : [...state.imgs.value, ...flArray].slice(0, 5)
 
-        if ([...state.imgs.value, ...flArray].length > 1) {
+        if ([...state.imgs.value, ...flArray].length > 4) {
             toast(<Link href="/./docs/subscriptions">
                 Pasate a premiun para subir mas fotos, hace click aca
             </Link>)
+        }
+        if ([...state.imgs.value, ...flArray].length > 4) {
+            toast("Solo puedes subir 10 imagenes")
         }
         setState({
             ...state,
