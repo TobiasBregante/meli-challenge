@@ -7,6 +7,8 @@ import ProductBottomRecomendation from '@/src/components/modules/products/carous
 import BrandProfileMinimal from '../../brand/minimalProfile';
 import { Card, Grid } from '@nextui-org/react';
 import ProductReviews from './review';
+import ProductDescription from './description';
+import ProductTimeStamp from './timestamp';
 
 const ProductModule = ({ data, relateds,brandProducts }) => {
 
@@ -30,6 +32,8 @@ const ProductModule = ({ data, relateds,brandProducts }) => {
                         <Card>
                             <Card.Body>
                                 <ProductLocation data={data.brand.location} />
+                                <ProductDescription data={data.description} />
+                                <ProductTimeStamp data={data}/>
                             </Card.Body>
                         </Card>
                     </Grid>

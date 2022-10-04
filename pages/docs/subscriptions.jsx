@@ -58,7 +58,7 @@ const Subscriptions = () => {
                                 <Text> - Apartir de cuantas  tareas vendes para hacer envios</Text>
 
                                 <Button onPress={()=>{
-                                    window.open("https:api.whatsapp.com/send?text=Hola quiero contratar el plan premiun&phone=541170895828")
+                                    window.open("https://api.whatsapp.com/send?text=Hola quiero contratar el plan premiun&phone=541170895828")
                                 }}>
                                     Contactar
                                 </Button>

@@ -8,260 +8,86 @@ const PriceTable = ({ prices, isWholesaleAndRetail }) => {
     return (
         <Grid.Container direction="column">
             {
-                isWholesaleAndRetail == true &&
+                (isWholesaleAndRetail == true && prices.retail > 0) &&
                 <Grid>
                     <Text h3>
                         Venta por menor:
                     </Text>
-                    {
-                        prices.retail.minPerUnit > 0 && prices.retail.pricePerUnit > 0 &&
-                        <>
-                            <Text h4>
-                                Por unidad
-                            </Text>
-                            <Grid.Container>
-                                <Grid xs={6}>
-                                    <Grid.Container direction="column">
-                                        <Text weight="bold">Cant. Min.</Text>
-                                        <Text >{prices.retail.minPerUnit}</Text>
-                                    </Grid.Container>
-                                </Grid>
-                                <Grid xs={6}>
-                                    <Grid.Container direction="column">
-                                        <Text>Precio</Text>
-                                        <Text ><Price $={prices.retail.pricePerUnit} /></Text>
-                                    </Grid.Container>
-                                </Grid>
+                    <Grid.Container>
+                        <Grid xs={6}>
+                            <Grid.Container direction="column">
+                                <Text>Precio</Text>
+                                <Text ><Price $={prices.retail} /></Text>
                             </Grid.Container>
-                        </>
-                    }
-                    {
-                        prices.retail.minPerDozen > 0 && prices.retail.pricePerDozen > 0 &&
-                        <>
-                            <Text h4>
-                                Por docena
-                            </Text>
-                            <Grid.Container>
-                                <Grid xs={6}>
-                                    <Grid.Container direction="column">
-                                        <Text weight="bold">Cant. Min. de docenas</Text>
-                                        <Text >{prices.retail.minPerDozen}</Text>
-                                    </Grid.Container>
-                                </Grid>
-                                <Grid xs={6}>
-                                    <Grid.Container direction="column">
-                                        <Text weight="bold">Precio por unidad en la docena</Text>
-                                        <Text ><Price $={prices.retail.pricePerDozen} /></Text>
-                                    </Grid.Container>
-                                </Grid>
-                            </Grid.Container>
-                        </>
-                    }
+                        </Grid>
+                    </Grid.Container>
                 </Grid>
             }
-            <Grid>
-                <Text h3>
-                    Venta por mayor:
-                </Text>
-                {
-                    prices.wholesale.minPerUnit > 0 && prices.wholesale.pricePerUnit > 0 &&
-                    <>
-                        <Text h4>
-                            Por unidad
-                        </Text>
-                        <Grid.Container>
-                            <Grid xs={6}>
-                                <Grid.Container direction="column">
-                                    <Text weight="bold">Cant. Min.</Text>
-                                    <Text >{prices.wholesale.minPerUnit}</Text>
-                                </Grid.Container>
-                            </Grid>
-                            <Grid xs={6}>
-                                <Grid.Container direction="column">
-                                    <Text weight="bold">Precio</Text>
-                                    <Text ><Price $={prices.wholesale.pricePerUnit} /></Text>
-                                </Grid.Container>
-                            </Grid>
-                        </Grid.Container>
-                    </>
-                }
-                {
-                    prices.wholesale.minPerBigUnit > 0 && prices.wholesale.pricePerBigUnit > 0 &&
-                    <>
-                        <Text h4>
-                            Por gran cantidad de unidades
-                        </Text>
-                        <Grid.Container>
-                            <Grid xs={6}>
-                                <Grid.Container direction="column">
-                                    <Text weight="bold">Cant. Min.</Text>
-                                    <Text >{prices.wholesale.minPerBigUnit}</Text>
-                                </Grid.Container>
-                            </Grid>
-                            <Grid xs={6}>
-                                <Grid.Container direction="column">
-                                    <Text weight="bold">Precio</Text>
-                                    <Text ><Price $={prices.wholesale.pricePerBigUnit} /></Text>
-                                </Grid.Container>
-                            </Grid>
-                        </Grid.Container>
-                    </>
-                }
-                {
-                    prices.wholesale.perUnitTalk &&
-                    <>
-                        <Text h4>
-                            Por Unidad
-                        </Text>
-                        <Grid.Container>
-                            <Grid xs={6}>
-                                <Grid.Container direction="column">
-                                    <Text b>
-                                        Precio a conversar
-                                    </Text>
-                                </Grid.Container>
-                            </Grid>
-                            
-                        </Grid.Container>
-                    </>
-                }
-
-
-                {
-                    //Per Dozen
-                    prices.wholesale.minPerDozen > 0 && prices.wholesale.pricePerDozen > 0 &&
-                    <>
-                        <Text h4>
-                            Por docena
-                        </Text>
-                        <Grid.Container>
-                            <Grid xs={6}>
-                                <Grid.Container direction="column">
-                                    <Text weight="bold">Cant. Min.</Text>
-                                    <Text >{prices.wholesale.minPerDozen}</Text>
-                                </Grid.Container>
-                            </Grid>
-                            <Grid xs={6}>
-                                <Grid.Container direction="column">
-                                    <Text weight="bold">Precio por unidad en la docena</Text>
-                                    <Text ><Price $={prices.wholesale.pricePerDozen} /></Text>
-                                </Grid.Container>
-                            </Grid>
-                        </Grid.Container>
-                    </>
-                }
-                {
-                    prices.wholesale.minPerBigDozen > 0 && prices.wholesale.pricePerBigDozen > 0 &&
-                    <>
-                        <Text h4>
-                            Por gran cantidad de docenas
-                        </Text>
-                        <Grid.Container>
-                            <Grid xs={6}>
-                                <Grid.Container direction="column">
-                                    <Text weight="bold">Cant. Min.</Text>
-                                    <Text >{prices.wholesale.minPerBigDozen}</Text>
-                                </Grid.Container>
-                            </Grid>
-                            <Grid xs={6}>
-                                <Grid.Container direction="column">
-                                    <Text weight="bold">Precio</Text>
-                                    <Text ><Price $={prices.wholesale.pricePerBigDozen} /></Text>
-                                </Grid.Container>
-                            </Grid>
-                        </Grid.Container>
-                    </>
-                }
-                {
-                    prices.wholesale.perDozenTalk &&
-                    <>
-                        <Text h4>
-                            Por Docena
-                        </Text>
-                        <Grid.Container>
-                            <Grid xs={6}>
-                                <Grid.Container direction="column">
-                                    <Text b>
-                                        Precio a conversar
-                                    </Text>
-                                </Grid.Container>
-                            </Grid>
-                            
-                        </Grid.Container>
-                    </>
-                }
-
-                {
-                    //Per curve
-                    prices.wholesale.minPerCurve > 0 && prices.wholesale.pricePerCurve > 0 && prices.wholesale.sizesPerCurve > 0 &&
-                    <>
-                        <Text h4>
-                            Por curva
-                        </Text>
-                        <Grid.Container>
-                            <Grid xs={4}>
-                                <Grid.Container direction="column">
-                                    <Text weight="bold">Talles por curva</Text>
-                                    <Text >{prices.wholesale.sizesPerCurve}</Text>
-                                </Grid.Container>
-                            </Grid>
-                            <Grid xs={4}>
-                                <Grid.Container direction="column">
-                                    <Text weight="bold">Cant. Min.</Text>
-                                    <Text >{prices.wholesale.minPerCurve}</Text>
-                                </Grid.Container>
-                            </Grid>
-                            <Grid xs={4}>
-                                <Grid.Container direction="column">
-                                    <Text weight="bold">Precio por unidad en la docena</Text>
-                                    <Text ><Price $={prices.wholesale.pricePerCurve} /></Text>
-                                </Grid.Container>
-                            </Grid>
-                        </Grid.Container>
-                    </>
-                }
-                {
-                    prices.wholesale.minPerBigCurve > 0 && prices.wholesale.pricePerBigCurve > 0 &&
-                    <>
-                        <Text h4>
-                            Por gran cantidad de curvas
-                        </Text>
-                        <Grid.Container>
-                            <Grid xs={6}>
-                                <Grid.Container direction="column">
-                                    <Text weight="bold">Cant. Min.</Text>
-                                    <Text >{prices.wholesale.minPerBigDozen}</Text>
-                                </Grid.Container>
-                            </Grid>
-                            <Grid xs={6}>
-                                <Grid.Container direction="column">
-                                    <Text weight="bold">Precio</Text>
-                                    <Text ><Price $={prices.wholesale.pricePerBigDozen} /></Text>
-                                </Grid.Container>
-                            </Grid>
-                        </Grid.Container>
-                    </>
-                }
-                {
-                    prices.wholesale.perCurveTalk &&
-                    <>
-                        <Text h4>
-                            Por Curva
-                        </Text>
-                        <Grid.Container>
-                            <Grid xs={6}>
-                                <Grid.Container direction="column">
-                                    <Text b>
-                                        Precio a conversar
-                                    </Text>
-                                </Grid.Container>
-                            </Grid>
-                            
-                        </Grid.Container>
-                    </>
-                }
-
-            </Grid>
+            {
+                prices.wholesale > 0 &&
+                <Grid>
+                    <Text h3>
+                        Venta por mayor:
+                    </Text>
+                    <Grid.Container>
+                        <Grid xs={6}>
+                            <Grid.Container direction="column">
+                                <Text b>Precio</Text>
+                                <Text ><Price $={prices.wholesale} /></Text>
+                            </Grid.Container>
+                        </Grid>
+                    </Grid.Container>
+                </Grid>
+            }
+            {
+                prices.perDozen > 0 &&
+                <Grid>
+                    <Text h3>
+                        Venta por docena:
+                    </Text>
+                    <Grid.Container>
+                        <Grid xs={6}>
+                            <Grid.Container direction="column">
+                                <Text b>Precio</Text>
+                                <Text ><Price $={prices.perDozen} /></Text>
+                            </Grid.Container>
+                        </Grid>
+                    </Grid.Container>
+                </Grid>
+            }
+            {
+                prices.perCurve > 0 &&
+                <Grid>
+                    <Text h3>
+                        Venta por curva:
+                    </Text>
+                    <Grid.Container>
+                        <Grid xs={6}>
+                            <Grid.Container direction="column">
+                                <Text b>Precio</Text>
+                                <Text ><Price $={prices.perCurve} /></Text>
+                            </Grid.Container>
+                        </Grid>
+                    </Grid.Container>
+                </Grid>
+            }
+            {
+                prices.perQuantity > 0 &&
+                <Grid>
+                    <Text h3>
+                        Venta por cantidad:
+                    </Text>
+                    <Grid.Container>
+                        <Grid xs={6}>
+                            <Grid.Container direction="column">
+                                <Text b>Precio</Text>
+                                <Text ><Price $={prices.perQuantity} /></Text>
+                            </Grid.Container>
+                        </Grid>
+                    </Grid.Container>
+                </Grid>
+            }
+ 
         </Grid.Container>
     )
 }

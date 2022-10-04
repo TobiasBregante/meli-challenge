@@ -58,7 +58,7 @@ const PersonalData = ({ state, setState, }) => {
                 <Input
                     clearable
                     contentLeft={<Icon id="call" />}
-                    type="number"
+                    type="text"
                     label="Numero de celular"
                     placeholder="Escribe aqui tu celular"
                     value={state.cellPhone.value}
@@ -68,7 +68,7 @@ const PersonalData = ({ state, setState, }) => {
                     status={state.cellPhone.error?"error":"default"}
                     css={{ mb: 20 }}
                     min={8}
-                    max={10} />
+                    max={14} />
 
                 <Input.Password
                     clearable
