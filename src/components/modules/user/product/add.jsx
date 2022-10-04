@@ -122,7 +122,7 @@ const ManageProduct = ({ website, data }) => {
         <Container lg>
 
             <Grid.Container justify="center" css={{ my: 20 }}>
-                <Grid xs={12} sm={10} >
+                <Grid xs={12} md={10} >
                     <Grid.Container direction="column">
                         {
                             user.isAdmin && data &&
@@ -258,7 +258,7 @@ const ManageProduct = ({ website, data }) => {
 
                                         </Grid.Container>
                                         {
-                                            user.isPremiun &&
+                                            user.status.isPremiun &&
                                             <Grid.Container gap={1}>
                                                 <Grid>
                                                     <Input
