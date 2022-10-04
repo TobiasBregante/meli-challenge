@@ -328,6 +328,66 @@ const ManageProduct = ({ website, data }) => {
                                 </Grid.Container>
                             </Card.Body>
                         </Card>
+                        {
+                            !data &&
+                            <Card css={{ mt: 10 }}>
+                                <Card.Header>
+                                    <Grid.Container justify="center">
+                                        <Text h2>
+                                            Plan premiun
+                                        </Text>
+                                    </Grid.Container>
+                                </Card.Header>
+                                <Card.Body>
+                                    <Text h4>
+                                        Venta por Docena:
+                                    </Text>
+                                    <Text> - Nombre del producto</Text>
+                                    <Text> - Categoría del producto</Text>
+                                    <Text> - Apartir de cuantas  docenas vendes para hacer envios</Text>
+                                    <Text> - Cantidad total o Stock del producto disponible.</Text>
+                                    <Text> - Descripción del producto</Text>
+                                    <Text> - Precio total por docena:</Text>
+
+                                    <Text h4>
+                                        Venta por Cantidad:
+                                        CURVA O DOCENA
+                                    </Text>
+                                    <Text> - Nombre del producto</Text>
+                                    <Text> - Categoría del producto</Text>
+                                    <Text> - Cantidad total o Stock del producto disponible.</Text>
+                                    <Text> - Descripción del producto</Text>
+                                    <Text> - Precio por mayor por docena O CURVA:</Text>
+                                    <Text> - Apartir de cuantas  docenas O CURVA vendes por cantidad para hacer envios </Text>
+                                    <Text> - Precio total por cantidad de docena O CURVA: </Text>
+
+                                    <Text h4>
+                                        Venta por Curva:
+                                    </Text>
+                                    <Text> - Nombre del producto</Text>
+                                    <Text> - Categoría del producto</Text>
+                                    <Text> - Cantidad total o Stock del producto disponible.</Text>
+                                    <Text> - Descripción del producto</Text>
+                                    <Text> - Apartir de cuantas  Curvas vendes para hacer envíos</Text>
+                                    <Text> - precio total por mayor por curva</Text>
+
+                                    <Text h4>
+                                        Venta por Tarea:
+                                    </Text>
+                                    <Text> - Nombre del producto</Text>
+                                    <Text> - Categoría del producto</Text>
+                                    <Text> - Cantidad total o Stock del producto disponible.</Text>
+                                    <Text> - Descripción del producto</Text>
+                                    <Text> - Apartir de cuantas  tareas vendes para hacer envios</Text>
+
+                                    <Button onPress={() => {
+                                        window.open("https://api.whatsapp.com/send?text=Hola quiero contratar el plan premiun&phone=541170895828")
+                                    }}>
+                                        Contactar
+                                    </Button>
+                                </Card.Body>
+                            </Card>
+                        }
                     </Grid.Container>
                 </Grid>
             </Grid.Container>
