@@ -219,11 +219,14 @@ const ManageProduct = ({ website, data }) => {
                                         </Grid.Container>
                                     </Grid>
 
-                                    <Grid>
-                                        <Text h3>
-                                            Formas de vender
-                                        </Text>
-                                    </Grid>
+                                    {
+                                        user.status.isPremiun &&
+                                        <Grid>
+                                            <Text h3>
+                                                Formas de vender
+                                            </Text>
+                                        </Grid>
+                                    }
                                     <Grid>
                                         <Grid.Container gap={1}>
                                             {
