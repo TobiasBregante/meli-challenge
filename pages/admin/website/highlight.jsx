@@ -9,10 +9,10 @@ const HighLightPage = ({ website }) => {
         <Page>
             <Container lg css={{ mb: "$10" }}>
                 <Grid.Container gap={2}>
-                    <Grid xs={0} lg={3}>
+                    <Grid xs={12} md={3} >
                         <SideBar selected="highlight"/>
                     </Grid>
-                    <Grid xs={12} lg={6}>
+                    <Grid xs={12} md={6}>
                         <HightLightsForm website={website}/>
                     </Grid>
                 </Grid.Container>

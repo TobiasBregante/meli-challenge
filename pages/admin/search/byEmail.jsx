@@ -12,10 +12,10 @@ const SearchByEmailPage = ({ data }) => {
         <Page>
             <Container lg css={{ mb: "$10" }}>
                 <Grid.Container gap={2}>
-                    <Grid xs={3}  >
+                    <Grid xs={12} md={3} >
                         <SideBar selected="searchByEmail"/>
                     </Grid>
-                    <Grid xs={9}>
+                    <Grid xs={12} md={9}>
                         <SearchByEmailModule data={data} state={state} setState={setState}/>
                     </Grid>
                 </Grid.Container>

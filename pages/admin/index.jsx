@@ -7,7 +7,7 @@ const SearchByPhonePage = ({ data }) => {
         <Page>
             <Container lg css={{ mb: "$10" }}>
                 <Grid.Container gap={2}>
-                    <Grid xs={0} lg={3}>
+                    <Grid xs={12} md={3} >
                         <SideBar selected="inicio"/>
                     </Grid>
                 </Grid.Container>

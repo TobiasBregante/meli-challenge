@@ -45,7 +45,7 @@ const Header = () => {
                         </Grid.Container>
                         :
                         <Grid.Container css={{ my: 10, }} justify="space-between">
-                            <Grid>
+                            <Grid css={{cursor: 'pointer'}}>
                                 <Link href="/./" passHref>
                                     <Grid.Container direction="row">
                                         <Grid>
