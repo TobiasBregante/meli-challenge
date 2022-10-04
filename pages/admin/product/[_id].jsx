@@ -9,10 +9,10 @@ const EditProductPage = ({ website, data }) => {
         <Page>
             <Container lg >
                 <Grid.Container gap={2}>
-                    <Grid xs={0} md={3} >
+                    <Grid xs={12} md={3} >
                         <SideBar selected="products" />
                     </Grid>
-                    <Grid sm={9} lg={9}>
+                    <Grid xs={12} md={9}>
                         <AddProduct website={website} data={data} />
                     </Grid>
                 </Grid.Container>

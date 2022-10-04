@@ -10,10 +10,10 @@ const UpdateUser = ({ data, website }) => {
     <Page>
       <Container lg >
         <Grid.Container gap={2}>
-          <Grid xs={0} md={3} >
+          <Grid xs={12} md={3} >
             <SideBar selected="brands" />
           </Grid>
-          <Grid sm={9} lg={9}>
+          <Grid xs={12} md={9}>
             <UpdateBrandModule data={data} website={website} />
           </Grid>
         </Grid.Container>

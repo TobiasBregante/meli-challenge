@@ -21,7 +21,7 @@ const ImagesSection = ({ state, setState }) => {
                 Pasate a premiun para subir mas fotos, hace click aca
             </Link>)
         }
-        if ([...state.imgs.value, ...flArray].length > 4) {
+        if ([...state.imgs.value, ...flArray].length > 9) {
             toast("Solo puedes subir 10 imagenes")
         }
         setState({

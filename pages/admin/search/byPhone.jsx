@@ -12,10 +12,10 @@ const SearchByPhonePage = ({ data }) => {
         <Page>
             <Container lg css={{ mb: "$10" }}>
                 <Grid.Container gap={2}>
-                    <Grid xs={3} sm={3} lg={3}>
+                    <Grid xs={12} md={3} >
                         <SideBar selected="searchByPhone" />
                     </Grid>
-                    <Grid sm={9} lg={9}>
+                    <Grid xs={12} md={9}>
                         <SearchByPhoneModule data={data} state={state} setState={setState} />
                     </Grid>
                 </Grid.Container>
