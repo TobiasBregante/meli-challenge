@@ -1,22 +1,18 @@
 import Icon from "@/ui/icons";
 import { useState } from 'react';
-import Link from 'next/link';
 import { toast } from 'react-toastify';
 import Joi from 'joi'
 import jsCookie from 'js-cookie'
-import { useRouter } from 'next/router';
-import AccountType from '@/components/modules/user/auth/signup/sections/accountType';
 
 import { Button, Card, Checkbox, Grid, Input, Text } from '@nextui-org/react';
 import stringMessages from "@/src/utils/joi/customMessages";
 import Post from "@/src/utils/hooks/post";
-import PersonalData from "../auth/signup/sections/personalData";
 import OptionGroup from "../auth/signup/assets/optionGroup";
 import UpdatePremiunPlan from "./premiun";
 import timeago from "@/src/utils/timeago";
 
 const UpdateUserInfoModule = ({ data }) => {
-    const router = useRouter()
+
     const [state, setState] = useState({
         isSeller: data.isSeller,
         //personal data
@@ -37,7 +33,6 @@ const UpdateUserInfoModule = ({ data }) => {
             value: data.cellPhone
         }
     })
-
     const handleOption = (key) => (v) => {
         setState({ ...state, [key]: v })
     }
@@ -177,7 +172,7 @@ const UpdateUserInfoModule = ({ data }) => {
                                 <Input
                                     clearable
                                     contentLeft={<Icon id="call" />}
-                                    type="number"
+                                    type="text"
                                     label="Numero de celular"
                                     placeholder="Escribe aqui tu celular"
                                     value={state.cellPhone.value}
@@ -187,7 +182,7 @@ const UpdateUserInfoModule = ({ data }) => {
                                     status={state.cellPhone.error ? "error" : "default"}
                                     css={{ mb: 20 }}
                                     min={8}
-                                    max={10} />
+                                    max={14} />
 
                             </Grid.Container>
 
@@ -206,12 +201,18 @@ const UpdateUserInfoModule = ({ data }) => {
                             </Text>
 
                             <Grid.Container>
-                                <Button auto color={data.status.isPremiun ? "success" : "error"} css={{mr:10}}>
+                                <Button auto color={data.status.isPremiun ? "success" : "error"} css={{ mr: 10 }}>
                                     {data.status.isPremiun ? "Es premiun" : "No es premiun"}
                                 </Button>
                                 <Button auto color="gray">
                                     {data.status.isPremiunUntil ? `Vence: ${timeago(data.status.isPremiunUntil)}` : "Aun no fue premiun"}
                                 </Button>
+                                {
+                                    data.status.premiunPlan &&
+                                    <Button auto color="success" css={{ ml: 10 }}>
+                                        Plan: {data.status.premiunPlan}
+                                    </Button>
+                                }
                             </Grid.Container>
 
                             <UpdatePremiunPlan data={data} />
