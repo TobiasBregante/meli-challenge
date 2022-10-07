@@ -2,12 +2,12 @@ import Icon from "@/src/components/ui/icons"
 import { useUserContext } from "@/src/utils/user/provider"
 import { Grid, Input } from "@nextui-org/react"
 
-const BasePrices = ({state,handlePrices}) => {
+const BasePrices = ({state,handlePrices, data}) => {
     const user = useUserContext()
     return (
         <Grid.Container gap={1}>
             {
-                user.brand.isWholesaleAndRetail &&
+                (user?.brand?.isWholesaleAndRetail || data?.brand?.isWholesaleAndRetail) &&
                 <Grid>
                     <Input
                         type="number"
