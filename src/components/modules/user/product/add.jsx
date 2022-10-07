@@ -26,7 +26,7 @@ import PerCurvePrices from "./sections/perCurvePrices";
 import PerTasksPrices from "./sections/perTaskPrices";
 
 
-const PricesManager = ({ state, handlePrices }) => {
+const PricesManager = ({ state, handlePrices, data }) => {
     const router = useRouter()
 
     if (router.query.sellingPer === undefined) {
@@ -45,7 +45,7 @@ const PricesManager = ({ state, handlePrices }) => {
         return <PerTasksPrices state={state} handlePrices={handlePrices} />
     }
     //default
-    return <BasePrices state={state} handlePrices={handlePrices} />
+    return <BasePrices state={state} handlePrices={handlePrices} data={data} />
 }
 
 const ManageProduct = ({ website, data }) => {
@@ -262,7 +262,7 @@ const ManageProduct = ({ website, data }) => {
                                     </Grid>
 
                                     <Grid>
-                                        <PricesManager state={state} handlePrices={handlePrices} />
+                                        <PricesManager state={state} handlePrices={handlePrices} data={data} />
                                     </Grid>
                                     <Grid>
                                         <ImagesSection state={state} setState={setState} />
@@ -286,7 +286,7 @@ const ManageProduct = ({ website, data }) => {
                             </Card.Body>
                         </Card>
                         {
-                            user.status.isPremiun &&
+                            (user.status.isPremiun && !data) &&
                             <Card css={{ mt: 10 }}>
                                 <Card.Header>
                                     <Grid.Container justify="center">
