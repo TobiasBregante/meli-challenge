@@ -21,7 +21,7 @@ const PerDozenPrices = ({state,handlePrices}) => {
                 <Input
                     type="number"
                     clearable
-                    label="Precio por por docena"
+                    label="Precio por mayor por una docena"
                     placeholder="Escribe aqui el precio por docena"
                     helperColor="error"
                     helperText={state.prices.perDozen.error}
