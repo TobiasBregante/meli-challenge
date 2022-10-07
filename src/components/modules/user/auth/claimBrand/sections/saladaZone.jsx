@@ -3,10 +3,103 @@ import { Dropdown, Grid, Input, Text } from '@nextui-org/react'
 import { useState } from 'react'
 import sheds from '@/src/utils/user/brand/sheds'
 
+const UseHallway = ({ GalleryProps, ShedProps, side, state, onChange }) => {
+    const [hallway, setHallway] = useState(state.hallway.value || "")
+    const handleHallwaySelect = e => {
+        setHallway(e)
+        if (Object.values(e)[0] !== undefined) {
+            onChange("hallway")({ target: { value: Object.values(e)[0] } })
+        } else {
+            onChange("hallway")({ target: { value: "" } })
+        }
+    }
+
+    let findInGallery = GalleryProps().sides
+    let findInShed = ShedProps().sides
+    let sides = false
+
+    if (findInGallery != undefined) {
+        sides = findInGallery
+    }
+    if (findInShed != undefined) {
+        sides = findInShed
+    }
+
+    const requestHallway = () => {
+        if (state.side.value == "Pasillo") {
+            return true
+        }
+    }
+    const isHallwayRequired = () => {
+        if (GalleryProps().hallways != undefined) {
+            return true
+        }
+        if (ShedProps().requestHallway != undefined || ShedProps().shed == "GALERIAS") {
+            return true
+        }
+        return false
+    }
+
+    if (isHallwayRequired()) {
+        if (GalleryProps().hallways != undefined) {
+            return (
+                <Grid>
+                    <Text>
+                        ¿En que pasillo esta?
+                    </Text>
+                    <Dropdown>
+                        <Dropdown.Button flat color="$gray">
+                            {
+                                hallway.length == 0 ? "Eligé un pasillo" : hallway
+                            }
+                        </Dropdown.Button>
+                        <Dropdown.Menu
+                            selectionMode="single"
+                            disallowEmptySelection
+                            selectedKeys={hallway}
+                            onSelectionChange={handleHallwaySelect}
+                        >
+                            {
+                                GalleryProps().hallways.map(h => (
+                                    <Dropdown.Item key={h}>{h}</Dropdown.Item>
+                                ))
+                            }
+
+                        </Dropdown.Menu>
+
+                    </Dropdown>
+                    <Text small color="error">
+                        {state.hallway.error}
+                    </Text>
+                </Grid>
+            )
+        }
+        if (requestHallway()) {
+            return (
+                <Grid>
+                    <Text>
+                        Numero de pasillo
+                    </Text>
+                    <Input
+                        clearable
+                        contentLeft={<Icon id="share_location" />}
+                        placeholder="Escribe aqui tu numero de pasillo"
+                        helperText={state.hallway.error}
+                        helperColor="error"
+                        status={state.hallway.error ? "error" : "default"}
+                        value={state.hallway.value}
+                        onChange={onChange("hallway")} />
+                </Grid>
+            )
+        }
+    }
+    return null
+
+}
+
 const SaladaZone = ({ state, onChange, }) => {
     const [shed, setShed] = useState(state.shed.value || ""),
         [gallery, setGallery] = useState(state.galleryName.value || ""),
-        [hallway, setHallway] = useState(state.hallway.value || ""),
         [floor, setFloor] = useState(state.floor.value || ""),
         [side, setSide] = useState(state.side.value || "")
 
@@ -28,18 +121,8 @@ const SaladaZone = ({ state, onChange, }) => {
         }
     }
 
-    const handleHallway = e => {
 
-    }
 
-    const handleHallwaySelect = e => {
-        setHallway(e)
-        if (Object.values(e)[0] !== undefined) {
-            onChange("hallway")({ target: { value: Object.values(e)[0] } })
-        } else {
-            onChange("hallway")({ target: { value: "" } })
-        }
-    }
 
     const handleFloor = e => {
         setFloor(e)
@@ -85,90 +168,9 @@ const SaladaZone = ({ state, onChange, }) => {
 
     }
 
-    const isHallwayRequired = () => {
-        if (GalleryProps().hallways != undefined) {
-            return true
-        }
-        if (ShedProps().requestHallway != undefined || ShedProps().shed == "GALERIAS") {
-            return true
-        }
-        return false
-    }
 
-    const UseHallway = () => {
-        let findInGallery = GalleryProps().sides
-        let findInShed = ShedProps().sides
-        let sides = false
 
-        if (findInGallery != undefined) {
-            sides = findInGallery
-        }
-        if (findInShed != undefined) {
-            sides = findInShed
-        }
 
-        const requestHallway = ()=>{
-            if (Object.values(side)[0] == "Pasillo") {
-                return true
-            }
-        }
-
-        if (isHallwayRequired()) {
-            if (GalleryProps().hallways != undefined) {
-                return (
-                    <Grid>
-                        <Text>
-                            ¿En que pasillo esta?
-                        </Text>
-                        <Dropdown>
-                            <Dropdown.Button flat color="$gray">
-                                {
-                                    hallway.length == 0 ? "Eligé un pasillo" : hallway
-                                }
-                            </Dropdown.Button>
-                            <Dropdown.Menu
-                                selectionMode="single"
-                                disallowEmptySelection
-                                selectedKeys={hallway}
-                                onSelectionChange={handleHallwaySelect}
-                            >
-                                {
-                                    GalleryProps().hallways.map(h => (
-                                        <Dropdown.Item key={h}>{h}</Dropdown.Item>
-                                    ))
-                                }
-
-                            </Dropdown.Menu>
-
-                        </Dropdown>
-                        <Text small color="error">
-                            {state.hallway.error}
-                        </Text>
-                    </Grid>
-                )
-            }
-            if (requestHallway()) {
-                return (
-                    <Grid>
-                        <Text>
-                            Numero de pasillo
-                        </Text>
-                        <Input
-                            clearable
-                            contentLeft={<Icon id="share_location" />}
-                            placeholder="Escribe aqui tu numero de pasillo"
-                            helperText={state.hallway.error}
-                            helperColor="error"
-                            status={state.hallway.error ? "error" : "default"}
-                            value={state.hallway.value}
-                            onChange={onChange("hallway")} />
-                    </Grid>
-                )
-            }
-        }
-        return null
-
-    }
 
     const UseFloor = () => {
         let findInShed = ShedProps().floors
@@ -221,7 +223,7 @@ const SaladaZone = ({ state, onChange, }) => {
             sides = findInShed
         }
 
-        if (sides != false ) {
+        if (sides != false) {
             return (
                 <Grid>
                     <Text>
@@ -353,7 +355,7 @@ const SaladaZone = ({ state, onChange, }) => {
                     </Text>
                 </Grid>
             }
-            <UseHallway />
+            <UseHallway state={state} GalleryProps={GalleryProps} ShedProps={ShedProps} side={side} onChange={onChange} />
             <UseFloor />
             <UseSide />
             <UseRow />
