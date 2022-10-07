@@ -8,7 +8,7 @@ const PriceTable = ({ prices, isWholesaleAndRetail }) => {
     return (
         <Grid.Container direction="column">
             {
-                (isWholesaleAndRetail == true && prices.retail > 0) &&
+                prices.retail > 0 &&
                 <Grid>
                     <Text h3>
                         Venta por menor:
@@ -36,6 +36,12 @@ const PriceTable = ({ prices, isWholesaleAndRetail }) => {
                                 <Text ><Price $={prices.wholesale} /></Text>
                             </Grid.Container>
                         </Grid>
+                        <Grid xs={6}>
+                            <Grid.Container direction="column">
+                                <Text b>Cantidad minima para envio</Text>
+                                <Text >{prices.minPerWholesale} unid.</Text>
+                            </Grid.Container>
+                        </Grid>
                     </Grid.Container>
                 </Grid>
             }
@@ -50,6 +56,12 @@ const PriceTable = ({ prices, isWholesaleAndRetail }) => {
                             <Grid.Container direction="column">
                                 <Text b>Precio</Text>
                                 <Text ><Price $={prices.perDozen} /></Text>
+                            </Grid.Container>
+                        </Grid>
+                        <Grid xs={6}>
+                            <Grid.Container direction="column">
+                                <Text b>Cantidad minima para envio</Text>
+                                <Text >{prices.minPerDozen} unid.</Text>
                             </Grid.Container>
                         </Grid>
                     </Grid.Container>
@@ -68,11 +80,39 @@ const PriceTable = ({ prices, isWholesaleAndRetail }) => {
                                 <Text ><Price $={prices.perCurve} /></Text>
                             </Grid.Container>
                         </Grid>
+                        <Grid xs={6}>
+                            <Grid.Container direction="column">
+                                <Text b>Cantidad minima para envio</Text>
+                                <Text >{prices.minPerCurve} unid.</Text>
+                            </Grid.Container>
+                        </Grid>
                     </Grid.Container>
                 </Grid>
             }
             {
-                prices.perQuantity > 0 &&
+                prices.perTask > 0 &&
+                <Grid>
+                    <Text h3>
+                        Venta por tarea:
+                    </Text>
+                    <Grid.Container>
+                        <Grid xs={6}>
+                            <Grid.Container direction="column">
+                                <Text b>Precio</Text>
+                                <Text ><Price $={prices.perTask} /></Text>
+                            </Grid.Container>
+                        </Grid>
+                        <Grid xs={6}>
+                            <Grid.Container direction="column">
+                                <Text b>Cantidad minima para envio</Text>
+                                <Text >{prices.minPerTask} unid.</Text>
+                            </Grid.Container>
+                        </Grid>
+                    </Grid.Container>
+                </Grid>
+            }
+            {
+                prices.minPerQuantityByDozenOrCurve > 0 &&
                 <Grid>
                     <Text h3>
                         Venta por cantidad:
@@ -81,7 +121,13 @@ const PriceTable = ({ prices, isWholesaleAndRetail }) => {
                         <Grid xs={6}>
                             <Grid.Container direction="column">
                                 <Text b>Precio</Text>
-                                <Text ><Price $={prices.perQuantity} /></Text>
+                                <Text ><Price $={prices.perQuantityByDozenOrCurve} /></Text>
+                            </Grid.Container>
+                        </Grid>
+                        <Grid xs={6}>
+                            <Grid.Container direction="column">
+                                <Text b>Cantidad minima para envio</Text>
+                                <Text >{prices.perQuantityByDozenOrCurve} unid.</Text>
                             </Grid.Container>
                         </Grid>
                     </Grid.Container>

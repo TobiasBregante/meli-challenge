@@ -10,7 +10,7 @@ import IsNotOwner from '@/components/modules/user/errors/isNotOwner';
 import ShouldBePremiun from '@/components/modules/user/errors/shouldBePremiun'
 import HardLimit from '@/components/modules/user/errors/hardLimit'
 
-import { Button, Card, Checkbox, Container, Grid, Input, Loading, Text, Textarea } from "@nextui-org/react";
+import { Button, Card, Checkbox, Container, Grid, Input, Link, Loading, Text, Textarea } from "@nextui-org/react";
 import Clasification from "./sections/clasification";
 import ImagesSection from "./sections/images";
 //Validation
@@ -18,6 +18,35 @@ import { toast } from "react-toastify";
 import Submit from "./sections/submit";
 import Get from "@/src/utils/hooks/get";
 import jsCookie from 'js-cookie'
+
+import BasePrices from "./sections/basePrices";
+import PerDozenPrices from "./sections/perDozenPrices";
+import PerQuantityByDozenOrCurvePrices from "./sections/perQuantityByDozenOrCurvePrices";
+import PerCurvePrices from "./sections/perCurvePrices";
+import PerTasksPrices from "./sections/perTaskPrices";
+
+
+const PricesManager = ({ state, handlePrices }) => {
+    const router = useRouter()
+
+    if (router.query.sellingPer === undefined) {
+        return <BasePrices state={state} handlePrices={handlePrices} />
+    }
+    if (router.query.sellingPer === "dozen") {
+        return <PerDozenPrices state={state} handlePrices={handlePrices} />
+    }
+    if (router.query.sellingPer === "quantity") {
+        return <PerQuantityByDozenOrCurvePrices state={state} handlePrices={handlePrices} />
+    }
+    if (router.query.sellingPer === "curve") {
+        return <PerCurvePrices state={state} handlePrices={handlePrices} />
+    }
+    if (router.query.sellingPer === "task") {
+        return <PerTasksPrices state={state} handlePrices={handlePrices} />
+    }
+    //default
+    return <BasePrices state={state} handlePrices={handlePrices} />
+}
 
 const ManageProduct = ({ website, data }) => {
 
@@ -32,10 +61,21 @@ const ManageProduct = ({ website, data }) => {
         imgs: { error: "", value: data?.imgs || [] },
         prices: {
             retail: { error: "", value: data?.prices.retail || 0 },
+
+            minPerWholesale: { error: "", value: data?.prices.minPerWholesale || 0 },
             wholesale: { error: "", value: data?.prices.wholesale || 0 },
+
+            minPerDozen: { error: "", value: data?.prices.minPerDozen || 0 },
             perDozen: { error: "", value: data?.prices.perDozen || 0 },
+
+            minPerQuantityByDozenOrCurve: { error: "", value: data?.prices.minPerQuantityByDozenOrCurve || 0 },
+            perQuantityByDozenOrCurve: { error: "", value: data?.prices.perQuantityByDozenOrCurve || 0 },
+
+            minPerCurve: { error: "", value: data?.prices.minPerCurve || 0 },
             perCurve: { error: "", value: data?.prices.perCurve || 0 },
-            perQuantity: { error: "", value: data?.prices.perQuantity || 0 }
+
+            minPerTask: { error: "", value: data?.prices.minPerTask || 0 },
+            perTask: { error: "", value: data?.prices.perTask || 0 },
         }
     }
 
@@ -70,7 +110,7 @@ const ManageProduct = ({ website, data }) => {
         return <ShouldBePremiun />
     }
     if (user.products == 40 && user.status.isPremiun && user.status.premiunPlan == "feriante" && data === undefined) {
-        return <ShouldBePremiun />
+        return <HardLimit />
     }
 
 
@@ -117,6 +157,8 @@ const ManageProduct = ({ website, data }) => {
             setDeleting(false)
         })
     }
+
+
 
     return (
         <Container lg>
@@ -219,93 +261,8 @@ const ManageProduct = ({ website, data }) => {
                                         </Grid.Container>
                                     </Grid>
 
-                                    {
-                                        user.status.isPremiun &&
-                                        <Grid>
-                                            <Text h3>
-                                                Formas de vender
-                                            </Text>
-                                        </Grid>
-                                    }
                                     <Grid>
-                                        <Grid.Container gap={1}>
-                                            {
-                                                user.isWholesaleAndRetail &&
-                                                <Grid>
-                                                    <Input
-                                                        type="number"
-                                                        clearable
-                                                        label="Precio por menor"
-                                                        placeholder="Escribe aqui el precio por menor"
-                                                        helperColor="error"
-                                                        helperText={state.prices.retail.error}
-                                                        status={state.prices.retail.error ? "error" : "default"}
-                                                        contentLeft={<Icon id="inventory" />}
-                                                        value={state.prices.retail.value}
-                                                        onChange={handlePrices("retail")} />
-                                                </Grid>
-                                            }
-                                            <Grid>
-                                                <Input
-                                                    type="number"
-                                                    clearable
-                                                    label="Precio por mayor"
-                                                    placeholder="Escribe aqui el precio por mayor"
-                                                    helperColor="error"
-                                                    helperText={state.prices.wholesale.error}
-                                                    status={state.prices.wholesale.error ? "error" : "default"}
-                                                    contentLeft={<Icon id="inventory" />}
-                                                    value={state.prices.wholesale.value}
-                                                    onChange={handlePrices("wholesale")} />
-                                            </Grid>
-
-                                        </Grid.Container>
-                                        {
-                                            user.status.isPremiun &&
-                                            <Grid.Container gap={1}>
-                                                <Grid>
-                                                    <Input
-                                                        type="number"
-                                                        clearable
-                                                        label="Precio por docena"
-                                                        placeholder="Escribe aqui el precio por docena"
-                                                        helperColor="error"
-                                                        helperText={state.prices.perDozen.error}
-                                                        status={state.prices.perDozen.error ? "error" : "default"}
-                                                        contentLeft={<Icon id="inventory" />}
-                                                        value={state.prices.perDozen.value}
-                                                        onChange={handlePrices("perDozen")} />
-                                                </Grid>
-                                                <Grid>
-                                                    <Input
-                                                        type="number"
-                                                        clearable
-                                                        label="Precio por curva"
-                                                        placeholder="Escribe aqui el precio por curva"
-                                                        helperColor="error"
-                                                        helperText={state.prices.perCurve.error}
-                                                        status={state.prices.perCurve.error ? "error" : "default"}
-                                                        contentLeft={<Icon id="inventory" />}
-                                                        value={state.prices.perCurve.value}
-                                                        onChange={handlePrices("perCurve")} />
-                                                </Grid>
-                                                <Grid>
-                                                    <Input
-                                                        type="number"
-                                                        clearable
-                                                        label="Precio por cantidad"
-                                                        placeholder="Escribe aqui el precio por cantidad"
-                                                        helperColor="error"
-                                                        helperText={state.prices.perQuantity.error}
-                                                        status={state.prices.perQuantity.error ? "error" : "default"}
-                                                        contentLeft={<Icon id="inventory" />}
-                                                        value={state.prices.perQuantity.value}
-                                                        onChange={handlePrices("perQuantity")} />
-                                                </Grid>
-
-                                            </Grid.Container>
-                                        }
-
+                                        <PricesManager state={state} handlePrices={handlePrices} />
                                     </Grid>
                                     <Grid>
                                         <ImagesSection state={state} setState={setState} />
@@ -328,6 +285,61 @@ const ManageProduct = ({ website, data }) => {
                                 </Grid.Container>
                             </Card.Body>
                         </Card>
+                        {
+                            user.status.isPremiun &&
+                            <Card css={{ mt: 10 }}>
+                                <Card.Header>
+                                    <Grid.Container justify="center">
+                                        <Text h3>
+                                            Tambien publica tus productos por:
+                                        </Text>
+                                    </Grid.Container>
+                                </Card.Header>
+                                <Card.Body>
+                                    <Grid.Container direction="row" gap={1}>
+                                        {
+                                            router.query.sellingPer !== undefined &&
+                                            <Grid>
+                                                <Link href="/./user/products/add" >
+                                                    <Button auto color="gray" iconRight={<Icon id="open_in_new" />}>
+                                                        Normal
+                                                    </Button>
+                                                </Link>
+                                            </Grid>
+                                        }
+                                        <Grid>
+                                            <Link href="/./user/products/add?sellingPer=dozen" passHref>
+                                                <Button auto color="gray" iconRight={<Icon id="open_in_new" />}>
+                                                    por docena
+                                                </Button>
+                                            </Link>
+                                        </Grid>
+                                        <Grid>
+                                            <Link href="/./user/products/add?sellingPer=curve" passHref>
+                                                <Button auto color="gray" iconRight={<Icon id="open_in_new" />}>
+                                                    por curva
+                                                </Button>
+                                            </Link>
+                                        </Grid>
+                                        <Grid>
+                                            <Link href="/./user/products/add?sellingPer=task" passHref>
+                                                <Button auto color="gray" iconRight={<Icon id="open_in_new" />}>
+                                                    por tarea
+                                                </Button>
+                                            </Link>
+                                        </Grid>
+                                        <Grid>
+                                            <Link href="/./user/products/add?sellingPer=quantity" passHref>
+                                                <Button auto color="gray" iconRight={<Icon id="open_in_new" />}>
+                                                    por cantidad
+                                                </Button>
+                                            </Link>
+                                        </Grid>
+
+                                    </Grid.Container>
+                                </Card.Body>
+                            </Card>
+                        }
                     </Grid.Container>
                 </Grid>
             </Grid.Container>

@@ -9,7 +9,7 @@ const ProductDescription = ({data})=>{
                 </Text>
             </Grid>
             <Grid>
-                <Text>
+                <Text >
                     {data}
                 </Text>
             </Grid>

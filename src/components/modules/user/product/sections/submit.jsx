@@ -18,7 +18,15 @@ const Submit = ({ state, setState, data, resetState }) => {
 
     const handleClick = () => {
         setSubmiting(true)
-        
+
+        const sellingBy = (type) => {
+            if (router.query.sellingPer === undefined) {
+                return false
+            }
+
+            return router.query.sellingPer === type
+        }
+
         //CHECKING
         const Schema = Joi.object({
             title: Joi.string().min(2).max(64).messages(stringMessages("Nombre de producto")),
@@ -27,11 +35,22 @@ const Submit = ({ state, setState, data, resetState }) => {
             stock: Joi.number().min(0).max(999999).messages(numberMessages("Stock")),
 
             prices: Joi.object({
-                retail: Joi.number().min(user.isWholesaleAndRetail ? 1:0).max(999999).messages(numberMessages("Por menor")),
-                wholesale: Joi.number().min(1).max(999999).messages(numberMessages("Por mayor")),
-                perDozen: Joi.number().min(0).max(999999).messages(numberMessages("Por docena")),
-                perCurve: Joi.number().min(0).max(999999).messages(numberMessages("Por curva")),
-                perQuantity: Joi.number().min(0).max(999999).messages(numberMessages("Por cantidad")),
+                retail: Joi.number().min(sellingBy("base") ? 1 : 0).max(999999).messages(numberMessages("Por menor")),
+
+                minPerWholesale: Joi.number().min(sellingBy("base") ? 1 : 0).max(999999).messages(numberMessages("Minimo por mayor")),
+                wholesale: Joi.number().min(sellingBy("base") ? 1 : 0).max(999999).messages(numberMessages("Por mayor")),
+
+                minPerDozen: Joi.number().min(sellingBy("dozen") ? 1 : 0).max(999999).messages(numberMessages("Minimo por docena")),
+                perDozen: Joi.number().min(sellingBy("dozen") ? 1 : 0).max(999999).messages(numberMessages("Por docena")),
+
+                minPerQuantityByDozenOrCurve: Joi.number().min(sellingBy("quantity") ? 1 : 0).max(999999).messages(numberMessages("Minimo por docenas o curvas por cantidad")),
+                perQuantityByDozenOrCurve: Joi.number().min(sellingBy("quantity") ? 1 : 0).max(999999).messages(numberMessages("Docenas o curvas por cantidad")),
+
+                minPerCurve: Joi.number().min(sellingBy("curve")?1:0).max(999999).messages(numberMessages("Minimo por curva")),
+                perCurve: Joi.number().min(sellingBy("curve")?1:0).max(999999).messages(numberMessages("Por curva")),
+
+                minPerTask: Joi.number().min(sellingBy("task")?1:0).max(999999).messages(numberMessages("Minimo por tarea")),
+                perTask: Joi.number().min(sellingBy("task")?1:0).max(999999).messages(numberMessages("Por tarea"))
             }),
             imgs: Joi.array(),
         })
@@ -44,10 +63,21 @@ const Submit = ({ state, setState, data, resetState }) => {
             imgs: state.imgs.value,
             prices: {
                 retail: state.prices.retail.value,
+
+                minPerWholesale: state.prices.minPerWholesale.value,
                 wholesale: state.prices.wholesale.value,
+
+                minPerDozen: state.prices.minPerDozen.value,
                 perDozen: state.prices.perDozen.value,
+
+                minPerQuantityByDozenOrCurve: state.prices.minPerQuantityByDozenOrCurve.value,
+                perQuantityByDozenOrCurve: state.prices.perQuantityByDozenOrCurve.value,
+
+                minPerCurve: state.prices.minPerCurve.value,
                 perCurve: state.prices.perCurve.value,
-                perQuantity: state.prices.perQuantity.value
+
+                minPerTask: state.prices.minPerTask.value,
+                perTask: state.prices.perTask.value,
             }
         })
 

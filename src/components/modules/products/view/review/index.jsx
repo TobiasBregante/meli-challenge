@@ -93,8 +93,8 @@ const ProductReviews = ({ data }) => {
             <Card id="reviews">
                 <Card.Body>
                     <Text tag="h3" className="d-flex flex-row">
-                        <Icon id="forum" className="me-2 mt-01" />
-                        Reviews
+                        <Icon id="reviews" className="me-2 mt-01" />
+                        Opiniones
                     </Text>
                     {
                         reviews.slice(0, limit).map((review, reviewIndex) => (
