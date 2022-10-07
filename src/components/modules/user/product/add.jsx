@@ -29,6 +29,23 @@ import PerTasksPrices from "./sections/perTaskPrices";
 const PricesManager = ({ state, handlePrices, data }) => {
     const router = useRouter()
 
+    if (data?.prices?.wholesale) {
+        return <BasePrices state={state} handlePrices={handlePrices} />
+    }
+    if (data?.prices?.perDozen) {
+        return <PerDozenPrices state={state} handlePrices={handlePrices} />
+    }
+    if (data?.prices?.perQuantityByDozenOrCurve) {
+        return <PerQuantityByDozenOrCurvePrices state={state} handlePrices={handlePrices} />
+    }
+    if (data?.prices?.perCurve) {
+        return <PerCurvePrices state={state} handlePrices={handlePrices} />
+    }
+    if (data?.prices?.perTask) {
+        return <PerTasksPrices state={state} handlePrices={handlePrices} />
+    }
+
+
     if (router.query.sellingPer === undefined) {
         return <BasePrices state={state} handlePrices={handlePrices} />
     }
