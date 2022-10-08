@@ -9,7 +9,7 @@ import LocationBuilder from '../locationBuilder'
 const ProductCard = ({ data }) => {
 
     const lowestPriceSelect = () => {
-        let prices = [data.prices.retail, data.prices.wholesale, data.prices.perDozen, data.prices.perCurve, data.prices.perTask, data.prices.perQuantityByDozenOrCurve]
+        let prices = [data.prices.retail, data.prices.wholesale, data.prices.perDozen, data.prices.perCurve, data.prices.perTask, data.prices.perQuantity]
         prices = prices.filter(price => price != 0 && price != undefined)
         
         return currency(Math.min(...prices), { decimal: ",", separator: "." }).format()
