@@ -24,7 +24,7 @@ const PriceTable = ({ prices, isWholesaleAndRetail }) => {
                 </Grid>
             }
             {
-                prices.wholesale > 0 &&
+                prices.minPerWholesale > 0 &&
                 <Grid>
                     <Text h3>
                         Venta por mayor:
@@ -112,22 +112,28 @@ const PriceTable = ({ prices, isWholesaleAndRetail }) => {
                 </Grid>
             }
             {
-                prices.minPerQuantityByDozenOrCurve > 0 &&
+                prices.perQuantity > 0 &&
                 <Grid>
                     <Text h3>
                         Venta por cantidad:
                     </Text>
                     <Grid.Container>
-                        <Grid xs={6}>
+                        <Grid xs={3}>
                             <Grid.Container direction="column">
                                 <Text b>Precio</Text>
-                                <Text ><Price $={prices.perQuantityByDozenOrCurve} /></Text>
+                                <Text ><Price $={prices.perQuantity} /></Text>
                             </Grid.Container>
                         </Grid>
                         <Grid xs={6}>
                             <Grid.Container direction="column">
                                 <Text b>Cantidad minima para envio</Text>
-                                <Text >{prices.perQuantityByDozenOrCurve} unid.</Text>
+                                <Text >{prices.minPerQuantity} unid.</Text>
+                            </Grid.Container>
+                        </Grid>
+                        <Grid xs={3}>
+                            <Grid.Container direction="column">
+                                <Text b>Tipo de venta</Text>
+                                <Text >por {prices.typePerQuantity}</Text>
                             </Grid.Container>
                         </Grid>
                     </Grid.Container>
