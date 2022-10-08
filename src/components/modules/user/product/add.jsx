@@ -21,7 +21,7 @@ import jsCookie from 'js-cookie'
 
 import BasePrices from "./sections/basePrices";
 import PerDozenPrices from "./sections/perDozenPrices";
-import PerQuantityByDozenOrCurvePrices from "./sections/perQuantityByDozenOrCurvePrices";
+import PerQuantityPrices from "./sections/perQuantityPrices";
 import PerCurvePrices from "./sections/perCurvePrices";
 import PerTasksPrices from "./sections/perTaskPrices";
 
@@ -29,19 +29,20 @@ import PerTasksPrices from "./sections/perTaskPrices";
 const PricesManager = ({ state, handlePrices, data }) => {
     const router = useRouter()
 
-    if (data?.prices?.wholesale) {
+    if (data?.prices?.minPerWholesale >0) {
+        //we use minPerWholesale instead of wholesale because perQuantity also set wholesale value
         return <BasePrices state={state} handlePrices={handlePrices} />
     }
-    if (data?.prices?.perDozen) {
+    if (data?.prices?.perDozen >0) {
         return <PerDozenPrices state={state} handlePrices={handlePrices} />
     }
-    if (data?.prices?.perQuantityByDozenOrCurve) {
-        return <PerQuantityByDozenOrCurvePrices state={state} handlePrices={handlePrices} />
+    if (data?.prices?.perQuantity >0) {
+        return <PerQuantityPrices state={state} handlePrices={handlePrices} />
     }
-    if (data?.prices?.perCurve) {
+    if (data?.prices?.perCurve >0) {
         return <PerCurvePrices state={state} handlePrices={handlePrices} />
     }
-    if (data?.prices?.perTask) {
+    if (data?.prices?.perTask >0) {
         return <PerTasksPrices state={state} handlePrices={handlePrices} />
     }
 
@@ -53,7 +54,7 @@ const PricesManager = ({ state, handlePrices, data }) => {
         return <PerDozenPrices state={state} handlePrices={handlePrices} />
     }
     if (router.query.sellingPer === "quantity") {
-        return <PerQuantityByDozenOrCurvePrices state={state} handlePrices={handlePrices} />
+        return <PerQuantityPrices state={state} handlePrices={handlePrices} />
     }
     if (router.query.sellingPer === "curve") {
         return <PerCurvePrices state={state} handlePrices={handlePrices} />
@@ -85,8 +86,9 @@ const ManageProduct = ({ website, data }) => {
             minPerDozen: { error: "", value: data?.prices.minPerDozen || 0 },
             perDozen: { error: "", value: data?.prices.perDozen || 0 },
 
-            minPerQuantityByDozenOrCurve: { error: "", value: data?.prices.minPerQuantityByDozenOrCurve || 0 },
-            perQuantityByDozenOrCurve: { error: "", value: data?.prices.perQuantityByDozenOrCurve || 0 },
+            minPerQuantity: { error: "", value: data?.prices.minPerQuantity || 0 },
+            perQuantity: { error: "", value: data?.prices.perQuantity || 0 },
+            typePerQuantity: { error: "", value: data?.prices.typePerQuantity || undefined},
 
             minPerCurve: { error: "", value: data?.prices.minPerCurve || 0 },
             perCurve: { error: "", value: data?.prices.perCurve || 0 },

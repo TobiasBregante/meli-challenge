@@ -20,11 +20,37 @@ const Submit = ({ state, setState, data, resetState }) => {
         setSubmiting(true)
 
         const sellingBy = (type) => {
+            
+            if (data?.prices?.minPerWholesale > 0 && type=== "base") {
+                //we use minPerWholesale instead of wholesale because perQuantity also set wholesale value
+                return true
+            }
+            
+            if (data?.prices?.perDozen > 0 && type=== "dozen") {
+                return true
+            }
+            if (data?.prices?.perQuantity > 0 && type=== "quantity") {
+                return true
+            }
+            
+            if (data?.prices?.perCurve > 0 && type=== "curve") {
+                return true
+            }
+            if (data?.prices?.perTask > 0 && type=== "task") {
+                return true
+            }
+
             if (router.query.sellingPer === undefined) {
                 return false
             }
-
             return router.query.sellingPer === type
+        }
+
+        const perQuantityCheck = () => {
+            if (router.query.sellingPer === "quantity" || data?.prices?.perQuantity) {
+                return parseInt(state.prices.wholesale.value) - 1
+            }
+            return 0
         }
 
         //CHECKING
@@ -43,14 +69,15 @@ const Submit = ({ state, setState, data, resetState }) => {
                 minPerDozen: Joi.number().min(sellingBy("dozen") ? 1 : 0).max(999999).messages(numberMessages("Minimo por docena")),
                 perDozen: Joi.number().min(sellingBy("dozen") ? 1 : 0).max(999999).messages(numberMessages("Por docena")),
 
-                minPerQuantityByDozenOrCurve: Joi.number().min(sellingBy("quantity") ? 1 : 0).max(999999).messages(numberMessages("Minimo por docenas o curvas por cantidad")),
-                perQuantityByDozenOrCurve: Joi.number().min(sellingBy("quantity") ? 1 : 0).max(999999).messages(numberMessages("Docenas o curvas por cantidad")),
+                minPerQuantity: Joi.number().min(sellingBy("quantity") ? 1 : 0).max(999999).messages(numberMessages("Minimo por cantidad")),
+                perQuantity: Joi.number().min(sellingBy("quantity") ? 1 : 0).max(perQuantityCheck()).messages(numberMessages("Precio por cantidad")),
+                typePerQuantity: Joi.string().min(sellingBy("quantity") ? 1 : 0).max(32).messages(stringMessages("Tipo por cantidad")),
 
-                minPerCurve: Joi.number().min(sellingBy("curve")?1:0).max(999999).messages(numberMessages("Minimo por curva")),
-                perCurve: Joi.number().min(sellingBy("curve")?1:0).max(999999).messages(numberMessages("Por curva")),
+                minPerCurve: Joi.number().min(sellingBy("curve") ? 1 : 0).max(999999).messages(numberMessages("Minimo por curva")),
+                perCurve: Joi.number().min(sellingBy("curve") ? 1 : 0).max(999999).messages(numberMessages("Por curva")),
 
-                minPerTask: Joi.number().min(sellingBy("task")?1:0).max(999999).messages(numberMessages("Minimo por tarea")),
-                perTask: Joi.number().min(sellingBy("task")?1:0).max(999999).messages(numberMessages("Por tarea"))
+                minPerTask: Joi.number().min(sellingBy("task") ? 1 : 0).max(999999).messages(numberMessages("Minimo por tarea")),
+                perTask: Joi.number().min(sellingBy("task") ? 1 : 0).max(999999).messages(numberMessages("Por tarea"))
             }),
             imgs: Joi.array(),
         })
@@ -70,8 +97,9 @@ const Submit = ({ state, setState, data, resetState }) => {
                 minPerDozen: state.prices.minPerDozen.value,
                 perDozen: state.prices.perDozen.value,
 
-                minPerQuantityByDozenOrCurve: state.prices.minPerQuantityByDozenOrCurve.value,
-                perQuantityByDozenOrCurve: state.prices.perQuantityByDozenOrCurve.value,
+                minPerQuantity: state.prices.minPerQuantity.value,
+                perQuantity: state.prices.perQuantity.value,
+                typePerQuantity: state.prices.typePerQuantity.value,
 
                 minPerCurve: state.prices.minPerCurve.value,
                 perCurve: state.prices.perCurve.value,
