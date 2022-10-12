@@ -14,6 +14,39 @@ const Head = ({ title, description, image }) => {
                     gtag('config', 'G-5TQSMKBP1Y');` 
                 }}
             />
+            {/* <!-- Google tag (gtag.js) AR --> */}
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-VW56X8FG7J"/>
+            <script
+                dangerouslySetInnerHTML={{
+                    __html: `window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+        
+                    gtag('config', 'G-VW56X8FG7J');`
+                }}
+            />
+            {/* <!-- Google tag (gtag.js) s/www --> */}
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-LED6L9E0MH"/>
+            <script 
+                dangerouslySetInnerHTML={{
+                    __html: `window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+        
+                    gtag('config', 'G-LED6L9E0MH');`
+                }}
+            />
+            {/* <!-- Google tag (gtag.js) AR s/www --> */}
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-JD7QXS9TKV"/>
+            <script
+                dangerouslySetInnerHTML={{
+                    __html: `window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+        
+                    gtag('config', 'G-JD7QXS9TKV');`
+                }}
+            />
             <title>{title}</title>
             <meta name="description" content={description} />
             <meta property="og:title" content={title} />
