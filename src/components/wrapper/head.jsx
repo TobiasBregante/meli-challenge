@@ -3,6 +3,17 @@ import NextHead from 'next/head'
 const Head = ({ title, description, image }) => {
     return (
         <NextHead>
+            {/* <!-- Google tag (gtag.js) --> */}
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-5TQSMKBP1Y"/>
+            <script
+                dangerouslySetInnerHTML={{
+                    __html: `window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+    
+                    gtag('config', 'G-5TQSMKBP1Y');` 
+                }}
+            />
             <title>{title}</title>
             <meta name="description" content={description} />
             <meta property="og:title" content={title} />
