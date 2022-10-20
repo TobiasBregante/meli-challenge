@@ -4,7 +4,6 @@ import { Container } from '@nextui-org/react';
 import Get from '@/src/utils/hooks/get';
 
 const ProductPage = ({ data, relateds, brandProducts }) => {
-  console.log(data);
 
   return (
     <Page>

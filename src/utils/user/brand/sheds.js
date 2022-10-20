@@ -88,7 +88,7 @@ const sheds = [{
 },{
     shed:"PUNTA MOGOTE",
     map:"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3279.3114621382333!2d-58.47742059233173!3d-34.72254275385594!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcce8619f93d77%3A0x3fa36660f6bf5fa7!2sFeria%20Punta%20Mogote%20(La%20Salada)!5e0!3m2!1ses-419!2sar!4v1661968355308!5m2!1ses-419!2sar",
-    floors:["PB","1"],
+    floors:["PB","1", "Terma" ],
     sides:["Pasillo","Afuera","Lateral"],
     requestHallway:true
 },{

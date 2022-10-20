@@ -22,7 +22,7 @@ const PerCurvePrices = ({ state, handlePrices }) => {
                 <Input
                     type="number"
                     clearable
-                    label="Precio total por mayor por curva"
+                    label="Precio por mayor por una curva"
                     placeholder="Escribe aqui el precio total por mayor por curva"
                     helperColor="error"
                     helperText={state.prices.perCurve.error}

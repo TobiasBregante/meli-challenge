@@ -9,7 +9,7 @@ const PerTasksPrices = ({ state, handlePrices }) => {
                 <Input
                     type="number"
                     clearable
-                    label="Apartir de cuantas curvas vendes para hacer envíos"
+                    label="Apartir de cuantas tareas vendes para hacer envíos"
                     placeholder="Escribe aqui la cantidad"
                     helperColor="error"
                     helperText={state.prices.minPerCurve.error}
@@ -22,8 +22,8 @@ const PerTasksPrices = ({ state, handlePrices }) => {
                 <Input
                     type="number"
                     clearable
-                    label="Precio total por mayor por curva"
-                    placeholder="Escribe aqui el precio total por mayor por curva"
+                    label="Precio por mayor por una tarea"
+                    placeholder="Escribe aqui el precio total por mayor por tarea"
                     helperColor="error"
                     helperText={state.prices.perCurve.error}
                     status={state.prices.perCurve.error ? "error" : "default"}
