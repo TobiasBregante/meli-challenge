@@ -26,12 +26,12 @@ const SaladaZone = ({ state, onChange }) => {
                         <>
                             <Grid>
                                 <Text>
-                                    ¿En que pasillo esta?
+                                    ¿En que galeria esta?
                                 </Text>
                                 <Dropdown>
                                     <Dropdown.Button flat color="$gray">
                                         {
-                                            galery.length == 0 ? "Elegir Pasillo" : galery
+                                            galery.length == 0 ? "Elegir Galeria" : galery
                                         }
                                     </Dropdown.Button>
                                     <Dropdown.Menu
