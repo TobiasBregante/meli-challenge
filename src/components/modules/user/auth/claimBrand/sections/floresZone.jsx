@@ -15,7 +15,7 @@ const SaladaZone = ({ state, onChange }) => {
             <Grid>
                 <Grid.Container>
                     <Grid>
-                        <Checkbox isSelected={state.isInGallery} onChange={onChange("isInGallery")} label="¿El local es una galeria?" />
+                        <Checkbox isSelected={state.isInGallery} onChange={onChange("isInGallery")} label="Elegir Galería" />
                     </Grid>
                 </Grid.Container>
             </Grid>
