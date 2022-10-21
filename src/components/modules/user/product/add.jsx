@@ -29,20 +29,20 @@ import PerTasksPrices from "./sections/perTaskPrices";
 const PricesManager = ({ state, handlePrices, data }) => {
     const router = useRouter()
 
-    if (data?.prices?.minPerWholesale >0) {
+    if (data?.prices?.minPerWholesale > 0) {
         //we use minPerWholesale instead of wholesale because perQuantity also set wholesale value
         return <BasePrices state={state} handlePrices={handlePrices} />
     }
-    if (data?.prices?.perDozen >0) {
+    if (data?.prices?.perDozen > 0) {
         return <PerDozenPrices state={state} handlePrices={handlePrices} />
     }
-    if (data?.prices?.perQuantity >0) {
+    if (data?.prices?.perQuantity > 0) {
         return <PerQuantityPrices state={state} handlePrices={handlePrices} />
     }
-    if (data?.prices?.perCurve >0) {
+    if (data?.prices?.perCurve > 0) {
         return <PerCurvePrices state={state} handlePrices={handlePrices} />
     }
-    if (data?.prices?.perTask >0) {
+    if (data?.prices?.perTask > 0) {
         return <PerTasksPrices state={state} handlePrices={handlePrices} />
     }
 
@@ -80,15 +80,15 @@ const ManageProduct = ({ website, data }) => {
         prices: {
             retail: { error: "", value: data?.prices.retail || 0 },
 
-            minPerWholesale: { error: "", value: data?.prices.minPerWholesale || 0 },
-            wholesale: { error: "", value: data?.prices.wholesale || 0 },
+            wholesale: { error: "", value: data?.prices.wholesale || "" },
+            minPerWholesale: { error: "", value: data?.prices.minPerWholesale || "" },
 
             minPerDozen: { error: "", value: data?.prices.minPerDozen || 0 },
             perDozen: { error: "", value: data?.prices.perDozen || 0 },
 
             minPerQuantity: { error: "", value: data?.prices.minPerQuantity || 0 },
             perQuantity: { error: "", value: data?.prices.perQuantity || 0 },
-            typePerQuantity: { error: "", value: data?.prices.typePerQuantity || undefined},
+            typePerQuantity: { error: "", value: data?.prices.typePerQuantity || undefined },
 
             minPerCurve: { error: "", value: data?.prices.minPerCurve || 0 },
             perCurve: { error: "", value: data?.prices.perCurve || 0 },
@@ -248,7 +248,10 @@ const ManageProduct = ({ website, data }) => {
                                     </Grid>
                                     <Grid>
                                         <Grid.Container>
-                                            <Clasification state={state} onChange={handleGenericString} website={website} />
+                                            <Clasification
+                                                state={state}
+                                                onChange={handleGenericString}
+                                                website={website} />
                                         </Grid.Container>
                                     </Grid>
                                     <Grid>
