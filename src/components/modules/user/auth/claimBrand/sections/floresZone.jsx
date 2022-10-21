@@ -26,12 +26,12 @@ const SaladaZone = ({ state, onChange }) => {
                         <>
                             <Grid>
                                 <Text>
-                                    ¿En que pasillo esta?
+                                    ¿En que galeria esta?
                                 </Text>
                                 <Dropdown>
                                     <Dropdown.Button flat color="$gray">
                                         {
-                                            galery.length == 0 ? "Eligé una galleria" : galery
+                                            galery.length == 0 ? "Elegir Galeria" : galery
                                         }
                                     </Dropdown.Button>
                                     <Dropdown.Menu
@@ -58,9 +58,9 @@ const SaladaZone = ({ state, onChange }) => {
                             <Grid>
                                 <Input
                                     clearable
-                                    label="Posición en la galeria"
+                                    label="Número de local"
                                     contentLeft={<Icon id="share_location" />}
-                                    placeholder="Escribe aqui la posición"
+                                    placeholder="Escribe aqui el número de local"
                                     helperText={state.positionInGallery.error}
                                     helperColor="error"
                                     status={state.positionInGallery.error ? "error" : "default"}
