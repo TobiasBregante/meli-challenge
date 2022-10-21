@@ -5,14 +5,14 @@ import UsersList from '../user/lists/userList'
 const SearchByPhoneModule = ({ data, state, setState }) => {
 
     const handleChange = (e) => {
-        setState(data.filter(user => user.cellPhone.toLowerCase().indexOf(e.target.value.toLowerCase()) > -1))
+        setState(data.filter(user => user.cellPhone.indexOf(e.target.value) > -1))
     }
     return (
         <Grid.Container direction="column">
             <Input
                 css={{ mb: 10, "& label": { bg: "$white" } }}
-                placeholder="Escribe aqui un email para buscar"
-                contentLeft={<Icon id="mail" />}
+                placeholder="Escribe aqui un numero de telefono para buscar"
+                contentLeft={<Icon id="phone" />}
                 onChange={handleChange} />
             <UsersList data={state} />
         </Grid.Container>
