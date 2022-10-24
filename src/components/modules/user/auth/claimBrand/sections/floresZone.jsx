@@ -7,7 +7,12 @@ const SaladaZone = ({ state, onChange }) => {
     const [galery, setGallery] = useState(state.galleryName.value || "")
 
     const handleGalerySelect = e => {
-        
+        setGallery(e)
+        if (Object.values(e)[0] !== undefined) {
+            onChange("galery")({ target: { value: Object.values(e)[0] } })
+        } else {
+            onChange("galery")({ target: { value: "" } })
+        }
     }
 
     return (
