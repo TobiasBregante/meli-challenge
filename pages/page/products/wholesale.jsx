@@ -11,8 +11,8 @@ const Wholesale = ({ products, brands, website }) => {
         <Page>
             <Container lg css={{ mb: "$10" }}>
                 <CategoriesCarousel data={website.categories}/>
-                <BrandCarousel title="Marcas mas populares en venta pormayor" data={brands} />
-                <UnorderedList title="Productos venta por mayor" data={products} />
+                <BrandCarousel title="Marcas mas populares en venta por mayor" data={brands} />
+                <UnorderedList title="Productos de venta por mayor" data={products} />
             </Container>
         </Page>
     )
