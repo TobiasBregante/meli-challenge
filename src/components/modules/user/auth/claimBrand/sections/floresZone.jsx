@@ -74,31 +74,39 @@ const SaladaZone = ({ state, onChange }) => {
                             </Grid>
                         </>
                     }
-                    <Grid>
-                        <Input
-                            clearable
-                            label="Calle"
-                            contentLeft={<Icon id="share_location" />}
-                            placeholder="Escribe aqui la calle"
-                            helperText={state.street.error}
-                            helperColor="error"
-                            status={state.street.error ? "error" : "default"}
-                            value={state.street.value}
-                            onChange={onChange("street")} />
-                    </Grid>
-                    <Grid>
-                        <Input
-                            clearable
-                            type="number"
-                            label="Altura de calle"
-                            contentLeft={<Icon id="share_location" />}
-                            placeholder="Escribe aqui la altura de la calle"
-                            helperText={state.streetNumber.error}
-                            helperColor="error"
-                            status={state.streetNumber.error ? "error" : "default"}
-                            value={state.streetNumber.value}
-                            onChange={onChange("streetNumber")} />
-                    </Grid>
+                    <Grid.Container gap={2}>
+                        {
+                            !state.isInGallery &&
+                            <>
+
+                                <Grid>
+                                    <Input
+                                        clearable
+                                        label="Calle"
+                                        contentLeft={<Icon id="share_location" />}
+                                        placeholder="Escribe aqui la calle"
+                                        helperText={state.street.error}
+                                        helperColor="error"
+                                        status={state.street.error ? "error" : "default"}
+                                        value={state.street.value}
+                                        onChange={onChange("street")} />
+                                </Grid>
+                                <Grid>
+                                    <Input
+                                        clearable
+                                        type="number"
+                                        label="Altura de calle"
+                                        contentLeft={<Icon id="share_location" />}
+                                        placeholder="Escribe aqui la altura de la calle"
+                                        helperText={state.streetNumber.error}
+                                        helperColor="error"
+                                        status={state.streetNumber.error ? "error" : "default"}
+                                        value={state.streetNumber.value}
+                                        onChange={onChange("streetNumber")} />
+                                </Grid>
+                            </>
+                        }
+                    </Grid.Container>
 
                 </Grid.Container>
             </Grid>
