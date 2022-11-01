@@ -61,10 +61,10 @@ const Submit = ({ state, setState, data, resetState }) => {
             stock: Joi.number().min(0).max(999999).messages(numberMessages("Stock")),
 
             prices: Joi.object({
-                retail: Joi.number().min( 0).max(999999).messages(numberMessages("Por menor")),
+                retail: Joi.number().min(sellingBy("base") ? 1 : 0).max(999999).messages(numberMessages("Por menor")),
 
-                wholesale: Joi.number().min( 0).max(999999).messages(numberMessages("Por mayor")),
-                minPerWholesale: Joi.number().min( 0).max(999999).messages(numberMessages("Minimo de productos ")),
+                minPerWholesale: Joi.number().min(sellingBy("base") ? 1 : 0).max(999999).messages(numberMessages("Minimo por mayor")),
+                wholesale: Joi.number().min(sellingBy("base") ? 1 : 0).max(999999).messages(numberMessages("Por mayor")),
 
                 minPerDozen: Joi.number().min(sellingBy("dozen") ? 1 : 0).max(999999).messages(numberMessages("Minimo por docena")),
                 perDozen: Joi.number().min(sellingBy("dozen") ? 1 : 0).max(999999).messages(numberMessages("Por docena")),
@@ -91,8 +91,8 @@ const Submit = ({ state, setState, data, resetState }) => {
             prices: {
                 retail: state.prices.retail.value,
 
-                wholesale: state.prices.wholesale.value,
                 minPerWholesale: state.prices.minPerWholesale.value,
+                wholesale: state.prices.wholesale.value,
 
                 minPerDozen: state.prices.minPerDozen.value,
                 perDozen: state.prices.perDozen.value,

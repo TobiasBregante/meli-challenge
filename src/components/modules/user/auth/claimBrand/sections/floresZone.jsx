@@ -7,7 +7,12 @@ const SaladaZone = ({ state, onChange }) => {
     const [galery, setGallery] = useState(state.galleryName.value || "")
 
     const handleGalerySelect = e => {
-
+        setGallery(e)
+        if (Object.values(e)[0] !== undefined) {
+            onChange("galery")({ target: { value: Object.values(e)[0] } })
+        } else {
+            onChange("galery")({ target: { value: "" } })
+        }
     }
 
     return (
@@ -15,7 +20,7 @@ const SaladaZone = ({ state, onChange }) => {
             <Grid>
                 <Grid.Container>
                     <Grid>
-                        <Checkbox isSelected={state.isInGallery} onChange={onChange("isInGallery")} label="Elegir Galería" />
+                        <Checkbox isSelected={state.isInGallery} onChange={onChange("isInGallery")} label="¿El local es una galeria?" />
                     </Grid>
                 </Grid.Container>
             </Grid>
@@ -26,12 +31,12 @@ const SaladaZone = ({ state, onChange }) => {
                         <>
                             <Grid>
                                 <Text>
-                                    ¿En que pasillo esta?
+                                    ¿En que galeria esta?
                                 </Text>
                                 <Dropdown>
                                     <Dropdown.Button flat color="$gray">
                                         {
-                                            galery.length == 0 ? "Eligé una galleria" : galery
+                                            galery.length == 0 ? "Elegir Galeria" : galery
                                         }
                                     </Dropdown.Button>
                                     <Dropdown.Menu
