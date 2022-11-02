@@ -1,5 +1,5 @@
 import Icon from "@/ui/icons"
-import { Checkbox, Dropdown, Grid, Input, Text } from "@nextui-org/react"
+import { Checkbox, Dropdown, Grid, Input, Text, Popover, Button, Radio } from "@nextui-org/react"
 import galeries from '@/utils/user/brand/galeries'
 import { useState } from "react"
 
@@ -33,7 +33,27 @@ const SaladaZone = ({ state, onChange }) => {
                                 <Text>
                                     ¿En que galeria esta?
                                 </Text>
-                                <Dropdown>
+                                <Popover>
+                                <Popover.Trigger>
+                                    <Button auto flat color="$gray">Mostrar Galerias</Button>
+                                </Popover.Trigger>
+                                <Popover.Content>
+                                    <Input/>
+                                    <Radio.Group  defaultValue="">
+                                        <Radio value="A">Option A</Radio>
+                                        <Radio value="B">Option B</Radio>
+                                        <Radio value="C">Option C</Radio>
+                                        <Radio value="D">Option D</Radio>
+                                        <Radio value="E">Option D</Radio>
+                                        <Radio value="F">Option D</Radio>
+                                        <Radio value="D">Option D</Radio>
+                                        <Radio value="D">Option D</Radio>
+                                        <Radio value="D">Option D</Radio>
+                                        <Radio value="D">Option D</Radio>
+                                    </Radio.Group>
+                                </Popover.Content>
+                                </Popover>
+                                {/* <Dropdown>
                                     <Dropdown.Button flat color="$gray">
                                         {
                                             galery.length == 0 ? "Elegir Galeria" : galery
@@ -55,7 +75,7 @@ const SaladaZone = ({ state, onChange }) => {
 
                                     </Dropdown.Menu>
 
-                                </Dropdown>
+                                </Dropdown> */}
                                 <Text small color="error">
                                     {state.hallway.error}
                                 </Text>
