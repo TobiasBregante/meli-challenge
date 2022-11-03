@@ -1,19 +1,27 @@
 import Icon from "@/ui/icons"
-import { Checkbox, Dropdown, Grid, Input, Text } from "@nextui-org/react"
+import { Checkbox, Dropdown, Grid, Input, Text, Popover, Button, Radio } from "@nextui-org/react"
 import galeries from '@/utils/user/brand/galeries'
 import { useState } from "react"
 
 const SaladaZone = ({ state, onChange }) => {
     const [galery, setGallery] = useState(state.galleryName.value || "")
 
+    const [searchGaleries, setSearchGaleries] = useState([]);
+
     const handleGalerySelect = e => {
         setGallery(e)
         if (Object.values(e)[0] !== undefined) {
-            onChange("galery")({ target: { value: Object.values(e)[0] } })
+            onChange("galleryName")({ target: { value: e } }) 
         } else {
-            onChange("galery")({ target: { value: "" } })
+            onChange("galleryName")({ target: { value: "" } })
         }
     }
+
+    const searcher = (e) => {
+        const result = galeries.filter((data) => data.name.toLowerCase().includes(e.target.value.toLowerCase()))
+        setSearchGaleries(result)
+        console.log(result)
+    };
 
     return (
         <Grid.Container direction="column" >
@@ -33,29 +41,38 @@ const SaladaZone = ({ state, onChange }) => {
                                 <Text>
                                     ¿En que galeria esta?
                                 </Text>
-                                <Dropdown>
-                                    <Dropdown.Button flat color="$gray">
+                                <Popover  size="sm">
+                                    <Popover.Trigger >
+                                        <Button auto flat color="$gray">
                                         {
-                                            galery.length == 0 ? "Elegir Galeria" : galery
+                                            galery.length == 0 ? "Mostrar Galeria" : galery
                                         }
-                                    </Dropdown.Button>
-                                    <Dropdown.Menu
-                                        selectionMode="single"
-                                        disallowEmptySelection
-                                        selectedKeys={galery}
-                                        onSelectionChange={handleGalerySelect}
-                                    >
-                                        {
-                                            galeries.map(g => (
-                                                <Dropdown.Item key={g.name} description={`${g.street} ${g.number}`}>
-                                                    {g.name}
-                                                </Dropdown.Item>
-                                            ))
-                                        }
-
-                                    </Dropdown.Menu>
-
-                                </Dropdown>
+                                            </Button>
+                                    </Popover.Trigger>
+                                    <Popover.Content css={{ p: "$10" }} >
+                                        <Radio.Group
+                                        defaultValue=""
+                                        value={galery}
+                                        onChange={handleGalerySelect}
+                                        >
+                                        <Input labelPlaceholder="Buscar Galerias.."
+                                            onChange={searcher}
+                                            type="text"
+                                        />
+                                            {
+                                                searchGaleries.length == 0 ? galeries.map((galeries, i)  => (
+                                                    <Radio size="sm" key={i} value={galeries.name} description={`${galeries.street} ${galeries.number}`}>
+                                                        {galeries.name}
+                                                    </Radio>
+                                                )) : searchGaleries.map((galeries, i) => (
+                                                    <Radio size="sm" key={i} value={galeries.name} description={`${galeries.street} ${galeries.number}`}>
+                                                        {galeries.name}
+                                                    </Radio>
+                                                ))
+                                            }
+                                        </Radio.Group>
+                                    </Popover.Content>
+                                </Popover>
                                 <Text small color="error">
                                     {state.hallway.error}
                                 </Text>
