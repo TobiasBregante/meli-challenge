@@ -6,14 +6,22 @@ import { useState } from "react"
 const SaladaZone = ({ state, onChange }) => {
     const [galery, setGallery] = useState(state.galleryName.value || "")
 
+    const [searchGaleries, setSearchGaleries] = useState([]);
+
     const handleGalerySelect = e => {
         setGallery(e)
         if (Object.values(e)[0] !== undefined) {
-            onChange("galery")({ target: { value: Object.values(e)[0] } })
+            onChange("galleryName")({ target: { value: e } }) 
         } else {
-            onChange("galery")({ target: { value: "" } })
+            onChange("galleryName")({ target: { value: "" } })
         }
     }
+
+    const searcher = (e) => {
+        const result = galeries.filter((data) => data.name.toLowerCase().includes(e.target.value.toLowerCase()))
+        setSearchGaleries(result)
+        console.log(result)
+    };
 
     return (
         <Grid.Container direction="column" >
@@ -33,49 +41,38 @@ const SaladaZone = ({ state, onChange }) => {
                                 <Text>
                                     ¿En que galeria esta?
                                 </Text>
-                                <Popover>
-                                <Popover.Trigger>
-                                    <Button auto flat color="$gray">Mostrar Galerias</Button>
-                                </Popover.Trigger>
-                                <Popover.Content>
-                                    <Input/>
-                                    <Radio.Group  defaultValue="">
-                                        <Radio value="A">Option A</Radio>
-                                        <Radio value="B">Option B</Radio>
-                                        <Radio value="C">Option C</Radio>
-                                        <Radio value="D">Option D</Radio>
-                                        <Radio value="E">Option D</Radio>
-                                        <Radio value="F">Option D</Radio>
-                                        <Radio value="D">Option D</Radio>
-                                        <Radio value="D">Option D</Radio>
-                                        <Radio value="D">Option D</Radio>
-                                        <Radio value="D">Option D</Radio>
-                                    </Radio.Group>
-                                </Popover.Content>
+                                <Popover  size="sm">
+                                    <Popover.Trigger >
+                                        <Button auto flat color="$gray">
+                                        {
+                                            galery.length == 0 ? "Mostrar Galeria" : galery
+                                        }
+                                            </Button>
+                                    </Popover.Trigger>
+                                    <Popover.Content css={{ p: "$10" }} >
+                                        <Radio.Group
+                                        defaultValue=""
+                                        value={galery}
+                                        onChange={handleGalerySelect}
+                                        >
+                                        <Input labelPlaceholder="Buscar Galerias.."
+                                            onChange={searcher}
+                                            type="text"
+                                        />
+                                            {
+                                                searchGaleries.length == 0 ? galeries.map((galeries, i)  => (
+                                                    <Radio size="sm" key={i} value={galeries.name} description={`${galeries.street} ${galeries.number}`}>
+                                                        {galeries.name}
+                                                    </Radio>
+                                                )) : searchGaleries.map((galeries, i) => (
+                                                    <Radio size="sm" key={i} value={galeries.name} description={`${galeries.street} ${galeries.number}`}>
+                                                        {galeries.name}
+                                                    </Radio>
+                                                ))
+                                            }
+                                        </Radio.Group>
+                                    </Popover.Content>
                                 </Popover>
-                                {/* <Dropdown>
-                                    <Dropdown.Button flat color="$gray">
-                                        {
-                                            galery.length == 0 ? "Elegir Galeria" : galery
-                                        }
-                                    </Dropdown.Button>
-                                    <Dropdown.Menu
-                                        selectionMode="single"
-                                        disallowEmptySelection
-                                        selectedKeys={galery}
-                                        onSelectionChange={handleGalerySelect}
-                                    >
-                                        {
-                                            galeries.map(g => (
-                                                <Dropdown.Item key={g.name} description={`${g.street} ${g.number}`}>
-                                                    {g.name}
-                                                </Dropdown.Item>
-                                            ))
-                                        }
-
-                                    </Dropdown.Menu>
-
-                                </Dropdown> */}
                                 <Text small color="error">
                                     {state.hallway.error}
                                 </Text>
