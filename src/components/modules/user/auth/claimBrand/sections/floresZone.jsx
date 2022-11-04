@@ -11,7 +11,7 @@ const SaladaZone = ({ state, onChange }) => {
     const handleGalerySelect = e => {
         setGallery(e)
         if (Object.values(e)[0] !== undefined) {
-            onChange("galleryName")({ target: { value: e } }) 
+            onChange("galleryName")({ target: { value: e } })
         } else {
             onChange("galleryName")({ target: { value: "" } })
         }
@@ -41,29 +41,33 @@ const SaladaZone = ({ state, onChange }) => {
                                 <Text>
                                     ¿En que galeria esta?
                                 </Text>
-                                <Popover  size="sm">
+                                <Popover size="sm">
                                     <Popover.Trigger >
                                         <Button auto flat color="$gray">
-                                        {
-                                            galery.length == 0 ? "Mostrar Galeria" : galery
-                                        }
-                                            </Button>
+                                            {
+                                                galery.length == 0 ? "Mostrar Galeria" : galery
+                                            }
+                                        </Button>
                                     </Popover.Trigger>
                                     <Popover.Content css={{ p: "$10" }} >
                                         <Radio.Group
-                                        defaultValue=""
-                                        value={galery}
-                                        onChange={handleGalerySelect}
+                                            defaultValue=""
+                                            value={galery}
+                                            onChange={handleGalerySelect}
                                         >
-                                        <Input labelPlaceholder="Buscar Galerias.."
-                                            onChange={searcher}
-                                            type="text"
-                                        />
+                                            <Input labelPlaceholder="Buscar Galerias.."
+                                                onChange={searcher}
+                                                type="text"
+                                            />
+                                            <Radio size="sm" value={"Otra Galeria"} description="Consultar al vendedor">Otra Galeria</Radio>
+
                                             {
-                                                searchGaleries.length == 0 ? galeries.map((galeries, i)  => (
+                                                searchGaleries.length == 0 ? galeries.map((galeries, i) => (
+
                                                     <Radio size="sm" key={i} value={galeries.name} description={`${galeries.street} ${galeries.number}`}>
                                                         {galeries.name}
                                                     </Radio>
+
                                                 )) : searchGaleries.map((galeries, i) => (
                                                     <Radio size="sm" key={i} value={galeries.name} description={`${galeries.street} ${galeries.number}`}>
                                                         {galeries.name}
@@ -91,10 +95,6 @@ const SaladaZone = ({ state, onChange }) => {
                             </Grid>
                         </>
                     }
-                    <Grid.Container gap={2}>
-                        {
-                            !state.isInGallery &&
-                            <>
 
                                 <Grid>
                                     <Input
@@ -121,9 +121,6 @@ const SaladaZone = ({ state, onChange }) => {
                                         value={state.streetNumber.value}
                                         onChange={onChange("streetNumber")} />
                                 </Grid>
-                            </>
-                        }
-                    </Grid.Container>
 
                 </Grid.Container>
             </Grid>
