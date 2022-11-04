@@ -95,10 +95,6 @@ const SaladaZone = ({ state, onChange }) => {
                             </Grid>
                         </>
                     }
-                    <Grid.Container gap={2}>
-                        {
-                            !state.isInGallery &&
-                            <>
 
                                 <Grid>
                                     <Input
@@ -125,9 +121,6 @@ const SaladaZone = ({ state, onChange }) => {
                                         value={state.streetNumber.value}
                                         onChange={onChange("streetNumber")} />
                                 </Grid>
-                            </>
-                        }
-                    </Grid.Container>
 
                 </Grid.Container>
             </Grid>
