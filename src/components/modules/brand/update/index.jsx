@@ -15,7 +15,7 @@ import { numberMessages, stringMessages, booleanMessages } from '@/utils/joi/cus
 import Joi from 'joi';
 import { toast } from 'react-toastify'
 import Put from '@/src/utils/hooks/put';
-import { Button, Card, Grid, Input, Loading, Text } from "@nextui-org/react";
+import { Avatar, Button, Card, Grid, Input, Loading, Text } from "@nextui-org/react";
 import Clasification from "@/components/modules/user/auth/claimBrand/sections/clasification";
 import jsCookie from 'js-cookie'
 import get from '@/utils/hooks/get'
@@ -24,7 +24,6 @@ import timeago from "@/src/utils/timeago";
 import Get from "@/utils/hooks/get";
 
 const UpdateBrandModule = ({ website, data }) => {
-    console.log(data);
     const router = useRouter()
     const user = useUserContext()
 
@@ -311,6 +310,7 @@ const UpdateBrandModule = ({ website, data }) => {
                             <Text h3>
                                 Datos del vendedor
                             </Text>
+                            <Avatar css={{ marginLeft: '$10' }} squared src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${data?.imgs?.principal || 'NI35_W3jmftQURiB_rR_LR0IUkjGXl77'}`}/>
                         </Card.Header>
                         <Card.Body>
                             <Text b h4>

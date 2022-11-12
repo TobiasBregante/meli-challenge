@@ -5,8 +5,6 @@ import Icon from '@/ui/icons'
 import SearchFilters from './filters'
 
 const SearchModule = ({ products, brands, query, categories, params }) => {
-
-    console.log({ products, brands });
     return (
         <Grid.Container gap={2}>
             <Grid xs={12} sm={3.5} >

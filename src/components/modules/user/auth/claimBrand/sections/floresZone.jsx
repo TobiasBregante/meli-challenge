@@ -20,7 +20,6 @@ const SaladaZone = ({ state, onChange }) => {
     const searcher = (e) => {
         const result = galeries.filter((data) => data.name.toLowerCase().includes(e.target.value.toLowerCase()))
         setSearchGaleries(result)
-        console.log(result)
     };
 
     return (
