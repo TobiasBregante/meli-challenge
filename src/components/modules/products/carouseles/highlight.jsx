@@ -4,7 +4,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import Image from 'next/image';
-import Link from 'next/link';
 
 const HighLightCarousel = ({ data }) => {
 
@@ -19,9 +18,9 @@ const HighLightCarousel = ({ data }) => {
       {
         data.map((slide, i) => (
           <SwiperSlide key={i}>
-            <Link href={slide.link} passHref>
+            <a href={slide.link}>
               <Image src={`${slide.img}`} width={2000} height={800} alt="carousel" className='rounded-bottom-16' />
-            </Link>
+            </a>
           </SwiperSlide>
         ))
       }

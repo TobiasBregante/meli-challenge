@@ -2,7 +2,6 @@ import Icon from "@/src/components/ui/icons"
 import { useUserContext } from "@/src/utils/user/provider"
 import { Card, Grid, Text, Image as UiImage } from "@nextui-org/react"
 import Image from "next/image"
-import Link from "next/link"
 import { FileUploader } from "react-drag-drop-files"
 import { toast } from "react-toastify"
 
@@ -17,9 +16,9 @@ const ImagesSection = ({ state, setState }) => {
         const images = user.status.isPremiun ? [...state.imgs.value, ...flArray].slice(0,10) : [...state.imgs.value, ...flArray].slice(0, 5)
 
         if ([...state.imgs.value, ...flArray].length > 4) {
-            toast(<Link href="/./docs/subscriptions">
+            toast(<a href="/./docs/subscriptions">
                 Pasate a premiun para subir mas fotos, hace click aca
-            </Link>)
+            </a>)
         }
         if ([...state.imgs.value, ...flArray].length > 9) {
             toast("Solo puedes subir 10 imagenes")

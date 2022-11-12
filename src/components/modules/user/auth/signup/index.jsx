@@ -1,6 +1,5 @@
 import Icon from "@/ui/icons";
 import { useState } from 'react';
-import Link from 'next/link';
 import { toast } from 'react-toastify';
 import Put from '@/utils/hooks/put'
 import Joi from 'joi'
@@ -184,9 +183,9 @@ const SignUpModule = () => {
                     <Card.Footer>
                         <Text>
                             ¿Ya tienes cuenta? &nbsp;
-                            <Link href="/./user/auth/signin">
+                            <a href="/./user/auth/signin">
                                 Inicia sesión
-                            </Link>
+                            </a>
                         </Text>
                     </Card.Footer>
                 </Card>

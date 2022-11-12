@@ -3,7 +3,6 @@ import Image from 'next/image'
 import Text from '@/ui/texts'
 import currency from 'currency.js'
 import Icon from '../../../ui/icons'
-import Link from 'next/link'
 import SaveBookmark from '@/components/modules/products/saveBookmark'
 
 const ProductCardHorizontal = ({ data }) => {

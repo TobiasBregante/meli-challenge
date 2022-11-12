@@ -1,6 +1,5 @@
 import Icon from "@/ui/icons";
 import { useState } from 'react';
-import Link from 'next/link';
 import { toast } from 'react-toastify';
 import Post from '@/utils/hooks/post'
 import Joi from 'joi'
@@ -126,9 +125,9 @@ const SignInModule = () => {
                         </Grid.Container>
                         <Text>
                             ¿No tienes cuenta? &nbsp;
-                            <Link href="/./user/auth/signup">
+                            <a href="/./user/auth/signup">
                                 Registrarme
-                            </Link>
+                            </a>
                         </Text>
                     </Card.Body>
                 </Card>

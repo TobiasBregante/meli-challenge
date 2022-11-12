@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Icon from '@/ui/icons'
 import Share from '@/components/modules/common/share'
-import Link from 'next/link'
 import { Button, Card, Grid, Text } from '@nextui-org/react'
 
 const BrandProfileMinimal = ({ data, hideFullProfile }) => {
@@ -40,11 +39,11 @@ const BrandProfileMinimal = ({ data, hideFullProfile }) => {
                 </Grid.Container>
                 {
                     (hideFullProfile == false || hideFullProfile == undefined) &&
-                    <Link href={`/./brand/${data._id}`}>
+                    <a href={`/./brand/${data._id}`}>
                         <Button color="secondary" icon={<Icon id="open_in_new" color="white" />} css={{ mb: 10 }}>
                             Ver catalogo completo
                         </Button>
-                    </Link>
+                    </a>
                 }
                 <Share link={`/brand/${data._id}`} />
             </Card.Body>
