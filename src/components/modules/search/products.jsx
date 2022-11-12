@@ -12,7 +12,6 @@ const SearchBrands = ({ data, isSeller }) => {
     const handleChange = (e) => {
         setValue(e.target.value)
         if (e.target.value.length == 0) {
-            console.log(data);
             return setState(data)
         }
         const searchEngine = new fuse(data, {
