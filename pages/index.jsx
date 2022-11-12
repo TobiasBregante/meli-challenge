@@ -20,7 +20,7 @@ const Index = ({ website, wholesaleProducts, wholesaleAndRetailProducts, perQuan
         <ProductCarousel title="Productos venta por mayor" data={wholesaleProducts} link="/./page/products/wholesale" />
         <ProductCarousel title="Productos venta por menor y mayor" data={wholesaleAndRetailProducts} link="/./page/products/wholesaleAndRetail" />
         <CategoriesCarousel data={website.categories}/>
-        <UnorderedList title="Productos mas populares" data={popularProducts} link="/./page/products/popular" showSeeMore={true} />
+        <ProductCarousel title="Productos mas populares" data={popularProducts} link="/./page/products/popular"  />
         <BrandCarousel title="Marcas mas populares" data={popularBrands} />
         <ProductCarousel title="Productos venta por gran cantidad" data={perQuantityProducts} link="/./page/products/bigQuantity" />
         <ProductCarousel title="Productos venta por curva" data={perCurveProducts} link="/./page/products/curve" />
