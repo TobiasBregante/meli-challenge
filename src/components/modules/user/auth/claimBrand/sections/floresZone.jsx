@@ -5,7 +5,6 @@ import { useState } from "react"
 
 const SaladaZone = ({ state, onChange }) => {
     const [galery, setGallery] = useState(state.galleryName.value || "")
-
     const [searchGaleries, setSearchGaleries] = useState([]);
 
     const handleGalerySelect = e => {
@@ -21,6 +20,9 @@ const SaladaZone = ({ state, onChange }) => {
         const result = galeries.filter((data) => data.name.toLowerCase().includes(e.target.value.toLowerCase()))
         setSearchGaleries(result)
     };
+
+    const galeryFind = galery.length !== 0 && galeries.filter(g => g.name === galery)
+    // console.log("FIND: ", galeryFind)
 
     return (
         <Grid.Container direction="column" >
@@ -44,7 +46,7 @@ const SaladaZone = ({ state, onChange }) => {
                                     <Popover.Trigger >
                                         <Button auto flat color="$gray">
                                             {
-                                                galery.length == 0 ? "Mostrar Galeria" : galery
+                                                galery.length === 0 ? "Mostrar Galeria" : galery
                                             }
                                         </Button>
                                     </Popover.Trigger>
@@ -104,7 +106,7 @@ const SaladaZone = ({ state, onChange }) => {
                                         helperText={state.street.error}
                                         helperColor="error"
                                         status={state.street.error ? "error" : "default"}
-                                        value={state.street.value}
+                                        value={ galeryFind[0]?.street || state?.street?.value}
                                         onChange={onChange("street")} />
                                 </Grid>
                                 <Grid>
@@ -117,10 +119,9 @@ const SaladaZone = ({ state, onChange }) => {
                                         helperText={state.streetNumber.error}
                                         helperColor="error"
                                         status={state.streetNumber.error ? "error" : "default"}
-                                        value={state.streetNumber.value}
+                                        value={ galeryFind[0]?.number || state?.streetNumber?.value}
                                         onChange={onChange("streetNumber")} />
                                 </Grid>
-
                 </Grid.Container>
             </Grid>
         </Grid.Container>
