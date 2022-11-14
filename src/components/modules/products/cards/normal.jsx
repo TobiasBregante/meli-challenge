@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import currency from 'currency.js'
 import Icon from '../../../ui/icons'
-import Link from 'next/link'
 import SaveBookmark from '@/components/modules/products/saveBookmark'
 import { Avatar, Card, Grid, Text } from '@nextui-org/react'
 import LocationBuilder from '../locationBuilder'
@@ -18,7 +17,7 @@ const ProductCard = ({ data }) => {
 
     return (
         <Card variant="flat" css={{ bg: "$white" }} isHoverable>
-            <Link href={`/./product/${data._id}`}>
+            <a href={`/./product/${data._id}`}>
                 <Image
                     className="rounded-top-16 pointer"
                     src={data.imgs[0]}
@@ -26,7 +25,7 @@ const ProductCard = ({ data }) => {
                     height={300}
                     alt={data.title}
                 />
-            </Link>
+            </a>
             <Grid.Container css={{ position: "absolute", mt: 5, mr: 10 }} justify="flex-end">
                 <SaveBookmark _id={data._id} />
             </Grid.Container>

@@ -1,5 +1,4 @@
 import { Card, Grid, Text } from "@nextui-org/react"
-import Link from "next/link"
 import Icon from "../../ui/icons"
 
 const SideBar = ({selected}) => {
@@ -7,9 +6,9 @@ const SideBar = ({selected}) => {
     const Item = ({name, icon, text, href}) => (
         <Grid.Container css={{ cursor: 'pointer', px: 10, bg: selected==name? "$gray300":"$white",  }}>
             <Icon id={icon} css={{ mt: 5, mr: 10 }} />
-            <Link href={href} passHref>
+            <a href={href}>
                 <Text h3>{text}</Text>
-            </Link>
+            </a>
         </Grid.Container>
     )
 

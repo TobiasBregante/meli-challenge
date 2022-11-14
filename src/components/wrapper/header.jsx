@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Icon from "@/ui/icons";
 import UserHeaderMenu from "@/src/components/modules/user/avatar/userHeaderMenu";
 import Image from "next/image";
@@ -46,7 +45,7 @@ const Header = () => {
                         :
                         <Grid.Container css={{ my: 10, }} justify="space-between">
                             <Grid css={{cursor: 'pointer'}}>
-                                <Link href="/./" passHref>
+                                <a href="/./">
                                     <Grid.Container direction="row">
                                         <Grid>
                                             <Image
@@ -68,7 +67,7 @@ const Header = () => {
                                             </Grid.Container>
                                         </Grid>
                                     </Grid.Container>
-                                </Link>
+                                </a>
                             </Grid>
                             <Grid>
                                 <Grid.Container gap={.5}>

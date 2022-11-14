@@ -1,6 +1,5 @@
 import Icon from '@/ui/icons';
 import { Grid, Text } from '@nextui-org/react';
-import Link from 'next/link';
 import BrandCard from '../card';
 
 const CarouselTitle = ({ title, link }) => {
@@ -12,11 +11,11 @@ const CarouselTitle = ({ title, link }) => {
             {
                 link &&
                 <>
-                    <Link href={link || "/./"}>
+                    <a href={link || "/./"}>
                         <Text css={{ pt: 3, ml: 10 }} color="primary">
                             Ver mas
                         </Text>
-                    </Link>
+                    </a>
                     <Icon id="chevron_right" css={{ pt: 8 }} color="primary" />
                 </>
             }

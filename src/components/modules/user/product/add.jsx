@@ -319,40 +319,40 @@ const ManageProduct = ({ website, data }) => {
                                         {
                                             router.query.sellingPer !== undefined &&
                                             <Grid>
-                                                <Link href="/./user/products/add" >
+                                                <a href="/./user/products/add" >
                                                     <Button auto color="gray" iconRight={<Icon id="open_in_new" />}>
                                                         Normal
                                                     </Button>
-                                                </Link>
+                                                </a>
                                             </Grid>
                                         }
                                         <Grid>
-                                            <Link href="/./user/products/add?sellingPer=dozen" passHref>
+                                            <a href="/./user/products/add?sellingPer=dozen">
                                                 <Button auto color="gray" iconRight={<Icon id="open_in_new" />}>
                                                     por docena
                                                 </Button>
-                                            </Link>
+                                            </a>
                                         </Grid>
                                         <Grid>
-                                            <Link href="/./user/products/add?sellingPer=curve" passHref>
+                                            <a href="/./user/products/add?sellingPer=curve">
                                                 <Button auto color="gray" iconRight={<Icon id="open_in_new" />}>
                                                     por curva
                                                 </Button>
-                                            </Link>
+                                            </a>
                                         </Grid>
                                         <Grid>
-                                            <Link href="/./user/products/add?sellingPer=task" passHref>
+                                            <a href="/./user/products/add?sellingPer=task">
                                                 <Button auto color="gray" iconRight={<Icon id="open_in_new" />}>
                                                     por tarea
                                                 </Button>
-                                            </Link>
+                                            </a>
                                         </Grid>
                                         <Grid>
-                                            <Link href="/./user/products/add?sellingPer=quantity" passHref>
+                                            <a href="/./user/products/add?sellingPer=quantity">
                                                 <Button auto color="gray" iconRight={<Icon id="open_in_new" />}>
                                                     por cantidad
                                                 </Button>
-                                            </Link>
+                                            </a>
                                         </Grid>
 
                                     </Grid.Container>
