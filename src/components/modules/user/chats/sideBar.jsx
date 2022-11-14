@@ -7,7 +7,6 @@ const UserSideBar = ({ data, chatSelected, setChatSelected }) => {
 
     const user = useUserContext()
 
-    console.log(data);
     const dataSorted = data.sort((a,b)=>new Date(a[a?.messages?.length -1 ]?.date) - new Date(b[b?.messages?.length -1 ]?.date))
 
     return (

@@ -32,10 +32,12 @@ const ProductInfo = ({ data }) => {
     let rating = data.reviews?.map(a => a.rating)
     rating = rating == undefined ? 5 : Math.round(rating.reduce((a, b) => a + b, 0) / rating.length)
 
+    let productImage = "https://res.cloudinary.com/saladapp/f_auto,c_limit,w_1920,q_auto/"
 
     const contact = () => {
-        const msg = "Hola te contacto porque vi tu producto en la plataforma de la salada: "
-        window.open(`https://api.whatsapp.com/send?text=${msg}${window.location.host}/product/${data._id}&phone=54${data.brand.phone}`)
+        const productTitle = data.title.toUpperCase()
+        const msg = `Hola, te contacto desde la plataforma SaladaApp! Me interesa el producto: "${productTitle}"`
+        window.open(`https://api.whatsapp.com/send?text=${msg}&phone=54${data.brand.phone}`)
         Get(`products/product/${data._id}/whatsappClick`)
 
         if (!data.reviews?.find(r => r.user._id == user._id)) {
@@ -45,6 +47,7 @@ const ProductInfo = ({ data }) => {
     }
 
     return (
+        
         <Grid.Container direction="column" justify="space-between" css={{ m: 15 }}>
             <WriteReview open={isWritingReview} close={() => setWriteReview(false)} data={data} />
 
