@@ -5,12 +5,7 @@ import { useState } from "react"
 
 const SaladaZone = ({ state, onChange }) => {
     const [galery, setGallery] = useState(state.galleryName.value || "")
-
-    // console.log("GALERY: ", galery)
-
     const [searchGaleries, setSearchGaleries] = useState([]);
-
-    // console.log("SEARCH_GALERIES: " , searchGaleries)
 
     const handleGalerySelect = e => {
         setGallery(e)
@@ -112,7 +107,7 @@ const SaladaZone = ({ state, onChange }) => {
                                         helperText={state.street.error}
                                         helperColor="error"
                                         status={state.street.error ? "error" : "default"}
-                                        value={ galeryFind ? galeryFind[0].street : state.street.value}
+                                        value={ galeryFind[0]?.street || state?.street?.value}
                                         onChange={onChange("street")} />
                                 </Grid>
                                 <Grid>
@@ -125,7 +120,7 @@ const SaladaZone = ({ state, onChange }) => {
                                         helperText={state.streetNumber.error}
                                         helperColor="error"
                                         status={state.streetNumber.error ? "error" : "default"}
-                                        value={ galeryFind ? galeryFind[0].number : state.streetNumber.value}
+                                        value={ galeryFind[0]?.number || state?.streetNumber?.value}
                                         onChange={onChange("streetNumber")} />
                                 </Grid>
                 </Grid.Container>
