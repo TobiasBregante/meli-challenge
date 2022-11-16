@@ -5,6 +5,7 @@ import Image from "next/image"
 import { FileUploader } from "react-drag-drop-files"
 
 const ImagesSection = ({ state, setState, hideLabel }) => {
+    console.log("STATE:", state)
 
     const addImg = (e) => {
 
@@ -12,6 +13,7 @@ const ImagesSection = ({ state, setState, hideLabel }) => {
 
         setState(flArray[0])
     }
+
     const removeImg = () => {
         setState("")
     }
@@ -40,26 +42,26 @@ const ImagesSection = ({ state, setState, hideLabel }) => {
                 <Card.Body>
                     <Grid.Container gap={1}>
                         {
-                            state != "" &&
-                            <Grid className="rounded-12 animate__animated animate__bounceIn" >
-                                {
-                                    typeof state === "object" ?
-                                        <UiImage
-                                            src={URL.createObjectURL(state)}
-                                            width={100}
-                                            height={100}
-                                            className="rounded-16"
-                                            alt="a" />
-                                        :
-                                        <Image
-                                            src={`/${state}`}
-                                            width={100}
-                                            height={100}
-                                            className="rounded-16"
-                                            alt="a" />
-                                }
-                                <Icon id="delete" css={{ position: "absolute", zIndex: 999, right: 5, top: 5, cursor: "pointer", bg: "white" }} className="rounded-8" onClick={removeImg} />
-                            </Grid>
+                            state != "" && (
+                                <Grid className="rounded-12 animate__animated animate__bounceIn" >
+                                    {
+                                        typeof state === "object" ?
+                                            <UiImage
+                                                src={URL.createObjectURL(state)}
+                                                width={100}
+                                                height={100}
+                                                className="rounded-16"
+                                                alt="a" />
+                                            :
+                                            <Image
+                                                src={`/${state}`}
+                                                width={100}
+                                                height={100}
+                                                className="rounded-16"
+                                                alt="a" />
+                                    }
+                                    <Icon id="delete" css={{ position: "absolute", zIndex: 999, right: 5, top: 5, cursor: "pointer", bg: "white" }} className="rounded-8" onClick={removeImg} />
+                                </Grid>)
                         }
                     </Grid.Container>
                 </Card.Body>

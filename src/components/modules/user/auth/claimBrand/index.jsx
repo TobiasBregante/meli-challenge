@@ -160,7 +160,7 @@ const ClaimPositionModule = ({ website }) => {
             }
             return false
         }
-
+        console.log('ENTRA AL SUBMIT');
         //CHECKING
         const Schema = Joi.object({
             brandName: Joi.string().min(3).max(32).messages(stringMessages("Nombre de marca")),
@@ -192,22 +192,30 @@ const ClaimPositionModule = ({ website }) => {
 
         let formImage = new FormData();
         formImage.append("file", state.imgs.principal)
+        console.log('formImage: ', formImage);
+        const verifyImage = Object.values(formImage).length ? formImage : {
+            name: 'url', 
+            size: 142134,
+            type: 'image/jpge',
+            webkitRelativePath: ""
 
-        Post("products/addImage", formImage, {
+        }
+        Post("products/addImage", verifyImage, {
             headers: {
                 sldtoken: jsCookie.get("sldtoken"),
                 "Content-Type": "multipart/form-data"
             }
         }).then(resx => {
+            console.log('resx: ', resx)
 
             const { error, value } = Schema.validate({
                 brandName: state.brandName.value,
                 isWholesaleAndRetail: state.isWholesaleAndRetail,
                 category: state.category.value,
                 shippingBy: state.shippingBy.value,
-                imgs: {
-                    principal: resx.data.img_id,
-                },
+                // imgs: {
+                //     principal: resx.data.img_id,
+                // },
                 payMethod: state.payMethod.value,
                 location: {
                     zone: state.location.zone.value,
