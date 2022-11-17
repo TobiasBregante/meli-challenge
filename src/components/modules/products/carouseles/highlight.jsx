@@ -16,7 +16,7 @@ const HighLightCarousel = ({ data }) => {
       slidesPerView={1}
     >
       {
-        data.map((slide, i) => (
+        data?.length > 0 && data.map((slide, i) => (
           <SwiperSlide key={i}>
             <a href={slide.link}>
               <Image src={`${slide.img}`} width={2000} height={800} alt="carousel" className='rounded-bottom-16' />

@@ -6,9 +6,9 @@ const ProductsTable = ({ data, isSeller }) => {
     const handleClick = e =>{
         const product = data[Array.from(e)[0]]
         if (isSeller) {
-            return router.push(`/./user/products/${product._id}`)
+            return router.push(`/./user/products/${product?._id}`)
         }
-        router.push(`/./admin/product/${product._id}`)
+        router.push(`/./admin/product/${product?._id}`)
     }
     return (
         <Table
@@ -25,11 +25,11 @@ const ProductsTable = ({ data, isSeller }) => {
             </Table.Header>
             <Table.Body>
                 {
-                    data.map((product, i) => (
+                    data?.length > 0 && data.map((product, i) => (
                         <Table.Row key={i}>
-                            <Table.Cell>{product.title}</Table.Cell>
-                            <Table.Cell>{product.brand.brandName}</Table.Cell>
-                            <Table.Cell>{product.brand.location.zone}</Table.Cell>
+                            <Table.Cell>{product?.title}</Table.Cell>
+                            <Table.Cell>{product?.brand?.brandName}</Table.Cell>
+                            <Table.Cell>{product?.brand?.location?.zone}</Table.Cell>
                         </Table.Row>
                     ))
                 }

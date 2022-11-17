@@ -22,7 +22,6 @@ import BrandImages from './sections/images'
 import Post from "@/src/utils/hooks/post";
 
 const ClaimPositionModule = ({ website }) => {
-
     const router = useRouter()
     const user = useUserContext()
 
@@ -33,7 +32,7 @@ const ClaimPositionModule = ({ website }) => {
         shippingBy: { error: "", value: "" },
         payMethod: { error: "", value: [] },
         imgs: {
-            principal: "",
+            principal: "NI35_W3jmftQURiB_rR_LR0IUkjGXl77",
             background: ""
         },
         location: {
@@ -52,26 +51,9 @@ const ClaimPositionModule = ({ website }) => {
             street: { error: "", value: "" },
             streetNumber: { error: "", value: "" },
         },
-    }),
-        [isSubmiting, setSubmiting] = useState(false)
-
-
-
-    if (!user) {
-        return (
-            <ShouldLogin />
-        )
-    }
-    if (!user.isSeller) {
-        return (
-            <ShouldBeSeller />
-        )
-    }
-
-    if (user.brand != undefined) {
-        return <CantRegisterBrand />
-    }
-
+    })
+    const [isSubmiting, setSubmiting] = useState(false)
+    
     const handleBrandName = (e) => {
         setState({
             ...state, brandName: {
@@ -139,6 +121,28 @@ const ClaimPositionModule = ({ website }) => {
             }
         })
     }
+    
+    // useEffect(() => {
+    //     if(user) {
+    //         handleImgs()
+    //     }
+    // }, [user])
+    
+    if (!user) {
+        return (
+            <ShouldLogin />
+            )
+    }
+    if (!user.isSeller) {
+        return (
+            <ShouldBeSeller />
+        )
+    }
+
+    if (user.brand != undefined) {
+        return <CantRegisterBrand />
+    }
+
 
     //SUBMIT
     const submit = () => {
@@ -191,7 +195,7 @@ const ClaimPositionModule = ({ website }) => {
         })
 
         let formImage = new FormData();
-        formImage.append("file", state.imgs.principal)
+        formImage.append("file", state.imgs.principal )
 
         Post("products/addImage", formImage, {
             headers: {
@@ -199,7 +203,7 @@ const ClaimPositionModule = ({ website }) => {
                 "Content-Type": "multipart/form-data"
             }
         }).then(resx => {
-
+            console.log('ACAAAA ', resx.data.img_id)
             const { error, value } = Schema.validate({
                 brandName: state.brandName.value,
                 isWholesaleAndRetail: state.isWholesaleAndRetail,
