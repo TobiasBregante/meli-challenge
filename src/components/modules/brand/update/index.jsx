@@ -305,12 +305,12 @@ const UpdateBrandModule = ({ website, data }) => {
         <Grid.Container justify="center" >
             <Grid xs={12} sm={9} >
                 <Grid.Container direction="column">
-                    <Card css={{mb:10}}>
+                    <Card css={{ mb: 10 }}>
                         <Card.Header>
                             <Text h3>
                                 Datos del vendedor
                             </Text>
-                            <Avatar css={{ marginLeft: '$10' }} squared src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${data?.imgs?.principal || 'NI35_W3jmftQURiB_rR_LR0IUkjGXl77'}`}/>
+                            <Avatar css={{ marginLeft: '$10' }} squared src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${data?.imgs?.principal || 'NI35_W3jmftQURiB_rR_LR0IUkjGXl77'}`} />
                         </Card.Header>
                         <Card.Body>
                             <Text b h4>
@@ -383,19 +383,10 @@ const UpdateBrandModule = ({ website, data }) => {
                                         </Text>
                                         <Grid.Container>
                                             <Button auto color="error" icon={<Icon id="arrow_downward" color="white" />} onPress={() => validateFor(0)}>
-                                                Desactivar
+                                                Suspender
                                             </Button>
-                                            <Button auto color="gray" icon={<Icon id="date_range" />} css={{ mx: 10 }} onPress={() => validateFor(1)}>
-                                                1 mes
-                                            </Button>
-                                            <Button auto color="gray" icon={<Icon id="date_range" />} css={{ mx: 5 }} onPress={() => validateFor(2)}>
-                                                3 meses
-                                            </Button>
-                                            <Button auto color="gray" icon={<Icon id="date_range" />} css={{ mx: 5 }} onPress={() => validateFor(3)}>
-                                                6 meses
-                                            </Button>
-                                            <Button auto color="gray" icon={<Icon id="date_range" />} css={{ mx: 5 }} onPress={() => validateFor(4)}>
-                                                1 año
+                                            <Button auto color="success" icon={<Icon id="date_range" />} css={{ color: "$dark", mx: 10 }} onPress={() => validateFor(4)}>
+                                                Activar
                                             </Button>
                                         </Grid.Container>
                                         <Text css={{ mt: 20 }}>
