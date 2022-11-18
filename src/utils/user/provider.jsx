@@ -24,7 +24,8 @@ function UserWrapper({ children, state }) {
             })
             .catch(err=>{
                 if (err.response) {
-                    return toast(err.response.data.msg)
+                    console.error(err)
+                    return toast(err?.response?.data?.msg)
                 }
                 return toast("hubo un error con tu token")
             })
