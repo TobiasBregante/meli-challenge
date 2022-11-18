@@ -17,6 +17,15 @@ const SellZone = ({ zone, ...htmlProps }) => {
                         value={"la salada"}
                         {...htmlProps} />
                 </Grid>
+                {/* option de once */}
+                <Grid>
+                    <OptionGroup
+                        text="Once"
+                        icon="pin_drop"
+                        isSelected={zone.value == "once"}
+                        value={"once"}
+                        {...htmlProps} />
+                </Grid>
                 <Grid>
                     <OptionGroup
                         text="Flores"
@@ -33,6 +42,7 @@ const SellZone = ({ zone, ...htmlProps }) => {
                         value={"online"}
                         {...htmlProps} />
                 </Grid>
+
             </Grid.Container>
             <Text small color="error">
                 {zone.error}

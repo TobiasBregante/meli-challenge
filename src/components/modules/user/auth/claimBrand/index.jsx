@@ -10,6 +10,7 @@ import SellZone from '@/components/modules/user/auth/claimBrand/sections/sellZon
 //Section: Zones
 import SaladaZone from '@/components/modules/user/auth/claimBrand/sections/saladaZone'
 import FloresZone from '@/components/modules/user/auth/claimBrand/sections/floresZone'
+import OnceZone from '@/components/modules/user/auth/claimBrand/sections/onceZone'
 //Validation
 import { numberMessages, stringMessages, booleanMessages } from '@/utils/joi/customMessages'
 import Joi from 'joi';
@@ -53,7 +54,7 @@ const ClaimPositionModule = ({ website }) => {
         },
     })
     const [isSubmiting, setSubmiting] = useState(false)
-    
+
     const handleBrandName = (e) => {
         setState({
             ...state, brandName: {
@@ -121,17 +122,17 @@ const ClaimPositionModule = ({ website }) => {
             }
         })
     }
-    
+
     // useEffect(() => {
     //     if(user) {
     //         handleImgs()
     //     }
     // }, [user])
-    
+
     if (!user) {
         return (
             <ShouldLogin />
-            )
+        )
     }
     if (!user.isSeller) {
         return (
@@ -154,7 +155,8 @@ const ClaimPositionModule = ({ website }) => {
         const isInLaSalada = zone == "la salada"
 
         //zone: flores
-        const isInFlores = zone == "flores"
+        // aca añadi || once para que tambien pase once, la idea es que a once lo tome ""como flores"" y es en el submit otra cosa que probe fue pasarlo como otra creando el IsInOnce en vez de IsInFlores.
+        const isInFlores = zone == "flores" || "once"
         const isInGallery = () => {
             if (isInFlores && state.location.isInGallery) {
                 return true
@@ -164,7 +166,7 @@ const ClaimPositionModule = ({ website }) => {
             }
             return false
         }
-
+        console.log('ENTRA AL SUBMIT');
         //CHECKING
         const Schema = Joi.object({
             brandName: Joi.string().min(3).max(32).messages(stringMessages("Nombre de marca")),
@@ -190,28 +192,34 @@ const ClaimPositionModule = ({ website }) => {
                 galleryName: Joi.string().min(isInGallery() ? 1 : 0).max(64).messages(stringMessages("Nombre de la galeria")),
                 positionInGallery: Joi.string().min(isInGallery() ? 1 : 0).max(32).messages(stringMessages("Numero en la galeria")),
                 street: Joi.string().min(isInFlores ? 1 : 0).max(64).messages(stringMessages("Nombre de la calle")),
-                streetNumber: Joi.string().min(isInFlores ? 1 : 0).max(32).messages(stringMessages("Altura de la calle"))
+                streetNumber: Joi.string().min(isInFlores ? 1 : 0).max(32).messages(stringMessages("Altura de la calle")),
             })
         })
 
         let formImage = new FormData();
-        formImage.append("file", state.imgs.principal )
+        formImage.append("file", state.imgs.principal)
+        console.log('formImage: ', formImage);
+        const verifyImage = Object.values(formImage).length ? formImage : {
+            name: 'url', 
+            size: 142134,
+            type: 'image/jpge',
+            webkitRelativePath: ""
 
-        Post("products/addImage", formImage, {
+        }
+        Post("products/addImage", verifyImage, {
             headers: {
                 sldtoken: jsCookie.get("sldtoken"),
                 "Content-Type": "multipart/form-data"
             }
         }).then(resx => {
-            console.log('ACAAAA ', resx.data.img_id)
             const { error, value } = Schema.validate({
                 brandName: state.brandName.value,
                 isWholesaleAndRetail: state.isWholesaleAndRetail,
                 category: state.category.value,
                 shippingBy: state.shippingBy.value,
-                imgs: {
-                    principal: resx.data.img_id,
-                },
+                // imgs: {
+                //     principal: resx.data.img_id,
+                // },
                 payMethod: state.payMethod.value,
                 location: {
                     zone: state.location.zone.value,
@@ -287,7 +295,7 @@ const ClaimPositionModule = ({ website }) => {
                     setSubmiting(false)
                     if (state.location.zone == "online") {
                         window.open("https://api.whatsapp.com/send?text=Hola%20quiero%20contratar%20el%20plan%20premiun&phone=+541170895828")
-                    }else{
+                    } else {
                         router.push("/./user/products/add")
                     }
 
@@ -357,10 +365,15 @@ const ClaimPositionModule = ({ website }) => {
                             <Grid>
                                 <SellZone zone={state.location.zone} onClick={handleZone} />
                             </Grid>
+                            {/* linea 369 se encuentra el "once" donde se trae el OnceZone */}
                             <Grid>
                                 {
                                     state.location.zone.value == "la salada" &&
                                     <SaladaZone state={state.location} onChange={handleLocation} />
+                                }
+                                {
+                                    state.location.zone.value == "once" &&
+                                    <OnceZone state={state.location} onChange={handleLocation} />
                                 }
                                 {
                                     state.location.zone.value == "flores" &&
