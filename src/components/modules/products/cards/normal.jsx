@@ -7,6 +7,10 @@ import LocationBuilder from '../locationBuilder'
 
 const ProductCard = ({ data }) => {
 
+    if(!data) {
+        return null
+    }
+
     const lowestPriceSelect = () => {
         let prices = [data.prices.retail, data.prices.wholesale, data.prices.perDozen, data.prices.perCurve, data.prices.perTask, data.prices.perQuantity]
         prices = prices.filter(price => price != 0 && price != undefined)
@@ -41,7 +45,7 @@ const ProductCard = ({ data }) => {
                     </Grid.Container>
 
                     <Grid.Container>
-                        <LocationBuilder data={data.brand.location} />
+                        <LocationBuilder data={data?.brand?.location} />
                     </Grid.Container>
 
                 </Grid.Container>
@@ -53,7 +57,7 @@ const ProductCard = ({ data }) => {
                         <Avatar src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${data.brand.imgs.principal}`} size="sm" />
                     }
                     <Text css={{ ml: 5 }}>
-                        {data.brand.brandName}
+                        {data?.brand?.brandName}
                     </Text>
                 </Grid.Container>
             </Card.Footer>
