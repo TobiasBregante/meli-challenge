@@ -170,10 +170,11 @@ const Submit = ({ state, setState, data, resetState }) => {
                         "Content-Type": "multipart/form-data"
                     }
                 }).then(res => {
-                    return res.data.img_id
+                    return res.data.img_id || 'NI35_W3jmftQURiB_rR_LR0IUkjGXl77'
                 })
                     .catch(err => {
                         console.log(err);
+                        console.log(res.data.img_id)
                         setSubmiting(false)
                         toast("Ocurrio un error de nuestro lado al subir las imagenes")
                         return false

@@ -10,6 +10,7 @@ import SellZone from '@/components/modules/user/auth/claimBrand/sections/sellZon
 //Section: Zones
 import SaladaZone from '@/components/modules/user/auth/claimBrand/sections/saladaZone'
 import FloresZone from '@/components/modules/user/auth/claimBrand/sections/floresZone'
+import OnceZone from '@/components/modules/user/auth/claimBrand/sections/onceZone'
 //Validation
 import { numberMessages, stringMessages, booleanMessages } from '@/utils/joi/customMessages'
 import Joi from 'joi';
@@ -22,7 +23,6 @@ import BrandImages from './sections/images'
 import Post from "@/src/utils/hooks/post";
 
 const ClaimPositionModule = ({ website }) => {
-
     const router = useRouter()
     const user = useUserContext()
 
@@ -33,7 +33,7 @@ const ClaimPositionModule = ({ website }) => {
         shippingBy: { error: "", value: "" },
         payMethod: { error: "", value: [] },
         imgs: {
-            principal: "",
+            principal: "NI35_W3jmftQURiB_rR_LR0IUkjGXl77",
             background: ""
         },
         location: {
@@ -52,25 +52,8 @@ const ClaimPositionModule = ({ website }) => {
             street: { error: "", value: "" },
             streetNumber: { error: "", value: "" },
         },
-    }),
-        [isSubmiting, setSubmiting] = useState(false)
-
-
-
-    if (!user) {
-        return (
-            <ShouldLogin />
-        )
-    }
-    if (!user.isSeller) {
-        return (
-            <ShouldBeSeller />
-        )
-    }
-
-    if (user.brand != undefined) {
-        return <CantRegisterBrand />
-    }
+    })
+    const [isSubmiting, setSubmiting] = useState(false)
 
     const handleBrandName = (e) => {
         setState({
@@ -140,6 +123,28 @@ const ClaimPositionModule = ({ website }) => {
         })
     }
 
+    // useEffect(() => {
+    //     if(user) {
+    //         handleImgs()
+    //     }
+    // }, [user])
+
+    if (!user) {
+        return (
+            <ShouldLogin />
+        )
+    }
+    if (!user.isSeller) {
+        return (
+            <ShouldBeSeller />
+        )
+    }
+
+    if (user.brand != undefined) {
+        return <CantRegisterBrand />
+    }
+
+
     //SUBMIT
     const submit = () => {
 
@@ -150,7 +155,8 @@ const ClaimPositionModule = ({ website }) => {
         const isInLaSalada = zone == "la salada"
 
         //zone: flores
-        const isInFlores = zone == "flores"
+        // aca añadi || once para que tambien pase once, la idea es que a once lo tome ""como flores"" y es en el submit otra cosa que probe fue pasarlo como otra creando el IsInOnce en vez de IsInFlores.
+        const isInFlores = zone == "flores" || "once"
         const isInGallery = () => {
             if (isInFlores && state.location.isInGallery) {
                 return true
@@ -186,7 +192,7 @@ const ClaimPositionModule = ({ website }) => {
                 galleryName: Joi.string().min(isInGallery() ? 1 : 0).max(64).messages(stringMessages("Nombre de la galeria")),
                 positionInGallery: Joi.string().min(isInGallery() ? 1 : 0).max(32).messages(stringMessages("Numero en la galeria")),
                 street: Joi.string().min(isInFlores ? 1 : 0).max(64).messages(stringMessages("Nombre de la calle")),
-                streetNumber: Joi.string().min(isInFlores ? 1 : 0).max(32).messages(stringMessages("Altura de la calle"))
+                streetNumber: Joi.string().min(isInFlores ? 1 : 0).max(32).messages(stringMessages("Altura de la calle")),
             })
         })
 
@@ -206,8 +212,6 @@ const ClaimPositionModule = ({ website }) => {
                 "Content-Type": "multipart/form-data"
             }
         }).then(resx => {
-            console.log('resx: ', resx)
-
             const { error, value } = Schema.validate({
                 brandName: state.brandName.value,
                 isWholesaleAndRetail: state.isWholesaleAndRetail,
@@ -291,7 +295,7 @@ const ClaimPositionModule = ({ website }) => {
                     setSubmiting(false)
                     if (state.location.zone == "online") {
                         window.open("https://api.whatsapp.com/send?text=Hola%20quiero%20contratar%20el%20plan%20premiun&phone=+541170895828")
-                    }else{
+                    } else {
                         router.push("/./user/products/add")
                     }
 
@@ -361,10 +365,15 @@ const ClaimPositionModule = ({ website }) => {
                             <Grid>
                                 <SellZone zone={state.location.zone} onClick={handleZone} />
                             </Grid>
+                            {/* linea 369 se encuentra el "once" donde se trae el OnceZone */}
                             <Grid>
                                 {
                                     state.location.zone.value == "la salada" &&
                                     <SaladaZone state={state.location} onChange={handleLocation} />
+                                }
+                                {
+                                    state.location.zone.value == "once" &&
+                                    <OnceZone state={state.location} onChange={handleLocation} />
                                 }
                                 {
                                     state.location.zone.value == "flores" &&

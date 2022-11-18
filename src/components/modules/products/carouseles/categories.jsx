@@ -33,7 +33,7 @@ const CategoriesCarousel = ({ data }) => {
           }}
         >
           {
-            data.sort((a, b) => b.views - a.views).map((category, i) => (
+            data?.length > 0 && data.sort((a, b) => b.views - a.views).map((category, i) => (
               <SwiperSlide key={i}>
                 <a href={`/./page/category/${category.name}`}>
                   <Card css={{ bg: "$blue600" }} variant="flat" isPressable isHoverable>

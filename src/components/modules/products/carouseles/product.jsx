@@ -53,7 +53,7 @@ const ProductCarousel = ({ title, data, link }) => {
         }}
       >
         {
-          data.map((cardData, cardI) => (
+          data?.length > 0 && data.map((cardData, cardI) => (
             <SwiperSlide key={cardI}>
               <ProductCard data={cardData} />
             </SwiperSlide>
