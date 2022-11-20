@@ -5,8 +5,6 @@ import Image from "next/image"
 import { FileUploader } from "react-drag-drop-files"
 
 const ImagesSection = ({ state, setState, hideLabel }) => {
-    console.log("STATE:", state)
-
     const addImg = (e) => {
 
         const flArray = Array.from(e)

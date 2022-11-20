@@ -77,6 +77,9 @@ const UpdateUserInfoModule = ({ data }) => {
                     console.error(err);
                     return toast("hubo un error de red al enviar el formulario")
                 })
+        } else {
+            console.error(error)
+            toast('Hubo un error al ingresar los datos')
         }
     }
 
