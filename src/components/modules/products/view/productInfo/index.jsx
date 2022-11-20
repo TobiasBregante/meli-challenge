@@ -37,7 +37,7 @@ const ProductInfo = ({ data }) => {
     const contact = () => {
         const productTitle = data.title.toUpperCase()
         const msg = `Hola, te contacto desde la plataforma SaladaApp! Me interesa el producto: "${productTitle}"`
-        window.open(`https://api.whatsapp.com/send?text=${window.location}&phone=54${data.brand.phone}`)
+        window.open(`https://api.whatsapp.com/send?text=${msg}&phone=54${data.brand.phone}`)
         Get(`products/product/${data._id}/whatsappClick`)
 
         if (!data.reviews?.find(r => r.user._id == user._id)) {
