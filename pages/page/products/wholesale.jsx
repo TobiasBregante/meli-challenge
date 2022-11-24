@@ -7,10 +7,13 @@ import Get from '@/src/utils/hooks/get'
 
 const Wholesale = ({ products, brands, website }) => {
 
+
+    
+
     return (
         <Page>
             <Container lg css={{ mb: "$10" }}>
-                <CategoriesCarousel data={website.categories}/>
+                <CategoriesCarousel data={website.categories} />
                 <BrandCarousel title="Marcas mas populares en venta por mayor" data={brands} />
                 <UnorderedList title="Productos de venta por mayor" data={products} />
             </Container>
