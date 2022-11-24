@@ -111,7 +111,7 @@ const Submit = ({ state, setState, data, resetState }) => {
 
 
         if (error) {
-            console.log(error);
+            console.error(error);
             setSubmiting(false)
             //Find sub low level error path
             if (error.details[0].path.length == 3) {
@@ -173,8 +173,7 @@ const Submit = ({ state, setState, data, resetState }) => {
                     return res.data.img_id || 'NI35_W3jmftQURiB_rR_LR0IUkjGXl77'
                 })
                     .catch(err => {
-                        console.log(err);
-                        console.log(res.data.img_id)
+                        console.error(err);
                         setSubmiting(false)
                         toast("Ocurrio un error de nuestro lado al subir las imagenes")
                         return false

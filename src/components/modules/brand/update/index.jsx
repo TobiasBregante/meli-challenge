@@ -183,7 +183,7 @@ const UpdateBrandModule = ({ website, data }) => {
             }
         })
 
-        console.log(error);
+        console.error(error);
 
         if (state.isWholesaleAndRetail == null) {
             setSubmiting(false)

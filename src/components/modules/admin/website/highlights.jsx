@@ -58,7 +58,7 @@ const HighLightForm = ({ website }) => {
                 }
             })
                 .catch(err => {
-                    console.log(err);
+                    console.error(err);
                     setSubmiting(false)
                     toast("Ocurrio un error de nuestro lado al subir las imagenes")
                     return false
@@ -84,7 +84,7 @@ const HighLightForm = ({ website }) => {
             })
         })
         .catch(err=>{
-            console.log(err);
+            console.error(err);
             setSubmiting(false)
             toast("Ocurrio un error de nuestro lado")
         })

@@ -22,7 +22,6 @@ const SaladaZone = ({ state, onChange }) => {
     };
 
     const galeryFind = galery.length !== 0 && galeries.filter(g => g.name === galery)
-    // console.log("FIND: ", galeryFind)
 
     return (
         <Grid.Container direction="column" >

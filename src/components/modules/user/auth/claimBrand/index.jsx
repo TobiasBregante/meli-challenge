@@ -166,7 +166,6 @@ const ClaimPositionModule = ({ website }) => {
             }
             return false
         }
-        console.log('ENTRA AL SUBMIT');
         //CHECKING
         const Schema = Joi.object({
             brandName: Joi.string().min(3).max(32).messages(stringMessages("Nombre de marca")),
@@ -198,7 +197,6 @@ const ClaimPositionModule = ({ website }) => {
 
         let formImage = new FormData();
         formImage.append("file", state.imgs.principal)
-        console.log('formImage: ', formImage);
         const verifyImage = Object.values(formImage).length ? formImage : {
             name: 'url', 
             size: 142134,
@@ -256,7 +254,7 @@ const ClaimPositionModule = ({ website }) => {
 
             if (error) {
                 setSubmiting(false)
-                console.log(error);
+                console.error(error);
                 if (error.details[0].path.length == 2) {
                     return setState({
                         ...state,
@@ -309,7 +307,7 @@ const ClaimPositionModule = ({ website }) => {
             }
         })
             .catch(err => {
-                console.log(err);
+                console.error(err);
                 setSubmiting(false)
                 toast("Ocurrio un error de nuestro lado al subir las imagenes")
                 return false

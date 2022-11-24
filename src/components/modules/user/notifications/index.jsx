@@ -25,7 +25,7 @@ const UserNotifications = () => {
                 sldtoken: jsCookie.get("sldtoken")
             }
         }).catch(err=>{
-            console.log(err);
+            console.error(err);
         })
     }
     

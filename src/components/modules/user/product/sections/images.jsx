@@ -7,7 +7,6 @@ import { toast } from "react-toastify"
 
 const ImagesSection = ({ state, setState }) => {
     const user = useUserContext()
-    console.log(user)
     const addImg = (e) => {
 
         const flArray = Array.from(e)
