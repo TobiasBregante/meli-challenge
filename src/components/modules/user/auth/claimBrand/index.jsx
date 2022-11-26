@@ -215,9 +215,9 @@ const ClaimPositionModule = ({ website }) => {
                 isWholesaleAndRetail: state.isWholesaleAndRetail,
                 category: state.category.value,
                 shippingBy: state.shippingBy.value,
-                // imgs: {
-                //     principal: resx.data.img_id,
-                // },
+                imgs: {
+                    principal: resx.data.img_id,
+                },
                 payMethod: state.payMethod.value,
                 location: {
                     zone: state.location.zone.value,
