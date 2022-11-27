@@ -60,20 +60,6 @@ const OnceZone = ({ state, onChange }) => {
                                                 type="text"
                                             />
                                             <Radio size="sm" value={"Otra Galeria"} description="Consultar al vendedor">Otra Galeria</Radio>
-
-                                            {
-                                                searchGaleries.length == 0 ? galeries.map((galeries, i) => (
-
-                                                    <Radio size="sm" key={i} value={galeries.name} description={`${galeries.street} ${galeries.number}`}>
-                                                        {galeries.name}
-                                                    </Radio>
-
-                                                )) : searchGaleries.map((galeries, i) => (
-                                                    <Radio size="sm" key={i} value={galeries.name} description={`${galeries.street} ${galeries.number}`}>
-                                                        {galeries.name}
-                                                    </Radio>
-                                                ))
-                                            }
                                         </Radio.Group>
                                     </Popover.Content>
                                 </Popover>
