@@ -10,8 +10,9 @@ import Get from '@/utils/hooks/get'
 
 const Index = ({ website, wholesaleProducts, wholesaleAndRetailProducts, perQuantityProducts, perCurveProducts, popularProducts, popularBrands }) => {
 
-  
-  let productos = wholesaleProducts.split(0 ,10)
+  // console.log("WhPr: ", wholesaleProducts)
+  // console.log("WhRePr: ", wholesaleAndRetailProducts)
+
 
 
   return (
@@ -21,7 +22,7 @@ const Index = ({ website, wholesaleProducts, wholesaleAndRetailProducts, perQuan
           /**<AdsModals img={website.popup.img} link={website.popup.link}/> */
         }
         <HighLightCarousel data={website.highlights} />
-        <ProductCarousel title="Productos venta por mayor" data={productos} link="/./page/products/wholesale" />
+        <ProductCarousel title="Productos venta por mayor" data={wholesaleProducts} link="/./page/products/wholesale" />
         <ProductCarousel title="Productos venta por menor y mayor" data={wholesaleAndRetailProducts} link="/./page/products/wholesaleAndRetail" />
         <CategoriesCarousel data={website.categories}/>
         <ProductCarousel title="Productos mas populares" data={popularProducts} link="/./page/products/popular"  />
@@ -39,7 +40,7 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
-      wholesaleProducts: await Get("products/find/query?&premiunOnly=true&isWholesaleAndRetail=false&limit=10&isPublic=true").then(r => r.data).catch(() => []),
+      wholesaleProducts: await Get("products/find/query?&premiunOnly=true&isWholesale=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
       wholesaleAndRetailProducts: await Get("products/find/query?premiunOnly=true&isWholesaleAndRetail=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
       perQuantityProducts: await Get("products/find/query?premiunOnly=true&perQuantity=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
       perCurveProducts: await Get("products/find/query?premiunOnly=true&perCurve=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
