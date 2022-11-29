@@ -25,7 +25,7 @@ export async function getServerSideProps(ctx) {
     return {
         props: {
             brands: await Get("brands/find/query?popular=true&isWholesaleAndRetail=true&limit=100").then(r => r.data).catch(() => []),
-            products: await Get("products/find/query?popular=true&isWholesaleAndRetail=false&limit=100").then(r => r.data).catch(() => []),
+            products: await Get("products/find/query?popular=true&isWholesaleAndRetail=true&limit=100").then(r => r.data).catch(() => []),
             website: await Get("website").then(r => r.data).catch(() => { })
         }, // will be passed to the page component as props
     }
