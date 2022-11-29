@@ -50,7 +50,7 @@ const OnceZone = ({ state, onChange }) => {
                                         </Button>
                                     </Popover.Trigger>
                                     <Popover.Content css={{ p: "$10" }} >
-                                        <Radio.Group
+                                    <Radio.Group
                                             defaultValue=""
                                             value={galery}
                                             onChange={handleGalerySelect}
@@ -60,6 +60,19 @@ const OnceZone = ({ state, onChange }) => {
                                                 type="text"
                                             />
                                             <Radio size="sm" value={"Otra Galeria"} description="Consultar al vendedor">Otra Galeria</Radio>
+                                            {
+                                                searchGaleries?.length == 0 ? galeries?.filter(obj => obj?.location === 'Once').map((galeries, i) => (
+
+                                                    <Radio size="sm" key={i} value={galeries.name} description={`${galeries.street} ${galeries.number}`}>
+                                                        {galeries?.name}
+                                                    </Radio>
+
+                                                )) : searchGaleries?.map((galeries, i) => (
+                                                    <Radio size="sm" key={i} value={galeries.name} description={`${galeries.street} ${galeries.number}`}>
+                                                        {galeries.name}
+                                                    </Radio>
+                                                ))
+                                            }
                                         </Radio.Group>
                                     </Popover.Content>
                                 </Popover>

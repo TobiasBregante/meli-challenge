@@ -112,7 +112,6 @@ const galeries = [{ name: "Galeria LA Primera", street: "Bogotá ", number: "346
 { name: "Galeria  La Marca", street: "Emilio lamarca ", number: "343" },
 { name: "Galería La Bendecida", street: "Emilio lamarca ", number: "447" },
 { name: "Galería  El viejo taller", street: "Emilio lamarca  ", number: "461" },
-
 { name: "Galeria  La Gigante", street: "Concordia ", number: "135" },
 { name: "Galeria Paseo del Cielo", street: "Concordia ", number: "233" },
 { name: "Galería Pequeña Bolivia", street: "Concordia ", number: "271" },
@@ -127,7 +126,6 @@ const galeries = [{ name: "Galeria LA Primera", street: "Bogotá ", number: "346
 { name: "Galería Alto Concordia ", street: "Concordia ", number: "232" },
 { name: "Galería Concordia", street: "Concordia ", number: "132" },
 { name: "Galería paseo de la Concorde", street: "Concordia ", number: "196" },
-
 { name: "Galeria  Neocampana", street: "Campana ", number: "237" },
 { name: "Galeria  Los Fabricantes", street: "Campana ", number: "243" },
 { name: "Galeria Tortuga", street: "Campana ", number: "255" },
@@ -140,7 +138,6 @@ const galeries = [{ name: "Galeria LA Primera", street: "Bogotá ", number: "346
 { name: "Galeria Smart 3 Campanas", street: "Campana 242/", number: "252" },
 { name: "Galeria Super Campana", street: "Campana ", number: "230" },
 { name: "Galeria Ciudad Campana", street: "Campana ", number: "642" },
-
 { name: "Galería Fabricantes Unidos", street: "Cuenca ", number: "227" },
 { name: "Galeria Centro mayorista", street: "Cuenca ", number: "241" },
 { name: "Galería La divina", street: "Cuenca ", number: "245" },
@@ -151,18 +148,15 @@ const galeries = [{ name: "Galeria LA Primera", street: "Bogotá ", number: "346
 { name: "Galeria La Bonita", street: "Cuenca ", number: "290" },
 { name: "Galeria Comercial La violeta", street: "Cuenca ", number: "284" },
 { name: "Galeria El trébol", street: "Cuenca ", number: "262" },
-
 { name: "Galería La Gran Central", street: "Helguera ", number: "249" },
 { name: "Galería Helguera Place ", street: "Helguera ", number: "449" },
 { name: "Galeria Helguera Mall", street: "Helguera ", number: "454" },
 { name: "Galeria Sol del Norte", street: "Helguera ", number: "356" },
 { name: "Galeria  Berajá", street: "Helguera ", number: "280" },
-
 { name: "Galeria Las Palmeras", street: "Argerich ", number: "432" },
 { name: "Galería OXFORD", street: "Argerich ", number: "435" },
 { name: "Galeria Exito!!!", street: "Argerich ", number: "386" },
 { name: "Galeria Outle Flores", street: "Argerich ", number: "209" },
-
 { name: "Galeria Paseo del Corso", street: "Av. Nazca ", number: "55" },
 { name: "Galería Nazca", street: "Av. Nazca ", number: "150" },
 { name: "Galeria   La 27", street: "Av. Nazca ", number: "271" },
@@ -190,6 +184,45 @@ const galeries = [{ name: "Galeria LA Primera", street: "Bogotá ", number: "346
 
 { name: "Galería Mónaco", street: "Venecio flores ", number: "3029" },
 { name: "GALERÍA EL PUENTE", street: "Venecio flores ", number: "3055" },
+
+
+
+
+{name: "willy", number: 2757, street: "Av. Rivadavia", location: "Once"},
+{name: "Paseo del Once", number: 2535, street: "Av. Rivadavia", location: "Once"},
+
+
+{name: "La Saladita", number: 2623, street: "Bartolomé Mitre", location: "Once"},
+{name: "La Paloma", number: 2766, street: "Bartolomé Mitre", location: "Once"},
+{name: "Feria del Once", number: 2757, street: "Bartolomé Mitre", location: "Once"},
+{name: "Central 11", number: 2734, street: "Bartolomé Mitre", location: "Once"},
+{name: "El Gran Poder", number: 2737, street: "Bartolomé Mitre", location: "Once"},
+{name: "La Reina de Mitre", number: 2715, street: "Bartolomé Mitre", location: "Once"},
+
+{name: "Mega Compra Once", number: 160, street: "Castelli", location: "Once"},
+{name: "centro pueurredón", number: 150, street: "Castelli", location: "Once"},
+{name: "Feria Del Sol", number: 234, street: "Castelli", location: "Once"},
+{name: "Vía Valeria", number: 265, street: "Castelli", location: "Once"},
+
+{name: "Punto Once", number: 279, street: "Pueyrredón", location: "Once"},
+{name: "Pueyrredón", number: 241, street: "Pueyrredón", location: "Once"},
+{name: "Las Naciones", number: 123, street: "Pueyrredón", location: "Once"},
+{name: "La Playa", number: 555, street: "Pueyrredón", location: "Once"},
+{name: "La Gran America", number: 560, street: "Pueyrredón", location: "Once"},
+{name: "La Playita", number: 562, street: "Pueyrredón", location: "Once"},
+{name: "La Unión", number: 240, street: "Pueyrredón", location: "Once"},
+
+{name: "Sarmiento II", number: 2833, street: "Sarmiento", location: "Once"},
+{name: "La Unión", number: 2870, street: "Sarmiento", location: "Once"},
+
+{name: "Pasteur", number: 277, street: "Pasteur", location: "Once"},
+
+{name: "Once", number: 2348, street: "Av. Corrientes", location: "Once"},
+{name: "Center One", number: 2461, street: "Av. Corrientes", location: "Once"},
+{name: "Rambla Katalunia", number: 2478, street: "Av. Corrientes", location: "Once"},
+{name: "Imperial", number: 2510, street: "Av. Corrientes", location: "Once"},
+{name: "Siglo", number: 2564, street: "Av. Corrientes", location: "Once"},
+{name: "Vía del Sol", number: 2582, street: "Av. Corrientes", location: "Once"},
 ]
 
 export default galeries
