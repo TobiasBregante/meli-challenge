@@ -10,6 +10,11 @@ import Get from '@/utils/hooks/get'
 
 const Index = ({ website, wholesaleProducts, wholesaleAndRetailProducts, perQuantityProducts, perCurveProducts, popularProducts, popularBrands }) => {
 
+  // console.log("WhPr: ", wholesaleProducts)
+  // console.log("WhRePr: ", wholesaleAndRetailProducts)
+
+
+
   return (
     <Page>
       <Container lg css={{ mb: "$10" }}>
@@ -34,7 +39,7 @@ export default Index
 export async function getServerSideProps(ctx) {
   return {
     props: {
-      wholesaleProducts: await Get("products/find/query?popular=false&premiunOnly=true&isWholesaleAndRetail=false&limit=10&isPublic=true").then(r => r.data).catch(() => []),
+      wholesaleProducts: await Get("products/find/query?&premiunOnly=true&isWholesale=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
 
       wholesaleAndRetailProducts: await Get("products/find/query?premiunOnly=true&isWholesaleAndRetail=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
 
