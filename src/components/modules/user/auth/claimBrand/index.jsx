@@ -155,7 +155,6 @@ const ClaimPositionModule = ({ website }) => {
         const isInLaSalada = zone == "la salada"
 
         //zone: flores
-        // aca añadi || once para que tambien pase once, la idea es que a once lo tome ""como flores"" y es en el submit otra cosa que probe fue pasarlo como otra creando el IsInOnce en vez de IsInFlores.
         const isInFlores = zone == "flores" || "once"
         const isInGallery = () => {
             if (isInFlores && state.location.isInGallery) {
@@ -363,7 +362,6 @@ const ClaimPositionModule = ({ website }) => {
                             <Grid>
                                 <SellZone zone={state.location.zone} onClick={handleZone} />
                             </Grid>
-                            {/* linea 369 se encuentra el "once" donde se trae el OnceZone */}
                             <Grid>
                                 {
                                     state.location.zone.value == "la salada" &&
