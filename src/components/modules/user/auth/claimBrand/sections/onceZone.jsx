@@ -60,7 +60,6 @@ const OnceZone = ({ state, onChange }) => {
                                                 type="text"
                                             />
                                             <Radio size="sm" value={"Otra Galeria"} description="Consultar al vendedor">Otra Galeria</Radio>
-
                                             {
                                                 searchGaleries?.length == 0 ? galeries?.filter(obj => obj?.location === 'Once').map((galeries, i) => (
 
