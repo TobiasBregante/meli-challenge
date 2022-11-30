@@ -12,11 +12,11 @@ const PerTasksPrices = ({ state, handlePrices }) => {
                     label="Apartir de cuantas tareas vendes para hacer envíos"
                     placeholder="Escribe aqui la cantidad"
                     helperColor="error"
-                    helperText={state.prices.minPerCurve.error}
-                    status={state.prices.minPerCurve.error ? "error" : "default"}
+                    helperText={state.prices.minPerTask.error}
+                    status={state.prices.minPerTask.error ? "error" : "default"}
                     contentLeft={<Icon id="inventory" />}
-                    value={state.prices.minPerCurve.value}
-                    onChange={handlePrices("minPerCurve")} />
+                    value={state.prices.minPerTask.value}
+                    onChange={handlePrices("minPerTask")} />
             </Grid>
             <Grid>
                 <Input
@@ -25,11 +25,11 @@ const PerTasksPrices = ({ state, handlePrices }) => {
                     label="Precio por mayor por una tarea"
                     placeholder="Escribe aqui el precio total por mayor por tarea"
                     helperColor="error"
-                    helperText={state.prices.perCurve.error}
-                    status={state.prices.perCurve.error ? "error" : "default"}
+                    helperText={state.prices.perTask.error}
+                    status={state.prices.perTask.error ? "error" : "default"}
                     contentLeft={<Icon id="attach_money" />}
-                    value={state.prices.perCurve.value}
-                    onChange={handlePrices("perCurve")} />
+                    value={state.prices.perTask.value}
+                    onChange={handlePrices("perTask")} />
             </Grid>
 
         </Grid.Container>

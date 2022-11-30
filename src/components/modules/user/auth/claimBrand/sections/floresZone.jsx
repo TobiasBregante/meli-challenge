@@ -17,7 +17,7 @@ const SaladaZone = ({ state, onChange }) => {
     }
 
     const searcher = (e) => {
-        const result = galeries.filter((data) => data.name.toLowerCase().includes(e.target.value.toLowerCase()))
+        const result = galeries.filter((data) => data.name.toLowerCase().includes(e.target.value.toLowerCase()) && data?.location !== 'Once')
         setSearchGaleries(result)
     };
 
@@ -62,7 +62,7 @@ const SaladaZone = ({ state, onChange }) => {
                                             <Radio size="sm" value={"Otra Galeria"} description="Consultar al vendedor">Otra Galeria</Radio>
 
                                             {
-                                                searchGaleries.length == 0 ? galeries.map((galeries, i) => (
+                                                searchGaleries.length == 0 ? galeries?.filter(obj => obj?.location !== 'Once').map((galeries, i) => (
 
                                                     <Radio size="sm" key={i} value={galeries.name} description={`${galeries.street} ${galeries.number}`}>
                                                         {galeries.name}

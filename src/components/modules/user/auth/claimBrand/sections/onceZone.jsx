@@ -17,7 +17,7 @@ const OnceZone = ({ state, onChange }) => {
     }
 
     const searcher = (e) => {
-        const result = galeries.filter((data) => data.name.toLowerCase().includes(e.target.value.toLowerCase()))
+        const result = galeries.filter((data) => data.name.toLowerCase().includes(e.target.value.toLowerCase()) && data?.location === 'Once')
         setSearchGaleries(result)
     };
 
