@@ -8,11 +8,7 @@ import UnorderedList from '@/src/components/modules/products/list/unordered'
 import AdsModals from '@/src/components/modules/products/ads/modals'
 import Get from '@/utils/hooks/get'
 
-const Index = ({ website, wholesaleProducts, wholesaleAndRetailProducts, perQuantityProducts, perCurveProducts, popularProducts, popularBrands }) => {
-
-  // console.log("WhPr: ", wholesaleProducts)
-  // console.log("WhRePr: ", wholesaleAndRetailProducts)
-
+const Index = ({ website, wholesaleProducts, wholesaleAndRetailProducts, perQuantityProducts, perCurveProducts, popularProducts, perTaskProducts, perDozenProducts, popularBrands }) => {
 
 
   return (
@@ -29,6 +25,8 @@ const Index = ({ website, wholesaleProducts, wholesaleAndRetailProducts, perQuan
         <BrandCarousel title="Marcas mas populares" data={popularBrands} />
         <ProductCarousel title="Productos venta por gran cantidad" data={perQuantityProducts} link="/./page/products/bigQuantity" />
         <ProductCarousel title="Productos venta por curva" data={perCurveProducts} link="/./page/products/curve" />
+        <ProductCarousel title="Productos venta por tarea" data={perTaskProducts}  />
+        <ProductCarousel title="Productos venta por docena" data={perDozenProducts}  />
       </Container>
     </Page>
   )
@@ -50,6 +48,11 @@ export async function getServerSideProps(ctx) {
       popularProducts: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
 
       popularBrands: await Get("brands/find/query?limit=10&premiunOnly=true").then(r => r.data).catch(() => []),
+
+      perTaskProducts: await Get("products/find/query?premiunOnly=true&perTask=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
+
+      perDozenProducts: await Get("products/find/query?premiunOnly=true&perDozen=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
+
       website: await Get("website").then(r => r.data).catch(() => ({ }))
     }, // will be passed to the page component as props
   }
