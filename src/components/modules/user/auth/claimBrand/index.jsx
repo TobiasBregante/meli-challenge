@@ -123,11 +123,11 @@ const ClaimPositionModule = ({ website }) => {
         })
     }
 
-    // useEffect(() => {
-    //     if(user) {
-    //         handleImgs()
-    //     }
-    // }, [user])
+    useEffect(() => {
+        if (user) {
+            handleImgs()
+        }
+    }, [user])
 
     if (!user) {
         return (
@@ -153,11 +153,15 @@ const ClaimPositionModule = ({ website }) => {
 
         //zone: la salada
         const isInLaSalada = zone == "la salada"
-
+        // zone: once
+        const isInOnce = zone == "once"
         //zone: flores
-        const isInFlores = zone == "flores" || "once"
+        const isInFlores = zone == "flores"
         const isInGallery = () => {
             if (isInFlores && state.location.isInGallery) {
+                return true
+            }
+            if (isInOnce && state.location.isInGallery) {
                 return true
             }
             if (isInLaSalada && state.location.shed.value == "GALERIAS") {
@@ -165,6 +169,7 @@ const ClaimPositionModule = ({ website }) => {
             }
             return false
         }
+
         //CHECKING
         const Schema = Joi.object({
             brandName: Joi.string().min(3).max(32).messages(stringMessages("Nombre de marca")),
@@ -185,19 +190,21 @@ const ClaimPositionModule = ({ website }) => {
                 row: Joi.string().min(0).max(32).messages(stringMessages("Numero de fila")),
                 floor: Joi.string().min(0).max(32).messages(stringMessages("Piso")),
                 side: Joi.string().min(0).max(32).messages(stringMessages("Lado")),
-                //In case of: flores
+                 //In case of: flores
                 isInGallery: Joi.boolean().messages(booleanMessages("Esta en una galeria")),
                 galleryName: Joi.string().min(isInGallery() ? 1 : 0).max(64).messages(stringMessages("Nombre de la galeria")),
                 positionInGallery: Joi.string().min(isInGallery() ? 1 : 0).max(32).messages(stringMessages("Numero en la galeria")),
-                street: Joi.string().min(isInFlores ? 1 : 0).max(64).messages(stringMessages("Nombre de la calle")),
-                streetNumber: Joi.string().min(isInFlores ? 1 : 0).max(32).messages(stringMessages("Altura de la calle")),
+                // in case of Once and flores
+                street: Joi.string().min(isInOnce && isInFlores ? 1 : 0).max(64).messages(stringMessages("Nombre de la calle")),
+                streetNumber: Joi.string().min(isInOnce && isInFlores ? 1 : 0).max(32).messages(stringMessages("Altura de la calle")),
+                
             })
         })
 
         let formImage = new FormData();
         formImage.append("file", state.imgs.principal)
         const verifyImage = Object.values(formImage).length ? formImage : {
-            name: 'url', 
+            name: 'url',
             size: 142134,
             type: 'image/jpge',
             webkitRelativePath: ""
