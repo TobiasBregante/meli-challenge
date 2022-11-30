@@ -9,8 +9,6 @@ import AdsModals from '@/src/components/modules/products/ads/modals'
 import Get from '@/utils/hooks/get'
 
 const Index = ({ website, wholesaleProducts, wholesaleAndRetailProducts, perQuantityProducts, perCurveProducts, popularProducts, perTaskProducts, perDozenProducts, popularBrands }) => {
-
-
   return (
     <Page>
       <Container lg css={{ mb: "$10" }}>
