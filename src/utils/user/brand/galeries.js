@@ -224,6 +224,7 @@ const galeries = [{ name: "Galeria LA Primera", street: "Bogotá ", number: "346
 {name: "Siglo", number: 2564, street: "Av. Corrientes", location: "Once"},
 {name: "Vía del Sol", number: 2582, street: "Av. Corrientes", location: "Once"},
 {name: "La Juanita", number: 2769, street: "Av. Corrientes", location: "Once"},
+{name: "Pasteur", number: 346, street: "Av. Corrientes", location: "Once"},
 ]
 
 export default galeries
