@@ -25,7 +25,7 @@ const BrandTable = ({ data }) => {
             </Table.Header>
             <Table.Body>
                 {
-                    data.map((brand, i) => (
+                    data.reverse().map((brand, i) => (
                         <Table.Row key={i}>
                             <Table.Cell>{brand.brandName}</Table.Cell>
                             <Table.Cell>{brand.location.zone}</Table.Cell>
