@@ -322,6 +322,13 @@ const UpdateBrandModule = ({ website, data }) => {
                             <Text b h4>
                                 Numero de celular: {data.ownerData.cellPhone}
                             </Text>
+                            {data?.ownerData?.cellPhone2 &&
+                                <>
+                                    <Text b h4>
+                                        Numero alternativo: {data.ownerData.cellPhone2}
+                                    </Text>
+                                </>
+                            }
                         </Card.Body>
                     </Card>
                     <Card variant="flat" css={{ bg: "$white", pb: 20 }}>

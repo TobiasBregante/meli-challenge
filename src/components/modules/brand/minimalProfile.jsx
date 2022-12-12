@@ -4,6 +4,7 @@ import Share from '@/components/modules/common/share'
 import { Button, Card, Grid, Text } from '@nextui-org/react'
 
 const BrandProfileMinimal = ({ data, hideFullProfile }) => {
+   
     return (
         <Card rounded={16} className="d-flex flex-column p-3">
             <Card.Body>
@@ -25,7 +26,7 @@ const BrandProfileMinimal = ({ data, hideFullProfile }) => {
                         Metodo de pago:
                     </Text>
                     <Text >
-                        {data.payMethod.join(",")}
+                        {data.payMethod.join(" - ")}
                     </Text>
                 </Grid.Container>
                 <Grid.Container justify="space-between">
