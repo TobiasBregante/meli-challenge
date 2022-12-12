@@ -6,6 +6,7 @@ import UpdateBrandModule from '@/src/components/modules/brand/update';
 
 const UpdateUser = ({ data, website }) => {
 
+
   return (
     <Page>
       <Container lg >
