@@ -13,6 +13,8 @@ import timeago from "@/src/utils/timeago";
 
 const UpdateUserInfoModule = ({ data }) => {
 
+
+
     const [state, setState] = useState({
         isSeller: data.isSeller,
         //personal data
@@ -31,6 +33,10 @@ const UpdateUserInfoModule = ({ data }) => {
         cellPhone: {
             error: "",
             value: data.cellPhone
+        },
+        cellPhone2: {
+            error: "",
+            value: data.cellPhone2
         }
     })
     const handleOption = (key) => (v) => {
@@ -43,7 +49,8 @@ const UpdateUserInfoModule = ({ data }) => {
             name: Joi.string().min(3).max(32).messages(stringMessages("Nombre")),
             lastName: Joi.string().min(3).max(32).messages(stringMessages("Apellido")),
             email: Joi.string().min(6).max(320).email({ tlds: { allow: false } }).messages(stringMessages("Correo electrónico")),
-            cellPhone: Joi.string().min(8).max(10).messages(stringMessages("Numero de celular"))
+            cellPhone: Joi.string().min(8).max(10).messages(stringMessages("Numero de celular")),
+            cellPhone2: Joi.string().min(8).max(10).messages(stringMessages("Segundo numero de celular "))
         })
 
         const { error } = Schema.validate({
@@ -51,7 +58,8 @@ const UpdateUserInfoModule = ({ data }) => {
             name: state.name.value,
             lastName: state.lastName.value,
             email: state.email.value,
-            cellPhone: state.cellPhone.value
+            cellPhone: state.cellPhone.value,
+            cellPhone2: state.cellPhone2.value
         })
 
         if (!error) {
@@ -61,6 +69,7 @@ const UpdateUserInfoModule = ({ data }) => {
                 lastName: state.lastName.value,
                 email: state.email.value,
                 cellPhone: state.cellPhone.value,
+                cellPhone2: state.cellPhone2.value
             }, {
                 headers: {
                     sldtoken: jsCookie.get("sldtoken")
@@ -186,6 +195,25 @@ const UpdateUserInfoModule = ({ data }) => {
                                     css={{ mb: 20 }}
                                     min={8}
                                     max={14} />
+                                {data.status.isPremiun &&
+                                    <>
+                                        <Input
+                                            clearable
+                                            contentLeft={<Icon id="call" />}
+                                            type="text"
+                                            label="2do Numero de celular"
+                                            placeholder="Escribe aqui tu 2do numero de celular"
+                                            value={state.cellPhone2.value}
+                                            onChange={handleInput("cellPhone2")}
+                                            helperText={state.cellPhone2.error}
+                                            helperColor="error"
+                                            status={state.cellPhone2.error ? "error" : "default"}
+                                            css={{ mb: 20 }}
+                                            min={8}
+                                            max={14} />
+                                    </>
+                                }
+
 
                             </Grid.Container>
 

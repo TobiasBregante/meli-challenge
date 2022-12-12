@@ -6,7 +6,7 @@ import SaveBookmark from '@/components/modules/products/saveBookmark'
 import Share from '@/components/modules/common/share';
 import { useState } from 'react';
 import PriceTable from '@/components/modules/products/view/productInfo/priceTable'
-import { Button, Grid, Text } from '@nextui-org/react';
+import { Button, Grid, Text, Modal } from '@nextui-org/react';
 import LocationBuilder from '../../locationBuilder';
 import { useRouter } from 'next/router';
 import Get from '@/src/utils/hooks/get';
@@ -14,8 +14,18 @@ import WriteReview from '../review/write';
 import { useUserContext } from '@/src/utils/user/provider';
 
 const ProductInfo = ({ data }) => {
+
+    
+
     const router = useRouter()
     const user = useUserContext()
+
+    const [visible, setVisible] = useState(false)
+    const handler = () => setVisible(true)
+
+    const closeHandler = () => {
+        setVisible(false)
+    }
 
     const [isWritingReview, setWriteReview] = useState(false)
 
@@ -46,8 +56,20 @@ const ProductInfo = ({ data }) => {
 
     }
 
+    const contact2 = () => {
+        const productTitle = data.title.toUpperCase()
+        const msg = `Hola, te contacto desde la plataforma SaladaApp! Me interesa el producto: "${productTitle}"`
+        window.open(`https://api.whatsapp.com/send?text=${msg}&phone=54${data.brand.phone2}`)
+        Get(`products/product/${data._id}/whatsappClick`)
+
+        if (!data.reviews?.find(r => r.user._id == user._id)) {
+            setWriteReview(true)
+        }
+
+    }
+
     return (
-        
+
         <Grid.Container direction="column" justify="space-between" css={{ m: 15 }}>
             <WriteReview open={isWritingReview} close={() => setWriteReview(false)} data={data} />
 
@@ -82,12 +104,51 @@ const ProductInfo = ({ data }) => {
                 <PriceTable prices={data.prices} />
             </Grid.Container>
             <Grid.Container>
+                {!data?.brand?.phone2 &&
+                    <>
                 <Button auto
                     iconRight={<Icon id="/whatsappicon" color="$white" />}
                     css={{ bg: "$whatsapp", w: "100%", mb: 10 }}
                     onPress={contact}>
                     CONTACTAR
                 </Button>
+                    </>
+                }
+                {data?.brand?.phone2 &&
+                    <>
+                        <Button auto shadow onClick={handler} iconRight={<Icon id="/whatsappicon" color="$white" />}
+                            css={{ bg: "$whatsapp", w: "100%", mb: 10 }}>
+                            Contactar
+                        </Button>
+                        <Modal
+                            closeButton
+                            aria-labelledby="modal-title"
+                            open={visible}
+                            onClose={closeHandler}>
+
+                            <Modal.Body>
+                                <Button auto
+                                    iconRight={<Icon id="/whatsappicon" color="$white" />}
+                                    css={{ bg: "$whatsapp", w: "100%", mb: 10 }}
+                                    onPress={contact}>
+                                    Numero Primario
+                                </Button>
+
+                                <Button auto
+                                    iconRight={<Icon id="/whatsappicon" color="$white" />}
+                                    css={{ bg: "$whatsapp", w: "100%", mb: 10 }}
+                                    onPress={contact2}>
+                                    Numero Alterno
+                                </Button>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button auto flat color="error" onClick={closeHandler}>
+                                    Cerrar
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                    </>
+                }
                 <Grid.Container justify="space-between">
                     <Grid>
                         <Button auto icon={<Icon id="pin_drop" color="$white" />} onPress={moveToLocation}>
