@@ -14,9 +14,6 @@ import WriteReview from '../review/write';
 import { useUserContext } from '@/src/utils/user/provider';
 
 const ProductInfo = ({ data }) => {
-
-    
-
     const router = useRouter()
     const user = useUserContext()
 
@@ -42,11 +39,31 @@ const ProductInfo = ({ data }) => {
     let rating = data.reviews?.map(a => a.rating)
     rating = rating == undefined ? 5 : Math.round(rating.reduce((a, b) => a + b, 0) / rating.length)
 
-    let productImage = "https://res.cloudinary.com/saladapp/f_auto,c_limit,w_1920,q_auto/"
+
+    let salesData = "Consulta"
+
+    if (data?.prices?.wholesale > 0) {
+        salesData = "Venta por mayor"
+    }
+    if (data?.prices?.wholesale > 0 && data?.prices?.retail > 0) {
+        salesData = "Venta por mayor y menor"
+    }
+    if (data?.prices?.perDozen > 0) {
+        salesData = "Venta por docena"
+    }
+    if (data?.prices?.perCurve > 0) {
+        salesData = "Venta por curva"
+    }
+    if (data?.prices?.pertask > 0) {
+        salesData = "Venta por tarea"
+    }
+    if (data?.prices?.perQuantity > 0) {
+        salesData = "Venta por cantidad"
+    }
 
     const contact = () => {
         const productTitle = data.title.toUpperCase()
-        const msg = `Hola, te contacto desde la plataforma SaladaApp! Me interesa el producto: "${productTitle}"`
+        const msg = `Hola, te contacto desde la plataforma SaladaApp! Me interesa el producto de ${salesData}: ${productTitle}`
         window.open(`https://api.whatsapp.com/send?text=${msg}&phone=54${data.brand.phone}`)
         Get(`products/product/${data._id}/whatsappClick`)
 
