@@ -18,6 +18,7 @@ export default ProductPage
 
 export async function getServerSideProps(ctx) {
   const data = await Get(`products/product/${ctx.params._id}?withBrand=true`).then(r=>r.data).catch(()=>({}))
+  
   return {
     props: {
       data: data,
