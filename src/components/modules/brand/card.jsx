@@ -68,13 +68,13 @@ const BrandCard = ({ data }) => {
     return (
         <Card variant="flat" css={{ bg: "$white" }} isHoverable isPressable>
             <a href={`/./brand/${data._id}`}>
-                <Image src={`/${data.imgs ? data.imgs.background : "brandImgBackground"}`} width={1280} height={720} alt={data.brandName}
+                <Image src={`/${data.imgs ? data.imgs.background : "brandImgBackground"}`} width={1280} height={720}
                     className="blured" />
             </a>
-            <Grid.Container justify="center" css={{ position: 'absolute', mt: 95, "@xsMax": { mt: 10 }, }}>
+            <Grid.Container justify="center" css={{ position: 'absolute', mt: 15, "@xsMax": { mt: 10 }, }}>
                 <Grid >
                     <a href={`/./brand/${data._id}`}>
-                        <Image src={`/${data.imgs ? data.imgs.principal : "brandImgDefault"}`} width={"90vw"} height={"90vh"} alt={data.brandName} className="rounded-circle " />
+                        <Image src={`/${data.imgs ? data.imgs.principal : "brandImgDefault"}`} width={"180vw"} height={"180vh"} alt={data.brandName} className="rounded-circle " />
                     </a>
                 </Grid>
             </Grid.Container>
