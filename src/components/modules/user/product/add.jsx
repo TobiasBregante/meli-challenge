@@ -78,23 +78,23 @@ const ManageProduct = ({ website, data }) => {
         description: { error: "", value: data?.description || "" },
         imgs: { error: "", value: data?.imgs || [] },
         prices: {
-            retail: { error: "", value: data?.prices.retail || 0 },
+            retail: { error: "", value: data?.prices?.retail || 0 },
 
-            minPerWholesale: { error: "", value: data?.prices.minPerWholesale || 0 },
-            wholesale: { error: "", value: data?.prices.wholesale || 0 },
+            minPerWholesale: { error: "", value: data?.prices?.minPerWholesale || 0 },
+            wholesale: { error: "", value: data?.prices?.wholesale || 0 },
 
-            minPerDozen: { error: "", value: data?.prices.minPerDozen || 0 },
-            perDozen: { error: "", value: data?.prices.perDozen || 0 },
+            minPerDozen: { error: "", value: data?.prices?.minPerDozen || 0 },
+            perDozen: { error: "", value: data?.prices?.perDozen || 0 },
 
-            minPerQuantity: { error: "", value: data?.prices.minPerQuantity || 0 },
-            perQuantity: { error: "", value: data?.prices.perQuantity || 0 },
-            typePerQuantity: { error: "", value: data?.prices.typePerQuantity || undefined},
+            minPerQuantity: { error: "", value: data?.prices?.minPerQuantity || 0 },
+            perQuantity: { error: "", value: data?.prices?.perQuantity || 0 },
+            typePerQuantity: { error: "", value: data?.prices?.typePerQuantity || undefined},
 
-            minPerCurve: { error: "", value: data?.prices.minPerCurve || 0 },
-            perCurve: { error: "", value: data?.prices.perCurve || 0 },
+            minPerCurve: { error: "", value: data?.prices?.minPerCurve || 0 },
+            perCurve: { error: "", value: data?.prices?.perCurve || 0 },
 
-            minPerTask: { error: "", value: data?.prices.minPerTask || 0 },
-            perTask: { error: "", value: data?.prices.perTask || 0 },
+            minPerTask: { error: "", value: data?.prices?.minPerTask || 0 },
+            perTask: { error: "", value: data?.prices?.perTask || 0 },
         }
     }
 
@@ -195,16 +195,16 @@ const ManageProduct = ({ website, data }) => {
                                 </Card.Header>
                                 <Card.Body>
                                     <Text b h4>
-                                        Nombre: {data.brand.brandName}
+                                        Nombre: {data?.brand?.brandName}
                                     </Text>
                                     <Text b h4>
-                                        Ubicación: {data.brand.location.zone}
+                                        Ubicación: {data?.brand?.location.zone}
                                     </Text>
                                     <Text b h4>
-                                        Numero: {data.brand.phone}
+                                        Numero: {data?.brand?.phone}
                                     </Text>
                                     <Text b h4>
-                                        Es premiun: {data.brand.isPremiun ? "Si" : "No"}
+                                        Es premiun: {data?.brand?.isPremiun ? "Si" : "No"}
                                     </Text>
                                 </Card.Body>
                             </Card>

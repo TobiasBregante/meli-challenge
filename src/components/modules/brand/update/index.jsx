@@ -28,26 +28,26 @@ const UpdateBrandModule = ({ website, data }) => {
     const user = useUserContext()
 
     const [state, setState] = useState({
-        brandName: { error: "", value: data.brandName },
-        isWholesaleAndRetail: data.isWholesaleAndRetail,
-        category: { error: "", value: data.category },
-        shippingBy: { error: "", value: data.shippingBy },
-        payMethod: { error: "", value: data.payMethod },
+        brandName: { error: "", value: data?.brandName },
+        isWholesaleAndRetail: data?.isWholesaleAndRetail,
+        category: { error: "", value: data?.category },
+        shippingBy: { error: "", value: data?.shippingBy },
+        payMethod: { error: "", value: data?.payMethod },
         location: {
-            zone: { error: "", value: data.location.zone },
+            zone: { error: "", value: data?.location?.zone },
             //this is in case of: la salada
-            shed: { error: "", value: data.location.shed },
-            stallNumber: { error: "", value: data.location.stallNumber },
-            hallway: { error: "", value: data.location.hallway },
-            row: { error: "", value: data.location.row },
-            floor: { error: "", value: data.location.floor },
-            side: { error: "", value: data.location.side },
+            shed: { error: "", value: data?.location?.shed },
+            stallNumber: { error: "", value: data?.location?.stallNumber },
+            hallway: { error: "", value: data?.location?.hallway },
+            row: { error: "", value: data?.location?.row },
+            floor: { error: "", value: data?.location?.floor },
+            side: { error: "", value: data?.location?.side },
             //this is in case of: flores
-            isInGallery: data.location.isInGallery,
-            galleryName: { error: "", value: data.location.galleryName },
-            positionInGallery: { error: "", value: data.location.positionInGallery },
-            street: { error: "", value: data.location.street },
-            streetNumber: { error: "", value: data.location.streetNumber },
+            isInGallery: data?.location?.isInGallery,
+            galleryName: { error: "", value: data?.location?.galleryName },
+            positionInGallery: { error: "", value: data?.location?.positionInGallery },
+            street: { error: "", value: data?.location?.street },
+            streetNumber: { error: "", value: data?.location?.streetNumber },
         },
     }),
         [isSubmiting, setSubmiting] = useState(false)
