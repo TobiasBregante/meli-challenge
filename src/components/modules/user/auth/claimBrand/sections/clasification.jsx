@@ -35,7 +35,7 @@ const Clasification = ({ state, onChange, website }) => {
                     <Dropdown>
                         <Dropdown.Button flat color="$gray">
                             {
-                                state.category.value.length == 0 ? "Eligé una categoria" : state.category.value
+                                state?.category?.value?.length == 0 ? "Eligé una categoria" : state.category.value
                             }
                         </Dropdown.Button>
                         <Dropdown.Menu
@@ -75,7 +75,7 @@ const Clasification = ({ state, onChange, website }) => {
                     <Dropdown>
                         <Dropdown.Button flat color="$gray">
                             {
-                                state.payMethod.value.length == 0 ? "Eligé un metodo" : Array.from(state.payMethod.value).join(", ").replaceAll("_", " ")
+                                state?.payMethod?.value.length === 0 ? "Eligé un metodo" : Array.from(state.payMethod.value).join(", ").replaceAll("_", " ")
                             }
                         </Dropdown.Button>
                         <Dropdown.Menu
