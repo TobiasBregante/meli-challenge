@@ -44,11 +44,6 @@ const ProductModule = ({ data, relateds,brandProducts }) => {
 
                 <Grid.Container css={{ mt: 20 }} gap={2}>
                     <Grid xs={12} md={8}>
-                        <ProductComments data={data} />
-                    </Grid>
-                </Grid.Container>
-                <Grid.Container css={{ mt: 20 }} gap={2}>
-                    <Grid xs={12} md={8}>
                         <ProductReviews data={data} />
                     </Grid>
                 </Grid.Container>
