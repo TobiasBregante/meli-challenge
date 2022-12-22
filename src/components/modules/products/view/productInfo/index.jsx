@@ -13,6 +13,9 @@ import Get from '@/src/utils/hooks/get';
 import WriteReview from '../review/write';
 import { useUserContext } from '@/src/utils/user/provider';
 
+import ProductComments from "@/components/modules/products/view/comments";
+
+
 const ProductInfo = ({ data }) => {
     const router = useRouter()
     const user = useUserContext()
@@ -120,15 +123,18 @@ const ProductInfo = ({ data }) => {
                 </Grid.Container>
                 <PriceTable prices={data.prices} />
             </Grid.Container>
+            <Grid>
+                <ProductComments data={data} />
+            </Grid>
             <Grid.Container>
                 {!data?.brand?.phone2 &&
                     <>
-                <Button auto
-                    iconRight={<Icon id="/whatsappicon" color="$white" />}
-                    css={{ bg: "$whatsapp", w: "100%", mb: 10 }}
-                    onPress={contact}>
-                    CONTACTAR
-                </Button>
+                        <Button auto
+                            iconRight={<Icon id="/whatsappicon" color="$white" />}
+                            css={{ bg: "$whatsapp", w: "100%", mb: 10 }}
+                            onPress={contact}>
+                            CONTACTAR
+                        </Button>
                     </>
                 }
                 {data?.brand?.phone2 &&
