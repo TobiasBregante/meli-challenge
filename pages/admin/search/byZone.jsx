@@ -1,11 +1,11 @@
 import Page from '@Page'
 import { Container, Grid } from '@nextui-org/react'
 import SideBar from '@/src/components/modules/admin/sidebar'
-import SearchByEmailModule from '@/src/components/modules/search/byEmail'
+import SearchByZoneModule from '@/src/components/modules/search/byZone'
 import { useState } from 'react'
 import Get from '@/src/utils/hooks/get'
 
-const SearchByEmailPage = ({ data }) => {
+const SearchByZonePage = ({ data }) => {
 
     const [state,setState] = useState(data)
 
@@ -14,10 +14,10 @@ const SearchByEmailPage = ({ data }) => {
             <Container lg css={{ mb: "$10" }}>
                 <Grid.Container gap={2}>
                     <Grid xs={12} md={3} >
-                        <SideBar selected="searchByEmail"/>
+                        <SideBar selected="searchByZone"/>
                     </Grid>
                     <Grid xs={12} md={9}>
-                        <SearchByEmailModule data={data} state={state} setState={setState}/>
+                        <SearchByZoneModule data={data} state={state} setState={setState}/>
                     </Grid>
                 </Grid.Container>
                 
@@ -26,13 +26,13 @@ const SearchByEmailPage = ({ data }) => {
     )
 }
 
-export default SearchByEmailPage
+export default SearchByZonePage
 
 export async function getServerSideProps(ctx) {
 
     return {
         props: {
-            data: await Get("user/find?limit=100000").then(r => r.data).catch(() => [])
+            data: await Get("brands/find/query?getAll=true").then(r => r.data).catch(() => [])
         }
     }
 }

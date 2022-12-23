@@ -4,16 +4,16 @@ import Icon from "@/ui/icons"
 import { useRouter } from "next/router"
 import Sheds from '@/utils/user/brand/sheds'
 
-const SearchFilters = ({ categories, params }) => {
+const SearchFilters = ({ categories, params, products, productChange }) => {
     const [state, setState] = useState({
         orderBy: new Set(["Más popular"]),
         isWholeSale: null,
         category: null,
         isStore: true,
         zone: new Set([params.zone || "Todas las ubicaciones"]),
-        shed: new Set(["Todos los galpones"]),
-    }),
-        [isOpen, setOpen] = useState(false)
+        shed: new Set(["Todos los galpones"])
+    })
+    const [isOpen, setOpen] = useState(false)
     const router = useRouter()
 
     const handleSelect = name => e => {
@@ -21,6 +21,8 @@ const SearchFilters = ({ categories, params }) => {
             ...state,
             [name]: e
         })
+        if (name === 'zone') productChange(e)
+        
         if (Array.from(e)[0] == "Todas las ubicaciones" || Array.from(e)[0] == "Todos los galpones") {
             return handleFilter(name, "all")()
         }
@@ -62,11 +64,11 @@ const SearchFilters = ({ categories, params }) => {
 
     return (
         <Grid.Container direction="column">
-            <Button icon={<Icon id="filter_list" color="white" />} onPress={()=>setOpen(!isOpen)} css={{"@sm": { d: "none" }}}>
+            <Button icon={<Icon id="filter_list" color="white" />} onPress={() => setOpen(!isOpen)} css={{ "@sm": { d: "none" } }}>
                 Filtros
             </Button>
             <Card css={{ h: "auto", "@smMax": { d: isOpen ? "none" : "" } }}>
-                <Card.Header css={{"@smMax": { d: "none" }}}>
+                <Card.Header css={{ "@smMax": { d: "none" } }}>
                     <Icon id="filter_list" />
                     <Text h3>Filtros</Text>
                 </Card.Header>
@@ -133,7 +135,7 @@ const SearchFilters = ({ categories, params }) => {
                                 <Grid>
                                     <Button auto
                                         icon={<Icon id="checkroom" />}
-                                        ghost={params.useBrand == "true"  /**should return false */}
+                                        ghost={params.useBrand === "true"  /**should return false */}
                                         onPress={handleFilter("useBrand", false)}
                                         color="secondary"
                                         css={{ color: "$black", mb: 5 }}>
@@ -158,7 +160,7 @@ const SearchFilters = ({ categories, params }) => {
 
 
                         {
-                            params.useBrand && params.useBrand == "true" &&
+                            params.useBrand && params.useBrand === "false" &&
                             <>
                                 <Grid>
                                     <Text h4 css={{ mt: 10 }}>
@@ -181,40 +183,13 @@ const SearchFilters = ({ categories, params }) => {
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </Grid>
-                                {
-                                    zone == "la salada" &&
-                                    <Grid>
-                                        <Text h4 css={{ mt: 10 }}>
-                                            ¿En que galpón estan?
-                                        </Text>
-                                        <Dropdown>
-                                            <Dropdown.Button color="secondary" css={{ color: "$black" }}>
-                                                {
-                                                    shed
-                                                }
-                                            </Dropdown.Button>
-                                            <Dropdown.Menu
-                                                selectionMode="single"
-                                                selectedKeys={shed}
-                                                onSelectionChange={handleSelect("shed")}
-                                            >
-                                                <Dropdown.Item key="Todos los galpones">Todos los galpones</Dropdown.Item>
-                                                {
-                                                    Sheds.map(shed => (
-                                                        <Dropdown.Item key={shed.shed}>{shed.shed}</Dropdown.Item>
-                                                    ))
-                                                }
-                                            </Dropdown.Menu>
-
-                                        </Dropdown>
-                                    </Grid>}
                             </>
                         }
 
 
 
                         <Text h4 css={{ mt: 10 }}>
-                            Categoria
+                            Categorias
                         </Text>
                         <Grid>
 
