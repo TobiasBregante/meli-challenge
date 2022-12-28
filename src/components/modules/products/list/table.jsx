@@ -1,7 +1,10 @@
 import { Table } from "@nextui-org/react"
 import { useRouter } from "next/router"
+import { showNameInTable } from "./utils"
 
 const ProductsTable = ({ data, isSeller }) => {
+
+    // console.log("DATA -> ", data)
     const router = useRouter()
     const handleClick = e =>{
         const product = data[Array.from(e)[0]]
@@ -22,6 +25,7 @@ const ProductsTable = ({ data, isSeller }) => {
                 <Table.Column>Titulo</Table.Column>
                 <Table.Column>Marca</Table.Column>
                 <Table.Column>Ubicación</Table.Column>
+                <Table.Column>Tipo de Venta</Table.Column>
             </Table.Header>
             <Table.Body>
                 {
@@ -30,6 +34,7 @@ const ProductsTable = ({ data, isSeller }) => {
                             <Table.Cell>{product?.title}</Table.Cell>
                             <Table.Cell>{product?.brand?.brandName}</Table.Cell>
                             <Table.Cell>{product?.brand?.location?.zone}</Table.Cell>
+                            <Table.Cell>{showNameInTable(product?.prices)}</Table.Cell>
                         </Table.Row>
                     ))
                 }
