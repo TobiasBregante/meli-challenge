@@ -70,7 +70,7 @@ const Header = () => {
                                 </a>
                             </Grid>
                             <Grid>
-                                <Grid.Container gap={.5}>
+                                <Grid.Container gap={1}>
                                     <Grid css={{ "@smMax": { display: "none" } }}>
                                         <Input
                                             color="white"
