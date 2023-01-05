@@ -10,8 +10,7 @@ import ProductReviews from './review';
 import ProductDescription from './description';
 import ProductTimeStamp from './timestamp';
 
-const ProductModule = ({ data, relateds,brandProducts }) => {
-
+const ProductModule = ({ data, relateds, brandProducts, userInfo}) => {
 
     return (
         <>
@@ -22,7 +21,7 @@ const ProductModule = ({ data, relateds,brandProducts }) => {
                             <ProductImageCarrousel imgs={data?.imgs} />
                         </Grid>
                         <Grid xs={12} md={5}>
-                            <ProductInfo data={data} />
+                            <ProductInfo data={data} userInfo={userInfo}/>
                         </Grid>
                     </Grid.Container>
                 </Card>
