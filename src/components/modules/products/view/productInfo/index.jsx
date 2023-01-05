@@ -16,7 +16,7 @@ import { useUserContext } from '@/src/utils/user/provider';
 import ProductComments from "@/components/modules/products/view/comments";
 
 
-const ProductInfo = ({ data }) => {
+const ProductInfo = ({ data , userInfo}) => {
     const router = useRouter()
     const user = useUserContext()
 
@@ -133,7 +133,7 @@ const ProductInfo = ({ data }) => {
                             iconRight={<Icon id="/whatsappicon" color="$white" />}
                             css={{ bg: "$whatsapp", w: "100%", mb: 10 }}
                             onPress={contact}>
-                            CONTACTAR
+                            Contactar con {userInfo.name} 
                         </Button>
                     </>
                 }
@@ -141,7 +141,7 @@ const ProductInfo = ({ data }) => {
                     <>
                         <Button auto shadow onClick={handler} iconRight={<Icon id="/whatsappicon" color="$white" />}
                             css={{ bg: "$whatsapp", w: "100%", mb: 10 }}>
-                            Contactar
+                            Contactar con {userInfo.name}
                         </Button>
                         <Modal
                             closeButton
