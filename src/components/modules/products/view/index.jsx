@@ -18,7 +18,7 @@ const ProductModule = ({ data, relateds, brandProducts, userInfo}) => {
                 <Card>
                     <Grid.Container css={{ minWidth: 0 }}>
                         <Grid xs={12} md={7} >
-                            <ProductImageCarrousel imgs={data.imgs} />
+                            <ProductImageCarrousel imgs={data?.imgs} />
                         </Grid>
                         <Grid xs={12} md={5}>
                             <ProductInfo data={data} userInfo={userInfo}/>
@@ -30,14 +30,14 @@ const ProductModule = ({ data, relateds, brandProducts, userInfo}) => {
                     <Grid xs={12} md={8}>
                         <Card>
                             <Card.Body>
-                                <ProductLocation data={data.brand.location} />
-                                <ProductDescription data={data.description} />
+                                <ProductLocation data={data?.brand?.location} />
+                                <ProductDescription data={data?.description} />
                                 <ProductTimeStamp data={data}/>
                             </Card.Body>
                         </Card>
                     </Grid>
                     <Grid xs={12} md={4}>
-                        <BrandProfileMinimal data={data.brand} />
+                        <BrandProfileMinimal data={data?.brand} />
                     </Grid>
                 </Grid.Container>
 
