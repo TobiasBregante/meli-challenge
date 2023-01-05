@@ -10,7 +10,7 @@ import IsNotOwner from '@/components/modules/user/errors/isNotOwner';
 import ShouldBePremiun from '@/components/modules/user/errors/shouldBePremiun'
 import HardLimit from '@/components/modules/user/errors/hardLimit'
 
-import { Button, Card, Checkbox, Container, Grid, Input, Link, Loading, Text, Textarea } from "@nextui-org/react";
+import { Button, Card, Checkbox, Container, Grid, Input, Link, Loading, Text, Textarea, Spacer } from "@nextui-org/react";
 import Clasification from "./sections/clasification";
 import ImagesSection from "./sections/images";
 //Validation
@@ -68,6 +68,8 @@ const PricesManager = ({ state, handlePrices, data }) => {
 
 const ManageProduct = ({ website, data }) => {
 
+    
+
     const router = useRouter()
     const user = useUserContext()
 
@@ -107,6 +109,15 @@ const ManageProduct = ({ website, data }) => {
         }
     }
 
+    const [mailState , setMailState] = useState("")
+
+    const handleChange = (e) => {
+    setMailState(e.target.value)
+    }
+
+
+    const [showInput, setShowInput] = useState(false);
+       
 
     if (!user) {
         return (
@@ -234,6 +245,34 @@ const ManageProduct = ({ website, data }) => {
                                     </Grid>
                                     <Grid>
                                         <Grid.Container>
+                                            {user.isAdmin &&
+                                            <>
+                                            <Checkbox color="warning" isSelected={showInput} size="sm" onChange={setShowInput}>
+                                                Estas agregando productos de otro usuario?</Checkbox>
+                                            <Spacer x={1} />
+                                            </>
+                                            }
+                                        
+                                        </Grid.Container>
+                                        
+                                        <Grid.Container>
+                                            {
+                                                showInput && <Input  
+                                                // clearable
+                                                size="lg"
+                                                // width={50}
+                                                placeholder="Escribe aqui su e-mail"
+                                                helperColor="error"
+                                                contentLeft={<Icon id="mail" />}
+                                                value={mailState}
+                                                onChange={handleChange}
+                                                />
+                                            }
+                                        </Grid.Container>
+                                    </Grid>
+
+                                    <Grid>
+                                        <Grid.Container>
                                             <Input
                                                 clearable
                                                 label="Titulo del producto"
@@ -300,7 +339,8 @@ const ManageProduct = ({ website, data }) => {
                                             Eliminar producto
                                         </Button>
                                     }
-                                    <Submit state={state} setState={setState} data={data} resetState={resetState} />
+                                    <Submit state={state} setState={setState} data={data} resetState={resetState} showInput={showInput}
+                                    mailState={mailState} />
                                 </Grid.Container>
                             </Card.Body>
                         </Card>

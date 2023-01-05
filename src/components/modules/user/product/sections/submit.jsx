@@ -10,7 +10,9 @@ import jsCookie from 'js-cookie'
 import Post from "@/src/utils/hooks/post"
 import { useRouter } from "next/router"
 
-const Submit = ({ state, setState, data, resetState }) => {
+const Submit = ({ state, setState, data, resetState, showInput, mailState }) => {
+
+ 
 
     const [isSubmiting, setSubmiting] = useState(false)
     const user = useUserContext()
@@ -80,6 +82,7 @@ const Submit = ({ state, setState, data, resetState }) => {
                 perTask: Joi.number().min(sellingBy("task") ? 1 : 0).max(999999).messages(numberMessages("Por tarea"))
             }),
             imgs: Joi.array(),
+            
         })
 
         const { error, value } = Schema.validate({
@@ -109,6 +112,9 @@ const Submit = ({ state, setState, data, resetState }) => {
             }
         })
 
+        
+
+      
 
         if (error) {
             console.error(error);
@@ -179,9 +185,17 @@ const Submit = ({ state, setState, data, resetState }) => {
                         return false
                     })
             })
+
+            
+
             const updateOrAdd = (body) => {
+               
                 if (data) {
-                    Post(`products/product/${data._id}/update`, body, {
+                    Post(`products/product/${data._id}/update`, 
+                    {
+                        ...body, 
+                    ...(email && email)
+                    }, {
                         headers: {
                             sldtoken: jsCookie.get("sldtoken")
                         }
@@ -197,8 +211,13 @@ const Submit = ({ state, setState, data, resetState }) => {
                         toast.error("Ocurrio un error de nuestro lado")
                         setSubmiting(false)
                     })
-                } else {
-                    Put("products/add", body, {
+               } else {
+                    Put("products/add", 
+                    {
+                    ...body, 
+                    ...(showInput && mailState.length && {email: mailState})
+                    },
+                     {
                         headers: {
                             sldtoken: jsCookie.get("sldtoken")
                         }
