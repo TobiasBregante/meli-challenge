@@ -53,6 +53,7 @@ const ClaimPositionModule = ({ website }) => {
             streetNumber: { error: "", value: "" },
         },
     })
+
     const [isSubmiting, setSubmiting] = useState(false)
 
     const handleBrandName = (e) => {
@@ -114,6 +115,7 @@ const ClaimPositionModule = ({ website }) => {
     }
 
     const handleImgs = (key) => e => {
+
         setState({
             ...state,
             imgs: {
@@ -140,7 +142,7 @@ const ClaimPositionModule = ({ website }) => {
         )
     }
 
-    if (user.brand != undefined) {
+    if (user.brand !== undefined) {
         return <CantRegisterBrand />
     }
 
@@ -177,8 +179,7 @@ const ClaimPositionModule = ({ website }) => {
             category: Joi.string().min(1).max(128).messages(stringMessages("Categoria")),
             shippingBy: Joi.string().min(1).max(128).messages(stringMessages("Transporte de envios")),
             imgs: Joi.object({
-                principal: Joi.string(),
-                background: Joi.string()
+                principal: Joi.string()
             }),
             payMethod: Joi.array().items(Joi.string().min(1).max(128).messages(stringMessages("Metodo de pago"))),
             location: Joi.object({
@@ -203,13 +204,14 @@ const ClaimPositionModule = ({ website }) => {
 
         let formImage = new FormData();
         formImage.append("file", state.imgs.principal)
+
         const verifyImage = Object.values(formImage).length ? formImage : {
             name: 'url',
             size: 142134,
             type: 'image/jpge',
             webkitRelativePath: ""
-
         }
+
         Post("products/addImage", verifyImage, {
             headers: {
                 sldtoken: jsCookie.get("sldtoken"),
@@ -297,7 +299,7 @@ const ClaimPositionModule = ({ website }) => {
                 }).then(res => {
                     toast(res.data.msg)
                     setSubmiting(false)
-                    if (state.location.zone == "online") {
+                    if (state.location.zone === "online") {
                         window.open("https://api.whatsapp.com/send?text=Hola%20quiero%20contratar%20el%20plan%20premiun&phone=+541170895828")
                     } else {
                         router.push("/./user/products/add")
