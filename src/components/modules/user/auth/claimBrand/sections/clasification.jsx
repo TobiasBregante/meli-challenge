@@ -35,7 +35,7 @@ const Clasification = ({ state, onChange, website }) => {
                     <Dropdown>
                         <Dropdown.Button flat color="$gray">
                             {
-                                state?.category?.value?.length == 0 ? "Eligé una categoria" : state.category.value
+                                state?.category?.value?.length == 0 ? "Eligé una categoria" : state?.category?.value
                             }
                         </Dropdown.Button>
                         <Dropdown.Menu
@@ -52,7 +52,7 @@ const Clasification = ({ state, onChange, website }) => {
 
                     </Dropdown>
                     <Text small color="error">
-                        {state.category.error}
+                        {state?.category?.error}
                     </Text>
                 </Grid>
 
@@ -61,11 +61,11 @@ const Clasification = ({ state, onChange, website }) => {
                         clearable
                         label="Empresa de envios"
                         placeholder="Escribe aqui"
-                        helperText={state.shippingBy.error}
+                        helperText={state?.shippingBy?.error}
                         helperColor="error"
-                        status={state.shippingBy.error ? "error" : "default"}
+                        status={state?.shippingBy?.error ? "error" : "default"}
                         onChange={onChange("shippingBy")}
-                        value={state.shippingBy.value}
+                        value={state?.shippingBy?.value}
                         css={{ w: "100%" }} />
                 </Grid>
                 <Grid>
@@ -75,7 +75,7 @@ const Clasification = ({ state, onChange, website }) => {
                     <Dropdown>
                         <Dropdown.Button flat color="$gray">
                             {
-                                state?.payMethod?.value.length === 0 ? "Eligé un metodo" : Array.from(state.payMethod.value).join(", ").replaceAll("_", " ")
+                                state?.payMethod?.value?.length === 0 ? "Eligé un metodo" : Array.from(state?.payMethod?.value ? state.payMethod.value : []).join(", ").replaceAll("_", " ")
                             }
                         </Dropdown.Button>
                         <Dropdown.Menu
@@ -90,7 +90,7 @@ const Clasification = ({ state, onChange, website }) => {
 
                     </Dropdown>
                     <Text small color="error">
-                        {state.payMethod.error}
+                        {state?.payMethod?.error}
                     </Text>
                 </Grid>
             </Grid.Container>
