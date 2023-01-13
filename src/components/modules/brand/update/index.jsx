@@ -1,12 +1,15 @@
 import Icon from "@/ui/icons";
 import { useEffect, useState } from 'react';
+import { FileUploader } from "react-drag-drop-files"
 import { useRouter } from 'next/router';
+
 import { useUserContext } from '@/src/utils/user/provider';
 import ShouldLogin from '@/components/modules/user/errors/shouldLogin';
 import ShouldBeSeller from '@/components/modules/user/errors/shouldBeSeller';
 import CantRegisterBrand from '@/components/modules/user/errors/cantRegisterBrand'
 import SellingMode from '@/components/modules/user/auth/claimBrand/sections/sellingMode'
 import SellZone from '@/components/modules/user/auth/claimBrand/sections/sellZone'
+
 //Section: Zones
 import SaladaZone from '@/components/modules/user/auth/claimBrand/sections/saladaZone'
 import FloresZone from '@/components/modules/user/auth/claimBrand/sections/floresZone'
@@ -15,7 +18,7 @@ import { numberMessages, stringMessages, booleanMessages } from '@/utils/joi/cus
 import Joi from 'joi';
 import { toast } from 'react-toastify'
 import Put from '@/src/utils/hooks/put';
-import { Avatar, Button, Card, Grid, Input, Loading, Text } from "@nextui-org/react";
+import { Avatar, Button, Card, Grid, Input, Loading, Spacer, Text } from "@nextui-org/react";
 import Clasification from "@/components/modules/user/auth/claimBrand/sections/clasification";
 import jsCookie from 'js-cookie'
 import get from '@/utils/hooks/get'
@@ -24,6 +27,7 @@ import timeago from "@/src/utils/timeago";
 import Get from "@/utils/hooks/get";
 
 const UpdateBrandModule = ({ website, data }) => {
+
     const router = useRouter()
     const user = useUserContext()
 
@@ -33,6 +37,9 @@ const UpdateBrandModule = ({ website, data }) => {
         category: { error: "", value: data?.category },
         shippingBy: { error: "", value: data?.shippingBy },
         payMethod: { error: "", value: data?.payMethod },
+        imgs: {
+            principal: "NI35_W3jmftQURiB_rR_LR0IUkjGXl77"
+        },        
         location: {
             zone: { error: "", value: data?.location?.zone },
             //this is in case of: la salada
@@ -49,10 +56,13 @@ const UpdateBrandModule = ({ website, data }) => {
             street: { error: "", value: data?.location?.street },
             streetNumber: { error: "", value: data?.location?.streetNumber },
         },
-    }),
-        [isSubmiting, setSubmiting] = useState(false)
+    })
 
+    const [isSubmiting, setSubmiting] = useState(false)
+   
+    const [showImageComponent, setShowImageComponent] = useState(false)
 
+    const [newImage, setNewImage] = useState("")
 
     if (!user) {
         return (
@@ -118,7 +128,24 @@ const UpdateBrandModule = ({ website, data }) => {
         })
     }
 
+    
+    const handleImageComponent = () => {
+        setShowImageComponent(true)
+    }
+
+    const handleImgs = (key) => e => {
+
+        setState({
+            ...state,
+            imgs: {
+                [key]: e
+            }
+        })
+    }
+  
+
     //SUBMIT
+    
     const submit = () => {
 
         setSubmiting(true)
@@ -136,6 +163,8 @@ const UpdateBrandModule = ({ website, data }) => {
             return false
         }
 
+       
+
         //CHECKING
         const Schema = Joi.object({
             brandName: Joi.string().min(3).max(32).messages(stringMessages("Nombre de marca")),
@@ -143,6 +172,9 @@ const UpdateBrandModule = ({ website, data }) => {
             category: Joi.string().min(1).max(128).messages(stringMessages("Categoria")),
             shippingBy: Joi.string().min(1).max(128).messages(stringMessages("Transporte de envios")),
             payMethod: Joi.array().items(Joi.string().min(1).max(128).messages(stringMessages("Metodo de pago"))),
+            imgs: Joi.object({
+                principal: Joi.string().min(1).max(128)
+             }),
             location: Joi.object({
                 zone: Joi.string().messages(stringMessages("Donde planeas vender")),
                 //in case of: la salada
@@ -161,97 +193,119 @@ const UpdateBrandModule = ({ website, data }) => {
             })
         })
 
-        const { error, value } = Schema.validate({
-            brandName: state.brandName.value,
-            isWholesaleAndRetail: state.isWholesaleAndRetail,
-            category: state.category.value,
-            shippingBy: state.shippingBy.value,
-            payMethod: state.payMethod.value,
-            location: {
-                zone: state.location.zone.value,
-                shed: state.location.shed.value,
-                stallNumber: state.location.stallNumber.value,
-                hallway: state.location.hallway.value,
-                row: state.location.row.value,
-                floor: state.location.floor.value,
-                side: state.location.side.value,
-                isInGallery: state.location.isInGallery,
-                galleryName: state.location.galleryName.value,
-                positionInGallery: state.location.positionInGallery.value,
-                street: state.location.street.value,
-                streetNumber: state.location.streetNumber.value,
+        let formImage = new FormData();
+        formImage.append("file", state.imgs.principal)
+        
+        
+
+        Post("products/addImage", formImage, {
+            headers: {
+                sldtoken: jsCookie.get("sldtoken"),
+                "Content-Type": "multipart/form-data"
             }
-        })
-
-        console.error(error);
-
-        if (state.isWholesaleAndRetail == null) {
-            setSubmiting(false)
-            toast.error("Elige si vas a vender por menor o por mayor")
-        }
-        if (state.payMethod.value.length == 0) {
-            setSubmiting(false)
-            return setState({
-                ...state,
-                payMethod: {
-                    value: [],
-                    error: "Elige al menos un metodo de pago"
+        }).then(res => {
+            
+            const { error, value } = Schema.validate({
+                brandName: state.brandName.value,
+                isWholesaleAndRetail: state.isWholesaleAndRetail,
+                category: state.category.value,
+                shippingBy: state.shippingBy.value,
+                imgs: {
+                    principal: res.data.img_id,
+                },
+                payMethod: state.payMethod.value,
+                location: {
+                    zone: state.location.zone.value,
+                    shed: state.location.shed.value,
+                    stallNumber: state.location.stallNumber.value,
+                    hallway: state.location.hallway.value,
+                    row: state.location.row.value,
+                    floor: state.location.floor.value,
+                    side: state.location.side.value,
+                    isInGallery: state.location.isInGallery,
+                    galleryName: state.location.galleryName.value,
+                    positionInGallery: state.location.positionInGallery.value,
+                    street: state.location.street.value,
+                    streetNumber: state.location.streetNumber.value,
                 }
             })
-        }
 
-
-        if (error) {
-            setSubmiting(false)
-            if (error.details[0].path.length == 2) {
+            setNewImage(res.data.img_id)
+            
+            if (state.isWholesaleAndRetail == null) {
+                setSubmiting(false)
+                toast.error("Elige si vas a vender por menor o por mayor")
+            }
+            if (state.payMethod.value.length == 0) {
+                setSubmiting(false)
                 return setState({
                     ...state,
-                    [error.details[0].path[0]]: {
-                        ...state[error.details[0].path[0]],
-                        [error.details[0].path[1]]: {
-                            value: state[error.details[0].path[0]][error.details[0].path[1]].value,
-                            error: error.details[0].message
-                        }
+                    payMethod: {
+                        value: [],
+                        error: "Elige al menos un metodo de pago"
                     }
                 })
             }
-            return setState({
-                ...state,
-                [error.details[0].path[0]]: {
-                    value: state[error.details[0].path[0]].value,
-                    error: error.details[0].message
-                }
-            })
-        }
-
-        if (isInLaSalada && state.location.shed.value == "") {
-            setSubmiting(false)
-            return toast.error("Elige en que galpon planeas vender")
-        }
-
-
-        if (!error) {
-
-            Post(`brands/brand/${data._id}/update`, value, {
-                headers: {
-                    sldtoken: jsCookie.get("sldtoken")
-                }
-            }).then(res => {
-                toast(res.data.msg)
-                return setSubmiting(false)
-
-            }).catch(err => {
-                if (err.response.data) {
-                    toast.error(err.response.data);
-                }
-                toast.error("Ocurrio un error de nuestro lado")
+            
+            
+            if (error) {
                 setSubmiting(false)
-            })
-        }
+                if (error.details[0].path.length == 2) {
+                    return setState({
+                        ...state,
+                        [error.details[0].path[0]]: {
+                            ...state[error.details[0].path[0]],
+                            [error.details[0].path[1]]: {
+                                value: state[error.details[0].path[0]][error.details[0].path[1]].value,
+                                error: error.details[0].message
+                            }
+                        }
+                    })
+                }
+                return setState({
+                    ...state,
+                    [error.details[0].path[0]]: {
+                        value: state[error.details[0].path[0]].value,
+                        error: error.details[0].message
+                    }
+                })
+            }
+            
+            if (isInLaSalada && state.location.shed.value === "") {
+                setSubmiting(false)
+                return toast.error("Elige en que galpon planeas vender")
+            }
+            
+            
+            if (!error) {
+    
+                Post(`brands/brand/${data._id}/update`, value, {
+                    headers: {
+                        sldtoken: jsCookie.get("sldtoken")
+                    }
+                }).then(res => {
+                    toast(res.data.msg)
+                    return setSubmiting(false)
+                    
+                }).catch(err => {
+                    if (err?.response?.data) {
+                        toast.error(err.response.data);
+                    }
+                    toast.error("Ocurrio un error de nuestro lado")
+                    setSubmiting(false)
+                })
+            }
+        
+        
+        
+        })
+
+      
+        
 
     }
 
-
+    
     const validateFor = (index) => {
         const now = new Date()
         const dates = ["now",
@@ -259,7 +313,7 @@ const UpdateBrandModule = ({ website, data }) => {
             new Date(now.getFullYear(), now.getMonth() + 3, now.getDate()),
             new Date(now.getFullYear(), now.getMonth() + 6, now.getDate()),
             new Date(now.getFullYear() + 1, now.getMonth(), now.getDate())]
-
+        
         Post(`brands/brand/${data._id}/update`, {
             isActiveUntil: dates[index]
         }, {
@@ -300,7 +354,9 @@ const UpdateBrandModule = ({ website, data }) => {
             setSubmiting(false)
         })
     }
-
+    
+    
+    
     return (
         <Grid.Container justify="center" >
             <Grid xs={12} sm={9} >
@@ -310,7 +366,13 @@ const UpdateBrandModule = ({ website, data }) => {
                             <Text h3>
                                 Datos del vendedor
                             </Text>
-                            <Avatar css={{ marginLeft: '$10' }} squared src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${data?.imgs?.principal || 'NI35_W3jmftQURiB_rR_LR0IUkjGXl77'}`} />
+                            <Spacer/>                           
+                            <Avatar css={{ marginLeft: '$10' , size: "$20" }}  
+                            squared src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${newImage || data.imgs.principal}`} />                           
+                            <Spacer/>
+                            <Button size="xs" bordered color="warning"  ghost  onPress={() => handleImageComponent()}>
+                            Editar imagen
+                            </Button>
                         </Card.Header>
                         <Card.Body>
                             <Text b h4>
@@ -331,6 +393,17 @@ const UpdateBrandModule = ({ website, data }) => {
                             }
                         </Card.Body>
                     </Card>
+                    {showImageComponent &&             
+                    <Grid css={{ border: "orange dashed 3px", p: "$10", textAlign: "center", bgColor: "White" }} className="rounded-16">
+                        <FileUploader handleChange={handleImgs("principal")} name="file" types={["jpg", "png", "jpeg", "avif", "webp", "jiff"]} css={{backgroundColor: 'red'}} >
+                            <Text>
+                             Arrastra y suelta la imagen aquí o presiona para elegir de tu galería
+                            </Text>
+                        </FileUploader>
+                    </Grid>
+                
+                    }
+                    <Spacer/>
                     <Card variant="flat" css={{ bg: "$white", pb: 20 }}>
                         <Card.Header>
                             <Grid.Container justify="center">
@@ -354,12 +427,12 @@ const UpdateBrandModule = ({ website, data }) => {
                                         clearable
                                         label="Nombre de la marca"
                                         placeholder="Escribe aqui"
-                                        helperText={state.brandName.error}
+                                        helperText={state?.brandName?.error}
                                         helperColor="error"
-                                        status={state.brandName.error ? "error" : "default"}
+                                        status={state?.brandName?.error ? "error" : "default"}
                                         onChange={handleBrandName}
                                         contentLeft={<Icon id="title" />}
-                                        value={state.brandName.value}
+                                        value={state?.brandName?.value}
                                         css={{ w: "100%" }} />
                                 </Grid>
                                 <Grid css={{ mt: 5 }}>
@@ -369,15 +442,15 @@ const UpdateBrandModule = ({ website, data }) => {
                                     <Clasification state={state} onChange={handleGenericString} website={website} />
                                 </Grid>
                                 <Grid>
-                                    <SellZone zone={state.location.zone} onClick={handleZone} />
+                                    <SellZone zone={state.location?.zone} onClick={handleZone} />
                                 </Grid>
                                 <Grid>
                                     {
-                                        state.location.zone.value == "la salada" &&
+                                        state.location?.zone?.value == "la salada" &&
                                         <SaladaZone state={state.location} onChange={handleLocation} />
                                     }
                                     {
-                                        state.location.zone.value == "flores" &&
+                                        state.location?.zone?.value == "flores" &&
                                         <FloresZone state={state.location} onChange={handleLocation} />
                                     }
                                 </Grid>
