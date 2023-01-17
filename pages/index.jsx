@@ -35,7 +35,7 @@ export default Index
 export async function getServerSideProps(ctx) {
   return {
     props: {
-      wholesaleProducts: await Get("products/find/query?&premiunOnly=true&isWholesale=true&limit=10&isPublic=true&popular=true").then(r => r.data).catch(() => []),
+      wholesaleProducts: await Get("products/find/query?&premiunOnly=true&isWholesale=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
 
       wholesaleAndRetailProducts: await Get("products/find/query?premiunOnly=true&isWholesaleAndRetail=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
 
