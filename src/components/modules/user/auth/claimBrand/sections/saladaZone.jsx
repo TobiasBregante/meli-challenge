@@ -101,12 +101,15 @@ const SaladaZone = ({ state, onChange, data, user, stands: standsArray, setStand
     const [shed, setShed] = useState(state?.shed?.value),
         [gallery, setGallery] = useState(state?.galleryName?.value),
         [floor, setFloor] = useState(state?.floor?.value),
-        [side, setSide] = useState(state?.side?.value)
-    const [hallway, setHallway] = useState(state?.hallway?.value || "")
+        [side, setSide] = useState(state?.side?.value),
+        [hallway, setHallway] = useState(state?.hallway?.value || ""),
+        [stallNumber, setStallNumber] = useState(state?.stallNumber?.value),
+        [row, setRow] = useState(state?.row?.value)
+
+        const[showAddStandButton, setShowAddStandButton]= useState(false);
 
 
     const handleShed = e => {
-        console.log({ e })
         setShed(Object.values(e)[0])
         if (Object.values(e)[0] !== undefined) {
             onChange("shed")({ target: { value: Object.values(e)[0] } })
@@ -115,12 +118,6 @@ const SaladaZone = ({ state, onChange, data, user, stands: standsArray, setStand
             onChange("shed")({ target: { value: "" } })
         }
     }
-
-    // console.log({gallery})
-    // console.log({shed})
-    // console.log({floor})
-    // console.log({side})
-    // console.log({hallway})
 
     const handleGallery = e => {
         setGallery(Object.values(e)[0])
@@ -140,7 +137,6 @@ const SaladaZone = ({ state, onChange, data, user, stands: standsArray, setStand
         }
     }
 
-    // console.log({floor})
 
     const handleSide = e => {
         setSide(Object.values(e)[0])
@@ -171,7 +167,7 @@ const SaladaZone = ({ state, onChange, data, user, stands: standsArray, setStand
     }
 
     const handleStallNumber = (e) => {
-
+        setStallNumber(e.target.value)
         if (GalleryProps().stallLetter == true) {
             return onChange("stallNumber")({ target: { value: e.target.value.replace(/[0-9]/g, '') } })
         }
@@ -179,7 +175,7 @@ const SaladaZone = ({ state, onChange, data, user, stands: standsArray, setStand
 
     }
 
-    // console.log({stallNumberState})
+  
 
 
     const UseFloor = () => {
@@ -268,7 +264,7 @@ const SaladaZone = ({ state, onChange, data, user, stands: standsArray, setStand
         }
     }
 
-    const UseRow = () => {
+    const UseRow = ({row, setRow}) => {
         let check = false
         if (ShedProps().requestRow != undefined) {
             check = true
@@ -292,8 +288,12 @@ const SaladaZone = ({ state, onChange, data, user, stands: standsArray, setStand
                         helperText={state?.row?.error}
                         helperColor="error"
                         status={state?.row?.error ? "error" : "default"}
-                        value={state?.row?.value}
-                        onChange={onChange("row")} />
+                        value={row}
+                        onChange={(e)=>{
+                            setRow(e.target.value)
+                            onChange("row")}
+                            } 
+                            />
                 </Grid>
             )
         }
@@ -302,19 +302,35 @@ const SaladaZone = ({ state, onChange, data, user, stands: standsArray, setStand
 
     }
 
-    const handleButtonAdd = () => {
-        setStandsArray([...standsArray, { shed, stallNumber: state?.stallNumber?.value, floor, galleryName: gallery, isInGallery: !!gallery, row: state.row.value, side, hallway }])
+    const handleButtonAddStand = () => {
+        if(!showAddStandButton){
+            setShowAddStandButton(true);
+            setShed("")
+            setGallery("")
+            setSide("")
+            setFloor("")
+            setHallway("")
+            setStallNumber("")
+            setRow("")
+            return;
+        }
+
+        setStandsArray([...standsArray, { shed, stallNumber, floor, galleryName: gallery, isInGallery: !!gallery, row, side, hallway }])
 
         setShed("")
         setGallery("")
         setSide("")
         setFloor("")
+        setHallway("")
+        setStallNumber("")
+        setRow("")
     }
 
-    // console.log({ standsArray })
+
 
     return (
         <Grid.Container gap={2}>
+            {(standsArray.length === 0 || showAddStandButton) &&<>
             <Grid>
                 <Text>
                     ¿En que galpón estan?
@@ -379,7 +395,7 @@ const SaladaZone = ({ state, onChange, data, user, stands: standsArray, setStand
             <UseHallway state={state} GalleryProps={GalleryProps} ShedProps={ShedProps} side={side} onChange={onChange} hallway={hallway} setHallway={setHallway} />
             <UseFloor />
             <UseSide />
-            <UseRow />
+            <UseRow row={row} setRow={setRow}/>
             <Grid>
                 <Text>
                     Numero de puesto
@@ -391,14 +407,15 @@ const SaladaZone = ({ state, onChange, data, user, stands: standsArray, setStand
                     helperText={state?.stallNumber?.error}
                     helperColor="error"
                     status={state?.stallNumber?.error ? "error" : "default"}
-                    value={state?.stallNumber?.value}
+                    value={stallNumber}
                     onChange={handleStallNumber} />
             </Grid>
+            </>}
             <Spacer />
             <Grid>
                 {
                     data.isPremiun && user.isAdmin &&
-                    <Button color="warning" auto ghost onPress={handleButtonAdd}>
+                    <Button color="warning" auto ghost onPress={handleButtonAddStand}>
                         Agrega nuevo puesto
                     </Button>
                 }
@@ -407,9 +424,9 @@ const SaladaZone = ({ state, onChange, data, user, stands: standsArray, setStand
             <Grid.Container gap={2} justify="center">
                 <Text>Puestos Vigentes: </Text>
                 {
-                    standsArray.length > 0 && standsArray.map(stand => (
-                        <Grid>
-                            <Card variant="bordered">
+                    standsArray.length > 0 && standsArray.map((stand, i) => (
+                        <Grid key={`stand-${i}`}>
+                            <Card variant="bordered" key={`stand-card-${i}`}>
                                 <Card.Header>
                                     <Text>Galpon: {stand.shed} </Text>
                                 </Card.Header>
