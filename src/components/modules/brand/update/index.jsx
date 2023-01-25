@@ -31,6 +31,9 @@ const UpdateBrandModule = ({ website, data }) => {
     const router = useRouter()
     const user = useUserContext()
 
+    console.log({data})
+    // console.log({user})
+
     const [state, setState] = useState({
         brandName: { error: "", value: data?.brandName },
         isWholesaleAndRetail: data?.isWholesaleAndRetail,
@@ -55,8 +58,9 @@ const UpdateBrandModule = ({ website, data }) => {
             positionInGallery: { error: "", value: data?.location?.positionInGallery },
             street: { error: "", value: data?.location?.street },
             streetNumber: { error: "", value: data?.location?.streetNumber },
-        },
+        }
     })
+    const [stands, setStands]= useState(data?.stands || [])
 
     const [isSubmiting, setSubmiting] = useState(false)
    
@@ -178,19 +182,31 @@ const UpdateBrandModule = ({ website, data }) => {
             location: Joi.object({
                 zone: Joi.string().messages(stringMessages("Donde planeas vender")),
                 //in case of: la salada
-                shed: Joi.string().min(isInLaSalada ? 1 : 0).messages(stringMessages("Galpón")),
+                shed:  Joi.string().min(isInLaSalada ? 1 : 0).messages(stringMessages("Galpón")),
                 stallNumber: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Numero de puesto")),
                 hallway: Joi.string().min(0).max(32).messages(stringMessages("Numero de pasillo")),
-                row: Joi.string().min(0).max(32).messages(stringMessages("Numero de fila")),
+                row:  Joi.string().min(0).max(32).messages(stringMessages("Numero de fila")),
                 floor: Joi.string().min(0).max(32).messages(stringMessages("Piso")),
-                side: Joi.string().min(0).max(32).messages(stringMessages("Lado")),
+                side:  Joi.string().min(0).max(32).messages(stringMessages("Lado")),
                 //In case of: flores
                 isInGallery: Joi.boolean().messages(booleanMessages("Esta en una galeria")),
                 galleryName: Joi.string().min(isInGallery() ? 1 : 0).max(64).messages(stringMessages("Nombre de la galeria")),
                 positionInGallery: Joi.string().min(isInGallery() ? 1 : 0).max(32).messages(stringMessages("Numero en la galeria")),
                 street: Joi.string().min(isInFlores ? 1 : 0).max(64).messages(stringMessages("Nombre de la calle")),
                 streetNumber: Joi.string().min(isInFlores ? 1 : 0).max(32).messages(stringMessages("Altura de la calle"))
-            })
+            }),
+            stands: Joi.array().items(Joi.object({
+                //in case of: la salada
+                shed:  Joi.string().min(isInLaSalada ? 1 : 0).messages(stringMessages("Galpón")),
+                stallNumber: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Numero de puesto")),
+                hallway: Joi.string().min(0).max(32).messages(stringMessages("Numero de pasillo")),
+                row:  Joi.string().min(0).max(32).messages(stringMessages("Numero de fila")),
+                floor:  Joi.string().min(0).max(32).messages(stringMessages("Piso")),
+                side:  Joi.string().min(0).max(32).messages(stringMessages("Lado")),
+                isInGallery: Joi.boolean().messages(booleanMessages("Esta en una galeria")),
+                galleryName: Joi.string().min(isInGallery() ? 1 : 0).max(64).messages(stringMessages("Nombre de la galeria"))
+                //In case of: flores
+            }))
         })
 
         let formImage = new FormData();
@@ -227,7 +243,8 @@ const UpdateBrandModule = ({ website, data }) => {
                     positionInGallery: state.location.positionInGallery.value,
                     street: state.location.street.value,
                     streetNumber: state.location.streetNumber.value,
-                }
+                },
+                stands,
             })
 
             setNewImage(res.data.img_id)
@@ -249,6 +266,7 @@ const UpdateBrandModule = ({ website, data }) => {
             
             
             if (error) {
+                console.log({error})
                 setSubmiting(false)
                 if (error.details[0].path.length == 2) {
                     return setState({
@@ -368,7 +386,7 @@ const UpdateBrandModule = ({ website, data }) => {
                             </Text>
                             <Spacer/>                           
                             <Avatar css={{ marginLeft: '$10' , size: "$20" }}  
-                            squared src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${newImage || data.imgs.principal}`} />                           
+                            squared src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${newImage || data?.imgs?.principal}`} />                           
                             <Spacer/>
                             <Button size="xs" bordered color="warning"  ghost  onPress={() => handleImageComponent()}>
                             Editar imagen
@@ -447,7 +465,7 @@ const UpdateBrandModule = ({ website, data }) => {
                                 <Grid>
                                     {
                                         state.location?.zone?.value == "la salada" &&
-                                        <SaladaZone state={state.location} onChange={handleLocation} />
+                                        <SaladaZone data={data} user={user} state={state.location} onChange={handleLocation} stands={stands} setStands={setStands} />
                                     }
                                     {
                                         state.location?.zone?.value == "flores" &&
