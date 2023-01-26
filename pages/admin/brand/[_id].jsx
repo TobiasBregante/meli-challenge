@@ -5,6 +5,7 @@ import SideBar from '@/src/components/modules/admin/sidebar';
 import UpdateBrandModule from '@/src/components/modules/brand/update';
 
 const UpdateUser = ({ data, website }) => {
+  // console.log('aqui',data)
 
 
   return (
@@ -30,6 +31,10 @@ export async function getServerSideProps(ctx) {
 
   const brandData = await Get(`brands/brand/${ctx.params._id}?byPass=true`).then(r => r.data).catch(() => ({}))
   brandData.ownerData = await Get(`user/${brandData.isOwnedBy}`).then(r => r.data).catch(() => ({}))
+
+  // zP8_qXHI6UK9kR0f
+
+  
 
   return {
     props: {
