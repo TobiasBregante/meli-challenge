@@ -326,6 +326,10 @@ const SaladaZone = ({ state, onChange, data, user, stands: standsArray, setStand
         setRow("")
     }
 
+    const handleButtonDeleteStand = (i) => {
+        const filteredStands = standsArray.filter((s , index) => index !== i)
+        setStandsArray(filteredStands)
+    } 
 
 
     return (
@@ -431,6 +435,9 @@ const SaladaZone = ({ state, onChange, data, user, stands: standsArray, setStand
                                     <Text>Galpon: {stand.shed} </Text>
                                 </Card.Header>
                                 <Card.Body>
+                                    {     
+                                        stand?.galleryName?.length > 0 && <Text>Nombre:&nbsp; {stand.galleryName}</Text>
+                                    }
                                     <Text> Nº de puesto: {stand.stallNumber}</Text>
                                     {
                                         stand?.row?.length > 0 && <Text>Nº de fila: {stand.row}</Text>
@@ -443,8 +450,9 @@ const SaladaZone = ({ state, onChange, data, user, stands: standsArray, setStand
                                     }
                                 </Card.Body>
                                 <Row justify="flex-end">
-                                    <Card.Footer>
-                                        <Button size="xs"> X </Button>
+                                <Card.Footer>
+                                        <Spacer x={3}/>
+                                        <Button onPress={() => handleButtonDeleteStand(i)}  borderWeight="bold" size="xs" color="error" rounded auto ghost> X </Button>
                                     </Card.Footer>
                                 </Row>
                             </Card>
