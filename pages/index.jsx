@@ -45,7 +45,7 @@ export async function getServerSideProps(ctx) {
 
       popularProducts: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
 
-      popularBrands: await Get("brands/find/query?limit=10&premiunOnly=true").then(r => r.data).catch(() => []),
+      popularBrands: await Get("brands/find/query?limit=10&premiunOnly=true&popular=true").then(r => r.data).catch(() => []),
 
       perTaskProducts: await Get("products/find/query?premiunOnly=true&perTask=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
 

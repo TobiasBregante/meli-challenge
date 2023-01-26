@@ -31,6 +31,8 @@ const UpdateBrandModule = ({ website, data }) => {
     const router = useRouter()
     const user = useUserContext()
 
+    const isLaSalada = data?.location?.zone === 'la salada'
+
     const [state, setState] = useState({
         brandName: { error: "", value: data?.brandName },
         isWholesaleAndRetail: data?.isWholesaleAndRetail,
@@ -39,27 +41,44 @@ const UpdateBrandModule = ({ website, data }) => {
         payMethod: { error: "", value: data?.payMethod },
         imgs: {
             principal: "NI35_W3jmftQURiB_rR_LR0IUkjGXl77"
-        },        
+        },
         location: {
             zone: { error: "", value: data?.location?.zone },
             //this is in case of: la salada
-            shed: { error: "", value: data?.location?.shed },
-            stallNumber: { error: "", value: data?.location?.stallNumber },
-            hallway: { error: "", value: data?.location?.hallway },
-            row: { error: "", value: data?.location?.row },
-            floor: { error: "", value: data?.location?.floor },
-            side: { error: "", value: data?.location?.side },
+            shed: { error: "", value: isLaSalada ? '' : data?.location?.shed },
+            stallNumber: { error: "", value: isLaSalada ? '' :data?.location?.stallNumber },
+            hallway: { error: "", value: isLaSalada ? '' :data?.location?.hallway },
+            row: { error: "", value: isLaSalada ? '' :data?.location?.row },
+            floor: { error: "", value: isLaSalada ? '' :data?.location?.floor },
+            side: { error: "", value: isLaSalada ? '' :data?.location?.side },
             //this is in case of: flores
             isInGallery: data?.location?.isInGallery,
-            galleryName: { error: "", value: data?.location?.galleryName },
+            galleryName: { error: "", value: isLaSalada ? '' : data?.location?.galleryName },
             positionInGallery: { error: "", value: data?.location?.positionInGallery },
             street: { error: "", value: data?.location?.street },
             streetNumber: { error: "", value: data?.location?.streetNumber },
-        },
+        }
     })
+    const [stands, setStands] = useState(data?.stands.concat({
+        shed: data?.location?.shed,
+        stallNumber: data?.location?.stallNumber,
+        hallway: data?.location?.hallway,
+        row: data?.location?.row,
+        floor: data?.location?.floor,
+        side: data?.location?.side,
+        //this is in case of: flores
+        isInGallery: data?.location?.isInGallery,
+        galleryName: data?.location?.galleryName,
+    }))
+
+    useEffect(() => {
+        if (!isLaSalada) {
+            setStands([])
+        }
+    }, [isLaSalada])
 
     const [isSubmiting, setSubmiting] = useState(false)
-   
+
     const [showImageComponent, setShowImageComponent] = useState(false)
 
     const [newImage, setNewImage] = useState("")
@@ -99,7 +118,8 @@ const UpdateBrandModule = ({ website, data }) => {
     }
 
     const handleLocation = (key) => (e) => {
-        if (key == "isInGallery") {
+
+        if (key === "isInGallery") {
             return setState({
                 ...state, location: {
                     ...state.location,
@@ -128,7 +148,7 @@ const UpdateBrandModule = ({ website, data }) => {
         })
     }
 
-    
+
     const handleImageComponent = () => {
         setShowImageComponent(true)
     }
@@ -142,20 +162,19 @@ const UpdateBrandModule = ({ website, data }) => {
             }
         })
     }
-  
 
     //SUBMIT
-    
+
     const submit = () => {
 
         setSubmiting(true)
         const zone = state.location.zone.value
 
         //zone: la salada
-        const isInLaSalada = zone == "la salada"
+        const isInLaSalada = zone === "la salada"
 
         //zone: flores
-        const isInFlores = zone == "flores"
+        const isInFlores = zone === "flores"
         const isInGallery = () => {
             if (isInFlores && state.location.isInGallery) {
                 return true
@@ -163,7 +182,7 @@ const UpdateBrandModule = ({ website, data }) => {
             return false
         }
 
-       
+
 
         //CHECKING
         const Schema = Joi.object({
@@ -174,7 +193,7 @@ const UpdateBrandModule = ({ website, data }) => {
             payMethod: Joi.array().items(Joi.string().min(1).max(128).messages(stringMessages("Metodo de pago"))),
             imgs: Joi.object({
                 principal: Joi.string().min(1).max(128)
-             }),
+            }),
             location: Joi.object({
                 zone: Joi.string().messages(stringMessages("Donde planeas vender")),
                 //in case of: la salada
@@ -190,13 +209,25 @@ const UpdateBrandModule = ({ website, data }) => {
                 positionInGallery: Joi.string().min(isInGallery() ? 1 : 0).max(32).messages(stringMessages("Numero en la galeria")),
                 street: Joi.string().min(isInFlores ? 1 : 0).max(64).messages(stringMessages("Nombre de la calle")),
                 streetNumber: Joi.string().min(isInFlores ? 1 : 0).max(32).messages(stringMessages("Altura de la calle"))
-            })
+            }),
+            stands: Joi.array().items(Joi.object({
+                //in case of: la salada
+                shed: Joi.string().min(isInLaSalada ? 1 : 0).messages(stringMessages("Galpón")),
+                stallNumber: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Numero de puesto")),
+                hallway: Joi.string().min(0).max(32).messages(stringMessages("Numero de pasillo")),
+                row: Joi.string().min(0).max(32).messages(stringMessages("Numero de fila")),
+                floor: Joi.string().min(0).max(32).messages(stringMessages("Piso")),
+                side: Joi.string().min(0).max(32).messages(stringMessages("Lado")),
+                isInGallery: Joi.boolean().messages(booleanMessages("Esta en una galeria")),
+                galleryName: Joi.string().min(isInGallery() ? 1 : 0).max(64).messages(stringMessages("Nombre de la galeria")),
+                //In case of: flores
+            }))
         })
 
         let formImage = new FormData();
         formImage.append("file", state.imgs.principal)
-        
-        
+
+
 
         Post("products/addImage", formImage, {
             headers: {
@@ -204,7 +235,7 @@ const UpdateBrandModule = ({ website, data }) => {
                 "Content-Type": "multipart/form-data"
             }
         }).then(res => {
-            
+
             const { error, value } = Schema.validate({
                 brandName: state.brandName.value,
                 isWholesaleAndRetail: state.isWholesaleAndRetail,
@@ -227,11 +258,12 @@ const UpdateBrandModule = ({ website, data }) => {
                     positionInGallery: state.location.positionInGallery.value,
                     street: state.location.street.value,
                     streetNumber: state.location.streetNumber.value,
-                }
+                },
+                stands: state.location.zone.value !== 'la salada' ? []: stands,
             })
 
             setNewImage(res.data.img_id)
-            
+
             if (state.isWholesaleAndRetail == null) {
                 setSubmiting(false)
                 toast.error("Elige si vas a vender por menor o por mayor")
@@ -246,8 +278,8 @@ const UpdateBrandModule = ({ website, data }) => {
                     }
                 })
             }
-            
-            
+
+
             if (error) {
                 setSubmiting(false)
                 if (error.details[0].path.length == 2) {
@@ -270,15 +302,15 @@ const UpdateBrandModule = ({ website, data }) => {
                     }
                 })
             }
-            
+
             if (isInLaSalada && state.location.shed.value === "") {
                 setSubmiting(false)
                 return toast.error("Elige en que galpon planeas vender")
             }
-            
-            
+
+
             if (!error) {
-    
+
                 Post(`brands/brand/${data._id}/update`, value, {
                     headers: {
                         sldtoken: jsCookie.get("sldtoken")
@@ -286,7 +318,7 @@ const UpdateBrandModule = ({ website, data }) => {
                 }).then(res => {
                     toast(res.data.msg)
                     return setSubmiting(false)
-                    
+
                 }).catch(err => {
                     if (err?.response?.data) {
                         toast.error(err.response.data);
@@ -295,17 +327,17 @@ const UpdateBrandModule = ({ website, data }) => {
                     setSubmiting(false)
                 })
             }
-        
-        
-        
+
+
+
         })
 
-      
-        
+
+
 
     }
 
-    
+
     const validateFor = (index) => {
         const now = new Date()
         const dates = ["now",
@@ -313,7 +345,7 @@ const UpdateBrandModule = ({ website, data }) => {
             new Date(now.getFullYear(), now.getMonth() + 3, now.getDate()),
             new Date(now.getFullYear(), now.getMonth() + 6, now.getDate()),
             new Date(now.getFullYear() + 1, now.getMonth(), now.getDate())]
-        
+
         Post(`brands/brand/${data._id}/update`, {
             isActiveUntil: dates[index]
         }, {
@@ -354,9 +386,9 @@ const UpdateBrandModule = ({ website, data }) => {
             setSubmiting(false)
         })
     }
-    
-    
-    
+
+
+
     return (
         <Grid.Container justify="center" >
             <Grid xs={12} sm={9} >
@@ -366,12 +398,12 @@ const UpdateBrandModule = ({ website, data }) => {
                             <Text h3>
                                 Datos del vendedor
                             </Text>
-                            <Spacer/>                           
-                            <Avatar css={{ marginLeft: '$10' , size: "$20" }}  
-                            squared src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${newImage || data.imgs.principal}`} />                           
-                            <Spacer/>
-                            <Button size="xs" bordered color="warning"  ghost  onPress={() => handleImageComponent()}>
-                            Editar imagen
+                            <Spacer />
+                            <Avatar css={{ marginLeft: '$10', size: "$20" }}
+                                squared src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${newImage || data?.imgs?.principal}`} />
+                            <Spacer />
+                            <Button size="xs" bordered color="warning" ghost onPress={() => handleImageComponent()}>
+                                Editar imagen
                             </Button>
                         </Card.Header>
                         <Card.Body>
@@ -393,17 +425,17 @@ const UpdateBrandModule = ({ website, data }) => {
                             }
                         </Card.Body>
                     </Card>
-                    {showImageComponent &&             
-                    <Grid css={{ border: "orange dashed 3px", p: "$10", textAlign: "center", bgColor: "White" }} className="rounded-16">
-                        <FileUploader handleChange={handleImgs("principal")} name="file" types={["jpg", "png", "jpeg", "avif", "webp", "jiff"]} css={{backgroundColor: 'red'}} >
-                            <Text>
-                             Arrastra y suelta la imagen aquí o presiona para elegir de tu galería
-                            </Text>
-                        </FileUploader>
-                    </Grid>
-                
+                    {showImageComponent &&
+                        <Grid css={{ border: "orange dashed 3px", p: "$10", textAlign: "center", bgColor: "White" }} className="rounded-16">
+                            <FileUploader handleChange={handleImgs("principal")} name="file" types={["jpg", "png", "jpeg", "avif", "webp", "jiff"]} css={{ backgroundColor: 'red' }} >
+                                <Text>
+                                    Arrastra y suelta la imagen aquí o presiona para elegir de tu galería
+                                </Text>
+                            </FileUploader>
+                        </Grid>
+
                     }
-                    <Spacer/>
+                    <Spacer />
                     <Card variant="flat" css={{ bg: "$white", pb: 20 }}>
                         <Card.Header>
                             <Grid.Container justify="center">
@@ -447,7 +479,7 @@ const UpdateBrandModule = ({ website, data }) => {
                                 <Grid>
                                     {
                                         state.location?.zone?.value == "la salada" &&
-                                        <SaladaZone state={state.location} onChange={handleLocation} />
+                                        <SaladaZone data={data} user={user} state={state.location} onChange={handleLocation} stands={stands} setStands={setStands} />
                                     }
                                     {
                                         state.location?.zone?.value == "flores" &&
