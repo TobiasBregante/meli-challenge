@@ -193,8 +193,7 @@ const Submit = ({ state, setState, data, resetState, showInput, mailState }) => 
                 if (data) {
                     Post(`products/product/${data._id}/update`, 
                     {
-                        ...body, 
-                    ...(email && email)
+                        ...body
                     }, {
                         headers: {
                             sldtoken: jsCookie.get("sldtoken")
