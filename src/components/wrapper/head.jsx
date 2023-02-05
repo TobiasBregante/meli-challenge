@@ -65,6 +65,11 @@ const Head = ({ title, description, image }) => {
                     gtag('config', 'G-JD7QXS9TKV');
                 }}
             />
+            <Script 
+                async 
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8155864058242383"
+                crossorigin="anonymous"
+            />
             <noscript
                 dangerouslySetInnerHTML={{
                     __html: `<img height="1" width="1" style="display:none"

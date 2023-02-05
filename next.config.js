@@ -1,13 +1,13 @@
 module.exports = {
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: 'https://nezzed.com',
-        permanent: true,
-      },
-    ]
-  },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/',
+  //       destination: 'https://nezzed.com',
+  //       permanent: true,
+  //     },
+  //   ]
+  // },
   reactStrictMode: true, //Will run twice useEffect, with that been said, userProvider is going to request twice user/me
   images: {
     loader: 'cloudinary',
