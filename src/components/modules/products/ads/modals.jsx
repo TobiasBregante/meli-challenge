@@ -4,7 +4,7 @@ import Image from "next/image"
 const AdsModals = ({ img, link }) => {
     return (
         <Modal open={true} >
-            <a href={link} target='_blank'>
+            <a href={link}>
                 <Image src={img} alt='ads' layout='responsive' width={1000} height={1000} objectFit='contain'/>
             </a>
         </Modal>
