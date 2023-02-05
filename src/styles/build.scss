@@ -11,3 +11,8 @@
 @import "../../node_modules/react-toastify/dist/ReactToastify.min.css";
 
 
+.nextui-modal {
+    padding: 0 !important;
+    background-color: rgba(0, 0, 0, .3);
+    backdrop-filter: saturate(180%) blur(14px);
+}

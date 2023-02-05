@@ -12,9 +12,7 @@ const Index = ({ website, wholesaleProducts, wholesaleAndRetailProducts, perQuan
   return (
     <Page>
       <Container lg css={{ mb: "$10" }}>
-        {
-          /**<AdsModals img={website.popup.img} link={website.popup.link}/> */
-        }
+        <AdsModals img={website?.popup?.img} link={website?.popup?.link}/>
         <HighLightCarousel data={website.highlights} />
         <ProductCarousel title="Productos venta solo por mayor" data={wholesaleProducts} link="/./page/products/wholesale" />
         <ProductCarousel title="Productos venta por menor y mayor" data={wholesaleAndRetailProducts} link="/./page/products/wholesaleAndRetail" />
