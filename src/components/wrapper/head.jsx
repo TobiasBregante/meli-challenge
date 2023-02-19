@@ -4,11 +4,6 @@ import Script from 'next/script'
 const Head = ({ title, description, image }) => {
     return (
         <NextHead>
-            <Script 
-                async 
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8155864058242383"
-                crossorigin="anonymous"
-            />
             {/* <!-- Google tag (gtag.js) --> */}
             <Script async src="https://www.googletagmanager.com/gtag/js?id=G-5TQSMKBP1Y" />
             <Script
