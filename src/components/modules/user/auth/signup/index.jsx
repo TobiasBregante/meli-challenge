@@ -16,7 +16,7 @@ const SignUpModule = () => {
     const router = useRouter()
     
     const [state, setState] = useState({
-        isSeller: null,
+        isSeller: true,
         //personal data
         name: {
             error: "",
@@ -72,9 +72,6 @@ const SignUpModule = () => {
 
 
         if (error) {
-            if (state.isSeller == null) {
-                return toast("Elige una opción entre Comprador/a o Vendedor/a")
-            }
             return setState({
                 ...state,
                 [error.details[0].path[0]]: {
@@ -148,7 +145,6 @@ const SignUpModule = () => {
                     </Card.Header>
                     <Card.Body>
                         <Grid.Container direction="column" css={{ px: "$10" }}>
-                            <AccountType state={state} onClick={handleOption("isSeller")} />
                             <PersonalData
                                 state={state}
                                 setState={setState} />
