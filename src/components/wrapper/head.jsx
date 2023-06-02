@@ -3,54 +3,66 @@ import Script from 'next/script'
 
 const Head = ({ title, description, image }) => {
     return (
-        <NextHead>
+        <>
             {/* <!-- Google tag (gtag.js) --> */}
-            <Script async src="https://www.googletagmanager.com/gtag/js?id=G-5TQSMKBP1Y" />
+            < Script strategy='afterInteractive' src="https://www.googletagmanager.com/gtag/js?id=G-5TQSMKBP1Y" />
             <Script
-                onReady={() => {
+                strategy='afterInteractive'
+                id='google-analytics'
+            >
+                {`
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
     
                     gtag('config', 'G-5TQSMKBP1Y');
-                }}
-            />
+                `}
+            </Script>
             {/* <!-- Google tag (gtag.js) AR --> */}
-            <Script async src="https://www.googletagmanager.com/gtag/js?id=G-VW56X8FG7J" />
+            <Script strategy='afterInteractive' src="https://www.googletagmanager.com/gtag/js?id=G-VW56X8FG7J" />
             <Script
                 onReady={() => {
                     window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
+                    function gtag() { dataLayer.push(arguments); }
                     gtag('js', new Date());
-        
+
                     gtag('config', 'G-VW56X8FG7J');
                 }}
             />
             {/* <!-- Google tag (gtag.js) s/www --> */}
-            <Script async src="https://www.googletagmanager.com/gtag/js?id=G-LED6L9E0MH" />
+            <Script strategy='afterInteractive' src="https://www.googletagmanager.com/gtag/js?id=G-LED6L9E0MH" />
             <Script
-                onReady={() => {
+                strategy='afterInteractive'
+                id='google-analytics2'
+            >
+                {`
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
         
                     gtag('config', 'G-LED6L9E0MH');
-                }}
-            />
+                `}
+            </Script>
             {/* <!-- Google tag (gtag.js) AR s/www --> */}
-            <Script async src="https://www.googletagmanager.com/gtag/js?id=G-JD7QXS9TKV" />
+            <Script strategy='afterInteractive' src="https://www.googletagmanager.com/gtag/js?id=G-JD7QXS9TKV" />
             <Script
-                onReady={() => {
+                strategy='afterInteractive'
+                id='google-analytics3'
+            >
+                {`
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
         
                     gtag('config', 'G-JD7QXS9TKV');
-                }}
-            />
+                `}
+            </Script>
             <Script async src="https://www.facebook.com/tr?id=767524567357286&ev=PageView&noscript=1" />
             <Script
-                onReady={() => {
+                strategy='afterInteractive'
+                id='facebook-ads'
+            >
+                {`
                     !function(f,b,e,v,n,t,s)
                     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
                     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -63,31 +75,33 @@ const Head = ({ title, description, image }) => {
                     fbq('track', 'PageView');
         
                     gtag('config', 'G-JD7QXS9TKV');
-                }}
-            />
-            <Script 
-                async 
+                `}
+            </Script>
+            <Script
+                strategy='afterInteractive'
                 src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8155864058242383"
                 crossorigin="anonymous"
             />
-            <noscript
-                dangerouslySetInnerHTML={{
-                    __html: `<img height="1" width="1" style="display:none"
+            <NextHead>
+                <noscript
+                    dangerouslySetInnerHTML={{
+                        __html: `<img height="1" width="1" style="display:none"
                 src="https://www.facebook.com/tr?id=767524567357286&ev=PageView&noscript=1"
             />`
-                }}
-            />
+                    }}
+                />
 
-            <title>{title}</title>
-            <meta name="description" content={description} />
-            <meta property="og:title" content={title} />
-            <meta property="og:description" content={description} />
-            <meta property="og:image" content={image} />
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-            <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
-            <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round&display=swap" rel="stylesheet" />
-        </NextHead>
+                <title>{title}</title>
+                <meta name="description" content={description} />
+                <meta property="og:title" content={title} />
+                <meta property="og:description" content={description} />
+                <meta property="og:image" content={image} />
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+                <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+                <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round&display=swap" rel="stylesheet" />
+            </NextHead>
+        </>
     )
 }
 
