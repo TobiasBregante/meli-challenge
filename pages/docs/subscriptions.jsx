@@ -1,70 +1,139 @@
 import { Button, Card, Container, Grid, Text } from '@nextui-org/react'
 import Page from '@Page'
 
+const CardPlan = ({ title, children, className }) => {
+    return (
+        <>
+        <Grid xs={12} md={3}>
+            <Card className={`planCard ${className}`}>
+                <Card.Header>
+                    <Grid.Container justify="center">
+                        <Text h2 css={{ color: '#2B2D42' }}>
+                            {title}
+                        </Text>
+                    </Grid.Container>
+                </Card.Header>
+                <Card.Body className='cardBodyPlan'>
+                    {children}
+                    <Button color={'gradient'} size='lg' onPress={() => {
+                        window.open(`https://api.whatsapp.com/send?text=Hola quiero contratar el plan ${title}&phone=5491124767008`)
+                    }}>
+                        Contactar por plan {title}
+                    </Button>
+                </Card.Body>
+            </Card>
+        </Grid>
+        </>
+    )
+}
+
 const Subscriptions = () => {
     return (
         <Page>
-            <Container lg >
-                <Grid.Container gap={2}>
-                    <Grid xs={12} lg={4}>
-                        <Card>
-                            <Card.Header>
-                                <Grid.Container justify="center">
-                                    <Text h2>
-                                        Plan premiun
-                                    </Text>
-                                </Grid.Container>
-                            </Card.Header>
-                            <Card.Body>
-                                <Text h4>
-                                    Venta por Docena:
+            <Container lg className='suscriptionContainer'>
+                <Grid.Container gap={2} justify="center">
+                    <CardPlan title={'Esencial'}>
+                        <ul>
+                            <li>
+                                <Text>Publicar hasta 5 Productos</Text>
+                            </li>
+                            <li>
+                                <Text>Hasta 5 imágenes por Producto</Text>
+                            </li>
+                            <li>
+                                <Text>
+                                    Asistencia personalizada, estadísticas avanzadas y promoción en redes sociales.
                                 </Text>
-                                <Text> - Nombre del producto</Text>
-                                <Text> - Categoría del producto</Text>
-                                <Text> - Apartir de cuantas  docenas vendes para hacer envios</Text>
-                                <Text> - Cantidad total o Stock del producto disponible.</Text>
-                                <Text> - Descripción del producto</Text>
-                                <Text> - Precio total por docena:</Text>
-
-                                <Text h4>
-                                    Venta por Cantidad:
-                                    CURVA O DOCENA
+                            </li>
+                            <li>
+                                <Text>Valor: $12 USD (debito automático mensual)</Text>
+                            </li>
+                        </ul>
+                    </CardPlan>
+                    <CardPlan title={'Premium'}  className='planRemarked'>
+                        <ul>
+                            <li>
+                                <Text>Publicar hasta 10 Productos</Text>
+                            </li>
+                            <li>
+                                <Text>Hasta 10 imágenes por Producto</Text>
+                            </li>
+                            <li>
+                                <Text>Aparición en primeros 10 resultados de búsquedas</Text>
+                            </li>
+                            <li>
+                                <Text>Insignia Silver</Text>
+                            </li>
+                            <li>
+                                <Text>
+                                    Asistencia personalizada, estadísticas avanzadas, promoción en redes sociales y destacado en resultados de búsqueda.
                                 </Text>
-                                <Text> - Nombre del producto</Text>
-                                <Text> - Categoría del producto</Text>
-                                <Text> - Cantidad total o Stock del producto disponible.</Text>
-                                <Text> - Descripción del producto</Text>
-                                <Text> - Precio por mayor por docena O CURVA:</Text>
-                                <Text> - Apartir de cuantas  docenas O CURVA vendes por cantidad para hacer envios </Text>
-                                <Text> - Precio total por cantidad de docena O CURVA: </Text>
-
-                                <Text h4>
-                                    Venta por Curva:
+                            </li>
+                            <li>
+                                <Text>
+                                    Valor: $33.99 USD (pago único por el periodo trimestral)
                                 </Text>
-                                <Text> - Nombre del producto</Text>
-                                <Text> - Categoría del producto</Text>
-                                <Text> - Cantidad total o Stock del producto disponible.</Text>
-                                <Text> - Descripción del producto</Text>
-                                <Text> - Apartir de cuantas  Curvas vendes para hacer envíos</Text>
-                                <Text> - precio total por mayor por curva</Text>
-
-                                <Text h4>
-                                    Venta por Tarea:
+                            </li>
+                        </ul>
+                    </CardPlan>
+                    <CardPlan title={'Deluxe'}>
+                        <ul>
+                            <li>
+                                <Text>Publicar más de 10 Productos</Text>
+                            </li>
+                            <li>
+                                <Text>Hasta 10 imágenes por Producto</Text>
+                            </li>
+                            <li>
+                                <Text>Aparición en primeros 10 resultados de búsquedas</Text>
+                            </li>
+                            <li>
+                                <Text>Posicionamiento exclusivo</Text>
+                            </li>
+                            <li>
+                                <Text>Insignia Gold</Text>
+                            </li>
+                            <li>
+                                <Text>
+                                    Asistencia personalizada, estadísticas avanzadas, promoción en redes sociales, destacado en resultados de búsqueda y publicidad en sitios afiliados.
                                 </Text>
-                                <Text> - Nombre del producto</Text>
-                                <Text> - Categoría del producto</Text>
-                                <Text> - Cantidad total o Stock del producto disponible.</Text>
-                                <Text> - Descripción del producto</Text>
-                                <Text> - Apartir de cuantas  tareas vendes para hacer envios</Text>
-
-                                <Button onPress={()=>{
-                                    window.open("https://api.whatsapp.com/send?text=Hola quiero contratar el plan premiun&phone=541170895828")
-                                }}>
-                                    Contactar
-                                </Button>
-                            </Card.Body>
-                        </Card>
-                    </Grid>
+                            </li>
+                            <li>
+                                <Text>
+                                    Valor: $63.99 (pago único por el periodo semestral)
+                                </Text>
+                            </li>
+                        </ul>
+                    </CardPlan>
+                    <CardPlan title={'Platinum'}>
+                        <ul>
+                            <li>
+                                <Text>Publicar más de 10 Productos</Text>
+                            </li>
+                            <li>
+                                <Text>Hasta 10 imágenes por Producto</Text>
+                            </li>
+                            <li>
+                                <Text>Aparición en primeros 10 resultados de búsquedas</Text>
+                            </li>
+                            <li>
+                                <Text>Posicionamiento exclusivo</Text>
+                            </li>
+                            <li>
+                                <Text>Insignia Gold</Text>
+                            </li>
+                            <li>
+                                <Text>
+                                    Asistencia personalizada, estadísticas avanzadas, promoción en redes sociales, destacado en resultados de búsqueda, publicidad en sitios afiliados y campaña de email marketing personalizada.
+                                </Text>
+                            </li>
+                            <li>
+                                <Text>
+                                    Valor: $92.99 (pago único por el periodo anual + un mes de servicio gratis
+                                </Text>
+                            </li>
+                        </ul>
+                    </CardPlan>
                 </Grid.Container>
             </Container>
         </Page>

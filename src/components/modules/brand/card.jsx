@@ -4,78 +4,13 @@ import Stars from "../../ui/stars"
 import Share from "../common/share"
 
 const BrandCard = ({ data }) => {
-    const rating = data.stats?.stars == undefined ? 5 : Math.round(data.stats.stars.reduce((a, b) => a + b, 0) / data.stats.stars.length)
-
-    const LocationBuilder = () => {
-        if (data.location.zone == "online") {
-            return (
-                <>
-                    <Text small css={{ mt: 5 }}>
-                        Solo venta online
-                    </Text>
-                </>
-            )
-        }
-        if (data.location.zone == "la salada") {
-            return (
-                <>
-                    <Text small>
-                        La salada &nbsp;
-                    </Text>
-                    <Text small>
-                        {data.location.shed} &nbsp;
-                    </Text>
-                    <Text small >
-                        Puesto: {data.location.stallNumber}
-                    </Text>
-                </>
-            )
-        }
-        if (data.location.zone == "flores") {
-            return (
-                <>
-                    <Text small>
-                        Flores &nbsp;
-                    </Text>
-                    <Text small>
-                        {data.location.street} &nbsp;
-                    </Text>
-                    <Text small >
-                        {data.location.streetNumber} &nbsp;
-                    </Text>
-                    <Text small>
-                        Local:{
-                            data.location.positionInGallery
-                        }
-                    </Text>
-                </>
-            )
-        }
-
-        return (
-            <>
-                <Text small>
-                    galpon: {data.location.shed} &nbsp;
-                </Text>
-                <Text small >
-
-                    Pasillo: {data.location.corridor} -
-                    Puesto: {data.location.store}
-                </Text>
-            </>
-        )
-    }
+    const prom = input => input?.reduce((prev, user) => parseInt(prev) + parseInt(user), 0) / input.length
+    const rating = prom(data?.stats?.stars)
     return (
-        <Card variant="flat" css={{ bg: "$white" }} isHoverable isPressable>
-            <a href={`/./brand/${data._id}`}>
-                <Image src={`/${data.imgs ? data.imgs.background : "brandImgBackground"}`} width={1280} height={720}
-                    className="blured" />
-            </a>
-            <Grid.Container justify="center" css={{ position: 'absolute', mt: 15, "@xsMax": { mt: 10 }, }}>
+        <Card variant="flat" css={{ bg: "$white", height: 250 }} onClick={() => window.location = `/./brand/${data._id}`} isHoverable isPressable>
+            <Grid.Container justify="center" css={{ position: 'absolute', mt: 95, "@xsMax": { mt: 10 }, }}>
                 <Grid >
-                    <a href={`/./brand/${data._id}`}>
-                        <Image src={`/${data.imgs ? data.imgs.principal : "brandImgDefault"}`} width={"180vw"} height={"180vh"} alt={data.brandName} className="rounded-circle " />
-                    </a>
+                        <Image src={`/${data.imgs && data?.imgs?.principal !== 'NI35_W3jmftQURiB_rR_LR0IUkjGXl77' ? data.imgs.principal : "blank-profile-picture-g227b26ec4_640_fwvqox"}`} width={"90vw"} height={"90vh"} alt={data.brandName} className="rounded-circle " />
                 </Grid>
             </Grid.Container>
             <Card.Body css={{ pb: 0 }}>
@@ -83,11 +18,7 @@ const BrandCard = ({ data }) => {
                     {data.brandName}
                 </Text>
                 <Grid.Container>
-                    <LocationBuilder />
-
-                </Grid.Container>
-                <Grid.Container>
-                    <Stars rating={rating} />
+                    <Stars rating={rating}/>
                 </Grid.Container>
             </Card.Body>
             <Card.Footer>

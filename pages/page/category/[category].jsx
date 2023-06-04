@@ -6,13 +6,19 @@ import UnorderedList from '@/src/components/modules/products/list/unordered'
 import Get from '@/src/utils/hooks/get'
 
 const Wholesale = ({ products, brands, website, category }) => {
-
     return (
         <Page>
             <Container lg css={{ mb: "$10" }}>
                 <CategoriesCarousel data={website.categories}/>
-                <BrandCarousel title={`Marcas de la categoria ${category}`} data={brands} />
-                <UnorderedList title={`Productos de la categoria ${category}`} data={products} />
+                {
+                    brands?.length > 0 && <BrandCarousel title={`Marcas de la categoria ${category}`} data={brands} />
+                }
+                {
+                    products?.length > 0 && <UnorderedList title={`Productos de la categoria ${category}`} data={products} />
+                }
+                {
+                    
+                }
             </Container>
         </Page>
     )

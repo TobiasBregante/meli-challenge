@@ -3,7 +3,6 @@ import Stars from '@/src/components/ui/stars';
 import timeago from '@/src/utils/timeago';
 import { useUserContext } from '@/src/utils/user/provider';
 import { Avatar, Button, Card, Grid, Loading, Modal, Text } from '@nextui-org/react';
-import Image from 'next/image';
 import { useState } from 'react';
 import WriteComment from './write';
 import jsCookie from 'js-cookie'
@@ -66,10 +65,10 @@ const Comment = ({ data, canReply, productData, comments,setComments }) => {
                     <Grid>
                         <Grid.Container>
                             <Avatar
-                                src={`https://res.cloudinary.com/salada/${data.user.img === undefined ? "avatar" : data.user.img}`}
+                                src={`https://res.cloudinary.com/saladapp/${data?.user?.img === undefined ? "uO3wK0EqPoTvyU41rnxLTbuBYjy-k9bY" : data.user.img}`}
                             />
                             <Text weight="bold" css={{ ml: 10 }}>
-                                {data.user.name}
+                                {data?.user?.name}
                             </Text>
                         </Grid.Container>
                     </Grid>
@@ -123,7 +122,7 @@ const Comment = ({ data, canReply, productData, comments,setComments }) => {
 
 const ProductComments = ({ data }) => {
     const [limit, setLimit] = useState(3),
-    [comments,setComments] = useState(data.comments)
+    [comments,setComments] = useState(data?.comments)
     const user = useUserContext()
 
     return (
@@ -138,9 +137,10 @@ const ProductComments = ({ data }) => {
                         comments.slice(0, limit).map((comment, commentIndex) => (
                             <div className="my-2" key={commentIndex}>
                                 <Comment
+
                                     data={comment}
                                     productData={data}
-                                    canReply={comment.response == undefined && data.isOwnedBy == user._id}
+                                    canReply={comment?.response == undefined && data?.isOwnedBy == user?._id}
                                     setComments={setComments} 
                                     comments={comments}/>
                             </div>

@@ -8,21 +8,23 @@ import UnorderedList from '@/src/components/modules/products/list/unordered'
 import AdsModals from '@/src/components/modules/products/ads/modals'
 import Get from '@/utils/hooks/get'
 
-const Index = ({ website, wholesaleProducts, wholesaleAndRetailProducts, perQuantityProducts, perCurveProducts, popularProducts, perTaskProducts, perDozenProducts, popularBrands }) => {
+const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Accesorios, ArticuloDeTemporada, Mascotas, Electronica, Bijouterie, Calzado }) => { 
   return (
-    <Page>
+    <Page categories={website?.categories}>
       <Container lg css={{ mb: "$10" }}>
-        {/* <AdsModals img={website?.popup?.img} link={website?.popup?.link}/> */}
-        <HighLightCarousel data={website.highlights} />
-        <ProductCarousel title="Productos venta solo por mayor" data={wholesaleProducts} link="/./page/products/wholesale" />
-        <ProductCarousel title="Productos venta por menor y mayor" data={wholesaleAndRetailProducts} link="/./page/products/wholesaleAndRetail" />
-        <CategoriesCarousel data={website.categories}/>
-        <ProductCarousel title="Productos mas populares" data={popularProducts} link="/./page/products/popular"  />
-        <BrandCarousel title="Marcas mas populares" data={popularBrands} />
-        <ProductCarousel title="Productos venta por gran cantidad" data={perQuantityProducts} link="/./page/products/bigQuantity" />
-        <ProductCarousel title="Productos venta por curva" data={perCurveProducts} link="/./page/products/curve" />
-        <ProductCarousel title="Productos venta por tarea" data={perTaskProducts}  />
-        <ProductCarousel title="Productos venta por docena" data={perDozenProducts}  />
+        <AdsModals img={website?.popup?.img} link={website?.popup?.link}/>
+        {/* <HighLightCarousel data={website.highlights} /> */}
+        <ProductCarousel title="Tendencia" data={popularProducts} categoryHidde={'Equipamiento'} link="/page/products/popular"/>
+        <CategoriesCarousel data={website?.categories}/>
+        <ProductCarousel title="Calzado" data={Calzado} link="/page/products/calzado"/>
+        <ProductCarousel title="Temporada" data={ArticuloDeTemporada} link="/page/products/temporada"/>
+        <ProductCarousel title="Electrónica" data={Electronica} link="/page/products/electronica"/>
+        <BrandCarousel title="Marcas en tendencia" data={popularBrands} />
+        <ProductCarousel title="Bijouterie" data={Bijouterie} link="/page/products/bijouterie"/>
+        <ProductCarousel title="Accesorios" data={Accesorios} link="/page/products/accesorios"/>
+        <ProductCarousel title="Mascotas" data={Mascotas} link="/page/products/mascotas"/>
+        <ProductCarousel title="Celulares" data={Celulares} link="/page/products/celulares"/>
+        <ProductCarousel title="Autos" data={Autos} link="/page/products/autos"/>
       </Container>
     </Page>
   )
@@ -33,22 +35,16 @@ export default Index
 export async function getServerSideProps(ctx) {
   return {
     props: {
-      wholesaleProducts: await Get("products/find/query?&premiunOnly=true&isWholesale=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
-
-      wholesaleAndRetailProducts: await Get("products/find/query?premiunOnly=true&isWholesaleAndRetail=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
-
-      perQuantityProducts: await Get("products/find/query?premiunOnly=true&perQuantity=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
-
-      perCurveProducts: await Get("products/find/query?premiunOnly=true&perCurve=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
-
-      popularProducts: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
-
-      popularBrands: await Get("brands/find/query?limit=10&premiunOnly=true&popular=true").then(r => r.data).catch(() => []),
-
-      perTaskProducts: await Get("products/find/query?premiunOnly=true&perTask=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
-
-      perDozenProducts: await Get("products/find/query?premiunOnly=true&perDozen=true&limit=10&isPublic=true").then(r => r.data).catch(() => []),
-
+      Autos: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Accesorios para Autos").then(r => r.data).catch(() => []),
+      Celulares: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Accesorios para Celulares").then(r => r.data).catch(() => []),
+      Calzado: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Calzado").then(r => r.data).catch(() => []),
+      Mascotas: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Accesorios para Mascotas").then(r => r.data).catch(() => []),
+      Accesorios: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Accesorios").then(r => r.data).catch(() => []),
+      ArticuloDeTemporada: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Artículo de Temporada").then(r => r.data).catch(() => []),
+      Electronica: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Electrónica").then(r => r.data).catch(() => []),
+      Bijouterie: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Bijouterie").then(r => r.data).catch(() => []),
+      popularProducts: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&hidde=Equipamiento").then(r => r.data).catch(() => []),
+      popularBrands: await Get("brands/find/query?limit=10&premiunOnly=true").then(r => r.data).catch(() => []),
       website: await Get("website").then(r => r.data).catch(() => ({ }))
     }, // will be passed to the page component as props
   }

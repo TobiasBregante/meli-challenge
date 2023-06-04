@@ -11,41 +11,16 @@ const SellZone = ({ zone, ...htmlProps }) => {
             <Grid.Container gap={2}>
                 <Grid>
                     <OptionGroup
-                        text="La salada"
-                        icon="pin_drop"
-                        isSelected={zone?.value == "la salada"}
-                        value={"la salada"}
-                        {...htmlProps} />
-                </Grid>
-                {/* option de once */}
-                <Grid>
-                    <OptionGroup
-                        text="Once"
-                        icon="pin_drop"
-                        isSelected={zone?.value == "once"}
-                        value={"once"}
-                        {...htmlProps} />
-                </Grid>
-                <Grid>
-                    <OptionGroup
-                        text="Flores"
-                        icon="pin_drop"
-                        isSelected={zone?.value == "flores"}
-                        value={"flores"}
-                        {...htmlProps} />
-                </Grid>
-                <Grid>
-                    <OptionGroup
                         text="Online"
                         icon="language"
-                        isSelected={zone?.value == "online"}
+                        isSelected={zone.value == "online"}
                         value={"online"}
                         {...htmlProps} />
                 </Grid>
 
             </Grid.Container>
             <Text small color="error">
-                {zone?.error}
+                {zone.error}
             </Text>
         </>
     )

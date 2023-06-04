@@ -14,7 +14,7 @@ const IsAuth = () => {
             <Button auto css={{ bg: "$white", color: "$black", "@smMax": { display: "none" } }} icon={<Icon id="person" />} >
                 Ingresar
             </Button>
-            <Button auto css={{ bg: "$white", color: "$black", "@sm": { display: "none" } }} icon={<Icon id="person" />} />
+            <Button size={'sm'} auto css={{ bg: "$white", color: "$black", "@sm": { display: "none" } }} icon={<Icon id="person" />} />
         </a>
     )
 

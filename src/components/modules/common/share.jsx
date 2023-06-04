@@ -23,9 +23,14 @@ const Share = ({ link }) => {
 
     return (
         <>
-            <Button auto onClick={() => setState(true)}>
+            <Button 
+                icon={
+                    <Icon id="share" color='secondary' />
+                } 
+                color='' 
+                auto 
+                onClick={() => setState(true)}>
                 Compartir
-                <Icon id="share" color="white" />
             </Button>
             <Modal open={state} closeButton onClose={() => setState(false)}>
                 <div className="d-flex flex-column">
@@ -58,7 +63,6 @@ const Share = ({ link }) => {
                         </Grid.Container>
                     </Modal.Body>
                 </div>
-
             </Modal>
         </>
     )

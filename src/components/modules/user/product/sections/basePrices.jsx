@@ -4,16 +4,17 @@ import { Grid, Input } from "@nextui-org/react"
 
 const BasePrices = ({state,handlePrices, data}) => {
     const user = useUserContext()
+    
     return (
         <Grid.Container gap={1}>
             {
-                (user?.brand?.isWholesaleAndRetail || data?.brand?.isWholesaleAndRetail) &&
+                (user?.brand || data?.brand) &&
                 <Grid>
                     <Input
                         type="number"
                         clearable
-                        label="Precio por menor"
-                        placeholder="Escribe aqui el precio por menor"
+                        label="Precio"
+                        placeholder="Escribe aqui el precio"
                         helperColor="error"
                         helperText={state.prices.retail.error}
                         status={state.prices.retail.error ? "error" : "default"}
@@ -22,32 +23,6 @@ const BasePrices = ({state,handlePrices, data}) => {
                         onChange={handlePrices("retail")} />
                 </Grid>
             }
-            <Grid>
-                <Input
-                    type="number"
-                    clearable
-                    label="Precio por mayor"
-                    placeholder="Escribe aqui el precio por mayor"
-                    helperColor="error"
-                    helperText={state.prices.wholesale.error}
-                    status={state.prices.wholesale.error ? "error" : "default"}
-                    contentLeft={<Icon id="attach_money" />}
-                    value={state.prices.wholesale.value}
-                    onChange={handlePrices("wholesale")} />
-            </Grid>
-            <Grid>
-                <Input
-                    type="number"
-                    clearable
-                    label="Apartir de cuantos productos vendes para hacer envios"
-                    placeholder="Escribe aqui la cantidad"
-                    helperColor="error"
-                    helperText={state.prices.minPerWholesale.error}
-                    status={state.prices.minPerWholesale.error ? "error" : "default"}
-                    contentLeft={<Icon id="inventory" />}
-                    value={state.prices.minPerWholesale.value}
-                    onChange={handlePrices("minPerWholesale")} />
-            </Grid>
         </Grid.Container>
     )
 }

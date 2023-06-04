@@ -10,7 +10,7 @@ import IsNotOwner from '@/components/modules/user/errors/isNotOwner';
 import ShouldBePremiun from '@/components/modules/user/errors/shouldBePremiun'
 import HardLimit from '@/components/modules/user/errors/hardLimit'
 
-import { Button, Card, Checkbox, Container, Grid, Input, Link, Loading, Text, Textarea, Spacer } from "@nextui-org/react";
+import { Button, Card, Checkbox, Container, Grid, Input, Link, Loading, Text, Textarea } from "@nextui-org/react";
 import Clasification from "./sections/clasification";
 import ImagesSection from "./sections/images";
 //Validation
@@ -20,55 +20,13 @@ import Get from "@/src/utils/hooks/get";
 import jsCookie from 'js-cookie'
 
 import BasePrices from "./sections/basePrices";
-import PerDozenPrices from "./sections/perDozenPrices";
-import PerQuantityPrices from "./sections/perQuantityPrices";
-import PerCurvePrices from "./sections/perCurvePrices";
-import PerTasksPrices from "./sections/perTaskPrices";
-
 
 const PricesManager = ({ state, handlePrices, data }) => {
-    const router = useRouter()
-
-    if (data?.prices?.minPerWholesale >0) {
-        //we use minPerWholesale instead of wholesale because perQuantity also set wholesale value
-        return <BasePrices state={state} handlePrices={handlePrices} />
-    }
-    if (data?.prices?.perDozen >0) {
-        return <PerDozenPrices state={state} handlePrices={handlePrices} />
-    }
-    if (data?.prices?.perQuantity >0) {
-        return <PerQuantityPrices state={state} handlePrices={handlePrices} />
-    }
-    if (data?.prices?.perCurve >0) {
-        return <PerCurvePrices state={state} handlePrices={handlePrices} />
-    }
-    if (data?.prices?.perTask >0) {
-        return <PerTasksPrices state={state} handlePrices={handlePrices} />
-    }
-
-
-    if (router.query.sellingPer === undefined) {
-        return <BasePrices state={state} handlePrices={handlePrices} />
-    }
-    if (router.query.sellingPer === "dozen") {
-        return <PerDozenPrices state={state} handlePrices={handlePrices} />
-    }
-    if (router.query.sellingPer === "quantity") {
-        return <PerQuantityPrices state={state} handlePrices={handlePrices} />
-    }
-    if (router.query.sellingPer === "curve") {
-        return <PerCurvePrices state={state} handlePrices={handlePrices} />
-    }
-    if (router.query.sellingPer === "task") {
-        return <PerTasksPrices state={state} handlePrices={handlePrices} />
-    }
     //default
     return <BasePrices state={state} handlePrices={handlePrices} data={data} />
 }
 
 const ManageProduct = ({ website, data }) => {
-
-    
 
     const router = useRouter()
     const user = useUserContext()
@@ -76,27 +34,10 @@ const ManageProduct = ({ website, data }) => {
     const defaultState = {
         title: { error: "", value: data?.title || "" },
         category: { error: "", value: data?.category || "" },
-        stock: { error: "", value: data?.stock || "" },
         description: { error: "", value: data?.description || "" },
         imgs: { error: "", value: data?.imgs || [] },
         prices: {
-            retail: { error: "", value: data?.prices?.retail || 0 },
-
-            minPerWholesale: { error: "", value: data?.prices?.minPerWholesale || 0 },
-            wholesale: { error: "", value: data?.prices?.wholesale || 0 },
-
-            minPerDozen: { error: "", value: data?.prices?.minPerDozen || 0 },
-            perDozen: { error: "", value: data?.prices?.perDozen || 0 },
-
-            minPerQuantity: { error: "", value: data?.prices?.minPerQuantity || 0 },
-            perQuantity: { error: "", value: data?.prices?.perQuantity || 0 },
-            typePerQuantity: { error: "", value: data?.prices?.typePerQuantity || undefined},
-
-            minPerCurve: { error: "", value: data?.prices?.minPerCurve || 0 },
-            perCurve: { error: "", value: data?.prices?.perCurve || 0 },
-
-            minPerTask: { error: "", value: data?.prices?.minPerTask || 0 },
-            perTask: { error: "", value: data?.prices?.perTask || 0 },
+            retail: { error: "", value: data?.prices.retail || 0 },
         }
     }
 
@@ -109,15 +50,6 @@ const ManageProduct = ({ website, data }) => {
         }
     }
 
-    const [mailState , setMailState] = useState("")
-
-    const handleChange = (e) => {
-    setMailState(e.target.value)
-    }
-
-
-    const [showInput, setShowInput] = useState(false);
-       
 
     if (!user) {
         return (
@@ -206,16 +138,16 @@ const ManageProduct = ({ website, data }) => {
                                 </Card.Header>
                                 <Card.Body>
                                     <Text b h4>
-                                        Nombre: {data?.brand?.brandName}
+                                        Nombre: {data.brand.brandName}
                                     </Text>
                                     <Text b h4>
-                                        Ubicación: {data?.brand?.location.zone}
+                                        Ubicación: {data.brand.location.zone}
                                     </Text>
                                     <Text b h4>
-                                        Numero: {data?.brand?.phone}
+                                        Numero: {data.brand.phone}
                                     </Text>
                                     <Text b h4>
-                                        Es premiun: {data?.brand?.isPremiun ? "Si" : "No"}
+                                        Es premiun: {data.brand.isPremiun ? "Si" : "No"}
                                     </Text>
                                 </Card.Body>
                             </Card>
@@ -243,34 +175,6 @@ const ManageProduct = ({ website, data }) => {
                                             </Text>
                                         </Grid.Container>
                                     </Grid>
-                                    <Grid>
-                                        <Grid.Container>
-                                            {user.isAdmin &&
-                                            <>
-                                            <Checkbox color="warning" isSelected={showInput} size="sm" onChange={setShowInput}>
-                                                Estas agregando productos de otro usuario?</Checkbox>
-                                            <Spacer x={1} />
-                                            </>
-                                            }
-                                        
-                                        </Grid.Container>
-                                        
-                                        <Grid.Container>
-                                            {
-                                                showInput && <Input  
-                                                // clearable
-                                                size="lg"
-                                                // width={50}
-                                                placeholder="Escribe aqui su e-mail"
-                                                helperColor="error"
-                                                contentLeft={<Icon id="mail" />}
-                                                value={mailState}
-                                                onChange={handleChange}
-                                                />
-                                            }
-                                        </Grid.Container>
-                                    </Grid>
-
                                     <Grid>
                                         <Grid.Container>
                                             <Input
@@ -303,21 +207,7 @@ const ManageProduct = ({ website, data }) => {
                                                 onChange={handleGenericString("description")} />
                                         </Grid.Container>
                                     </Grid>
-                                    <Grid>
-                                        <Grid.Container>
-                                            <Input
-                                                type="number"
-                                                clearable
-                                                label="Cantidad disponible (stock)"
-                                                placeholder="Escribe aqui el stock"
-                                                helperColor="error"
-                                                helperText={state.stock.error}
-                                                status={state.stock.error ? "error" : "default"}
-                                                contentLeft={<Icon id="inventory" />}
-                                                value={state.stock.value}
-                                                onChange={handleGenericString("stock")} />
-                                        </Grid.Container>
-                                    </Grid>
+                                    
 
                                     <Grid>
                                         <PricesManager state={state} handlePrices={handlePrices} data={data} />
@@ -339,66 +229,10 @@ const ManageProduct = ({ website, data }) => {
                                             Eliminar producto
                                         </Button>
                                     }
-                                    <Submit state={state} setState={setState} data={data} resetState={resetState} showInput={showInput}
-                                    mailState={mailState} />
+                                    <Submit state={state} setState={setState} data={data} resetState={resetState} />
                                 </Grid.Container>
                             </Card.Body>
                         </Card>
-                        {
-                            (user.status.isPremiun && !data) &&
-                            <Card css={{ mt: 10 }}>
-                                <Card.Header>
-                                    <Grid.Container justify="center">
-                                        <Text h3>
-                                            Tambien publica tus productos por:
-                                        </Text>
-                                    </Grid.Container>
-                                </Card.Header>
-                                <Card.Body>
-                                    <Grid.Container direction="row" gap={1}>
-                                        {
-                                            router.query.sellingPer !== undefined &&
-                                            <Grid>
-                                                <a href="/./user/products/add" >
-                                                    <Button auto color="gray" iconRight={<Icon id="open_in_new" />}>
-                                                        Normal
-                                                    </Button>
-                                                </a>
-                                            </Grid>
-                                        }
-                                        <Grid>
-                                            <a href="/./user/products/add?sellingPer=dozen">
-                                                <Button auto color="gray" iconRight={<Icon id="open_in_new" />}>
-                                                    por docena
-                                                </Button>
-                                            </a>
-                                        </Grid>
-                                        <Grid>
-                                            <a href="/./user/products/add?sellingPer=curve">
-                                                <Button auto color="gray" iconRight={<Icon id="open_in_new" />}>
-                                                    por curva
-                                                </Button>
-                                            </a>
-                                        </Grid>
-                                        <Grid>
-                                            <a href="/./user/products/add?sellingPer=task">
-                                                <Button auto color="gray" iconRight={<Icon id="open_in_new" />}>
-                                                    por tarea
-                                                </Button>
-                                            </a>
-                                        </Grid>
-                                        <Grid>
-                                            <a href="/./user/products/add?sellingPer=quantity">
-                                                <Button auto color="gray" iconRight={<Icon id="open_in_new" />}>
-                                                    por cantidad
-                                                </Button>
-                                            </a>
-                                        </Grid>
-
-                                    </Grid.Container>
-                                </Card.Body>
-                            </Card>
-                        }
                     </Grid.Container>
                 </Grid>
             </Grid.Container>

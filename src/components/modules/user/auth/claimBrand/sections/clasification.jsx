@@ -1,12 +1,10 @@
-import Icon from "@/src/components/ui/icons";
-import categories from "@/src/utils/user/brand/categories"
-import { Checkbox, Dropdown, Grid, Input, Text } from "@nextui-org/react"
-import { useMemo, useState } from "react";
+import { Dropdown, Grid, Input, Text } from "@nextui-org/react"
+import { useState } from "react";
 
 
 const Clasification = ({ state, onChange, website }) => {
-    const [categoryState, setCategory] = useState(""),
-        [payMethod, setPayMethod] = useState([])
+    const [categoryState, setCategory] = useState("")
+    const [payMethod, setPayMethod] = useState([])
 
     const handleCategory = e => {
         setCategory(e)
@@ -15,8 +13,8 @@ const Clasification = ({ state, onChange, website }) => {
         } else {
             onChange("category")({ target: { value: "" } })
         }
-
     }
+    
     const handlePaymethod = e => {
         setPayMethod(e)
         onChange("payMethod")({ target: { value: Array.from(e) } })
@@ -35,7 +33,7 @@ const Clasification = ({ state, onChange, website }) => {
                     <Dropdown>
                         <Dropdown.Button flat color="$gray">
                             {
-                                state?.category?.value?.length == 0 ? "Eligé una categoria" : state?.category?.value
+                                state.category.value.length == 0 ? "Eligé una categoria" : state.category.value
                             }
                         </Dropdown.Button>
                         <Dropdown.Menu
@@ -52,21 +50,8 @@ const Clasification = ({ state, onChange, website }) => {
 
                     </Dropdown>
                     <Text small color="error">
-                        {state?.category?.error}
+                        {state.category.error}
                     </Text>
-                </Grid>
-
-                <Grid>
-                    <Input
-                        clearable
-                        label="Empresa de envios"
-                        placeholder="Escribe aqui"
-                        helperText={state?.shippingBy?.error}
-                        helperColor="error"
-                        status={state?.shippingBy?.error ? "error" : "default"}
-                        onChange={onChange("shippingBy")}
-                        value={state?.shippingBy?.value}
-                        css={{ w: "100%" }} />
                 </Grid>
                 <Grid>
                     <Text>
@@ -75,7 +60,7 @@ const Clasification = ({ state, onChange, website }) => {
                     <Dropdown>
                         <Dropdown.Button flat color="$gray">
                             {
-                                state?.payMethod?.value?.length === 0 ? "Eligé un metodo" : Array.from(state?.payMethod?.value ? state.payMethod.value : []).join(", ").replaceAll("_", " ")
+                                state.payMethod.value.length == 0 ? "Eligé un metodo" : Array.from(state.payMethod.value).join(", ").replaceAll("_", " ")
                             }
                         </Dropdown.Button>
                         <Dropdown.Menu
@@ -87,10 +72,9 @@ const Clasification = ({ state, onChange, website }) => {
                             <Dropdown.Item key="mercadopago" description="Puedes elegir más de uno">Mercadopago</Dropdown.Item>
                             <Dropdown.Item key="transferencia" description="Puedes elegir más de uno">Transferencia</Dropdown.Item>
                         </Dropdown.Menu>
-
                     </Dropdown>
                     <Text small color="error">
-                        {state?.payMethod?.error}
+                        {state.payMethod.error}
                     </Text>
                 </Grid>
             </Grid.Container>

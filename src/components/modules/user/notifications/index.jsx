@@ -3,7 +3,7 @@ import Icon from "@/src/components/ui/icons"
 import { useState } from "react";
 import jsCookie from 'js-cookie'
 import { useRouter } from "next/router";
-import { Badge, Button, Collapse, Dropdown, Grid, Modal, Text } from "@nextui-org/react";
+import { Badge, Button, Collapse, Grid, Modal, Text } from "@nextui-org/react";
 import timeago from "@/src/utils/timeago";
 import Get from "@/src/utils/hooks/get";
 
@@ -41,7 +41,9 @@ const UserNotifications = () => {
     return (
         <>
             <Badge content={newNotifications.length} color="error" isInvisible={newNotifications.length === 0}>
-                <Button auto
+                <Button 
+                    size={'sm'}
+                    auto
                     icon={<Icon id="notifications" css={{ mt: 0 }} />}
                     onPress={openNotifications}
                     css={{ bg: 'white' }} />

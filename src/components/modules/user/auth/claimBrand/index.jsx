@@ -5,14 +5,8 @@ import { useUserContext } from '@/src/utils/user/provider';
 import ShouldLogin from '@/components/modules/user/errors/shouldLogin';
 import ShouldBeSeller from '@/components/modules/user/errors/shouldBeSeller';
 import CantRegisterBrand from '@/components/modules/user/errors/cantRegisterBrand'
-import SellingMode from '@/components/modules/user/auth/claimBrand/sections/sellingMode'
-import SellZone from '@/components/modules/user/auth/claimBrand/sections/sellZone'
-//Section: Zones
-import SaladaZone from '@/components/modules/user/auth/claimBrand/sections/saladaZone'
-import FloresZone from '@/components/modules/user/auth/claimBrand/sections/floresZone'
-import OnceZone from '@/components/modules/user/auth/claimBrand/sections/onceZone'
 //Validation
-import { numberMessages, stringMessages, booleanMessages } from '@/utils/joi/customMessages'
+import { stringMessages } from '@/utils/joi/customMessages'
 import Joi from 'joi';
 import { toast } from 'react-toastify'
 import Put from '@/src/utils/hooks/put';
@@ -28,32 +22,16 @@ const ClaimPositionModule = ({ website }) => {
 
     const [state, setState] = useState({
         brandName: { error: "", value: "" },
-        isWholesaleAndRetail: null,
         category: { error: "", value: "" },
-        shippingBy: { error: "", value: "" },
         payMethod: { error: "", value: [] },
         imgs: {
-            principal: "NI35_W3jmftQURiB_rR_LR0IUkjGXl77",
+            principal: "uO3wK0EqPoTvyU41rnxLTbuBYjy-k9bY",
             background: ""
         },
         location: {
-            zone: { error: "", value: "" },
-            //this is in case of: la salada
-            shed: { error: "", value: "" },
-            stallNumber: { error: "", value: "" },
-            hallway: { error: "", value: "" },
-            row: { error: "", value: "" },
-            floor: { error: "", value: "" },
-            side: { error: "", value: "" },
-            //this is in case of: flores
-            isInGallery: false,
-            galleryName: { error: "", value: "" },
-            positionInGallery: { error: "", value: "" },
-            street: { error: "", value: "" },
-            streetNumber: { error: "", value: "" },
+            zone: { error: "", value: "online" }
         },
     })
-
     const [isSubmiting, setSubmiting] = useState(false)
 
     const handleBrandName = (e) => {
@@ -61,45 +39,6 @@ const ClaimPositionModule = ({ website }) => {
             ...state, brandName: {
                 error: "",
                 value: e.target.value
-            }
-        })
-    }
-
-    const handleSellingMode = (value) => (e) => {
-        setState({
-            ...state,
-            isWholesaleAndRetail: value
-        })
-    }
-
-    const handleZone = (v) => {
-        setState({
-            ...state, location: {
-                ...state.location,
-                zone: {
-                    error: "",
-                    value: v
-                }
-            }
-        })
-    }
-
-    const handleLocation = (key) => (e) => {
-        if (key == "isInGallery") {
-            return setState({
-                ...state, location: {
-                    ...state.location,
-                    isInGallery: e
-                }
-            })
-        }
-        setState({
-            ...state, location: {
-                ...state.location,
-                [key]: {
-                    error: "",
-                    value: e.target.value
-                }
             }
         })
     }
@@ -115,7 +54,6 @@ const ClaimPositionModule = ({ website }) => {
     }
 
     const handleImgs = (key) => e => {
-
         setState({
             ...state,
             imgs: {
@@ -142,7 +80,7 @@ const ClaimPositionModule = ({ website }) => {
         )
     }
 
-    if (user.brand !== undefined) {
+    if (user.brand != undefined) {
         return <CantRegisterBrand />
     }
 
@@ -151,67 +89,29 @@ const ClaimPositionModule = ({ website }) => {
     const submit = () => {
 
         setSubmiting(true)
-        const zone = state.location.zone.value
-
-        //zone: la salada
-        const isInLaSalada = zone == "la salada"
-        // zone: once
-        const isInOnce = zone == "once"
-        //zone: flores
-        const isInFlores = zone == "flores"
-        const isInGallery = () => {
-            if (isInFlores && state.location.isInGallery) {
-                return true
-            }
-            if (isInOnce && state.location.isInGallery) {
-                return true
-            }
-            if (isInLaSalada && state.location.shed.value == "GALERIAS") {
-                return false
-            }
-            return false
-        }
 
         //CHECKING
         const Schema = Joi.object({
             brandName: Joi.string().min(3).max(32).messages(stringMessages("Nombre de marca")),
-            isWholesaleAndRetail: Joi.boolean().valid(null, true, false).messages(booleanMessages("Forma de vender")),
             category: Joi.string().min(1).max(128).messages(stringMessages("Categoria")),
-            shippingBy: Joi.string().min(1).max(128).messages(stringMessages("Transporte de envios")),
             imgs: Joi.object({
-                principal: Joi.string()
+                principal: Joi.string(),
+                background: Joi.string()
             }),
             payMethod: Joi.array().items(Joi.string().min(1).max(128).messages(stringMessages("Metodo de pago"))),
             location: Joi.object({
                 zone: Joi.string().messages(stringMessages("Donde planeas vender")),
-                //in case of: la salada
-                shed: Joi.string().min(isInLaSalada ? 1 : 0).messages(stringMessages("Galpón")),
-                stallNumber: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Numero de puesto")),
-                hallway: Joi.string().min(0).max(32).messages(stringMessages("Numero de pasillo")),
-                row: Joi.string().min(0).max(32).messages(stringMessages("Numero de fila")),
-                floor: Joi.string().min(0).max(32).messages(stringMessages("Piso")),
-                side: Joi.string().min(0).max(32).messages(stringMessages("Lado")),
-                 //In case of: flores
-                isInGallery: Joi.boolean().messages(booleanMessages("Esta en una galeria")),
-                galleryName: Joi.string().min(isInGallery() ? 1 : 0).max(64).messages(stringMessages("Nombre de la galeria")),
-                positionInGallery: Joi.string().min(isInGallery() ? 1 : 0).max(32).messages(stringMessages("Numero en la galeria")),
-                // in case of Once and flores
-                street: Joi.string().min(isInOnce && isInFlores ? 1 : 0).max(64).messages(stringMessages("Nombre de la calle")),
-                streetNumber: Joi.string().min(isInOnce && isInFlores ? 1 : 0).max(32).messages(stringMessages("Altura de la calle")),
-                
             })
         })
 
         let formImage = new FormData();
-        formImage.append("file", state.imgs.principal)
-
-        const verifyImage = Object.values(formImage).length ? formImage : {
+        formImage.append("file", state?.imgs?.principal)
+        const verifyImage = formImage || {
             name: 'url',
             size: 142134,
             type: 'image/jpge',
             webkitRelativePath: ""
         }
-
         Post("products/addImage", verifyImage, {
             headers: {
                 sldtoken: jsCookie.get("sldtoken"),
@@ -220,34 +120,17 @@ const ClaimPositionModule = ({ website }) => {
         }).then(resx => {
             const { error, value } = Schema.validate({
                 brandName: state.brandName.value,
-                isWholesaleAndRetail: state.isWholesaleAndRetail,
                 category: state.category.value,
-                shippingBy: state.shippingBy.value,
                 imgs: {
-                    principal: resx.data.img_id,
+                    principal: resx?.data?.img_id || state?.imgs?.principal,
                 },
                 payMethod: state.payMethod.value,
                 location: {
-                    zone: state.location.zone.value,
-                    shed: state.location.shed.value,
-                    stallNumber: state.location.stallNumber.value,
-                    hallway: state.location.hallway.value,
-                    row: state.location.row.value,
-                    floor: state.location.floor.value,
-                    side: state.location.side.value,
-                    isInGallery: state.location.isInGallery,
-                    galleryName: state.location.galleryName.value,
-                    positionInGallery: state.location.positionInGallery.value,
-                    street: state.location.street.value,
-                    streetNumber: state.location.streetNumber.value,
+                    zone: 'online'
                 }
             })
+            let createData = value
 
-
-            if (state.isWholesaleAndRetail == null) {
-                setSubmiting(false)
-                toast.error("Elige si vas a vender por menor o por mayor")
-            }
             if (state.payMethod.value.length == 0) {
                 setSubmiting(false)
                 return setState({
@@ -258,7 +141,6 @@ const ClaimPositionModule = ({ website }) => {
                     }
                 })
             }
-
 
             if (error) {
                 setSubmiting(false)
@@ -284,23 +166,17 @@ const ClaimPositionModule = ({ website }) => {
                 })
             }
 
-            if (isInLaSalada && state.location.shed.value == "") {
-                setSubmiting(false)
-                return toast.error("Elige en que galpon planeas vender")
-            }
+            if (createData && !error) {
 
-
-            if (!error) {
-
-                Put("user/auth/claimbrand", value, {
+                Put("user/auth/claimbrand", createData, {
                     headers: {
                         sldtoken: jsCookie.get("sldtoken")
                     }
                 }).then(res => {
                     toast(res.data.msg)
                     setSubmiting(false)
-                    if (state.location.zone === "online") {
-                        window.open("https://api.whatsapp.com/send?text=Hola%20quiero%20contratar%20el%20plan%20premiun&phone=+541170895828")
+                    if (state.location.zone == "online") {
+                        window.open("https://api.whatsapp.com/send?text=Hola%20quiero%20contratar%20el%20plan%20premiun&phone=+541124767008")
                     } else {
                         router.push("/./user/products/add")
                     }
@@ -362,28 +238,8 @@ const ClaimPositionModule = ({ website }) => {
                             <Grid>
                                 <BrandImages state={state.imgs} onChange={handleImgs} />
                             </Grid>
-                            <Grid css={{ mt: 5 }}>
-                                <SellingMode isWholesaleAndRetail={state.isWholesaleAndRetail} onChange={handleSellingMode} />
-                            </Grid>
                             <Grid>
                                 <Clasification state={state} onChange={handleGenericString} website={website} />
-                            </Grid>
-                            <Grid>
-                                <SellZone zone={state.location.zone} onClick={handleZone} />
-                            </Grid>
-                            <Grid>
-                                {
-                                    state.location.zone.value == "la salada" &&
-                                    <SaladaZone state={state.location} onChange={handleLocation} />
-                                }
-                                {
-                                    state.location.zone.value == "once" &&
-                                    <OnceZone state={state.location} onChange={handleLocation} />
-                                }
-                                {
-                                    state.location.zone.value == "flores" &&
-                                    <FloresZone state={state.location} onChange={handleLocation} />
-                                }
                             </Grid>
                         </Grid.Container>
                         <Grid.Container justify="center">

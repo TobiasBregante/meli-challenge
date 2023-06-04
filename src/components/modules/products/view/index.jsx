@@ -9,9 +9,9 @@ import { Card, Grid } from '@nextui-org/react';
 import ProductReviews from './review';
 import ProductDescription from './description';
 import ProductTimeStamp from './timestamp';
+import jsCookie from 'js-cookie'
 
-const ProductModule = ({ data, relateds, brandProducts, userInfo}) => {
-
+const ProductModule = ({ data, relateds,brandProducts }) => {
     return (
         <>
             <Grid.Container direction="column">
@@ -21,7 +21,7 @@ const ProductModule = ({ data, relateds, brandProducts, userInfo}) => {
                             <ProductImageCarrousel imgs={data?.imgs} />
                         </Grid>
                         <Grid xs={12} md={5}>
-                            <ProductInfo data={data} userInfo={userInfo}/>
+                            <ProductInfo data={data} />
                         </Grid>
                     </Grid.Container>
                 </Card>
@@ -30,9 +30,8 @@ const ProductModule = ({ data, relateds, brandProducts, userInfo}) => {
                     <Grid xs={12} md={8}>
                         <Card>
                             <Card.Body>
-                                <ProductLocation data={data?.brand?.location} />
                                 <ProductDescription data={data?.description} />
-                                <ProductTimeStamp data={data}/>
+                                { jsCookie.get("sldtoken") && <ProductTimeStamp data={data}/>}
                             </Card.Body>
                         </Card>
                     </Grid>
@@ -41,6 +40,11 @@ const ProductModule = ({ data, relateds, brandProducts, userInfo}) => {
                     </Grid>
                 </Grid.Container>
 
+                <Grid.Container css={{ mt: 20 }} gap={2}>
+                    <Grid xs={12} md={8}>
+                        <ProductComments data={data} />
+                    </Grid>
+                </Grid.Container>
                 <Grid.Container css={{ mt: 20 }} gap={2}>
                     <Grid xs={12} md={8}>
                         <ProductReviews data={data} />

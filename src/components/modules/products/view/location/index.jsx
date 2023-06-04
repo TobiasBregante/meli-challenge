@@ -16,13 +16,13 @@ const ProductLocation = ({ data }) => {
     return (
         <Grid.Container direction="column">
             <div id="location"></div>
-            <Text tag="h3" className="d-flex flex-row p-3">
+            {/* <Text tag="h3" className="d-flex flex-row p-3">
                 <Icon id="pin_drop" className="me-2 mt-01" />
                 Ubicación
             </Text>
             <Grid>
                 <LocationBuilder data={data} />
-            </Grid>
+            </Grid> */}
             
             <MapGenerator/>
             

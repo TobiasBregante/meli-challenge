@@ -1,87 +1,33 @@
 import Icon from "@/ui/icons";
-import { useEffect, useState } from 'react';
-import { FileUploader } from "react-drag-drop-files"
+import { useState } from 'react';
 import { useRouter } from 'next/router';
-
 import { useUserContext } from '@/src/utils/user/provider';
 import ShouldLogin from '@/components/modules/user/errors/shouldLogin';
-import ShouldBeSeller from '@/components/modules/user/errors/shouldBeSeller';
-import CantRegisterBrand from '@/components/modules/user/errors/cantRegisterBrand'
-import SellingMode from '@/components/modules/user/auth/claimBrand/sections/sellingMode'
 import SellZone from '@/components/modules/user/auth/claimBrand/sections/sellZone'
-
 //Section: Zones
 import SaladaZone from '@/components/modules/user/auth/claimBrand/sections/saladaZone'
 import FloresZone from '@/components/modules/user/auth/claimBrand/sections/floresZone'
 //Validation
-import { numberMessages, stringMessages, booleanMessages } from '@/utils/joi/customMessages'
-import Joi from 'joi';
 import { toast } from 'react-toastify'
-import Put from '@/src/utils/hooks/put';
-import { Avatar, Button, Card, Grid, Input, Loading, Spacer, Text } from "@nextui-org/react";
+import { Avatar, Button, Card, Grid, Input, Loading, Text } from "@nextui-org/react";
 import Clasification from "@/components/modules/user/auth/claimBrand/sections/clasification";
 import jsCookie from 'js-cookie'
-import get from '@/utils/hooks/get'
 import Post from "@/src/utils/hooks/post";
 import timeago from "@/src/utils/timeago";
 import Get from "@/utils/hooks/get";
 
 const UpdateBrandModule = ({ website, data }) => {
-
     const router = useRouter()
     const user = useUserContext()
-
-    const isLaSalada = data?.location?.zone === 'la salada'
-
     const [state, setState] = useState({
-        brandName: { error: "", value: data?.brandName },
-        isWholesaleAndRetail: data?.isWholesaleAndRetail,
-        category: { error: "", value: data?.category },
-        shippingBy: { error: "", value: data?.shippingBy },
-        payMethod: { error: "", value: data?.payMethod },
-        imgs: {
-            principal: "NI35_W3jmftQURiB_rR_LR0IUkjGXl77"
-        },
+        brandName: { error: "", value: data.brandName },
+        category: { error: "", value: data.category },
+        payMethod: { error: "", value: data.payMethod },
         location: {
-            zone: { error: "", value: data?.location?.zone },
-            //this is in case of: la salada
-            shed: { error: "", value: isLaSalada ? '' : data?.location?.shed },
-            stallNumber: { error: "", value: isLaSalada ? '' :data?.location?.stallNumber },
-            hallway: { error: "", value: isLaSalada ? '' :data?.location?.hallway },
-            row: { error: "", value: isLaSalada ? '' :data?.location?.row },
-            floor: { error: "", value: isLaSalada ? '' :data?.location?.floor },
-            side: { error: "", value: isLaSalada ? '' :data?.location?.side },
-            //this is in case of: flores
-            isInGallery: data?.location?.isInGallery,
-            galleryName: { error: "", value: isLaSalada ? '' : data?.location?.galleryName },
-            positionInGallery: { error: "", value: data?.location?.positionInGallery },
-            street: { error: "", value: data?.location?.street },
-            streetNumber: { error: "", value: data?.location?.streetNumber },
-        }
+            zone: { error: "", value: data.location.zone },
+        },
     })
-    const [stands, setStands] = useState(data?.stands.concat({
-        shed: data?.location?.shed,
-        stallNumber: data?.location?.stallNumber,
-        hallway: data?.location?.hallway,
-        row: data?.location?.row,
-        floor: data?.location?.floor,
-        side: data?.location?.side,
-        //this is in case of: flores
-        isInGallery: data?.location?.isInGallery,
-        galleryName: data?.location?.galleryName,
-    }))
-
-    useEffect(() => {
-        if (!isLaSalada) {
-            setStands([])
-        }
-    }, [isLaSalada])
-
     const [isSubmiting, setSubmiting] = useState(false)
-
-    const [showImageComponent, setShowImageComponent] = useState(false)
-
-    const [newImage, setNewImage] = useState("")
 
     if (!user) {
         return (
@@ -98,13 +44,6 @@ const UpdateBrandModule = ({ website, data }) => {
         })
     }
 
-    const handleSellingMode = (value) => (e) => {
-        setState({
-            ...state,
-            isWholesaleAndRetail: value
-        })
-    }
-
     const handleZone = (v) => {
         setState({
             ...state, location: {
@@ -118,15 +57,6 @@ const UpdateBrandModule = ({ website, data }) => {
     }
 
     const handleLocation = (key) => (e) => {
-
-        if (key === "isInGallery") {
-            return setState({
-                ...state, location: {
-                    ...state.location,
-                    isInGallery: e
-                }
-            })
-        }
         setState({
             ...state, location: {
                 ...state.location,
@@ -148,195 +78,65 @@ const UpdateBrandModule = ({ website, data }) => {
         })
     }
 
-
-    const handleImageComponent = () => {
-        setShowImageComponent(true)
-    }
-
-    const handleImgs = (key) => e => {
-
-        setState({
-            ...state,
-            imgs: {
-                [key]: e
-            }
-        })
-    }
-
     //SUBMIT
-
     const submit = () => {
-
         setSubmiting(true)
-        const zone = state.location.zone.value
 
-        //zone: la salada
-        const isInLaSalada = zone === "la salada"
+        console.error(error);
 
-        //zone: flores
-        const isInFlores = zone === "flores"
-        const isInGallery = () => {
-            if (isInFlores && state.location.isInGallery) {
-                return true
-            }
-            return false
+        if (state.payMethod.value.length == 0) {
+            setSubmiting(false)
+            return setState({
+                ...state,
+                payMethod: {
+                    value: [],
+                    error: "Elige al menos un metodo de pago"
+                }
+            })
         }
 
-
-
-        //CHECKING
-        const Schema = Joi.object({
-            brandName: Joi.string().min(3).max(32).messages(stringMessages("Nombre de marca")),
-            isWholesaleAndRetail: Joi.boolean().valid(null, true, false).messages(booleanMessages("Forma de vender")),
-            category: Joi.string().min(1).max(128).messages(stringMessages("Categoria")),
-            shippingBy: Joi.string().min(1).max(128).messages(stringMessages("Transporte de envios")),
-            payMethod: Joi.array().items(Joi.string().min(1).max(128).messages(stringMessages("Metodo de pago"))),
-            imgs: Joi.object({
-                principal: Joi.string().min(1).max(128)
-            }),
-            location: Joi.object({
-                zone: Joi.string().messages(stringMessages("Donde planeas vender")),
-                //in case of: la salada
-                shed: Joi.string().min(isInLaSalada ? 1 : 0).messages(stringMessages("Galpón")),
-                stallNumber: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Numero de puesto")),
-                hallway: Joi.string().min(0).max(32).messages(stringMessages("Numero de pasillo")),
-                row: Joi.string().min(0).max(32).messages(stringMessages("Numero de fila")),
-                floor: Joi.string().min(0).max(32).messages(stringMessages("Piso")),
-                side: Joi.string().min(0).max(32).messages(stringMessages("Lado")),
-                //In case of: flores
-                isInGallery: Joi.boolean().messages(booleanMessages("Esta en una galeria")),
-                galleryName: Joi.string().min(isInGallery() ? 1 : 0).max(64).messages(stringMessages("Nombre de la galeria")),
-                positionInGallery: Joi.string().min(isInGallery() ? 1 : 0).max(32).messages(stringMessages("Numero en la galeria")),
-                street: Joi.string().min(isInFlores ? 1 : 0).max(64).messages(stringMessages("Nombre de la calle")),
-                streetNumber: Joi.string().min(isInFlores ? 1 : 0).max(32).messages(stringMessages("Altura de la calle"))
-            }),
-            stands: Joi.array().items(Joi.object({
-                //in case of: la salada
-                shed: Joi.string().min(isInLaSalada ? 1 : 0).messages(stringMessages("Galpón")),
-                stallNumber: Joi.string().min(isInLaSalada ? 1 : 0).max(32).messages(stringMessages("Numero de puesto")),
-                hallway: Joi.string().min(0).max(32).messages(stringMessages("Numero de pasillo")),
-                row: Joi.string().min(0).max(32).messages(stringMessages("Numero de fila")),
-                floor: Joi.string().min(0).max(32).messages(stringMessages("Piso")),
-                side: Joi.string().min(0).max(32).messages(stringMessages("Lado")),
-                isInGallery: Joi.boolean().messages(booleanMessages("Esta en una galeria")),
-                galleryName: Joi.string().min(isInGallery() ? 1 : 0).max(64).messages(stringMessages("Nombre de la galeria")),
-                //In case of: flores
-            }))
-        })
-
-        let formImage = new FormData();
-        formImage.append("file", state.imgs.principal)
-
-
-
-        Post("products/addImage", formImage, {
-            headers: {
-                sldtoken: jsCookie.get("sldtoken"),
-                "Content-Type": "multipart/form-data"
-            }
-        }).then(res => {
-
-            const { error, value } = Schema.validate({
-                brandName: state.brandName.value,
-                isWholesaleAndRetail: state.isWholesaleAndRetail,
-                category: state.category.value,
-                shippingBy: state.shippingBy.value,
-                imgs: {
-                    principal: res.data.img_id,
-                },
-                payMethod: state.payMethod.value,
-                location: {
-                    zone: state.location.zone.value,
-                    shed: state.location.shed.value,
-                    stallNumber: state.location.stallNumber.value,
-                    hallway: state.location.hallway.value,
-                    row: state.location.row.value,
-                    floor: state.location.floor.value,
-                    side: state.location.side.value,
-                    isInGallery: state.location.isInGallery,
-                    galleryName: state.location.galleryName.value,
-                    positionInGallery: state.location.positionInGallery.value,
-                    street: state.location.street.value,
-                    streetNumber: state.location.streetNumber.value,
-                },
-                stands: state.location.zone.value !== 'la salada' ? []: stands,
-            })
-
-            setNewImage(res.data.img_id)
-
-            if (state.isWholesaleAndRetail == null) {
-                setSubmiting(false)
-                toast.error("Elige si vas a vender por menor o por mayor")
-            }
-            if (state.payMethod.value.length == 0) {
-                setSubmiting(false)
-                return setState({
-                    ...state,
-                    payMethod: {
-                        value: [],
-                        error: "Elige al menos un metodo de pago"
-                    }
-                })
-            }
-
-
-            if (error) {
-                setSubmiting(false)
-                if (error.details[0].path.length == 2) {
-                    return setState({
-                        ...state,
-                        [error.details[0].path[0]]: {
-                            ...state[error.details[0].path[0]],
-                            [error.details[0].path[1]]: {
-                                value: state[error.details[0].path[0]][error.details[0].path[1]].value,
-                                error: error.details[0].message
-                            }
-                        }
-                    })
-                }
+        if (error) {
+            setSubmiting(false)
+            if (error.details[0].path.length == 2) {
                 return setState({
                     ...state,
                     [error.details[0].path[0]]: {
-                        value: state[error.details[0].path[0]].value,
-                        error: error.details[0].message
+                        ...state[error.details[0].path[0]],
+                        [error.details[0].path[1]]: {
+                            value: state[error.details[0].path[0]][error.details[0].path[1]].value,
+                            error: error.details[0].message
+                        }
                     }
                 })
             }
 
-            if (isInLaSalada && state.location.shed.value === "") {
+            return setState({
+                ...state,
+                [error.details[0].path[0]]: {
+                    value: state[error.details[0].path[0]].value,
+                    error: error.details[0].message
+                }
+            })
+        }
+
+        if (!error) {
+            Post(`brands/brand/${data._id}/update`, value, {
+                headers: {
+                    sldtoken: jsCookie.get("sldtoken")
+                }
+            }).then(res => {
+                toast(res.data.msg)
+                return setSubmiting(false)
+
+            }).catch(err => {
+                if (err.response.data) {
+                    toast.error(err.response.data);
+                }
+                toast.error("Ocurrio un error de nuestro lado")
                 setSubmiting(false)
-                return toast.error("Elige en que galpon planeas vender")
-            }
-
-
-            if (!error) {
-
-                Post(`brands/brand/${data._id}/update`, value, {
-                    headers: {
-                        sldtoken: jsCookie.get("sldtoken")
-                    }
-                }).then(res => {
-                    toast(res.data.msg)
-                    return setSubmiting(false)
-
-                }).catch(err => {
-                    if (err?.response?.data) {
-                        toast.error(err.response.data);
-                    }
-                    toast.error("Ocurrio un error de nuestro lado")
-                    setSubmiting(false)
-                })
-            }
-
-
-
-        })
-
-
-
-
+            })
+        }
     }
-
 
     const validateFor = (index) => {
         const now = new Date()
@@ -387,8 +187,6 @@ const UpdateBrandModule = ({ website, data }) => {
         })
     }
 
-
-
     return (
         <Grid.Container justify="center" >
             <Grid xs={12} sm={9} >
@@ -398,13 +196,7 @@ const UpdateBrandModule = ({ website, data }) => {
                             <Text h3>
                                 Datos del vendedor
                             </Text>
-                            <Spacer />
-                            <Avatar css={{ marginLeft: '$10', size: "$20" }}
-                                squared src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${newImage || data?.imgs?.principal}`} />
-                            <Spacer />
-                            <Button size="xs" bordered color="warning" ghost onPress={() => handleImageComponent()}>
-                                Editar imagen
-                            </Button>
+                            <Avatar css={{ marginLeft: '$10' }} squared src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${data?.imgs?.principal || 'uO3wK0EqPoTvyU41rnxLTbuBYjy-k9bY'}`} />
                         </Card.Header>
                         <Card.Body>
                             <Text b h4>
@@ -416,26 +208,8 @@ const UpdateBrandModule = ({ website, data }) => {
                             <Text b h4>
                                 Numero de celular: {data.ownerData.cellPhone}
                             </Text>
-                            {data?.ownerData?.cellPhone2 &&
-                                <>
-                                    <Text b h4>
-                                        Numero alternativo: {data.ownerData.cellPhone2}
-                                    </Text>
-                                </>
-                            }
                         </Card.Body>
                     </Card>
-                    {showImageComponent &&
-                        <Grid css={{ border: "orange dashed 3px", p: "$10", textAlign: "center", bgColor: "White" }} className="rounded-16">
-                            <FileUploader handleChange={handleImgs("principal")} name="file" types={["jpg", "png", "jpeg", "avif", "webp", "jiff"]} css={{ backgroundColor: 'red' }} >
-                                <Text>
-                                    Arrastra y suelta la imagen aquí o presiona para elegir de tu galería
-                                </Text>
-                            </FileUploader>
-                        </Grid>
-
-                    }
-                    <Spacer />
                     <Card variant="flat" css={{ bg: "$white", pb: 20 }}>
                         <Card.Header>
                             <Grid.Container justify="center">
@@ -459,30 +233,27 @@ const UpdateBrandModule = ({ website, data }) => {
                                         clearable
                                         label="Nombre de la marca"
                                         placeholder="Escribe aqui"
-                                        helperText={state?.brandName?.error}
+                                        helperText={state.brandName.error}
                                         helperColor="error"
-                                        status={state?.brandName?.error ? "error" : "default"}
+                                        status={state.brandName.error ? "error" : "default"}
                                         onChange={handleBrandName}
                                         contentLeft={<Icon id="title" />}
-                                        value={state?.brandName?.value}
+                                        value={state.brandName.value}
                                         css={{ w: "100%" }} />
-                                </Grid>
-                                <Grid css={{ mt: 5 }}>
-                                    <SellingMode isWholesaleAndRetail={state.isWholesaleAndRetail} onChange={handleSellingMode} />
                                 </Grid>
                                 <Grid>
                                     <Clasification state={state} onChange={handleGenericString} website={website} />
                                 </Grid>
-                                <Grid>
-                                    <SellZone zone={state.location?.zone} onClick={handleZone} />
-                                </Grid>
+                                {/* <Grid>
+                                    <SellZone zone={state.location.zone} onClick={handleZone} />
+                                </Grid> */}
                                 <Grid>
                                     {
-                                        state.location?.zone?.value == "la salada" &&
-                                        <SaladaZone data={data} user={user} state={state.location} onChange={handleLocation} stands={stands} setStands={setStands} />
+                                        state.location.zone.value == "la salada" &&
+                                        <SaladaZone state={state.location} onChange={handleLocation} />
                                     }
                                     {
-                                        state.location?.zone?.value == "flores" &&
+                                        state.location.zone.value == "flores" &&
                                         <FloresZone state={state.location} onChange={handleLocation} />
                                     }
                                 </Grid>
@@ -519,8 +290,8 @@ const UpdateBrandModule = ({ website, data }) => {
                                 </Button>
                                 <Button auto
                                     color="secondary"
-                                    css={{ color: "$dark", mt: 10 }}
-                                    iconRight={<Icon id="arrow_upward" />}
+                                    css={{ color: "$white", mt: 10 }}
+                                    iconRight={<Icon css={{ color: '$white' }} id="arrow_upward" />}
                                     disabled={isSubmiting}
                                     onPress={submit}>
                                     {
@@ -536,7 +307,6 @@ const UpdateBrandModule = ({ website, data }) => {
             </Grid>
         </Grid.Container>
     )
-
 }
 
 export default UpdateBrandModule

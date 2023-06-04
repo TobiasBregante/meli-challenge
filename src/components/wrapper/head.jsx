@@ -108,7 +108,7 @@ const Head = ({ title, description, image }) => {
 Head.defaultProps = {
     title: "SaladaApp",
     description: "Comprá directo a fabricante y mayoristas de la Salada en un solo Click sin intermediarios ni comisiones",
-    image: "/logo.png"
+    image: "/logo2.png"
 }
 
 export default Head

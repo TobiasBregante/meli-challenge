@@ -1,14 +1,30 @@
 import Icon from "@/ui/icons";
 import UserHeaderMenu from "@/src/components/modules/user/avatar/userHeaderMenu";
 import Image from "next/image";
-import { useState } from 'react'
-import { Button, Card, Container, Grid, Input, Text } from "@nextui-org/react";
+import { useEffect, useState } from 'react'
+import { Button, Card, Container, Grid, Input, Text, Dropdown } from "@nextui-org/react";
 import { useRouter } from "next/router";
 import UserNotifications from "../modules/user/notifications";
+import uniqid from 'uniqid'
+import Get from "@/src/utils/hooks/get";
 
 const Header = () => {
-    const [isSearchOpen, openSearchBar] = useState(false),
-        [searchValue, setSearchValue] = useState("")
+    const [isSearchOpen, openSearchBar] = useState(false)
+    const [searchValue, setSearchValue] = useState("")
+    const [categories, setCategories] = useState({})
+
+    const getCategories = async () => {
+        await Get("website").then(r => {
+            console.log(r?.data?.categories)
+            setCategories(r?.data?.categories)        
+        }).catch(() => { 
+            setCategories({})
+        })
+    }
+
+    useEffect(() => {
+        getCategories()
+    }, [])
 
     const router = useRouter()
 
@@ -23,7 +39,7 @@ const Header = () => {
     }
 
     return (
-        <Card css={{ borderRadius: 0, bg: "$primary" }}>
+        <Card css={{ borderRadius: 0, bg: "$thertiary" }}>
             <Container lg>
                 {
                     isSearchOpen ?
@@ -36,7 +52,7 @@ const Header = () => {
                                 onKeyUp={handleEnter}
                                 id="headerSearch"
                                 aria-label="Busqueda"
-                                placeholder="Busca entre cientos de productos"
+                                placeholder="Buscalo acá"
                                 contentRight={<Icon id="search" className="text-dark" />}
                                 contentLeft={<Icon id="arrow_back" onClick={() => openSearchBar(false)} css={{ m: 10 }} />}
                                 contentLeftStyling={false}
@@ -49,56 +65,62 @@ const Header = () => {
                                     <Grid.Container direction="row">
                                         <Grid>
                                             <Image
-                                                src="/logo2"
                                                 width={50}
                                                 height={50}
-                                                alt="salada-app-logo" />
-                                        </Grid>
-                                        <Grid>
-                                            <Grid.Container direction="column" justify="center">
-                                                <Grid.Container css={{ my: "auto" }}>
-                                                    <Text h2 weight="bold" >
-                                                        Salada
-                                                    </Text>
-                                                    <Text h2 color="black" weight="normal" >
-                                                        App
-                                                    </Text>
-                                                </Grid.Container>
-                                            </Grid.Container>
+                                                src="/logo2.png"
+                                                objectFit='contain'
+                                                alt="Salada-app-logo" />
                                         </Grid>
                                     </Grid.Container>
                                 </a>
                             </Grid>
+                            {categories?.length > 0 && (
+                                <Dropdown>
+                                    <Dropdown.Button className="btn" size={'sm'} css={{ bg: '$secondary', color: '$white' }} flat>
+                                        Categorías
+                                    </Dropdown.Button>
+                                    <Dropdown.Menu aria-label="Dynamic Actions" items={categories}>
+                                        {(item) => (
+                                            <Dropdown.Item
+                                                key={uniqid()}
+                                                color={'primary'}
+                                            >
+                                                <a className="linkCategoryHeader" href={`/page/category/${item?.name}`}>
+                                                    {item.name}
+                                                </a>
+                                            </Dropdown.Item>
+                                        )}
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            )}
                             <Grid>
-                                <Grid.Container gap={1}>
-                                    <Grid css={{ "@smMax": { display: "none" } }}>
-                                        <Input
-                                            color="white"
-                                            clearable
-                                            value={searchValue}
-                                            onChange={handleSearch}
-                                            onKeyUp={handleEnter}
-                                            id="headerSearch"
-                                            aria-label="Busqueda"
-                                            placeholder="Busca entre cientos de productos"
-                                            contentRight={<Icon id="search" className="text-dark" />}
-                                        />
-                                    </Grid>
-                                    <Grid css={{ "@sm": { display: "none" } }}>
-                                        <Button auto css={{ bg: "$white", color: "$black" }} icon={<Icon id="search" />} onClick={() => openSearchBar(true)} />
-                                    </Grid>
-                                    <Grid>
-                                        <UserNotifications />
-                                    </Grid>
-                                    <Grid>
-                                        <UserHeaderMenu />
-                                    </Grid>
-
-                                </Grid.Container>
-                            </Grid>
-                        </Grid.Container>
+                            <Grid.Container gap={.5}>
+                                <Grid css={{ "@smMax": { display: "none" } }}>
+                                    <Input
+                                        color="white"
+                                        clearable
+                                        value={searchValue}
+                                        onChange={handleSearch}
+                                        onKeyUp={handleEnter}
+                                        id="headerSearch"
+                                        aria-label="Busqueda"
+                                        placeholder="Buscalo acá"
+                                        contentRight={<Icon id="search" className="text-dark" />}
+                                    />
+                                </Grid>
+                                <Grid css={{ "@sm": { display: "none" } }}>
+                                    <Button size={'sm'} auto css={{ bg: "$white", color: "$black" }} icon={<Icon id="search" />} onClick={() => openSearchBar(true)} />
+                                </Grid>
+                                <Grid>
+                                    <UserNotifications />
+                                </Grid>
+                                <Grid>
+                                    <UserHeaderMenu />
+                                </Grid>
+                            </Grid.Container>
+                        </Grid>
+                    </Grid.Container>
                 }
-
             </Container>
         </Card>
     )

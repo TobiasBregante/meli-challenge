@@ -14,12 +14,24 @@ const HighLightCarousel = ({ data }) => {
       pagination
       autoplay
       slidesPerView={1}
+      style={{
+        marginTop: '1% !important',
+        display: 'block'
+      }}
     >
       {
         data?.length > 0 && data.map((slide, i) => (
           <SwiperSlide key={i}>
             <a href={slide.link}>
-              <Image src={`${slide.img}`} width={2000} height={800} alt="carousel" className='rounded-bottom-16' />
+              <Image 
+                src={`${slide.img}`} 
+                alt="carousel" 
+                className='rounded-16' 
+                width="100%" 
+                height={"20%"} 
+                layout="responsive" 
+                objectFit="cover"
+              />
             </a>
           </SwiperSlide>
         ))

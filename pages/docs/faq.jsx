@@ -19,13 +19,13 @@ const Faq = () => {
                             <Card.Body>
                                 <Grid.Container direction="column">
                                     <Text h2>PREGUNTAS FRECUENTES COMPRADORES</Text>
-                                    <Collapse title="¿Necesito descargar alguna aplicación para acceder a salada App?">
+                                    <Collapse title="¿Necesito descargar alguna aplicación para acceder a SaladaApp?">
                                         <Text>
                                             No es necesario descargar ninguna app, solo abres tu navegador y buscas la pagina
                                         </Text>
                                     </Collapse>
 
-                                    <Collapse title="Me tengo que registrar para comprar en salada App?">
+                                    <Collapse title="Me tengo que registrar para comprar en SaladaApp?">
                                         <Text>Si debes registrarte con un email o Facebook</Text>
                                     </Collapse>
 
@@ -41,7 +41,7 @@ const Faq = () => {
                                         <Text>Cuando eliges tu producto encontraras botones con las opciones de compra, haz click en alguno de ellos y te direccionara al Whats App del fabricante</Text>
                                     </Collapse>
 
-                                    <Collapse title="Salada App hace envíos?">
+                                    <Collapse title="SaladaApp hace envíos?">
                                         <Text>No, el envió lo pactas con el fabricante</Text>
                                     </Collapse>
 
@@ -49,11 +49,11 @@ const Faq = () => {
                                         <Text>Eso lo informa el fabricante que es quien se encarga del envió</Text>
                                     </Collapse>
 
-                                    <Collapse title="Salada App me cobra Comisión">
+                                    <Collapse title="SaladaApp me cobra Comisión">
                                         <Text>No se abona Comisión</Text>
                                     </Collapse>
 
-                                    <Collapse title="Salada App realiza cobros">
+                                    <Collapse title="SaladaApp realiza cobros">
                                         <Text>No, el pago lo pactas directo con el vendedor</Text>
                                     </Collapse>
 
@@ -105,17 +105,12 @@ const Faq = () => {
                                     <Collapse title=" Como veo mis artículos publicados en la App?">
                                         <Text>Debes registrarte como comprador con otro email o Facebook diferente al de tu rol de vendedor entras la App y buscas tu marca o puesto en la lupa de la cabecera de la pagina</Text>
                                     </Collapse>
-
-
-
-
                                 </Grid.Container>
                             </Card.Body>
                         </Card>
                     </Grid>
                 </Grid.Container>
             </Container>
-
         </Page>
     )
 }

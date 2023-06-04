@@ -9,9 +9,6 @@ const CategoriesCarousel = ({ data }) => {
   return (
     <>
       <Grid.Container css={{ mt: 10 }}>
-        <Text h3>
-          Categorias
-        </Text>
       </Grid.Container>
       <Grid.Container>
         <Swiper
@@ -28,7 +25,7 @@ const CategoriesCarousel = ({ data }) => {
               slidesPerView: 3,
             },
             1280: {
-              slidesPerView: 6,
+              slidesPerView: 3,
             },
           }}
         >
@@ -36,10 +33,10 @@ const CategoriesCarousel = ({ data }) => {
             data?.length > 0 && data.sort((a, b) => b.views - a.views).map((category, i) => (
               <SwiperSlide key={i}>
                 <a href={`/./page/category/${category.name}`}>
-                  <Card css={{ bg: "$blue600" }} variant="flat" isPressable isHoverable>
+                  <Card css={{ borderRadius: 50, bg: "transparent", border: '2.5px solid $blue600' }} variant="flat" isPressable isHoverable>
                     <Card.Body>
                       <Grid.Container justify="center">
-                        <Text h5 color="white">
+                        <Text color="$blue600" style={{ fontWeight: '600', lineHeight: 0, display: 'block' }}>
                           {category.name}
                         </Text>
                       </Grid.Container>

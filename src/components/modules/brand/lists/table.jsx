@@ -4,9 +4,8 @@ import { Badge, Button, Table } from "@nextui-org/react"
 import { useRouter } from "next/router"
 
 const BrandTable = ({ data }) => {
-
     const router = useRouter()
-    const handleClick = e => {
+    const handleClick = e =>{
         const brand = data[Array.from(e)[0]]
         router.push(`/./admin/brand/${brand._id}`)
     }
@@ -20,25 +19,25 @@ const BrandTable = ({ data }) => {
         >
             <Table.Header>
                 <Table.Column>Marca</Table.Column>
-                <Table.Column>Zona y calle</Table.Column>
+                <Table.Column>Zona</Table.Column>
                 <Table.Column>Es publica</Table.Column>
                 <Table.Column>Publica hasta</Table.Column>
             </Table.Header>
             <Table.Body>
                 {
-                    data.reverse().map((brand, i) => (
+                    data.map((brand, i) => (
                         <Table.Row key={i}>
                             <Table.Cell>{brand.brandName}</Table.Cell>
-                            <Table.Cell> {brand.location.zone}<br />{brand.location.street ? "Calle: " + brand.location.street  : ""} </Table.Cell>
+                            <Table.Cell>{brand.location.zone}</Table.Cell>
                             <Table.Cell>
-                                <Badge color={brand.isActive ? "suzccess" : "error"}>
+                                <Badge color={brand.isActive?"success":"error"}>
                                     {
-                                        brand.isActive ? "Si es publica" : "No es publica"
+                                        brand.isActive ? "Si es publica":"No es publica"
                                     }
                                 </Badge>
                             </Table.Cell>
                             <Table.Cell>
-                                <Badge color={brand.isActive ? "success" : "error"}>
+                                <Badge color={brand.isActive?"success":"error"}>
                                     {
                                         timeago(brand.isActiveUntil)
                                     }

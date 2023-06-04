@@ -61,7 +61,7 @@ const SignUpModule = () => {
         })
 
         const { error } = Schema.validate({
-            isSeller: state.isSeller,
+            isSeller: true,
             name: state.name.value,
             lastName: state.lastName.value,
             email: state.email.value,
@@ -72,6 +72,9 @@ const SignUpModule = () => {
 
 
         if (error) {
+            if (state.isSeller == null) {
+                return toast("Elige una opción entre Comprador/a o Vendedor/a")
+            }
             return setState({
                 ...state,
                 [error.details[0].path[0]]: {
@@ -104,7 +107,7 @@ const SignUpModule = () => {
 
         if (!error) {
             Put("user/auth/signup", {
-                isSeller: state.isSeller,
+                isSeller: true,
                 name: state.name.value,
                 lastName: state.lastName.value,
                 email: state.email.value,

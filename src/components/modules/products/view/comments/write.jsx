@@ -21,7 +21,7 @@ const WriteComment = ({ data, isResponse, comment_id, comments, setComments, ...
             body.comment = state
         }
 
-        Post(`products/product/${data._id}/comment`, body, {
+        Post(`products/product/${data?._id}/comment`, body, {
             headers: { sldtoken: jsCookie.get('sldtoken') }
         }).then(res => {
             toast(res.data.msg)
@@ -30,7 +30,7 @@ const WriteComment = ({ data, isResponse, comment_id, comments, setComments, ...
 
             if (isResponse) {
                 setComments(comments.map(c => {
-                    if (c._id === comment_id) {
+                    if (c?._id === comment_id) {
                         c.response = state
                     }
                     return c

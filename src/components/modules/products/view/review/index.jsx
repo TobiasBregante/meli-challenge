@@ -40,7 +40,7 @@ const Review = ({ data, canReply, productData, reviews, setReviews }) => {
                     <Grid>
                         <Grid.Container>
                             <Avatar
-                                src={`https://res.cloudinary.com/salada/${data.user?.img === undefined ? "avatar" : data.user.img}`}
+                                src={`https://res.cloudinary.com/saladapp/${data.user?.img === undefined ? "uO3wK0EqPoTvyU41rnxLTbuBYjy-k9bY" : data.user.img}`}
                             />
                             <Text weight="bold" css={{ ml: 10 }}>
                                 {data.user?.name}

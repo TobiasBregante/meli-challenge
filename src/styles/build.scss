@@ -10,9 +10,29 @@
 @import "../../node_modules/animate.css/animate.min.css";
 @import "../../node_modules/react-toastify/dist/ReactToastify.min.css";
 
-
-.nextui-modal {
-    padding: 0 !important;
-    background-color: rgba(0, 0, 0, .3);
-    backdrop-filter: saturate(180%) blur(14px);
+.cardBodyPlan {
+    p  {
+        font-size: 1.4rem !important;
+    }
+    li {
+        list-style: disc;
+    }
+}
+.dropdownHeader {
+    a {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        top: 0;
+        color: #424242;
+        padding: 2%;
+    }
+    .material-icons-round {
+        margin: 2%;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        top: 0;
+    }
 }
