@@ -7,11 +7,6 @@ import LocationBuilder from '../locationBuilder'
 import { useEffect } from 'react'
 
 const ProductCard = ({ data }) => {
-
-    useEffect(() => {
-        console.log(data.prices)
-    }, [])
-
     if(!data) {
         return null
     }
@@ -32,7 +27,8 @@ const ProductCard = ({ data }) => {
         } = data?.prices
         
         let prices = [
-            minPerCurve
+            retail
+            || minPerCurve
             || minPerDozen
             || minPerQuantity
             || minPerTask
@@ -41,7 +37,6 @@ const ProductCard = ({ data }) => {
             || perDozen
             || perQuantity
             || perTask
-            || retail
             || wholesale
         ]
         prices = prices.filter(price => price != 0 && price != undefined)

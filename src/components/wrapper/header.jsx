@@ -15,7 +15,6 @@ const Header = () => {
 
     const getCategories = async () => {
         await Get("website").then(r => {
-            console.log(r?.data?.categories)
             setCategories(r?.data?.categories)        
         }).catch(() => { 
             setCategories({})

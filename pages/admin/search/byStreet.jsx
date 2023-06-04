@@ -6,9 +6,6 @@ import { useState } from 'react'
 import Get from '@/src/utils/hooks/get'
 
 const SearchByStreetPage = ({ data }) => {
-
-    // console.log("SbyS Data-> ", data)
-
     const [state,setState] = useState(data)
 
     return (

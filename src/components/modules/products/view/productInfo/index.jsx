@@ -16,11 +16,6 @@ import { useUserContext } from '@/src/utils/user/provider';
 const ProductInfo = ({ data }) => {
     const router = useRouter()
     const user = useUserContext()
-
-    useEffect(() => {
-        console.log(data)
-    }, [])
-
     const [isWritingReview, setWriteReview] = useState(false)
 
     const moveToLocation = () => {
@@ -43,7 +38,7 @@ const ProductInfo = ({ data }) => {
         } = data?.prices
         
         let prices = [
-            minPerCurve
+            retail
             || minPerDozen
             || minPerQuantity
             || minPerTask
@@ -52,8 +47,8 @@ const ProductInfo = ({ data }) => {
             || perDozen
             || perQuantity
             || perTask
-            || retail
             || wholesale
+            || minPerCurve
         ]
         prices = prices.filter(price => price != 0 && price != undefined)
         return currency(Math.min(...prices), { decimal: ",", separator: "." }).format()
