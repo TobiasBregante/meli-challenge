@@ -53,7 +53,7 @@ const BrandCarousel = ({ title, data, link }) => {
       >
         {
           data.map((cardData, cardI) => (
-            <SwiperSlide key={cardI}>
+            <SwiperSlide key={cardI} className='carousell'>
               <BrandCard data={cardData} />
             </SwiperSlide>
           ))

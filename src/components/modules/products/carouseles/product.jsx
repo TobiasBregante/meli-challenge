@@ -63,7 +63,7 @@ const ProductCarousel = ({ title, data, link, categoryHidde }) => {
         >
           {
             dataFilter?.length > 0 && dataFilter?.map((cardData, cardI) => (
-              <SwiperSlide key={cardI}>
+              <SwiperSlide key={cardI} className='carousell'>
                 <ProductCard data={cardData} />
               </SwiperSlide>
             ))

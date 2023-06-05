@@ -12,10 +12,10 @@ const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Acce
   return (
     <Page categories={website?.categories}>
       <Container lg css={{ mb: "$10" }}>
-        <AdsModals img={website?.popup?.img} link={website?.popup?.link}/>
+        {/* <AdsModals img={website?.popup?.img} link={website?.popup?.link}/> */}
+        <CategoriesCarousel data={website?.categories}/>
         {/* <HighLightCarousel data={website.highlights} /> */}
         <ProductCarousel title="Tendencia" data={popularProducts} categoryHidde={'Equipamiento'} link="/page/products/popular"/>
-        <CategoriesCarousel data={website?.categories}/>
         <ProductCarousel title="Calzado" data={Calzado} link="/page/products/calzado"/>
         <ProductCarousel title="Temporada" data={ArticuloDeTemporada} link="/page/products/temporada"/>
         <ProductCarousel title="Electrónica" data={Electronica} link="/page/products/electronica"/>
