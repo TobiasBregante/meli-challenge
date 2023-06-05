@@ -46,7 +46,7 @@ const ProductCard = ({ data }) => {
 
 
     return (
-        <Card variant="flat" css={{ bg: "$white" }} isHoverable>
+        <Card variant="flat" css={{ bg: "$white" }} isHoverable className='productCard'>
             <a href={`/./product/${data._id}`}>
                 <div style={{width: '100%', height: '300px', position: 'relative', display: 'block', textAlign: 'center', padding: 0, margin: 0}}>
                     <Image
