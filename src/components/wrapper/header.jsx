@@ -38,7 +38,7 @@ const Header = () => {
     }
 
     return (
-        <Card css={{ borderRadius: 0, bg: "#fff" }}>
+        <Card variant="flat" css={{ borderRadius: 0, bg: "#fff" }}>
             <Container lg>
                 {
                     isSearchOpen ?

@@ -5,12 +5,11 @@ import 'swiper/css/autoplay';
 import { Card, Grid, Text } from '@nextui-org/react';
 
 const CategoriesCarousel = ({ data }) => {
-
   return (
     <>
       <Grid.Container css={{ mt: 10 }}>
       </Grid.Container>
-      <hr className='lineHrTop'/>
+      <hr className='lineHrTop' style={{ position: 'absolute', left: 0, right: 0, width: '100vw', margin: 0, padding: 0 }}/>
       <Grid.Container>
         <Swiper
           spaceBetween={0}
@@ -34,11 +33,11 @@ const CategoriesCarousel = ({ data }) => {
             data?.length > 0 && data.sort((a, b) => b.views - a.views).map((category, i) => (
               <SwiperSlide key={i} className='carousellCategories'>
                 <a href={`/./page/category/${category.name}`}>
-                  <Card className='filterChoosed' css={{ borderRadius: 50 }} variant="flat" isPressable isHoverable>
+                  <Card title={category?.name} className='filterChoosed' css={{ borderRadius: 50 }} variant="flat" isPressable isHoverable>
                     <Card.Body>
                       <Grid.Container justify="center">
                         <Text color="$blue600" style={{ fontWeight: '600', lineHeight: 0, display: 'block' }}>
-                          {category.name}
+                          {category?.name?.length > 14 ? `${category?.name?.slice(0, 11)}...` : category?.name}
                         </Text>
                       </Grid.Container>
                     </Card.Body>
@@ -50,7 +49,7 @@ const CategoriesCarousel = ({ data }) => {
 
         </Swiper>
       </Grid.Container>
-      <hr className='lineHrBottom'/>
+      <hr className='lineHrBottom' style={{ position: 'absolute', left: 0, right: 0, width: '100vw', margin: 0, padding: 0 }}/>
     </>
   );
 }
