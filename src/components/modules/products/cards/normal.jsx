@@ -48,7 +48,7 @@ const ProductCard = ({ data }) => {
     return (
         <Card variant="flat" css={{ bg: "$white" }} isHoverable className='productCard'>
             <a href={`/./product/${data._id}`}>
-                <div style={{width: '100%', height: '300px', position: 'relative', display: 'block', textAlign: 'center', padding: 0, margin: 0}}>
+                <div style={{width: '100%', height: '174px', position: 'relative', display: 'block', textAlign: 'center', padding: 0, margin: 'auto'}}>
                     <Image
                         style={{ display: 'block', margin: 'auto' }}
                         src={data.imgs[0]}
@@ -63,34 +63,14 @@ const ProductCard = ({ data }) => {
                 justify="flex-end">
                 <SaveBookmark _id={data._id} style={{ display: 'block', margin: 'auto' }}/>
             </Grid.Container>
-            <Card.Body css={{ pb: 0, overflow: "hidden" }}>
-                <Text weight="bold" h4 css={{ color: "$primary" }}>
+            <Card.Body css={{ pb: 0, overflow: "hidden" }} className='productInfo'>
+                <Text weight="normal" h5 css={{ color: '$heading', fontWeight: 600, fontSize: 18 }}>
+                    {data?.title?.length > 18 ? `${data?.title?.slice(0, 15)}...` : data?.title}
+                </Text>
+                <Text weight="bold" h4 css={{ color: '$heading', fontWeight: 700, fontSize: 16 }}>
                     {lowestPriceSelect()}
                 </Text>
-                <Grid.Container direction="column" justify="space-between">
-                    <Grid.Container>
-                        <Text weight="normal" h5 >
-                            {data.title}
-                        </Text>
-                    </Grid.Container>
-
-                    {/* <Grid.Container>
-                        <LocationBuilder data={data?.brand?.location} />
-                    </Grid.Container> */}
-
-                </Grid.Container>
             </Card.Body>
-            <Card.Footer style={{ position: 'absolute', top: 0, right: 0, marginTop: 274 }}>
-                <Grid.Container justify="flex-end">
-                    {
-                        data?.brand?.imgs?.principal &&
-                        <Avatar src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${data?.brand?.imgs?.principal && data?.brand?.imgs?.principal !== 'NI35_W3jmftQURiB_rR_LR0IUkjGXl77' ? data?.brand?.imgs?.principal : 'blank-profile-picture-g227b26ec4_640_fwvqox'}`} size="sm" />
-                    }
-                    <Text className='brandNameCard' css={{ bg: '$secondary', color: '$white' }}>
-                        {data?.brand?.brandName}
-                    </Text>
-                </Grid.Container>
-            </Card.Footer>
         </Card>
     )
 }
