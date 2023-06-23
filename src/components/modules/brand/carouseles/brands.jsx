@@ -30,7 +30,7 @@ const CarouselTitle = ({ title, link }) => {
 const BrandCarousel = ({ title, data, link }) => {
 
   return (
-    <div>
+    <div className='carousell-product'>
       <CarouselTitle title={title} link={link} />
       <Swiper
         spaceBetween={10}

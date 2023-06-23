@@ -1,21 +1,17 @@
 import Page from '@Page'
 import ProductCarousel from '@/src/components/modules/products/carouseles/product'
 import HighLightCarousel from '@/src/components/modules/products/carouseles/highlight'
-import CategoriesCarousel from '@/src/components/modules/products/carouseles/categories'
-import FiltersCarousel from '@/src/components/modules/products/carouseles/filters'
 import { Container } from '@nextui-org/react'
 import BrandCarousel from '@/src/components/modules/brand/carouseles/brands'
-import UnorderedList from '@/src/components/modules/products/list/unordered'
 import AdsModals from '@/src/components/modules/products/ads/modals'
 import Get from '@/utils/hooks/get'
 
 const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Accesorios, ArticuloDeTemporada, Mascotas, Electronica, Bijouterie, Calzado }) => { 
   return (
     <Page categories={website?.categories}>
-      <Container lg css={{ mb: "$10" }}>
+      <Container lg css={{ mb: "$10", ml: 0, mr: 0 }} className='container-fluid'>
         {/* <AdsModals img={website?.popup?.img} link={website?.popup?.link}/> */}
-        <CategoriesCarousel data={website?.categories}/>
-        {/* <HighLightCarousel data={website.highlights} /> */}
+        <HighLightCarousel data={website.highlights} />
         <ProductCarousel title="Tendencia" data={popularProducts} categoryHidde={'Equipamiento'} link="/page/products/popular"/>
         <ProductCarousel title="Calzado" data={Calzado} link="/page/products/calzado"/>
         <ProductCarousel title="Temporada" data={ArticuloDeTemporada} link="/page/products/temporada"/>
