@@ -27,23 +27,61 @@ html{
 }
 
 .swiper-button-prev, .swiper-rtl .swiper-button-next {
-    color:black !important;
-    background-color: rgba(255, 255, 255, .8);
-    height: 60px !important;
-    width: 60px !important;
-    border-radius: 50%;
-    padding: 2.5% !important;
+    // color:black !important;
+    // background-color: rgba(255, 255, 255, .8);
+    // height: 60px !important;
+    // width: 60px !important;
+    // border-radius: 50%;
+    // padding: 2.5% !important;
+    border-radius: 0 50% 50% 0;
+    color: $primary !important;
+    background-color: $background3;
+    padding: 31px !important;
+    position: absolute;
+    margin-left: -10px;
+    width: 86px;
+    height: 86px;
     @media (max-width: $isMobile) {
         display: none !important;
     }
 }
+.container-fluid {
+    padding: 0;
+}
+.banner-img {
+    @media (max-width: $isMobile) {
+        height: 178.344px;
+    }
+    height: 340px;
+    width: 100vw;
+}
+.carousell-product {
+    @media (max-width: $isMobile) {
+        width: 100%;
+    }
+    margin: auto;
+    width: 88%;
+}
+.productCardFather, .productCard {
+    margin: auto !important; 
+    display: block !important;
+    width: 100% !important;
+}
 .swiper-button-next, .swiper-rtl .swiper-button-prev{
-    color:black !important;
-    background-color: rgba(255, 255, 255, .8);
-    height: 60px !important;
-    width: 60px !important;
-    border-radius: 50%;
-    padding: 2.5% !important;
+    border-radius: 50% 0 0 50%;
+    color: $primary !important;
+    background-color: $background3;
+    padding: 31px !important;
+    margin-right: -10px;
+    position: absolute;
+    width: 86px;
+    height: 86px;
+    // color:black !important;
+    // background-color: rgba(255, 255, 255, .8);
+    // height: 60px !important;
+    // width: 60px !important;
+    // border-radius: 50%;
+    // padding: 2.5% !important;
     @media (max-width: $isMobile) {
         display: none !important;
     }

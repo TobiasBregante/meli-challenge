@@ -41,7 +41,7 @@ const ProductCarousel = ({ title, data, link, categoryHidde }) => {
     return null
   } else {
     return (
-      <div>
+      <div className='carousell-product'>
         <CarouselTitle title={title} link={link} />
         <Swiper
           spaceBetween={10}
