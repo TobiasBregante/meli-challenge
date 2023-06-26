@@ -1,9 +1,10 @@
 import { Button, Card, Container, Grid, Text } from '@nextui-org/react'
 import Page from '@Page'
+import { Fragment } from 'react'
 
 const CardPlan = ({ title, children, className }) => {
     return (
-        <>
+        <Fragment>
         <Grid xs={12} md={3}>
             <Card className={`planCard ${className}`}>
                 <Card.Header>
@@ -23,7 +24,7 @@ const CardPlan = ({ title, children, className }) => {
                 </Card.Body>
             </Card>
         </Grid>
-        </>
+        </Fragment>
     )
 }
 

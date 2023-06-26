@@ -25,12 +25,14 @@ const UserChatHeader = ({ data }) => {
                         </Button>
                     </Grid>
                     <Grid css={{ mr: 10 }}>
-                        <Image
-                            src={`/img/${headerData.img}.jpg`}
-                            width={50}
-                            height={50}
-                            alt="bg"
-                            className="rounded-circle " />
+                        <div>
+                            <Image
+                                src={`/img/${headerData.img}.jpg`}
+                                width={50}
+                                height={50}
+                                alt="bg"
+                                className="rounded-circle " />
+                        </div>
                     </Grid>
                     <Grid>
                         <Text h2>

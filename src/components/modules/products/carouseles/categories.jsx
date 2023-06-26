@@ -3,10 +3,11 @@ import { Autoplay } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import { Card, Grid, Text } from '@nextui-org/react';
+import { Fragment } from 'react';
 
 const CategoriesCarousel = ({ data }) => {
   return (
-    <>
+    <Fragment>
       <Grid.Container css={{ mt: 10 }}>
       </Grid.Container>
       <hr className='lineHrTop' style={{ position: 'absolute', left: 0, right: 0, width: '100vw', margin: 0, padding: 0 }}/>
@@ -50,7 +51,7 @@ const CategoriesCarousel = ({ data }) => {
         </Swiper>
       </Grid.Container>
       <hr className='lineHrBottom' style={{ position: 'absolute', left: 0, right: 0, width: '100vw', margin: 0, padding: 0 }}/>
-    </>
+    </Fragment>
   );
 }
 

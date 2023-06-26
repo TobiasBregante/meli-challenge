@@ -1,5 +1,5 @@
 import { Dropdown, Grid, Input, Text } from "@nextui-org/react"
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 
 const Clasification = ({ state, onChange, website }) => {
@@ -21,7 +21,7 @@ const Clasification = ({ state, onChange, website }) => {
     }
 
     return (
-        <>
+        <Fragment>
             <Text h4 >
                 Datos administrativos
             </Text>
@@ -78,7 +78,7 @@ const Clasification = ({ state, onChange, website }) => {
                     </Text>
                 </Grid>
             </Grid.Container>
-        </>
+        </Fragment>
     )
 }
 

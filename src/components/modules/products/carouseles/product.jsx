@@ -5,7 +5,7 @@ import 'swiper/css/navigation';
 import ProductCard from '@/src/components/modules/products/cards/normal';
 import Icon from '@/ui/icons';
 import { Grid, Text } from '@nextui-org/react';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 const CarouselTitle = ({ title, link }) => {
   return (
@@ -15,14 +15,14 @@ const CarouselTitle = ({ title, link }) => {
       </Text>
       {
         link &&
-        <>
+        <Fragment>
           <a href={link || "/./"}>
             <Text css={{ pt: 6, ml: 10, fontWeight: 600 }} color="primary">
               <u>Ver más</u>
             </Text>
           </a>
           <Icon id="chevron_right" css={{ pt: 10 }} color="primary" />
-        </>
+        </Fragment>
       }
     </Grid.Container>
   )

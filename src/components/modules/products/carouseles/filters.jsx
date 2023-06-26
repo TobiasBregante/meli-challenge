@@ -3,7 +3,7 @@ import { Autoplay } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import { Card, Grid, Text } from '@nextui-org/react';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 const FiltersCarousel = ({ data }) => {
@@ -16,7 +16,7 @@ const FiltersCarousel = ({ data }) => {
   }, [router?.asPath])
 
   return (
-    <>
+    <Fragment>
       <Grid.Container css={{ mt: 10 }}>
       </Grid.Container>
       <Grid.Container>
@@ -58,7 +58,7 @@ const FiltersCarousel = ({ data }) => {
 
         </Swiper>
       </Grid.Container>
-    </>
+    </Fragment>
   );
 }
 

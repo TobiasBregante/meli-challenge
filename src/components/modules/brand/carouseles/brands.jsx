@@ -33,10 +33,9 @@ const BrandCarousel = ({ title, data, link }) => {
     <div className='carousell-product'>
       <CarouselTitle title={title} link={link} />
       <Swiper
-        spaceBetween={10}
+        spaceBetween={47}
         modules={[Navigation, Autoplay]}
         autoplay={{ delay: 6000 }}
-        navigation
         breakpoints={{
           // when window width is >= 640px
           350: {
@@ -44,10 +43,10 @@ const BrandCarousel = ({ title, data, link }) => {
           },
           // when window width is >= 768px
           768: {
-            slidesPerView: 3.2,
+            slidesPerView: 2.2,
           },
           1280: {
-            slidesPerView: 4.1,
+            slidesPerView: 3.1,
           },
         }}
       >

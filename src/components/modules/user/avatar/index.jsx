@@ -1,6 +1,6 @@
 import { useUserContext } from "@/utils/user/provider"
 import Icon from "@/src/components/ui/icons"
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import jsCookie from 'js-cookie'
 import { useRouter } from "next/router";
 import { Button, Dropdown } from "@nextui-org/react";
@@ -25,7 +25,7 @@ const UserAvatar = () => {
 
 
     return (
-        <>
+        <Fragment>
             <Dropdown>
                 <Dropdown.Button size={'sm'} icon={<Icon id="person" css={{ mt: 0 }} />} css={{ bg: 'white' }} />
                 <Dropdown.Menu className='dropdownHeader' onAction={handleSelection}>
@@ -75,7 +75,8 @@ const UserAvatar = () => {
                     {/* <Dropdown.Item key="blog" withDivider icon={<Icon id="rss_feed" />}>Blog</Dropdown.Item> */}
                     <Dropdown.Item key="logout" icon={<Icon id="logout" />} >Cerrar sesión</Dropdown.Item>
                 </Dropdown.Menu>
-            </Dropdown></>
+            </Dropdown>
+        </Fragment>
     )
 }
 

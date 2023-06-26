@@ -1,9 +1,10 @@
 import NextHead from 'next/head'
 import Script from 'next/script'
+import { Fragment } from 'react';
 
 const Head = ({ title, description, image }) => {
     return (
-        <>
+        <Fragment>
             {/* <!-- Google tag (gtag.js) --> */}
             < Script strategy='afterInteractive' src="https://www.googletagmanager.com/gtag/js?id=G-5TQSMKBP1Y" />
             <Script
@@ -101,7 +102,7 @@ const Head = ({ title, description, image }) => {
                 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round&display=swap" rel="stylesheet" />
             </NextHead>
-        </>
+        </Fragment>
     )
 }
 

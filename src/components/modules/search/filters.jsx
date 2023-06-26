@@ -1,5 +1,5 @@
 import { Button, Card, Dropdown, Grid, Input, Text } from "@nextui-org/react"
-import { useMemo, useState } from "react"
+import { Fragment, useMemo, useState } from "react"
 import Icon from "@/ui/icons"
 import { useRouter } from "next/router"
 import Sheds from '@/utils/user/brand/sheds'
@@ -126,7 +126,7 @@ const SearchFilters = ({ categories, params }) => {
 
                         {
                             params.useBrand && params.useBrand == "true" &&
-                            <>
+                            <Fragment>
                                 <Grid>
                                     <Text h4 css={{ mt: 10 }}>
                                         Ubicación
@@ -175,7 +175,7 @@ const SearchFilters = ({ categories, params }) => {
 
                                         </Dropdown>
                                     </Grid>}
-                            </>
+                            </Fragment>
                         }
 
 

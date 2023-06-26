@@ -1,7 +1,7 @@
 import Icon from "@/ui/icons"
 import { Checkbox, Dropdown, Grid, Input, Text, Popover, Button, Radio } from "@nextui-org/react"
 import galeries from '@/utils/user/brand/galeries'
-import { useState } from "react"
+import { Fragment, useState } from "react"
 
 const SaladaZone = ({ state, onChange }) => {
     const [galery, setGallery] = useState(state.galleryName.value || "")
@@ -36,7 +36,7 @@ const SaladaZone = ({ state, onChange }) => {
                 <Grid.Container gap={1}>
                     {
                         state.isInGallery &&
-                        <>
+                        <Fragment>
                             <Grid>
                                 <Text>
                                     ¿En que galeria esta?
@@ -93,7 +93,7 @@ const SaladaZone = ({ state, onChange }) => {
                                     value={state.positionInGallery.value}
                                     onChange={onChange("positionInGallery")} />
                             </Grid>
-                        </>
+                        </Fragment>
                     }
 
                                 <Grid>

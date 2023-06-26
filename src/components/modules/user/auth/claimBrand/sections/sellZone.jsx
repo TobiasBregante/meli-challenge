@@ -1,10 +1,11 @@
 import OptionGroup from '@/components/modules/user/auth/signup/assets/optionGroup';
 import { Grid, Text } from "@nextui-org/react";
+import { Fragment } from 'react';
 
 const SellZone = ({ zone, ...htmlProps }) => {
 
     return (
-        <>
+        <Fragment>
             <Text h4>
                 ¿Donde planeas vender?
             </Text>
@@ -22,7 +23,7 @@ const SellZone = ({ zone, ...htmlProps }) => {
             <Text small color="error">
                 {zone.error}
             </Text>
-        </>
+        </Fragment>
     )
 }
 

@@ -29,7 +29,7 @@ const HighLightCarousel = ({ data }) => {
                   src={`${slide.img}`} 
                   alt="carousel"  
                   layout="fill"
-                  objectFit="cover"
+                  objectFit="contain"
                   objectPosition="center"
                 />
               </div>

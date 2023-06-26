@@ -1,5 +1,5 @@
 import Icon from "@/ui/icons";
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useUserContext } from '@/src/utils/user/provider';
 import ShouldLogin from '@/components/modules/user/errors/shouldLogin';
@@ -259,7 +259,7 @@ const UpdateBrandModule = ({ website, data }) => {
                                 </Grid>
                                 {
                                     user.isAdmin &&
-                                    <>
+                                    <Fragment>
                                         <Card.Divider />
                                         <Text h3>
                                             Validar por:
@@ -275,7 +275,7 @@ const UpdateBrandModule = ({ website, data }) => {
                                         <Text css={{ mt: 20 }}>
                                             Vence: {timeago(data.isActiveUntil) == "justo ahora" ? "Ya vencio" : timeago(data.isActiveUntil)}
                                         </Text>
-                                    </>
+                                    </Fragment>
                                 }
                             </Grid.Container>
                             <Grid.Container justify="space-between">

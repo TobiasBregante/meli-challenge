@@ -1,6 +1,6 @@
 import { useUserContext } from "@/utils/user/provider"
 import Icon from "@/src/components/ui/icons"
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import jsCookie from 'js-cookie'
 import { useRouter } from "next/router";
 import { Badge, Button, Collapse, Grid, Modal, Text } from "@nextui-org/react";
@@ -39,7 +39,7 @@ const UserNotifications = () => {
     }
 
     return (
-        <>
+        <Fragment>
             <Badge content={newNotifications.length} color="error" isInvisible={newNotifications.length === 0}>
                 <Button 
                     size={'sm'}
@@ -67,7 +67,7 @@ const UserNotifications = () => {
                     )).reverse()}
                 </Modal.Body>
             </Modal>
-        </>
+        </Fragment>
     )
 }
 
