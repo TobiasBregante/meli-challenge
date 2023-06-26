@@ -1,7 +1,7 @@
 import Icon from "@/src/components/ui/icons"
 import { Button, Card, Grid, Input, Loading, Text } from "@nextui-org/react"
 import ImageSelector from './assets/images'
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import Post from "@/src/utils/hooks/post"
 import jsCookie from 'js-cookie'
 import { toast } from "react-toastify"
@@ -102,7 +102,7 @@ const HighLightForm = ({ website }) => {
             <Card.Body>
                 {
                     state.map((item, i) => (
-                        <>
+                        <Fragment key={i}>
                             <Text b css={{ mt: 20 }}>
                                 Banner {i + 1}
                             </Text>
@@ -117,7 +117,7 @@ const HighLightForm = ({ website }) => {
                             <Button color="error" icon={<Icon id="delete" color="white" />} onPress={removeHighlight(i)}>
                                 Borrar
                             </Button>
-                        </>
+                        </Fragment>
                     ))
                 }
                 <Button color="success" icon={<Icon id="add" color="white" />} css={{ mt: 20 }} onPress={addHighlight}>

@@ -1,19 +1,20 @@
 import { Text } from "@nextui-org/react"
+import { Fragment } from "react"
 
 const LocationBuilder = ({ data, useFull, ...htmlProps }) => {
 
     if (data?.zone == "online") {
         return (
-            <>
+            <Fragment>
                 <Text {...htmlProps} css={{ mt: 5 }}>
                     Solo venta online
                 </Text>
-            </>
+            </Fragment>
         )
     }
     if (data?.zone == "la salada") {
         return (
-            <>
+            <Fragment>
                 <Text {...htmlProps}>
                     La salada &nbsp;
                 </Text>
@@ -43,12 +44,12 @@ const LocationBuilder = ({ data, useFull, ...htmlProps }) => {
                     (useFull && data?.side && data?.side != "") &&
                     <Text {...htmlProps} >Lado: {data?.side}&nbsp;</Text>
                 }
-            </>
+            </Fragment>
         )
     }
     if (data?.zone == "flores") {
         return (
-            <>
+            <Fragment>
                 <Text {...htmlProps}>
                     Flores &nbsp;
                 </Text>
@@ -69,7 +70,7 @@ const LocationBuilder = ({ data, useFull, ...htmlProps }) => {
                     <Text {...htmlProps} >Altura{data?.streetNumber}</Text>
                 }
 
-            </>
+            </Fragment>
         )
     }
 

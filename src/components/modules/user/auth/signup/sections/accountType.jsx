@@ -1,9 +1,10 @@
 import OptionGroup from '@/components/modules/user/auth/signup/assets/optionGroup';
 import { Grid, Text } from '@nextui-org/react';
+import { Fragment } from 'react';
 
 const AccountType = ({ state, ...htmlProps }) => {
     return (
-        <>
+        <Fragment>
             <Text h3 weight="normal">
                 ¿Qué te gustaria ser?
             </Text>
@@ -25,7 +26,7 @@ const AccountType = ({ state, ...htmlProps }) => {
                         {...htmlProps} />
                 </Grid>
             </Grid.Container>
-        </>
+        </Fragment>
     )
 }
 

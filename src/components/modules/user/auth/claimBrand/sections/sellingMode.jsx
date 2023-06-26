@@ -1,9 +1,10 @@
 import { Checkbox, Grid, Text } from "@nextui-org/react"
+import { Fragment } from "react"
 
 
 const SellingMode = ({ isWholesaleAndRetail, onChange }) => {
     return (
-        <>
+        <Fragment>
             <Text h4 >
                 ¿De que manera venderas?
             </Text>
@@ -19,7 +20,7 @@ const SellingMode = ({ isWholesaleAndRetail, onChange }) => {
                     isSelected={isWholesaleAndRetail == true}
                     onChange={onChange(true)} />
             </Grid.Container>
-        </>
+        </Fragment>
     )
 }
 

@@ -1,8 +1,6 @@
 import ProductImageCarrousel from '@/src/components/modules/products/view/imageCarrousel'
 import ProductInfo from '@/components/modules/products/view/productInfo';
-import ProductLocation from '@/components/modules/products/view/location';
 import ProductComments from '@/components/modules/products/view/comments';
-import ProductSideBarRecomendation from '@/components/modules/products/view/relateds/sidebar';
 import ProductBottomRecomendation from '@/src/components/modules/products/carouseles/product';
 import BrandProfileMinimal from '../../brand/minimalProfile';
 import { Card, Grid } from '@nextui-org/react';
@@ -10,10 +8,14 @@ import ProductReviews from './review';
 import ProductDescription from './description';
 import ProductTimeStamp from './timestamp';
 import jsCookie from 'js-cookie'
+import { Fragment } from 'react';
 
-const ProductModule = ({ data, relateds,brandProducts }) => {
+const ProductModule = ({ data, relateds, brandProducts }) => {
+    if(!data) {
+        return null
+    }
     return (
-        <>
+        <Fragment>
             <Grid.Container direction="column">
                 <Card>
                     <Grid.Container css={{ minWidth: 0 }}>
@@ -25,7 +27,6 @@ const ProductModule = ({ data, relateds,brandProducts }) => {
                         </Grid>
                     </Grid.Container>
                 </Card>
-
                 <Grid.Container css={{ mt: 20 }} gap={2}>
                     <Grid xs={12} md={8}>
                         <Card>
@@ -53,8 +54,8 @@ const ProductModule = ({ data, relateds,brandProducts }) => {
 
             </Grid.Container>
             <ProductBottomRecomendation data={relateds} title="Recomendados" />
-            <ProductBottomRecomendation data={brandProducts} title="Mas productos del vendedor" />
-        </>
+            <ProductBottomRecomendation data={brandProducts} title={`De ${data?.brand?.brandName}`} />
+        </Fragment>
     )
 
 }

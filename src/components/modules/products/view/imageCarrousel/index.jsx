@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import 'swiper/css';
@@ -27,18 +27,20 @@ const ProductImageCarrousel = ({ imgs }) => {
 
 
     return (
-        <>
+        <Fragment>
             <Modal width="100vw" noPadding open={isZoomed} onClose={() => setIsZoomed(false)}
             >
-                <Image
-                    src={`/${imgs[imgSelected]}`}
-                    css={{ h: "auto", w: "50vw !important", "@mdMax": { w: "100vw !important" } }}
-                    width={100}
-                    height={100}
-                    layout="responsive"
-                    priority={imgSelected == 0}
-                    alt={`image-${imgSelected}`}
-                />
+                <div>
+                    <Image
+                        src={`/${imgs[imgSelected]}`}
+                        css={{ h: "auto", w: "50vw !important", "@mdMax": { w: "100vw !important" } }}
+                        width={100}
+                        height={100}
+                        layout="responsive"
+                        priority={imgSelected == 0}
+                        alt={`image-${imgSelected}`}
+                    />
+                </div>
             </Modal>
             <Grid.Container direction="column">
                 <Grid css={{ w: "100%" }}>
@@ -53,22 +55,24 @@ const ProductImageCarrousel = ({ imgs }) => {
                         {
                             imgs.map((img, imgI) => (
                                 <SwiperSlide key={imgI}>
-                                    <Image
-                                        src={`/${img}`}
-                                        width={1000}
-                                        height={800}
-                                        layout="responsive"
-                                        priority={imgI == 0}
-                                        onClick={() => setIsZoomed(true)}
-                                        alt={`image-${imgI}`}
-                                    />
+                                    <div>
+                                        <Image
+                                            src={`/${img}`}
+                                            width={1000}
+                                            height={800}
+                                            layout="responsive"
+                                            priority={imgI == 0}
+                                            onClick={() => setIsZoomed(true)}
+                                            alt={`image-${imgI}`}
+                                        />
+                                    </div>
                                 </SwiperSlide>
                             ))
                         }
 
                     </Swiper>
                 </Grid>
-                <Grid css={{ w: "100%", mt: 10, mx:10 }}>
+                <Grid css={{ w: "100%", mt: 10, mx: 10 }}>
                     <Swiper
                         onSwiper={setSubSwiper}
                         spaceBetween={0}
@@ -77,14 +81,16 @@ const ProductImageCarrousel = ({ imgs }) => {
                         {
                             imgs.map((img, imgI) => (
                                 <SwiperSlide key={imgI}>
-                                    <Image
-                                        src={`/${img}`}
-                                        width={100}
-                                        height={100}
-                                        onClick={handleThumbnailClick(imgI)}
-                                        className={`rounded-12 ${imgSelected == imgI ? "" : "opacity-25"}`}
-                                        alt={`image-${imgI}`}
-                                    />
+                                    <div>
+                                        <Image
+                                            src={`/${img}`}
+                                            width={100}
+                                            height={100}
+                                            onClick={handleThumbnailClick(imgI)}
+                                            className={`rounded-12 ${imgSelected == imgI ? "" : "opacity-25"}`}
+                                            alt={`image-${imgI}`}
+                                        />
+                                    </div>
                                 </SwiperSlide>
                             ))
                         }
@@ -92,7 +98,7 @@ const ProductImageCarrousel = ({ imgs }) => {
                     </Swiper>
                 </Grid>
             </Grid.Container>
-        </>
+        </Fragment>
     )
 
     return (

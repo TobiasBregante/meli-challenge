@@ -1,6 +1,6 @@
 import Icon from "@/src/components/ui/icons";
 import { Button, Card, Grid, Modal, Text } from "@nextui-org/react";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 const Share = ({ link }) => {
     const [state, setState] = useState(false);
@@ -22,7 +22,7 @@ const Share = ({ link }) => {
     }
 
     return (
-        <>
+        <Fragment>
             <Button 
                 icon={
                     <Icon id="share" color='secondary' />
@@ -64,7 +64,7 @@ const Share = ({ link }) => {
                     </Modal.Body>
                 </div>
             </Modal>
-        </>
+        </Fragment>
     )
 }
 

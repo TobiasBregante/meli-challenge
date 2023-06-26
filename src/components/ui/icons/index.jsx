@@ -5,13 +5,15 @@ import { styled, Text } from '@nextui-org/react';
 const Icon = ({ id, className,as, css, alt, width, height, ...htmlProps }) => {
   if (id.indexOf('/') > -1) {
     return (
-      <Image
-        src={id}
-        className={className}
-        width={width}
-        height={height}
-        alt={alt}
-        {...htmlProps} />
+      <div>
+        <Image
+          src={id}
+          className={className}
+          width={width}
+          height={height}
+          alt={alt}
+          {...htmlProps} />
+      </div>
     )
   }
   return (

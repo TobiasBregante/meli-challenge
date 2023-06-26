@@ -16,22 +16,23 @@ const HighLightCarousel = ({ data }) => {
       slidesPerView={1}
       style={{
         marginTop: '1% !important',
-        display: 'block'
+        display: 'block !important'
       }}
     >
       {
         data?.length > 0 && data.map((slide, i) => (
           <SwiperSlide key={i}>
             <a href={slide.link}>
-              <Image 
-                src={`${slide.img}`} 
-                alt="carousel" 
-                className='rounded-16' 
-                width="100%" 
-                height={"20%"} 
-                layout="responsive" 
-                objectFit="cover"
-              />
+              <div className='banner-img'>
+                <Image
+                  priority 
+                  src={`${slide.img}`} 
+                  alt="carousel"  
+                  layout="fill"
+                  objectFit="contain"
+                  objectPosition="center"
+                />
+              </div>
             </a>
           </SwiperSlide>
         ))

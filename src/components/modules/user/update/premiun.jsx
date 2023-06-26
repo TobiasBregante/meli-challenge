@@ -1,6 +1,6 @@
 import Get from "@/src/utils/hooks/get"
 import { Button, Grid, Text } from "@nextui-org/react"
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import OptionGroup from "../auth/signup/assets/optionGroup"
 import jsCookie from 'js-cookie'
 import Icon from "@/src/components/ui/icons"
@@ -60,7 +60,7 @@ const UpdatePremiunPlan = ({data}) => {
 
     const canUpdate = (state.date && state.plan) == false
     return (
-        <>
+        <Fragment>
             <Text h3 weight="normal">
                 ¿Hacer premiun por?
             </Text>
@@ -129,7 +129,7 @@ const UpdatePremiunPlan = ({data}) => {
                     Actualizar
                 </Button>
             </Grid.Container>
-        </>
+        </Fragment>
     )
 }
 

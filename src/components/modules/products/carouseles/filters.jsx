@@ -3,17 +3,25 @@ import { Autoplay } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import { Card, Grid, Text } from '@nextui-org/react';
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
-const CategoriesCarousel = ({ data }) => {
+const FiltersCarousel = ({ data }) => {
+  const router = useRouter()
+  const [activeFilter, setActiveFilter] = useState('')
+
+  useEffect(() => {
+    const filterID = router?.asPath?.replace('/', '')?.replace('#', '')
+    setActiveFilter(filterID)
+  }, [router?.asPath])
+
   return (
     <Fragment>
       <Grid.Container css={{ mt: 10 }}>
       </Grid.Container>
-      <hr className='lineHrTop' style={{ position: 'absolute', left: 0, right: 0, width: '100vw', margin: 0, padding: 0 }}/>
       <Grid.Container>
         <Swiper
-          spaceBetween={0}
+          spaceBetween={10}
           modules={[Autoplay]}
           autoplay
           breakpoints={{
@@ -23,22 +31,22 @@ const CategoriesCarousel = ({ data }) => {
             },
             // when window width is >= 768px
             768: {
-              slidesPerView: 8,
+              slidesPerView: 9,
             },
             1280: {
-              slidesPerView: 8,
+              slidesPerView: 9,
             },
           }}
         >
           {
             data?.length > 0 && data.sort((a, b) => b.views - a.views).map((category, i) => (
-              <SwiperSlide key={i} className='carousellCategories'>
-                <a href={`/./page/category/${category.name}`}>
-                  <Card title={category?.name} className='filterChoosed' css={{ borderRadius: 50 }} variant="flat" isPressable isHoverable>
+              <SwiperSlide key={i}>
+                <a href={`#${category?.name}`}>
+                  <Card className={'filterChoosed'} css={{ borderRadius: 50, border: '2.5px solid $blue600' }} variant="flat" isPressable isHoverable>
                     <Card.Body>
                       <Grid.Container justify="center">
                         <Text color="$blue600" style={{ fontWeight: '600', lineHeight: 0, display: 'block' }}>
-                          {category?.name?.length > 14 ? `${category?.name?.slice(0, 11)}...` : category?.name}
+                          {category?.name}
                         </Text>
                       </Grid.Container>
                     </Card.Body>
@@ -50,9 +58,8 @@ const CategoriesCarousel = ({ data }) => {
 
         </Swiper>
       </Grid.Container>
-      <hr className='lineHrBottom' style={{ position: 'absolute', left: 0, right: 0, width: '100vw', margin: 0, padding: 0 }}/>
     </Fragment>
   );
 }
 
-export default CategoriesCarousel;
+export default FiltersCarousel;

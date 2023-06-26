@@ -1,5 +1,6 @@
 import Icon from '@/ui/icons';
 import { Grid, Text } from '@nextui-org/react';
+import { Fragment } from 'react';
 import BrandCard from '../card';
 
 const CarouselTitle = ({ title, link }) => {
@@ -10,14 +11,14 @@ const CarouselTitle = ({ title, link }) => {
             </Text>
             {
                 link &&
-                <>
+                <Fragment>
                     <a href={link || "/./"}>
                         <Text css={{ pt: 3, ml: 10 }} color="primary">
                             Ver mas
                         </Text>
                     </a>
                     <Icon id="chevron_right" css={{ pt: 8 }} color="primary" />
-                </>
+                </Fragment>
             }
         </Grid.Container>
     )
@@ -27,7 +28,7 @@ const CarouselTitle = ({ title, link }) => {
 const BrandsList = ({ title, data, breakpoints, link }) => {
 
     return (
-        <>
+        <Fragment>
             <CarouselTitle title={title}  link={link}/>
             <Grid.Container gap={1}>
                 {
@@ -38,7 +39,7 @@ const BrandsList = ({ title, data, breakpoints, link }) => {
                     ))
                 }
             </Grid.Container>
-        </>
+        </Fragment>
     );
 }
 

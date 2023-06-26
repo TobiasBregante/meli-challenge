@@ -4,10 +4,9 @@ import { Container } from '@nextui-org/react';
 import Get from '@/src/utils/hooks/get';
 
 const ProductPage = ({ data, relateds, brandProducts }) => {
-
   return (
     <Page>
-      <Container lg css={{ mt: "$10" }}>
+      <Container lg css={{ mb: "$10", ml: 0, mr: 0 }} className='container-fluid'>
         <ProductModule data={data} relateds={relateds} brandProducts={brandProducts}/>
       </Container>
     </Page>

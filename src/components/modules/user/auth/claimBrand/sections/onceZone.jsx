@@ -1,7 +1,7 @@
 import Icon from "@/ui/icons"
 import { Checkbox, Dropdown, Grid, Input, Text, Popover, Button, Radio } from "@nextui-org/react"
 import galeries from '@/utils/user/brand/galeries'
-import { useState } from "react"
+import { Fragment, useState } from "react"
 
 const OnceZone = ({ state, onChange }) => {
     const [galery, setGallery] = useState(state.galleryName.value || "")
@@ -36,7 +36,7 @@ const OnceZone = ({ state, onChange }) => {
                 <Grid.Container gap={1}>
                     {
                         state.isInGallery &&
-                        <>
+                        <Fragment>
                             <Grid>
                                 <Text>
                                     ¿En que galeria esta?
@@ -50,7 +50,7 @@ const OnceZone = ({ state, onChange }) => {
                                         </Button>
                                     </Popover.Trigger>
                                     <Popover.Content css={{ p: "$10" }} >
-                                    <Radio.Group
+                                        <Radio.Group
                                             defaultValue=""
                                             value={galery}
                                             onChange={handleGalerySelect}
@@ -92,34 +92,34 @@ const OnceZone = ({ state, onChange }) => {
                                     value={state.positionInGallery.value}
                                     onChange={onChange("positionInGallery")} />
                             </Grid>
-                        </>
+                        </Fragment>
                     }
 
-                                <Grid>
-                                    <Input
-                                        clearable
-                                        label="Calle"
-                                        contentLeft={<Icon id="share_location" />}
-                                        placeholder="Escribe aqui la calle"
-                                        helperText={state.street.error}
-                                        helperColor="error"
-                                        status={state.street.error ? "error" : "default"}
-                                        value={ galeryFind[0]?.street || state?.street?.value}
-                                        onChange={onChange("street")} />
-                                </Grid>
-                                <Grid>
-                                    <Input
-                                        clearable
-                                        type="number"
-                                        label="Altura de calle"
-                                        contentLeft={<Icon id="share_location" />}
-                                        placeholder="Escribe aqui la altura de la calle"
-                                        helperText={state.streetNumber.error}
-                                        helperColor="error"
-                                        status={state.streetNumber.error ? "error" : "default"}
-                                        value={ galeryFind[0]?.number || state?.streetNumber?.value}
-                                        onChange={onChange("streetNumber")} />
-                                </Grid>
+                    <Grid>
+                        <Input
+                            clearable
+                            label="Calle"
+                            contentLeft={<Icon id="share_location" />}
+                            placeholder="Escribe aqui la calle"
+                            helperText={state.street.error}
+                            helperColor="error"
+                            status={state.street.error ? "error" : "default"}
+                            value={galeryFind[0]?.street || state?.street?.value}
+                            onChange={onChange("street")} />
+                    </Grid>
+                    <Grid>
+                        <Input
+                            clearable
+                            type="number"
+                            label="Altura de calle"
+                            contentLeft={<Icon id="share_location" />}
+                            placeholder="Escribe aqui la altura de la calle"
+                            helperText={state.streetNumber.error}
+                            helperColor="error"
+                            status={state.streetNumber.error ? "error" : "default"}
+                            value={galeryFind[0]?.number || state?.streetNumber?.value}
+                            onChange={onChange("streetNumber")} />
+                    </Grid>
                 </Grid.Container>
             </Grid>
         </Grid.Container>
