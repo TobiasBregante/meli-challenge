@@ -22,12 +22,14 @@ const UserSideBar = ({ data, chatSelected, setChatSelected }) => {
                                 cursor: "pointer"
                             }} onClick={() => setChatSelected(i)}>
                                 <Grid>
-                                    <Image
-                                        src={`/img/${chat.user.img}.jpg`}
-                                        width={50}
-                                        height={50}
-                                        alt="bg"
-                                        className="rounded-circle " />
+                                    <div>
+                                        <Image
+                                            src={`/img/${chat.user.img}.jpg`}
+                                            width={50}
+                                            height={50}
+                                            alt="bg"
+                                            className="rounded-circle " />
+                                    </div>
                                 </Grid>
 
                                 <Grid >

@@ -1,11 +1,12 @@
 import {useFloating} from '@floating-ui/react-dom';
+import { Fragment } from 'react';
 
 const PopOver = ({ isOpen,placement, content, children }) => {
     const {x, y, reference, floating, strategy} = useFloating({placement:placement ?? "bottom-end"});
 
 
     return (
-        <>
+        <Fragment>
             <div ref={reference}>{children}</div>
 
             {isOpen &&
@@ -21,7 +22,7 @@ const PopOver = ({ isOpen,placement, content, children }) => {
                 {content}
               </div>
             }
-        </>
+        </Fragment>
     );
 };
 

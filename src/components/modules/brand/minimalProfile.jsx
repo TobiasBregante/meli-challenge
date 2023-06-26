@@ -69,7 +69,7 @@ const BrandProfileMinimal = ({ data, hideFullProfile }) => {
     const redirectToUpdateProfile = () => Router?.push(`/brand/update/${data?._id}`)
     
     return (
-        <Card rounded={16} className="d-flex flex-column p-3">
+        <Card rounded={16} className="d-flex flex-column p-3 brand-card">
             <Card.Body>
                 {
                     isAdmin && (
@@ -91,19 +91,32 @@ const BrandProfileMinimal = ({ data, hideFullProfile }) => {
                     )
                 }
                 <Grid.Container justify="center">
-                    <Image
-                        className="bg-image rounded-circle pointer"
-                        src={data.imgs?.principal !== undefined && data?.imgs?.principal !== 'NI35_W3jmftQURiB_rR_LR0IUkjGXl77' ? data.imgs.principal : "blank-profile-picture-g227b26ec4_640_fwvqox"}
-                        width={100}
-                        height={100}
-                        layout='intrinsic'
-                        objectFit='contain'
-                        alt="als"
-                    />
+                    <div>
+                        <Image
+                            className="bg-image rounded-circle pointer"
+                            src={data.imgs?.principal !== undefined && data?.imgs?.principal !== 'NI35_W3jmftQURiB_rR_LR0IUkjGXl77' ? data.imgs.principal : "blank-profile-picture-g227b26ec4_640_fwvqox"}
+                            width={100}
+                            height={100}
+                            layout='intrinsic'
+                            objectFit='contain'
+                            alt="als"
+                        />
+                    </div>
                 </Grid.Container>
-                <Text h3 className="text-center">
-                    {data.brandName}
-                </Text>
+               <Grid>
+                <Text h2>
+                        <span style={{
+                            color: '#000',
+                            fontSize: 14,
+                            letterSpacing: 1.4,
+                            padding: 9,
+                            borderRadius: 8,
+                            backgroundColor: 'rgba(255, 255, 255, .5)'
+                        }}>
+                            {data.brandName}
+                        </span>
+                    </Text>
+               </Grid>
                 {
                     (hideFullProfile == false || hideFullProfile == undefined) &&
                     <a href={`/./brand/${data._id}`}>
@@ -113,6 +126,8 @@ const BrandProfileMinimal = ({ data, hideFullProfile }) => {
                     </a>
                 }
                 <Share link={`/brand/${data._id}`}/>
+                <div className="circle"/>
+                <div className="circle-2"/>
             </Card.Body>
         </Card>
     )

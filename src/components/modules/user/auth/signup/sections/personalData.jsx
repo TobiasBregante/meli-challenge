@@ -1,5 +1,6 @@
 import Icon from "@/ui/icons";
 import { Grid, Input, Text } from "@nextui-org/react";
+import { Fragment } from "react";
 
 const PersonalData = ({ state, setState, }) => {
 
@@ -14,7 +15,7 @@ const PersonalData = ({ state, setState, }) => {
     }
 
     return (
-        <>
+        <Fragment>
             <Text tag="h4" weight={700}>
                 Tus datos personales
             </Text>
@@ -98,7 +99,7 @@ const PersonalData = ({ state, setState, }) => {
                     min={6} />
 
             </Grid.Container>
-        </>
+        </Fragment>
     )
 }
 

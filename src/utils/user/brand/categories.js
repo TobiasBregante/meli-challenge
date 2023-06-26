@@ -24,7 +24,7 @@ const categories = [
         name: "Lencería"
     },
     {
-        name: "Bijouterie"
+        name: "Joyas y Accesorios"
     },
     {
         name: "Blanquería"
@@ -46,9 +46,6 @@ const categories = [
     },
     {
         name: "Artículos para el Hogar"
-    },
-    {
-        name: "Accesorios"
     },
     {
         name: "Artesanías"

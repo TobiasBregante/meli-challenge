@@ -50,12 +50,14 @@ const ImagesSection = ({ state, setState, hideLabel }) => {
                                                 className="rounded-16"
                                                 alt="a" />
                                             :
-                                            <Image
-                                                src={`/${state}`}
-                                                width={100}
-                                                height={100}
-                                                className="rounded-16"
-                                                alt="a" />
+                                            <div>
+                                                <Image
+                                                    src={`/${state}`}
+                                                    width={100}
+                                                    height={100}
+                                                    className="rounded-16"
+                                                    alt="a" />
+                                            </div>
                                     }
                                     <Icon id="delete" css={{ position: "absolute", zIndex: 999, right: 5, top: 5, cursor: "pointer", bg: "white" }} className="rounded-8" onClick={removeImg} />
                                 </Grid>)

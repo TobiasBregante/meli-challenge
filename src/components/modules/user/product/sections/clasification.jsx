@@ -1,6 +1,6 @@
 import categories from "@/src/utils/user/brand/categories"
 import { Dropdown, Grid, Text } from "@nextui-org/react"
-import { useState } from "react"
+import { Fragment, useState } from "react"
 
 const Clasification = ({state,onChange, website}) => {
     const [categoryState, setCategory] = useState("")
@@ -15,7 +15,7 @@ const Clasification = ({state,onChange, website}) => {
 
     }
     return (
-        <>
+        <Fragment>
             <Grid>
                 <Text>
                     Categoria
@@ -43,7 +43,7 @@ const Clasification = ({state,onChange, website}) => {
                     {state.category.error}
                 </Text>
             </Grid>
-        </>
+        </Fragment>
     )
 }
 

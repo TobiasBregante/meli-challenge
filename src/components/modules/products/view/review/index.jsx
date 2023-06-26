@@ -3,7 +3,7 @@ import Stars from '@/src/components/ui/stars';
 import timeago from '@/src/utils/timeago';
 import { useUserContext } from '@/src/utils/user/provider';
 import { Avatar, Button, Card, Grid, Loading, Modal, Text } from '@nextui-org/react';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import WriteComment from './write';
 import jsCookie from 'js-cookie'
 import Post from '@/src/utils/hooks/post';
@@ -89,7 +89,7 @@ const ProductReviews = ({ data }) => {
     const user = useUserContext()
 
     return (
-        <>
+        <Fragment>
             <Card id="reviews">
                 <Card.Body>
                     <Text tag="h3" className="d-flex flex-row">
@@ -113,22 +113,22 @@ const ProductReviews = ({ data }) => {
                             <Button color="gray" auto onClick={() => setLimit(limit == 3 ? 99999 : 3)}>
                                 {
                                     limit == 3 ?
-                                        <>
+                                        <Fragment>
                                             <Icon id="arrow_drop_down" />
                                             Ver todos los opiniones
-                                        </>
+                                        </Fragment>
                                         :
-                                        <>
+                                        <Fragment>
                                             <Icon id="expand_less" />
                                             Ocultar opiniones
-                                        </>
+                                        </Fragment>
                                 }
                             </Button>
                         </Grid.Container>
                     }
                 </Card.Body>
             </Card>
-        </>
+        </Fragment>
     )
 }
 
