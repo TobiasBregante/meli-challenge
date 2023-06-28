@@ -4,23 +4,16 @@ import Image from 'next/image';
 import Stars from '@/src/components/ui/stars'
 import SaveBookmark from '@/components/modules/products/saveBookmark'
 import Share from '@/components/modules/common/share';
-import { useEffect, useState } from 'react';
-import PriceTable from '@/components/modules/products/view/productInfo/priceTable'
+import { useState } from 'react';
 import { Button, Grid, Text } from '@nextui-org/react';
-import LocationBuilder from '../../locationBuilder';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import Get from '@/src/utils/hooks/get';
 import WriteReview from '../review/write';
 import { useUserContext } from '@/src/utils/user/provider';
 
 const ProductInfo = ({ data }) => {
-    const router = useRouter()
     const user = useUserContext()
     const [isWritingReview, setWriteReview] = useState(false)
-
-    const moveToLocation = () => {
-        router.push("#location")
-    }
 
     const lowestPriceSelect = () => {
         const {
@@ -60,13 +53,17 @@ const ProductInfo = ({ data }) => {
     let productImage = "https://res.cloudinary.com/saladapp/f_auto,c_limit,w_1920,q_auto/"
 
     const contact = () => {
-        const productTitle = data?.title?.toUpperCase()
-        const msg = `Hola, te contacto desde la plataforma SaladaApp! Me interesa el producto: "${productTitle}"`
-        window.open(`https://api.whatsapp.com/send?text=${msg}&phone=${parseInt(data?.brand?.phone)}`)
-        Get(`products/product/${data._id}/whatsappClick`)
-
-        if (!data.reviews?.find(r => r.user._id == user._id)) {
-            setWriteReview(true)
+        if(user?.email){
+            const productTitle = data?.title?.toUpperCase()
+            const msg = `Hola, te contacto desde la plataforma SaladaApp! Me interesa el producto: "${productTitle}"`
+            window.open(`https://api.whatsapp.com/send?text=${msg}&phone=${parseInt(data?.brand?.phone)}`)
+            Get(`products/product/${data._id}/whatsappClick`)
+    
+            if (!data.reviews?.find(r => r.user._id == user._id)) {
+                setWriteReview(true)
+            }
+        } else {
+            window.location = '/user/auth/signup'
         }
 
     }
