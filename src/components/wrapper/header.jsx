@@ -14,10 +14,6 @@ const Header = () => {
     const [searchValue, setSearchValue] = useState("")
     const [categories, setCategories] = useState({})
 
-    useEffect(() => {
-        console.log(router)
-    }, [])
-
     const getCategories = async () => {
         await Get("website").then(r => {
             setCategories(r?.data?.categories)
