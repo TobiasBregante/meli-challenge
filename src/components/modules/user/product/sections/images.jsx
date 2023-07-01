@@ -20,7 +20,7 @@ const ImagesSection = ({ state, setState }) => {
             }
         } else {
             if ([...state.imgs.value, ...flArray].length > 4) {
-                toast(<a href="/./docs/subscriptions">
+                toast(<a href="docs/subscriptions">
                     Pasate a premiun para subir mas fotos, hace click aca
                 </a>)
             }

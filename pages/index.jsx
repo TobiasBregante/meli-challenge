@@ -12,15 +12,15 @@ const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Joya
       <Container lg css={{ mb: "$10", ml: 0, mr: 0 }} className='container-fluid'>
         {/* <AdsModals img={website?.popup?.img} link={website?.popup?.link}/> */}
         <HighLightCarousel data={website.highlights} />
-        <ProductCarousel title="Tendencia" data={popularProducts} categoryHidde={'Equipamiento'} link="/page/products/popular"/>
-        <ProductCarousel title="Calzado" data={Calzado} link="/page/products/calzado"/>
-        <ProductCarousel title="Temporada" data={ArticuloDeTemporada} link="/page/products/temporada"/>
-        <ProductCarousel title="Electrónica" data={Electronica} link="/page/products/electronica"/>
+        <ProductCarousel title="Tendencia" data={popularProducts} categoryHidde={'Equipamiento'} link="page/products/popular"/>
+        <ProductCarousel title="Calzado" data={Calzado} link="page/products/calzado"/>
+        <ProductCarousel title="Temporada" data={ArticuloDeTemporada} link="page/products/temporada"/>
+        <ProductCarousel title="Electrónica" data={Electronica} link="page/products/electronica"/>
         <BrandCarousel title="Marcas en tendencia" data={popularBrands} />
-        <ProductCarousel title={`Joyas & Accesorios`} data={JoyasAccesorios} link="/page/products/joyas"/>
-        <ProductCarousel title="Mascotas" data={Mascotas} link="/page/products/mascotas"/>
-        <ProductCarousel title="Celulares" data={Celulares} link="/page/products/celulares"/>
-        <ProductCarousel title="Autos" data={Autos} link="/page/products/autos"/>
+        <ProductCarousel title={`Joyas & Accesorios`} data={JoyasAccesorios} link="page/products/joyas"/>
+        <ProductCarousel title="Mascotas" data={Mascotas} link="page/products/mascotas"/>
+        <ProductCarousel title="Celulares" data={Celulares} link="page/products/celulares"/>
+        <ProductCarousel title="Autos" data={Autos} link="page/products/autos"/>
       </Container>
     </Page>
   )

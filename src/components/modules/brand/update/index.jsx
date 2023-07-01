@@ -175,9 +175,9 @@ const UpdateBrandModule = ({ website, data }) => {
             toast(res.data.msg)
             setSubmiting(false)
             if (user.isAdmin) {
-                return router.push("/./admin/search/brands")
+                return router.push("admin/search/brands")
             }
-            router.push("/./")
+            router.push(`/${router?.locale}/`)
         }).catch(err => {
             if (err.response.data) {
                 toast.error(err.response.data);

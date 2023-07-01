@@ -7,7 +7,7 @@ const BrandCard = ({ data }) => {
     const prom = input => input?.reduce((prev, user) => parseInt(prev) + parseInt(user), 0) / input.length
     const rating = prom(data?.stats?.stars)
     return (
-        <Card variant="flat" className="brand-card" css={{ w: 389, height: 207 }} onClick={() => window.location = `/./brand/${data._id}`} isHoverable isPressable>
+        <Card variant="flat" className="brand-card" css={{ w: 389, height: 207 }} onClick={() => window.location = `brand/${data._id}`} isHoverable isPressable>
             <Card.Body css={{ pb: 0 }}>
                 <Grid>
                     <Text css={{ pt: 9, pb: 9, mb: 12 }}>

@@ -2,14 +2,21 @@ import Image from 'next/image'
 import currency from 'currency.js'
 import Icon from '../../../ui/icons'
 import SaveBookmark from '@/components/modules/products/saveBookmark'
-import { Avatar, Card, Grid, Text } from '@nextui-org/react'
+import { Avatar, Card, Grid, Link, Text } from '@nextui-org/react'
 import LocationBuilder from '../locationBuilder'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 const ProductCard = ({ data }) => {
+    const [locale, setLocale] = useState('')
+    const router = useRouter()
+    useEffect(() => {
+        setLocale(router?.locale)
+    }, [router])
     if(!data) {
         return null
     }
+
 
     const lowestPriceSelect = () => {
         const {
@@ -47,7 +54,7 @@ const ProductCard = ({ data }) => {
 
     return (
         <Card variant="flat" css={{ bg: "$white" }} isHoverable className='productCard'>
-            <a href={`/./product/${data._id}`}>
+            <a href={`product/${data._id}`}>
                 <div style={{width: '100%', height: '174px', position: 'relative', display: 'block', textAlign: 'center', padding: 0, margin: 'auto'}}>
                     <Image
                         style={{ display: 'block', margin: 'auto' }}
