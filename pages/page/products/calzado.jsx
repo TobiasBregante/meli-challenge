@@ -10,7 +10,7 @@ const Calzado = ({ products, website, equipamiento }) => {
             <Container lg css={{ mb: "$10" }}>
                 <CategoriesCarousel data={website?.categories}/>
                 <UnorderedList title="Calzado" data={products} />
-                <UnorderedList title="Equipamiento" showSeeMore={true} data={equipamiento} link={'/page/products/equipamiento'}/>
+                <UnorderedList title="Equipamiento" showSeeMore={true} data={equipamiento} link={'page/products/equipamiento'}/>
             </Container>
         </Page>
     )

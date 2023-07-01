@@ -108,9 +108,9 @@ const ManageProduct = ({ website, data }) => {
             toast(res.data.msg)
             setDeleting(false)
             if (user.isAdmin) {
-                return router.push("/./admin/search/products")
+                return router.push("admin/search/products")
             }
-            router.push("/./user/products")
+            router.push("user/products")
         }).catch(err => {
             if (err.response.data) {
                 toast.error(err.response.data);

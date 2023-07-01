@@ -178,7 +178,7 @@ const ClaimPositionModule = ({ website }) => {
                     if (state.location.zone == "online") {
                         window.open("https://api.whatsapp.com/send?text=Hola%20quiero%20contratar%20el%20plan%20premiun&phone=+541124767008")
                     } else {
-                        router.push("/./user/products/add")
+                        router.push("user/products/add")
                     }
 
                 }).catch(err => {

@@ -169,7 +169,7 @@ const UpdateBrandModule = ({ website, data }) => {
                 }).then(res => {
                     toast(res.data.msg)
                     setSubmiting(false)
-                    return router?.push(`/brand/${data?._id}`)
+                    return router?.push(`brand/${data?._id}`)
     
                 }).catch(err => {
                     if (err.response.data) {

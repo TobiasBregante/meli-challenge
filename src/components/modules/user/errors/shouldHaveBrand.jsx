@@ -11,7 +11,7 @@ const ShouldHaveBrand = () => {
                 </Text>
             </Grid.Container>
             <Grid.Container justify="center">
-                <Button icon={<Icon id="home" />} auto css={{ color: "$dark" }} onPress={() =>router.push("/./user/claimBrand")}>
+                <Button icon={<Icon id="home" />} auto css={{ color: "$dark" }} onPress={() =>router.push("user/claimBrand")}>
                     Registrar marca
                 </Button>
             </Grid.Container>

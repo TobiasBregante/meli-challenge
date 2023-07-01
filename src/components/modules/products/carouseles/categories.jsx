@@ -33,7 +33,7 @@ const CategoriesCarousel = ({ data }) => {
           {
             data?.length > 0 && data.sort((a, b) => b.views - a.views).map((category, i) => (
               <SwiperSlide key={i} className='carousellCategories'>
-                <a href={`/./page/category/${category.name}`}>
+                <a href={`page/category/${category.name}`}>
                   <Card title={category?.name} className='filterChoosed' css={{ borderRadius: 50 }} variant="flat" isPressable isHoverable>
                     <Card.Body>
                       <Grid.Container justify="center">

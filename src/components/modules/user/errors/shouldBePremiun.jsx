@@ -11,7 +11,7 @@ const ShouldBePremiun = () => {
                 </Text>
             </Grid.Container>
             <Grid.Container justify="center">
-                <Button icon={<Icon id="upgrade" />} auto css={{ color: "$dark" }} onPress={() =>router.push("/./docs/subscriptions")}>
+                <Button icon={<Icon id="upgrade" />} auto css={{ color: "$dark" }} onPress={() =>router.push("docs/subscriptions")}>
                     Pasate a premiun
                 </Button>
             </Grid.Container>

@@ -10,7 +10,7 @@ const IsAuth = () => {
     }
 
     return (
-        <a href={`/./user/auth/signin`}>
+        <a href={`user/auth/signin`}>
             <Button auto css={{ bg: "$white", color: "$black", "@smMax": { display: "none" } }} icon={<Icon id="person" />} >
                 Ingresar
             </Button>
