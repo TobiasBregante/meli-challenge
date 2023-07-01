@@ -2,16 +2,21 @@ import Icon from "@/ui/icons";
 import UserHeaderMenu from "@/src/components/modules/user/avatar/userHeaderMenu";
 import Image from "next/image";
 import { useEffect, useState } from 'react'
-import { Button, Card, Container, Grid, Input, Text, Dropdown } from "@nextui-org/react";
+import { Button, Card, Container, Grid, Input, Text, Dropdown, Link } from "@nextui-org/react";
 import { useRouter } from "next/router";
 import UserNotifications from "../modules/user/notifications";
 import uniqid from 'uniqid'
 import Get from "@/src/utils/hooks/get";
+import LocaleSwitcher from "./localeSwitcher";
 
 const Header = () => {
     const [isSearchOpen, openSearchBar] = useState(false)
     const [searchValue, setSearchValue] = useState("")
     const [categories, setCategories] = useState({})
+
+    useEffect(() => {
+        console.log(router)
+    }, [])
 
     const getCategories = async () => {
         await Get("website").then(r => {
@@ -33,7 +38,7 @@ const Header = () => {
 
     const handleEnter = (e) => {
         if (e.key == "Enter" && searchValue.length > 0) {
-            router.push(`/./search?text=${searchValue}`)
+            router.push(`search?text=${searchValue}`)
         }
     }
 
@@ -76,7 +81,7 @@ const Header = () => {
                                                     key={uniqid()}
                                                     color={'primary'}
                                                 >
-                                                    <a className="linkCategoryHeader" href={`/page/category/${item?.name}`}>
+                                                    <a className="linkCategoryHeader" href={`page/category/${item?.name}`}>
                                                         {item.name}
                                                     </a>
                                                 </Dropdown.Item>
@@ -84,7 +89,7 @@ const Header = () => {
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 )}
-                                <a href="/./">
+                                <a href={`/${router?.locale}/`}>
                                     <Grid.Container direction="row">
                                         <Grid className="branding">
                                             <div>
@@ -105,27 +110,25 @@ const Header = () => {
                                                     app
                                                 </span>
                                             </Text>
-
                                         </Grid>
                                     </Grid.Container>
                                 </a>
                             </Grid>
-
+                            <Grid className='searchEngineHeader' css={{ "@smMax": { display: "none" } }}>
+                                <Input
+                                    color="white"
+                                    clearable
+                                    value={searchValue}
+                                    onChange={handleSearch}
+                                    onKeyUp={handleEnter}
+                                    id="headerSearch"
+                                    aria-label="Busqueda"
+                                    placeholder="Buscalo acá"
+                                    contentRight={<Icon id="search" className="text-dark" />}
+                                />
+                            </Grid>
                             <Grid>
                                 <Grid.Container gap={.5}>
-                                    <Grid css={{ "@smMax": { display: "none" } }}>
-                                        <Input
-                                            color="white"
-                                            clearable
-                                            value={searchValue}
-                                            onChange={handleSearch}
-                                            onKeyUp={handleEnter}
-                                            id="headerSearch"
-                                            aria-label="Busqueda"
-                                            placeholder="Buscalo acá"
-                                            contentRight={<Icon id="search" className="text-dark" />}
-                                        />
-                                    </Grid>
                                     <Grid css={{ "@sm": { display: "none" } }}>
                                         <Button size={'sm'} auto css={{ bg: "$white", color: "$black" }} icon={<Icon id="search" />} onClick={() => openSearchBar(true)} />
                                     </Grid>

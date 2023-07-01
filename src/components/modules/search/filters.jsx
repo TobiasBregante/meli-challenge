@@ -57,7 +57,7 @@ const SearchFilters = ({ categories, params }) => {
             [key]: value
         }
 
-        router.push(`/./search/?${new URLSearchParams(queryBuilder).toString()}`)
+        router.push(`search/?${new URLSearchParams(queryBuilder).toString()}`)
     }
 
     return (

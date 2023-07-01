@@ -136,7 +136,7 @@ const Submit = ({ state, setState, data, resetState }) => {
                     }).then(res => {
                         toast(res.data.msg)
                         setSubmiting(false)
-                        router.push("/./")
+                        router.push(`/${router?.locale}/`)
 
                     }).catch(err => {
                         if (err.response.data) {

@@ -16,7 +16,7 @@ const CarouselTitle = ({ title, link }) => {
       {
         link &&
         <Fragment>
-          <a href={link || "/./"}>
+          <a href={link || "/"}>
             <Text css={{ pt: 6, ml: 10, fontWeight: 600 }} color="primary">
               <u>Ver más</u>
             </Text>

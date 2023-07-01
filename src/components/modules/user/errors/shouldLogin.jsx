@@ -13,7 +13,7 @@ const ShouldLogin = () => {
                 </Text>
             </Grid.Container>
             <Grid.Container justify="center">
-                <Button auto icon={<Icon id="person" />} css={{ color: "$dark" }} onPress={()=>router.push("/./user/auth/signin")}>
+                <Button auto icon={<Icon id="person" />} css={{ color: "$dark" }} onPress={()=>router.push("user/auth/signin")}>
                     Ingresar
                 </Button>
             </Grid.Container>

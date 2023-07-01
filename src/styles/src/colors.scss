@@ -245,6 +245,16 @@ html{
     @media (max-width: $isMobile) {
         display: none !important;
     }
+    * {
+        color: #249B3E !important;
+    }
+}
+.searchEngineHeader {
+    width: 50%;
+    label, div {
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
+        width: 100% !important;
+    }
 }
 .linkCategoryHeader {
     position: absolute;
@@ -280,5 +290,36 @@ html{
     margin-top: 0;
     h2, li, p {
         color: #e9c46a;
+    }
+}
+.localeSwitcherBtn {
+    position: fixed;
+    z-index: 9999;
+    margin: 1%;
+    bottom: 0;
+    right: 0;
+}
+.localeSwitcherBtnNoFixed {
+    display: inline-flex;
+    margin: 0;
+}
+.localeLink {
+    a {
+        position: absolute;
+        color: $primary;
+        margin: auto;
+        height: 100%;
+        width: 100%;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        top: 0;
+    }
+    img {
+        position: absolute;
+        margin: auto 5%;
+        bottom: 0;
+        left: 0;
+        top: 0;
     }
 }

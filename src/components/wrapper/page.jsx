@@ -5,6 +5,7 @@ import { Fragment } from 'react'
 import { ToastContainer } from 'react-toastify';
 import UserWrapper from '@/utils/user/provider';
 import categories from '@/src/utils/user/brand/categories';
+import LocaleSwitcher from './localeSwitcher';
 
 const Page = ({ title, description, image, children }) => {
     return (
@@ -16,6 +17,7 @@ const Page = ({ title, description, image, children }) => {
                 {
                     children || null
                 }
+                <LocaleSwitcher fixed={true}/>
                 <Footer />
             </UserWrapper>
         </Fragment>

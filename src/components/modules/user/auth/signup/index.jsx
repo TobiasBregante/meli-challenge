@@ -119,9 +119,9 @@ const SignUpModule = () => {
                     jsCookie.set("sldtoken", res.data.sldtoken)
 
                     if (state.isSeller) {
-                        return router.push('/./user/claimBrand')
+                        return router.push('user/claimBrand')
                     }
-                    return router.push(`/./`)
+                    return router.push(`${router?.locale}/`)
                 })
                 .catch(err => {
                     if (err.response) {
@@ -182,7 +182,7 @@ const SignUpModule = () => {
                     <Card.Footer>
                         <Text>
                             ¿Ya tienes cuenta? &nbsp;
-                            <a href="/./user/auth/signin">
+                            <a href="user/auth/signin">
                                 Inicia sesión
                             </a>
                         </Text>

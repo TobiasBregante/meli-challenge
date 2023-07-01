@@ -60,9 +60,9 @@ const SignInModule = () => {
                     toast(res.data.msg)
                     jsCookie.set("sldtoken", res.data.sldtoken)
                     if (router.query.redirect) {
-                        return router.push(`/.${router.query.redirect}`)
+                        return router.push(`${router.query.redirect}`)
                     }
-                    return router.push(`/./`)
+                    return router.push(`/${router?.locale}/`)
                 })
                 .catch(err => {
                     if (err.response) {
@@ -125,7 +125,7 @@ const SignInModule = () => {
                         </Grid.Container>
                         <Text>
                             ¿No tienes cuenta? &nbsp;
-                            <a href="/./user/auth/signup">
+                            <a href="user/auth/signup">
                                 Registrarme
                             </a>
                         </Text>

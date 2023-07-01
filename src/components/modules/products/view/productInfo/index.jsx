@@ -63,7 +63,7 @@ const ProductInfo = ({ data }) => {
                 setWriteReview(true)
             }
         } else {
-            window.location = '/user/auth/signup'
+            window.location = 'user/auth/signup'
         }
 
     }
@@ -109,7 +109,7 @@ const ProductInfo = ({ data }) => {
                         </Button>
                     </Grid>
                     <Grid>
-                        <Share link={`/product/${data?._id}`} />
+                        <Share link={`product/${data?._id}`} />
                     </Grid>
                 </Grid.Container>
             </Grid.Container>

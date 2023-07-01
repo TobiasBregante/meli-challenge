@@ -3,7 +3,7 @@ import Stars from '@/src/components/ui/stars';
 import timeago from '@/src/utils/timeago';
 import { useUserContext } from '@/src/utils/user/provider';
 import { Avatar, Button, Card, Grid, Loading, Modal, Text } from '@nextui-org/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import WriteComment from './write';
 import jsCookie from 'js-cookie'
 import Post from '@/src/utils/hooks/post';
@@ -134,10 +134,9 @@ const ProductComments = ({ data }) => {
                         Comentarios
                     </Text>
                     {
-                        comments.slice(0, limit).map((comment, commentIndex) => (
+                        comments?.slice(0, limit).map((comment, commentIndex) => (
                             <div className="my-2" key={commentIndex}>
                                 <Comment
-
                                     data={comment}
                                     productData={data}
                                     canReply={comment?.response == undefined && data?.isOwnedBy == user?._id}
