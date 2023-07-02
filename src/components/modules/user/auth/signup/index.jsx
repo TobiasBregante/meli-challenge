@@ -5,12 +5,10 @@ import Put from '@/utils/hooks/put'
 import Joi from 'joi'
 import jsCookie from 'js-cookie'
 import { useRouter } from 'next/router';
-import AccountType from '@/components/modules/user/auth/signup/sections/accountType';
 import PersonalData from './sections/personalData';
 import { Button, Card, Checkbox, Grid, Text } from '@nextui-org/react';
 import stringMessages from "@/src/utils/joi/customMessages";
 import arg from 'arg.js'
-import ip from 'ip'
 import axios from "axios";
 import Link from "@/src/utils/hooks/link";
 
@@ -19,7 +17,7 @@ const SignUpModule = () => {
     const [location, setLocation] = useState(null)
     
     useEffect(() => {
-        axios.get(`https://api.iplocation.net/?ip=${ip.address()}`)
+        axios.get(`https://ipapi.co/json`)
         .then(response => setLocation(response?.data || {}))
         .catch(err => console.error(err))
     }, [])
