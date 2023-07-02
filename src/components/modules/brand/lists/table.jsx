@@ -5,9 +5,10 @@ import { useRouter } from "next/router"
 
 const BrandTable = ({ data }) => {
     const router = useRouter()
+    
     const handleClick = e =>{
         const brand = data[Array.from(e)[0]]
-        router.push(`admin/brand/${brand._id}`)
+        router.push(`/./${router?.locale}/admin/brand/${brand._id}`)
     }
     return (
         <Table

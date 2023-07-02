@@ -5,9 +5,10 @@ import { useRouter } from "next/router"
 
 const UsersList = ({ data }) => {
     const router = useRouter()
+
     const handleClick = e =>{
         const user = data[Array.from(e)[0]]
-        router.push(`/./admin/user/${user._id}`)
+        router.push(`/./${router?.locale}/admin/user/${user._id}`)
     }
     return (
         <Table

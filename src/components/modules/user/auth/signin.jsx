@@ -7,6 +7,7 @@ import jsCookie from 'js-cookie'
 import { useRouter } from 'next/router';
 import { Button, Card, Grid, Input, Text } from '@nextui-org/react';
 import stringMessages from "@/src/utils/joi/customMessages";
+import Link from "@/src/utils/hooks/link";
 
 
 const SignInModule = () => {
@@ -62,7 +63,7 @@ const SignInModule = () => {
                     if (router.query.redirect) {
                         return router.push(`${router.query.redirect}`)
                     }
-                    return router.push(`/${router?.locale}/`)
+                    return router.push(`/./${router?.locale}/`)
                 })
                 .catch(err => {
                     if (err.response) {
@@ -125,9 +126,9 @@ const SignInModule = () => {
                         </Grid.Container>
                         <Text>
                             ¿No tienes cuenta? &nbsp;
-                            <a href="user/auth/signup">
+                            <Link href="/user/auth/signup">
                                 Registrarme
-                            </a>
+                            </Link>
                         </Text>
                     </Card.Body>
                 </Card>

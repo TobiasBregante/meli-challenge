@@ -57,7 +57,7 @@ const SearchFilters = ({ categories, params }) => {
             [key]: value
         }
 
-        router.push(`search/?${new URLSearchParams(queryBuilder).toString()}`)
+        router.push(`/./${router?.locale}/search/?${new URLSearchParams(queryBuilder).toString()}`)
     }
 
     return (
@@ -115,7 +115,7 @@ const SearchFilters = ({ categories, params }) => {
                                         onPress={handleFilter("useBrand", true)}
                                         color="secondary"
                                         css={{ color: "$black", mb: 5 }}>
-                                        Inmobiliaria
+                                        Marcas
                                     </Button>
                                 </Grid>
                             </Grid.Container>

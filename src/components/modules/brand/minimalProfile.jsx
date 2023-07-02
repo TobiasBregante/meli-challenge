@@ -2,9 +2,10 @@ import Image from 'next/image'
 import Icon from '@/ui/icons'
 import Share from '@/components/modules/common/share'
 import { Button, Card, Grid, Text } from '@nextui-org/react'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 import { useUserContext } from '@/src/utils/user/provider';
 import { useEffect, useState } from 'react'
+import Link from '@/src/utils/hooks/link'
 
 const showUploadWidget = () => { 
     cloudinary.openUploadWidget({ 
@@ -61,12 +62,13 @@ const showUploadWidget = () => {
 const BrandProfileMinimal = ({ data, hideFullProfile }) => {
     const user = useUserContext()
     const [isAdmin, setIsAdmin] = useState(false)
+    const router = useRouter()
 
     useEffect(() => {
         setIsAdmin(user?._id === data?.isOwnedBy) 
     }, [user, data])
 
-    const redirectToUpdateProfile = () => Router?.push(`brand/update/${data?._id}`)
+    const redirectToUpdateProfile = () => Router?.push(`/./${router?.locale}/brand/update/${data?._id}`)
     
     return (
         <Card rounded={16} className="d-flex flex-column p-3 brand-card">
@@ -119,13 +121,13 @@ const BrandProfileMinimal = ({ data, hideFullProfile }) => {
                </Grid>
                 {
                     (hideFullProfile == false || hideFullProfile == undefined) &&
-                    <a href={`brand/${data._id}`}>
+                    <Link href={`/brand/${data._id}`}>
                         <Button color="secondary" auto icon={<Icon id="open_in_new" color="white" />} css={{ mb: 10 }}>
                             Catálogo
                         </Button>
-                    </a>
+                    </Link>
                 }
-                <Share link={`brand/${data._id}`}/>
+                <Share link={`/brand/${data._id}`}/>
                 <div className="circle"/>
                 <div className="circle-2"/>
             </Card.Body>

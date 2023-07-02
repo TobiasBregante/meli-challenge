@@ -5,6 +5,7 @@ import 'swiper/css/autoplay';
 import { Card, Grid, Text } from '@nextui-org/react';
 import { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from '@/src/utils/hooks/link';
 
 const FiltersCarousel = ({ data }) => {
   const router = useRouter()
@@ -41,7 +42,7 @@ const FiltersCarousel = ({ data }) => {
           {
             data?.length > 0 && data.sort((a, b) => b.views - a.views).map((category, i) => (
               <SwiperSlide key={i}>
-                <a href={`#${category?.name}`}>
+                <Link href={`#${category?.name}`}>
                   <Card className={'filterChoosed'} css={{ borderRadius: 50, border: '2.5px solid $blue600' }} variant="flat" isPressable isHoverable>
                     <Card.Body>
                       <Grid.Container justify="center">
@@ -51,7 +52,7 @@ const FiltersCarousel = ({ data }) => {
                       </Grid.Container>
                     </Card.Body>
                   </Card>
-                </a>
+                </Link>
               </SwiperSlide>
             ))
           }

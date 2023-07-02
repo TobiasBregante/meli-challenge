@@ -6,9 +6,9 @@ const ProductsTable = ({ data, isSeller }) => {
     const handleClick = e =>{
         const product = data[Array.from(e)[0]]
         if (isSeller) {
-            return router.push(`user/products/${product?._id}`)
+            return router.push(`/./${router?.locale}/user/products/${product?._id}`)
         }
-        router.push(`admin/product/${product?._id}`)
+        router.push(`/./${router?.locale}/admin/product/${product?._id}`)
     }
     return (
         <Table
