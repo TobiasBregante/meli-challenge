@@ -5,7 +5,7 @@ import UnorderedList from '@/src/components/modules/products/list/unordered'
 import Get from '@/src/utils/hooks/get'
 import { useEffect, useState } from 'react'
 
-const Popular = ({ products,  website, equipamiento }) => {
+const Popular = ({ products,  website }) => {
     const [dataFilter, setDataFilter] = useState([])
 
     useEffect(() => {
@@ -14,7 +14,7 @@ const Popular = ({ products,  website, equipamiento }) => {
     }, [products])
 
     return (
-        <Page categories={website?.categories}>
+        <Page categories={website?.categories} title='SaladaApp - Populares'>
             <Container lg css={{ mb: "$10" }}>
                 <CategoriesCarousel data={website.categories}/>
                 <UnorderedList title="Productos mas populares" data={dataFilter} />

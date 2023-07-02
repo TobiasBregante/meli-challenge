@@ -6,7 +6,7 @@ import Get from '@/src/utils/hooks/get'
 
 const Season = ({ products, website }) => {
     return (
-        <Page categories={website?.categories}>
+        <Page categories={website?.categories} title='SaladaApp - Temporada'>
             <Container lg css={{ mb: "$10" }}>
                 <CategoriesCarousel data={website?.categories}/>
                 <UnorderedList title="Temporada" data={products} />
