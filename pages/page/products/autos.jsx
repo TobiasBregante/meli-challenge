@@ -4,9 +4,9 @@ import { Container } from '@nextui-org/react'
 import UnorderedList from '@/src/components/modules/products/list/unordered'
 import Get from '@/src/utils/hooks/get'
 
-const Cars = ({ products, website, equipamiento }) => {
+const Cars = ({ products, website }) => {
     return (
-        <Page categories={website?.categories}>
+        <Page categories={website?.categories} title='SaladaApp - Autos'>
             <Container lg css={{ mb: "$10" }}>
                 <CategoriesCarousel data={website?.categories}/>
                 <UnorderedList title="Autos" data={products} />
