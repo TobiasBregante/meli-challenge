@@ -11,10 +11,10 @@ const CantRegisterBrand = () => {
                 </Text>
             </Grid.Container>
             <Grid.Container justify="center">
-                <Button icon={<Icon id="home" />} auto css={{ color: "$dark", mr:10 }} onPress={() =>router.push(`/${router?.locale}/`)}>
+                <Button icon={<Icon id="home" />} auto css={{ color: "$dark", mr:10 }} onPress={() =>router.push(`/./${router?.locale}/`)}>
                     Volver al menu principal
                 </Button>
-                <Button icon={<Icon id="home" />} auto css={{ color: "$dark" }} onPress={() =>router.push("user/products/add")}>
+                <Button icon={<Icon id="home" />} auto css={{ color: "$dark" }} onPress={() =>router.push(`/./${router?.locale}/user/products/add`)}>
                     Añadir mas producto
                 </Button>
             </Grid.Container>

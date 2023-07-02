@@ -2,17 +2,19 @@ import Icon from "@/ui/icons";
 import UserHeaderMenu from "@/src/components/modules/user/avatar/userHeaderMenu";
 import Image from "next/image";
 import { useEffect, useState } from 'react'
-import { Button, Card, Container, Grid, Input, Text, Dropdown, Link } from "@nextui-org/react";
+import { Button, Card, Container, Grid, Input, Text, Dropdown } from "@nextui-org/react";
 import { useRouter } from "next/router";
 import UserNotifications from "../modules/user/notifications";
 import uniqid from 'uniqid'
 import Get from "@/src/utils/hooks/get";
 import LocaleSwitcher from "./localeSwitcher";
+import Link from "@/src/utils/hooks/link";
 
 const Header = () => {
     const [isSearchOpen, openSearchBar] = useState(false)
     const [searchValue, setSearchValue] = useState("")
     const [categories, setCategories] = useState({})
+    const router = useRouter()
 
     const getCategories = async () => {
         await Get("website").then(r => {
@@ -26,7 +28,6 @@ const Header = () => {
         getCategories()
     }, [])
 
-    const router = useRouter()
 
     const handleSearch = (e) => {
         setSearchValue(e.target.value)
@@ -34,7 +35,7 @@ const Header = () => {
 
     const handleEnter = (e) => {
         if (e.key == "Enter" && searchValue.length > 0) {
-            router.push(`search?text=${searchValue}`)
+            router.push(`/./${router?.locale}/search?text=${searchValue}`)
         }
     }
 
@@ -77,15 +78,15 @@ const Header = () => {
                                                     key={uniqid()}
                                                     color={'primary'}
                                                 >
-                                                    <a className="linkCategoryHeader" href={`page/category/${item?.name}`}>
+                                                    <Link className="linkCategoryHeader" href={`/page/category/${item?.name}`}>
                                                         {item.name}
-                                                    </a>
+                                                    </Link>
                                                 </Dropdown.Item>
                                             )}
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 )}
-                                <a href={`/${router?.locale}/`}>
+                                <Link href={`/`}>
                                     <Grid.Container direction="row">
                                         <Grid className="branding">
                                             <div>
@@ -108,7 +109,7 @@ const Header = () => {
                                             </Text>
                                         </Grid>
                                     </Grid.Container>
-                                </a>
+                                </Link>
                             </Grid>
                             <Grid className='searchEngineHeader' css={{ "@smMax": { display: "none" } }}>
                                 <Input
@@ -119,8 +120,8 @@ const Header = () => {
                                     onKeyUp={handleEnter}
                                     id="headerSearch"
                                     aria-label="Busqueda"
-                                    placeholder="Buscalo acá"
-                                    contentRight={<Icon id="search" className="text-dark" />}
+                                    placeholder="Buscá indumentaria, calzado, accesorios y más..."
+                                    contentRight={<Icon id="search" className="iconSearch" />}
                                 />
                             </Grid>
                             <Grid>

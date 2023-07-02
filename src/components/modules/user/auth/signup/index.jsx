@@ -1,5 +1,5 @@
 import Icon from "@/ui/icons";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Put from '@/utils/hooks/put'
 import Joi from 'joi'
@@ -10,12 +10,22 @@ import PersonalData from './sections/personalData';
 import { Button, Card, Checkbox, Grid, Text } from '@nextui-org/react';
 import stringMessages from "@/src/utils/joi/customMessages";
 import arg from 'arg.js'
-
+import ip from 'ip'
+import axios from "axios";
+import Link from "@/src/utils/hooks/link";
 
 const SignUpModule = () => {
     const router = useRouter()
+    const [location, setLocation] = useState(null)
     
+    useEffect(() => {
+        axios.get(`https://api.iplocation.net/?ip=${ip.address()}`)
+        .then(response => setLocation(response?.data || {}))
+        .catch(err => console.error(err))
+    }, [])
+
     const [state, setState] = useState({
+        location: location,
         isSeller: true,
         //personal data
         name: {
@@ -51,6 +61,7 @@ const SignUpModule = () => {
 
     const submit = () => {
         const Schema = Joi.object({
+            location: Joi.object(),
             isSeller: Joi.boolean(),
             name: Joi.string().min(3).max(32).messages(stringMessages("Nombre")),
             lastName: Joi.string().min(3).max(32).messages(stringMessages("Apellido")),
@@ -61,6 +72,7 @@ const SignUpModule = () => {
         })
 
         const { error } = Schema.validate({
+            location: location,
             isSeller: true,
             name: state.name.value,
             lastName: state.lastName.value,
@@ -107,6 +119,7 @@ const SignUpModule = () => {
 
         if (!error) {
             Put("user/auth/signup", {
+                location: location,
                 isSeller: true,
                 name: state.name.value,
                 lastName: state.lastName.value,
@@ -119,9 +132,9 @@ const SignUpModule = () => {
                     jsCookie.set("sldtoken", res.data.sldtoken)
 
                     if (state.isSeller) {
-                        return router.push('user/claimBrand')
+                        return router.push(`/./${router?.locale}/user/claimBrand`)
                     }
-                    return router.push(`${router?.locale}/`)
+                    return router.push(`/./${router?.locale}/`)
                 })
                 .catch(err => {
                     if (err.response) {
@@ -157,13 +170,12 @@ const SignUpModule = () => {
                             <Checkbox label={
                                 <Text>
                                     Acepto los&nbsp;
-                                    <Text as="a"
-                                        css={{ color: "$blue500" }}
-                                        href="/./docs/terms"
+                                    <Link
+                                        href="/docs/terms"
                                         target="_blank">
                                         terminos y condiciones
                                         <Icon id="open_in_new" />
-                                    </Text>
+                                    </Link>
 
                                 </Text>
                             }
@@ -182,9 +194,9 @@ const SignUpModule = () => {
                     <Card.Footer>
                         <Text>
                             ¿Ya tienes cuenta? &nbsp;
-                            <a href="user/auth/signin">
+                            <Link href="/user/auth/signin">
                                 Inicia sesión
-                            </a>
+                            </Link>
                         </Text>
                     </Card.Footer>
                 </Card>

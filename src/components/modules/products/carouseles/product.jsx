@@ -6,6 +6,7 @@ import ProductCard from '@/src/components/modules/products/cards/normal';
 import Icon from '@/ui/icons';
 import { Grid, Text } from '@nextui-org/react';
 import { Fragment, useEffect, useState } from 'react';
+import Link from '@/src/utils/hooks/link';
 
 const CarouselTitle = ({ title, link }) => {
   return (
@@ -16,11 +17,11 @@ const CarouselTitle = ({ title, link }) => {
       {
         link &&
         <Fragment>
-          <a href={link || "/"}>
+          <Link href={link || "/"}>
             <Text css={{ pt: 6, ml: 10, fontWeight: 600 }} color="primary">
               <u>Ver más</u>
             </Text>
-          </a>
+          </Link>
           <Icon id="chevron_right" css={{ pt: 10 }} color="primary" />
         </Fragment>
       }

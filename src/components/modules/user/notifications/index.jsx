@@ -35,7 +35,7 @@ const UserNotifications = () => {
     }
 
     const openLink = url=>()=>{
-        router.push(url)
+        router.push(`/./${router?.locale}/${url}`)
     }
 
     return (

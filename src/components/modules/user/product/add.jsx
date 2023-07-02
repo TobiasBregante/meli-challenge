@@ -27,7 +27,6 @@ const PricesManager = ({ state, handlePrices, data }) => {
 }
 
 const ManageProduct = ({ website, data }) => {
-
     const router = useRouter()
     const user = useUserContext()
 
@@ -108,9 +107,9 @@ const ManageProduct = ({ website, data }) => {
             toast(res.data.msg)
             setDeleting(false)
             if (user.isAdmin) {
-                return router.push("admin/search/products")
+                return router.push(`/./${router?.locale}/admin/search/products`)
             }
-            router.push("user/products")
+            router.push(`/./${router?.locale}/user/products`)
         }).catch(err => {
             if (err.response.data) {
                 toast.error(err.response.data);
