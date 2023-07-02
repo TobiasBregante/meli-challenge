@@ -5,7 +5,7 @@ import { Button, Card, Grid, Text } from '@nextui-org/react'
 import Router, { useRouter } from 'next/router'
 import { useUserContext } from '@/src/utils/user/provider';
 import { useEffect, useState } from 'react'
-import Link from '@/src/utils/hooks/Link'
+import Link from '@/src/utils/hooks/link'
 
 const showUploadWidget = () => { 
     cloudinary.openUploadWidget({ 

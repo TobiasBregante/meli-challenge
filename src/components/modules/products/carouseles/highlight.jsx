@@ -4,7 +4,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import Image from 'next/image';
-import Link from '@/src/utils/hooks/Link';
+import Link from '@/src/utils/hooks/link';
 
 const HighLightCarousel = ({ data }) => {
 

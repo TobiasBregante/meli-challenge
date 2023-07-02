@@ -7,7 +7,7 @@ import jsCookie from 'js-cookie'
 import { useRouter } from 'next/router';
 import { Button, Card, Grid, Input, Text } from '@nextui-org/react';
 import stringMessages from "@/src/utils/joi/customMessages";
-import Link from "@/src/utils/hooks/Link";
+import Link from "@/src/utils/hooks/link";
 
 
 const SignInModule = () => {

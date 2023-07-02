@@ -4,7 +4,7 @@ import { Fragment, useState } from "react";
 import jsCookie from 'js-cookie'
 import { useRouter } from "next/router";
 import { Button, Dropdown } from "@nextui-org/react";
-import Link from "@/src/utils/hooks/Link";
+import Link from "@/src/utils/hooks/link";
 
 const UserAvatar = () => {
     const router = useRouter()

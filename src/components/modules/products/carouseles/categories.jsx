@@ -4,7 +4,7 @@ import 'swiper/css';
 import 'swiper/css/autoplay';
 import { Card, Grid, Text } from '@nextui-org/react';
 import { Fragment } from 'react';
-import Link from '@/src/utils/hooks/Link';
+import Link from '@/src/utils/hooks/link';
 
 const CategoriesCarousel = ({ data }) => {
   return (

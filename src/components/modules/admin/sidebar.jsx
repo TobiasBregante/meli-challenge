@@ -1,4 +1,4 @@
-import Link from "@/src/utils/hooks/Link"
+import Link from "@/src/utils/hooks/link"
 import { Card, Grid, Text } from "@nextui-org/react"
 import Icon from "../../ui/icons"
 

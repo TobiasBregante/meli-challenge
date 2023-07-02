@@ -1,4 +1,4 @@
-import Link from '@/src/utils/hooks/Link';
+import Link from '@/src/utils/hooks/link';
 import Icon from '@/ui/icons';
 import { Grid, Text } from '@nextui-org/react';
 import { Fragment } from 'react';

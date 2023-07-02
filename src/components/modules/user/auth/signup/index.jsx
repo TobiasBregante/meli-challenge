@@ -12,7 +12,7 @@ import stringMessages from "@/src/utils/joi/customMessages";
 import arg from 'arg.js'
 import ip from 'ip'
 import axios from "axios";
-import Link from "@/src/utils/hooks/Link";
+import Link from "@/src/utils/hooks/link";
 
 const SignUpModule = () => {
     const router = useRouter()

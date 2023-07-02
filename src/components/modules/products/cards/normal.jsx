@@ -6,7 +6,7 @@ import { Avatar, Card, Grid, Text } from '@nextui-org/react'
 import LocationBuilder from '../locationBuilder'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import Link from '@/src/utils/hooks/Link'
+import Link from '@/src/utils/hooks/link'
 
 const ProductCard = ({ data }) => {
     const [locale, setLocale] = useState('')

@@ -2,7 +2,7 @@ import Icon from "@/ui/icons"
 import { useUserContext } from "@/utils/user/provider"
 import UserAvatar from "@/components/modules/user/avatar"
 import { Button } from "@nextui-org/react"
-import Link from "@/src/utils/hooks/Link"
+import Link from "@/src/utils/hooks/link"
 
 const IsAuth = () => {
     const user = useUserContext()

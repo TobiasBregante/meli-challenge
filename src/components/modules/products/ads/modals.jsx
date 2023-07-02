@@ -1,4 +1,4 @@
-import Link from "@/src/utils/hooks/Link"
+import Link from "@/src/utils/hooks/link"
 import { Button, Grid, Modal } from "@nextui-org/react"
 import Image from "next/image"
 

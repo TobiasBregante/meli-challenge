@@ -8,7 +8,7 @@ import UserNotifications from "../modules/user/notifications";
 import uniqid from 'uniqid'
 import Get from "@/src/utils/hooks/get";
 import LocaleSwitcher from "./localeSwitcher";
-import Link from "@/src/utils/hooks/Link";
+import Link from "@/src/utils/hooks/link";
 
 const Header = () => {
     const [isSearchOpen, openSearchBar] = useState(false)

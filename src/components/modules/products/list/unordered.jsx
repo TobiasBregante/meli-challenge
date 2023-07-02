@@ -2,7 +2,7 @@ import ProductCard from '@/src/components/modules/products/cards/normal';
 import Icon from '@/ui/icons';
 import { Fragment, useState } from 'react'
 import { Grid, Text } from '@nextui-org/react';
-import Link from '@/src/utils/hooks/Link';
+import Link from '@/src/utils/hooks/link';
 
 const CarouselTitle = ({ title, showSeeMore, link }) => {
     return (
