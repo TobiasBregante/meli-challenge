@@ -6,7 +6,7 @@ import SaveBookmark from '@/components/modules/products/saveBookmark'
 import Share from '@/components/modules/common/share';
 import { useState } from 'react';
 import { Button, Grid, Text } from '@nextui-org/react';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import Get from '@/src/utils/hooks/get';
 import WriteReview from '../review/write';
 import { useUserContext } from '@/src/utils/user/provider';
@@ -14,6 +14,7 @@ import { useUserContext } from '@/src/utils/user/provider';
 const ProductInfo = ({ data }) => {
     const user = useUserContext()
     const [isWritingReview, setWriteReview] = useState(false)
+    const router = useRouter()
 
     const lowestPriceSelect = () => {
         const {
@@ -63,7 +64,7 @@ const ProductInfo = ({ data }) => {
                 setWriteReview(true)
             }
         } else {
-            window.location = 'user/auth/signup'
+            router?.push(`/./${router?.locale}/user/auth/signup`)
         }
 
     }

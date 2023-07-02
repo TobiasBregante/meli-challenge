@@ -1,4 +1,5 @@
 import Icon from "@/src/components/ui/icons"
+import Link from "@/src/utils/hooks/Link"
 import { useUserContext } from "@/src/utils/user/provider"
 import { Card, Grid, Text, Image as UiImage } from "@nextui-org/react"
 import Image from "next/image"
@@ -20,9 +21,9 @@ const ImagesSection = ({ state, setState }) => {
             }
         } else {
             if ([...state.imgs.value, ...flArray].length > 4) {
-                toast(<a href="docs/subscriptions">
+                toast(<Link href="/docs/subscriptions">
                     Pasate a premiun para subir mas fotos, hace click aca
-                </a>)
+                </Link>)
             }
         }
 

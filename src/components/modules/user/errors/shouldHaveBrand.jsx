@@ -3,6 +3,7 @@ import { Button, Grid, Text } from '@nextui-org/react'
 import { useRouter } from 'next/router'
 const ShouldHaveBrand = () => {
     const router = useRouter()
+    
     return (
         <Grid.Container direction="column">
             <Grid.Container justify="center">
@@ -11,7 +12,7 @@ const ShouldHaveBrand = () => {
                 </Text>
             </Grid.Container>
             <Grid.Container justify="center">
-                <Button icon={<Icon id="home" />} auto css={{ color: "$dark" }} onPress={() =>router.push("user/claimBrand")}>
+                <Button icon={<Icon id="home" />} auto css={{ color: "$dark" }} onPress={() =>router.push(`/./${router?.locale}/user/claimBrand`)}>
                     Registrar marca
                 </Button>
             </Grid.Container>

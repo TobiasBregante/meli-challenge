@@ -12,7 +12,7 @@ const IsNotOwner = () => {
                 </Text>
             </Grid.Container>
             <Grid.Container justify="center">
-                <Button icon={<Icon id="home" />} auto css={{ color: "$dark" }} onPress={() =>router.push(`/${router?.locale}/`)}>
+                <Button icon={<Icon id="home" />} auto css={{ color: "$dark" }} onPress={() =>router.push(`/./${router?.locale}/`)}>
                     Volver al menu principal
                 </Button>
             </Grid.Container>

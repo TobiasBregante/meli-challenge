@@ -6,6 +6,7 @@ import 'swiper/css/autoplay';
 import BrandCard from '@/src/components/modules/brand/card';
 import Icon from '@/ui/icons';
 import { Grid, Text } from '@nextui-org/react';
+import Link from '@/src/utils/hooks/link';
 
 const CarouselTitle = ({ title, link }) => {
   return (
@@ -15,12 +16,12 @@ const CarouselTitle = ({ title, link }) => {
       </Text>
       {
         link &&
-        <a href={link}>
+        <Link href={link}>
           <Text css={{ pt: 3, ml: 10 }} color="primary">
             Ver mas
           </Text>
           <Icon id="chevron_right" css={{ pt: 8 }} color="primary" />
-        </a>
+        </Link>
       }
     </Grid.Container>
   )

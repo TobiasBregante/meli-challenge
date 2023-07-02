@@ -1,3 +1,4 @@
+import Link from '@/src/utils/hooks/Link';
 import Icon from '@/ui/icons';
 import { Grid, Text } from '@nextui-org/react';
 import { Fragment } from 'react';
@@ -12,11 +13,11 @@ const CarouselTitle = ({ title, link }) => {
             {
                 link &&
                 <Fragment>
-                    <a href={link || "/./"}>
+                    <Link href={link || "/./"}>
                         <Text css={{ pt: 3, ml: 10 }} color="primary">
                             Ver mas
                         </Text>
-                    </a>
+                    </Link>
                     <Icon id="chevron_right" css={{ pt: 8 }} color="primary" />
                 </Fragment>
             }

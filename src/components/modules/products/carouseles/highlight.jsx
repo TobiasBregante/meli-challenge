@@ -4,6 +4,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import Image from 'next/image';
+import Link from '@/src/utils/hooks/Link';
 
 const HighLightCarousel = ({ data }) => {
 
@@ -22,7 +23,7 @@ const HighLightCarousel = ({ data }) => {
       {
         data?.length > 0 && data.map((slide, i) => (
           <SwiperSlide key={i}>
-            <a href={slide.link}>
+            <Link href={slide.link}>
               <div className='banner-img'>
                 <Image
                   priority 
@@ -33,7 +34,7 @@ const HighLightCarousel = ({ data }) => {
                   objectPosition="center"
                 />
               </div>
-            </a>
+            </Link>
           </SwiperSlide>
         ))
       }

@@ -4,6 +4,7 @@ import { Fragment, useState } from "react";
 import jsCookie from 'js-cookie'
 import { useRouter } from "next/router";
 import { Button, Dropdown } from "@nextui-org/react";
+import Link from "@/src/utils/hooks/Link";
 
 const UserAvatar = () => {
     const router = useRouter()
@@ -30,47 +31,47 @@ const UserAvatar = () => {
                 <Dropdown.Button size={'sm'} icon={<Icon id="person" css={{ mt: 0 }} />} css={{ bg: 'white' }} />
                 <Dropdown.Menu className='dropdownHeader' onAction={handleSelection}>
                     <Dropdown.Item key="home" icon={<Icon id="home" />}>
-                        <a href={`/`}>Inicio</a>
+                        <Link href={`/`}>Inicio</Link>
                     </Dropdown.Item>
                     {
                         user.isAdmin &&
                         <Dropdown.Item key="panel" withDivider icon={<Icon id="person" />}>
-                            <a href={"admin"}>Panel</a>
+                            <Link href={"/admin"}>Panel</Link>
                         </Dropdown.Item>
                     }
                     {
                         (user.isSeller && user.brand) &&
                         <Dropdown.Item key="profile" withDivider icon={<Icon id="person" />}>
-                            <a href={`brand/${user.brand._id}`}>Mi perfil</a>
+                            <Link href={`/brand/${user.brand._id}`}>Mi perfil</Link>
                         </Dropdown.Item>
                     }
                     {
                         (user.isSeller && user.brand) &&
                         <Dropdown.Item key="products" withDivider icon={<Icon id="dashboard" />}>
-                            <a href={`user/products?brand=${user.brand._id}`}>Mis productos</a>
+                            <Link href={`/user/products?brand=${user.brand._id}`}>Mis productos</Link>
                         </Dropdown.Item>
                     }
                     {
                         (user.isSeller && user.brand) &&
                         <Dropdown.Item key="addProduct" icon={<Icon id="dashboard" />}>
-                            <a href={`user/products/add`}>Añadir producto</a>
+                            <Link href={`/user/products/add`}>Añadir producto</Link>
                         </Dropdown.Item>
                     }
                     {
                         (user.isSeller && !user.brand) &&
                         <Dropdown.Item key="claimBrand" icon={<Icon id="dashboard" />}>
-                            <a href={`user/claimBrand`}>Crear marca</a>
+                            <Link href={`/user/claimBrand`}>Crear marca</Link>
                         </Dropdown.Item>
                     }
                     {
                         user.isSeller &&
                         <Dropdown.Item key="subscriptions" withDivider icon={<Icon id="subscriptions" />}>
-                            <a href={`docs/subscriptions`}>Suscripción</a>
+                            <Link href={`/docs/subscriptions`}>Suscripción</Link>
                         </Dropdown.Item>
                     }
                     <Dropdown.Item key="support" withDivider icon={<Icon id="support_agent" />}>Servicio al cliente</Dropdown.Item>
                     <Dropdown.Item key="faq" icon={<Icon id="quiz" />}>
-                        <a href={`docs/faq`}>Preguntas frecuentes</a>
+                        <Link href={`/docs/faq`}>Preguntas frecuentes</Link>
                     </Dropdown.Item>
                     {/* <Dropdown.Item key="blog" withDivider icon={<Icon id="rss_feed" />}>Blog</Dropdown.Item> */}
                     <Dropdown.Item key="logout" icon={<Icon id="logout" />} >Cerrar sesión</Dropdown.Item>
