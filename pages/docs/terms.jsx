@@ -3,7 +3,7 @@ import Page from '@Page'
 
 const TermsPage = () => {
     return (
-        <Page title="Terminos y condiciones SaladaApp">
+        <Page title="Terminos y condiciones - SaladaApp">
             <Container lg>
                 <Text >
                     <Text tag="h1">

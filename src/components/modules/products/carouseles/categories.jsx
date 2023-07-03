@@ -48,7 +48,6 @@ const CategoriesCarousel = ({ data }) => {
               </SwiperSlide>
             ))
           }
-
         </Swiper>
       </Grid.Container>
       <hr className='lineHrBottom' style={{ position: 'absolute', left: 0, right: 0, width: '100vw', margin: 0, padding: 0 }}/>
