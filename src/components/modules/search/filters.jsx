@@ -13,7 +13,7 @@ const SearchFilters = ({ categories, params }) => {
         zone: new Set([params.zone || "Todas las ubicaciones"]),
         shed: new Set(["Todos los galpones"]),
     }),
-        [isOpen, setOpen] = useState(false)
+        [isOpen, setOpen] = useState(true)
     const router = useRouter()
 
     const handleSelect = name => e => {
@@ -50,6 +50,7 @@ const SearchFilters = ({ categories, params }) => {
     }
 
     const handleFilter = (key, value) => () => {
+        setOpen(!isOpen)
         let queryBuilder = router.query
 
         queryBuilder = {
@@ -120,12 +121,8 @@ const SearchFilters = ({ categories, params }) => {
                                 </Grid>
                             </Grid.Container>
                         </Grid>
-
-
-
-
                         {
-                            params.useBrand && params.useBrand == "true" &&
+                            params?.useBrand && params?.useBrand == "true" &&
                             <Fragment>
                                 <Grid>
                                     <Text h4 css={{ mt: 10 }}>
@@ -177,9 +174,6 @@ const SearchFilters = ({ categories, params }) => {
                                     </Grid>}
                             </Fragment>
                         }
-
-
-
                         <Text h4 css={{ mt: 10 }}>
                             Categoria
                         </Text>
@@ -187,7 +181,7 @@ const SearchFilters = ({ categories, params }) => {
 
                             <Grid.Container gap={.2}>
                                 {
-                                    categories.map((category, i) => (
+                                    categories?.length > 0 && categories?.map((category, i) => (
                                         <Grid key={i}>
                                             <Button auto
                                                 ghost={params.category != category.name || params.category == null}
