@@ -16,7 +16,6 @@ const HighLightCarousel = ({ data }) => {
       autoplay
       slidesPerView={1}
       style={{
-        marginTop: '1% !important',
         display: 'block !important'
       }}
     >

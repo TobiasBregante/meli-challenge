@@ -26,7 +26,7 @@ const CarouselTitle = ({ title, showSeeMore, link }) => {
 
 }
 
-const UnorderedList = ({ title, data, showSeeMore, breakpoints, link }) => {
+const UnorderedList = ({ title, data, showSeeMore, link }) => {
 
     return (
         <Fragment>
@@ -34,8 +34,8 @@ const UnorderedList = ({ title, data, showSeeMore, breakpoints, link }) => {
             <Grid.Container gap={1}>
                 {
                     data?.length > 0 && data?.map((cardData, cardI) => (
-                        <Grid className='productCardFather' key={cardI} xs={breakpoints?.xs ? breakpoints.xs : 12} sm={breakpoints?.sm ? breakpoints.sm : 4} md={breakpoints?.md ? breakpoints.md : 3} lg={breakpoints?.lg ? breakpoints.lg : 2}  >
-                            <ProductCard data={cardData} />
+                        <Grid className='productCardFather' key={cardI} xs={12} sm={'auto'} md={'auto'} lg={'auto'}>
+                            <ProductCard className='unorderedCard' data={cardData} />
                         </Grid>
                     ))
                 }

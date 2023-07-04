@@ -15,7 +15,7 @@ const Popular = ({ products,  website }) => {
 
     return (
         <Page categories={website?.categories} title='SaladaApp - Populares'>
-            <Container lg css={{ mb: "$10" }}>
+            <Container lg css={{ mb: "$10" }} className='container-unorderedList'>
                 <CategoriesCarousel data={website.categories}/>
                 <UnorderedList title="Productos mas populares" data={dataFilter} />
             </Container>
