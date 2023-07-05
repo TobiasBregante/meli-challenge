@@ -342,13 +342,19 @@ html, body{
     }
     margin-left: 140px;
 }
-.brandingText {
+.brandingText, .brandingTextSelectCountry{
     @media (max-width: $isMobile) {
         display: none !important;
     }
     * {
         color: #249B3E !important;
     }
+}
+.brandingTextSelectCountry {
+    display: block !important;
+}
+.brandingSelectCountry {
+    margin: auto;
 }
 .searchEngineHeader {
     width: 50%;
@@ -400,7 +406,10 @@ html, body{
 .localeSwitcherBtn {
     position: fixed;
     z-index: 9999;
-    margin: 1%;
+    @media (max-width: $isMobile) {
+        margin: 5% 1%;    
+    }
+    margin: 2% 1%;
     bottom: 0;
     right: 0;
 }
@@ -426,5 +435,37 @@ html, body{
         bottom: 0;
         left: 0;
         top: 0;
+    }
+}
+.selectCountryPageContain {
+    background-color: $thertiary;
+    box-sizing: border-box;
+    padding: 1% !important;
+    align-content: center;
+    text-align: center;
+    min-height: 100vh;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    h1 {
+        color: $white;
+    }
+}
+.selectCountryPageContainBrand {
+    text-align: center !important;
+    margin: auto;
+}
+.Salada-app-logo-SelectCountry {
+    display: block;
+    margin: auto;
+}
+.country-items-select a{
+    background-color: rgba(0, 0, 0, .1);
+    border-radius: 8px;
+    height: 100%;
+    width: 100%;
+    padding: 2%;
+    &:hover {
+        background-color: $primary;
     }
 }
