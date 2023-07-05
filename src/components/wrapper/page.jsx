@@ -7,13 +7,13 @@ import UserWrapper from '@/utils/user/provider';
 import categories from '@/src/utils/user/brand/categories';
 import LocaleSwitcher from './localeSwitcher';
 
-const Page = ({ title, description, image, children }) => {
+const Page = ({ title, description, image, children, hiddeNavbar }) => {
     return (
         <Fragment>
             <ToastContainer />
             <UserWrapper>
                 <Head title={title} description={description} image={image} />
-                <Header categories={categories}/>
+                {!hiddeNavbar && <Header categories={categories}/>}
                 {
                     children || null
                 }
