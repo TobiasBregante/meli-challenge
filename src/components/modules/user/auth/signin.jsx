@@ -54,7 +54,7 @@ const SignInModule = () => {
         }
 
         if (!error) {
-            Post(`/${ctx?.locale}user/auth/signin`, {
+            Post(`/${router?.locale}user/auth/signin`, {
                 email: state.email.value,
                 password: state.password.value
             })
