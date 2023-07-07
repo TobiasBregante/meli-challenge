@@ -69,7 +69,7 @@ const HighLightForm = ({ website }) => {
         })
 
         Promise.all(imgs).then(data=>{
-            Post(`/${ctx?.locale}/website/update`, {
+            Post(`/${router?.locale}/website/update`, {
                 highlights: [...state.filter(x => typeof x.img !== "object"),...data]
             }, {
                 headers: {
