@@ -50,12 +50,8 @@ const SignUpModule = () => {
             error: "",
             value: ""
         }
-    }),
-        [acceptTermsOfService, setAcceptTermsOfService] = useState(false)
-
-    const handleOption = (key) => (v) => {
-        setState({ ...state, [key]: v })
-    }
+    })
+    const [acceptTermsOfService, setAcceptTermsOfService] = useState(false)
 
     const submit = () => {
         const Schema = Joi.object({
@@ -80,7 +76,6 @@ const SignUpModule = () => {
             rePassword: state.rePassword.value,
         })
 
-
         if (error) {
             if (state.isSeller == null) {
                 return toast("Elige una opción entre Comprador/a o Vendedor/a")
@@ -93,6 +88,7 @@ const SignUpModule = () => {
                 }
             })
         }
+
         if (typeof arg.phone.clean(state.cellPhone.value) !== "string") {
             return setState({
                 ...state,
@@ -102,6 +98,7 @@ const SignUpModule = () => {
                 }
             })
         }
+
         if (state.password.value != state.rePassword.value) {
             return setState({
                 ...state,
@@ -111,12 +108,13 @@ const SignUpModule = () => {
                 }
             })
         }
+
         if (!acceptTermsOfService) {
             return toast("Debes aceptar los terminos y condiciones")
         }
 
         if (!error) {
-            Put("user/auth/signup", {
+            Put(`/${router?.locale}user/auth/signup`, {
                 location: location,
                 isSeller: true,
                 name: state.name.value,

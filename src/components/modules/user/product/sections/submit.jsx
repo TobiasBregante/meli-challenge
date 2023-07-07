@@ -128,7 +128,7 @@ const Submit = ({ state, setState, data, resetState }) => {
                         setSubmiting(false)
                     })
                 } else {
-                    Put("products/add", body, {
+                    Put(`/${router?.locale}products/add`, body, {
                         headers: {
                             sldtoken: jsCookie.get("sldtoken")
                         }
