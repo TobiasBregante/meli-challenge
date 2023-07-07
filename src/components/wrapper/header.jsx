@@ -9,7 +9,7 @@ import uniqid from 'uniqid'
 import Get from "@/src/utils/hooks/get";
 import Link from "@/src/utils/hooks/link";
 
-const Header = () => {
+const Header = ({ contentful }) => {
     const [isSearchOpen, openSearchBar] = useState(false)
     const [searchValue, setSearchValue] = useState("")
     const [categories, setCategories] = useState({})
@@ -24,6 +24,7 @@ const Header = () => {
     }
 
     useEffect(() => {
+        console.log(contentful)
         getCategories()
     }, [])
 
@@ -50,8 +51,8 @@ const Header = () => {
                                 onChange={handleSearch}
                                 onKeyUp={handleEnter}
                                 id="headerSearch"
-                                aria-label="Busqueda"
-                                placeholder="Buscalo acá"
+                                aria-label={contentful?.header?.headerSearch?.ariaLabel}
+                                placeholder={contentful?.header?.headerSearch?.mobile}
                                 contentRight={<Icon id="search" className="text-dark" />}
                                 contentLeft={<Icon id="arrow_back" onClick={() => openSearchBar(false)} css={{ m: 10 }} />}
                                 contentLeftStyling={false}
@@ -117,8 +118,8 @@ const Header = () => {
                                     onChange={handleSearch}
                                     onKeyUp={handleEnter}
                                     id="headerSearch"
-                                    aria-label="Busqueda"
-                                    placeholder="Buscá indumentaria, calzado, accesorios y más..."
+                                    aria-label={contentful?.header?.headerSearch?.ariaLabel}
+                                    placeholder={contentful?.header?.headerSearch?.desktop}
                                     contentRight={<Icon id="search" className="iconSearch" />}
                                 />
                             </Grid>

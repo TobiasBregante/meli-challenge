@@ -114,7 +114,7 @@ const SignUpModule = () => {
         }
 
         if (!error) {
-            Put(`/${router?.locale}user/auth/signup`, {
+            Put(`/${router?.locale}/user/auth/signup`, {
                 location: location,
                 isSeller: true,
                 name: state.name.value,

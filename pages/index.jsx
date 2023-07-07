@@ -26,7 +26,6 @@ const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Joya
     return <SelectCountry />
   }
 
-
   return (
     <Page categories={website?.categories}>
       <Container lg css={{ mb: "$10", ml: 0, mr: 0 }} className='container-fluid'>
@@ -49,6 +48,8 @@ const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Joya
 export default Index
 
 export async function getServerSideProps(ctx) {
+  console.log(ctx)
+  
   return {
     props: {
       Autos: await Get(`/${ctx?.locale}/products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Accesorios para Autos`).then(r => r.data).catch(() => []),
