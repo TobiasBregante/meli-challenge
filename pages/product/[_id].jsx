@@ -16,12 +16,12 @@ const ProductPage = ({ data, relateds, brandProducts }) => {
 export default ProductPage
 
 export async function getServerSideProps(ctx) {
-  const data = await Get(`products/product/${ctx.params._id}?withBrand=true`).then(r=>r.data).catch(()=>({}))
+  const data = await Get(`/${ctx?.locale}/products/product/${ctx.params._id}?withBrand=true`).then(r=>r.data).catch(()=>({}))
   return {
     props: {
       data: data,
-      relateds: await Get(`products/find/query?category=${data.category}&limit=10`).then(r=>r.data).catch(()=>({})),
-      brandProducts: await Get(`products/find/query?brand_id=${data.brand_id}&limit=10`).then(r=>r.data).catch(()=>({}))
+      relateds: await Get(`/${ctx?.locale}/products/find/query?category=${data.category}&limit=10`).then(r=>r.data).catch(()=>({})),
+      brandProducts: await Get(`/${ctx?.locale}/products/find/query?brand_id=${data.brand_id}&limit=10`).then(r=>r.data).catch(()=>({}))
     }, // will be passed to the page component as props
   }
 }

@@ -22,6 +22,7 @@ const SignInModule = () => {
         },
     })
     const router = useRouter()
+
     const handleInput = (key) => (e) => {
         setState({
             ...state, [key]: {
@@ -53,7 +54,7 @@ const SignInModule = () => {
         }
 
         if (!error) {
-            Post("user/auth/signin", {
+            Post(`/${ctx?.locale}user/auth/signin`, {
                 email: state.email.value,
                 password: state.password.value
             })

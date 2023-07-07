@@ -4,15 +4,15 @@ import { toast } from 'react-toastify';
 import Joi from 'joi'
 import jsCookie from 'js-cookie'
 
-import { Button, Card, Checkbox, Grid, Input, Text } from '@nextui-org/react';
+import { Button, Card, Grid, Input, Text } from '@nextui-org/react';
 import stringMessages from "@/src/utils/joi/customMessages";
 import Post from "@/src/utils/hooks/post";
-import OptionGroup from "../auth/signup/assets/optionGroup";
 import UpdatePremiunPlan from "./premiun";
 import timeago from "@/src/utils/timeago";
+import { useRouter } from "next/router";
 
 const UpdateUserInfoModule = ({ data }) => {
-
+    const router = useRouter()
     const [state, setState] = useState({
         isSeller: data.isSeller,
         //personal data
@@ -33,9 +33,6 @@ const UpdateUserInfoModule = ({ data }) => {
             value: data.cellPhone
         }
     })
-    const handleOption = (key) => (v) => {
-        setState({ ...state, [key]: v })
-    }
 
     const submit = () => {
         const Schema = Joi.object({
@@ -55,7 +52,7 @@ const UpdateUserInfoModule = ({ data }) => {
         })
 
         if (!error) {
-            Post(`user/${data._id}`, {
+            Post(`/${router?.locale}user/${data._id}`, {
                 isSeller: state.isSeller,
                 name: state.name.value,
                 lastName: state.lastName.value,

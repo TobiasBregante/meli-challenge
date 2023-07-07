@@ -6,7 +6,7 @@ import { useState } from 'react'
 import Get from '@/src/utils/hooks/get'
 
 const SearchByEmailPage = ({ data }) => {
-    const [state,setState] = useState(data)
+    const [state, setState] = useState(data)
 
     return (
         <Page>
@@ -28,10 +28,9 @@ const SearchByEmailPage = ({ data }) => {
 export default SearchByEmailPage
 
 export async function getServerSideProps(ctx) {
-
     return {
         props: {
-            data: await Get("user/find?limit=100000").then(r => r.data).catch(() => [])
+            data: await Get(`/${ctx?.locale}/user/find?limit=100000`).then(r => r.data).catch(() => [])
         }
     }
 }

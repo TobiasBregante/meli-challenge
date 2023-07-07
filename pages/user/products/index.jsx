@@ -5,8 +5,6 @@ import SearchProductModule from '@/src/components/modules/search/products'
 import Get from '@/src/utils/hooks/get'
 
 const SearchByBrandsPage = ({ data }) => {
-    
-
     return (
         <Page>
             <Container lg css={{ mb: "$10" }}>
@@ -27,7 +25,7 @@ export async function getServerSideProps(ctx) {
 
     return {
         props: {
-            data: await Get(`products/find/query?limit=1000&brand_id=${ctx.query.brand}`).then(r => r.data).catch(() => [])
+            data: await Get(`/${ctx?.locale}/products/find/query?limit=1000&brand_id=${ctx.query.brand}`).then(r => r.data).catch(() => [])
         }
     }
 }

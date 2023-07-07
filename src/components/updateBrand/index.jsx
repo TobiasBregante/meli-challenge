@@ -4,12 +4,10 @@ import { useRouter } from 'next/router';
 import { useUserContext } from '@/src/utils/user/provider';
 import ShouldLogin from '@/components/modules/user/errors/shouldLogin';
 import ShouldBeSeller from '@/components/modules/user/errors/shouldBeSeller';
-import CantRegisterBrand from '@/components/modules/user/errors/cantRegisterBrand'
 //Validation
 import { stringMessages } from '@/utils/joi/customMessages'
 import Joi from 'joi';
 import { toast } from 'react-toastify'
-import Put from '@/src/utils/hooks/put';
 import { Button, Card, Grid, Input, Loading, Text } from "@nextui-org/react";
 import Clasification from "@/components/modules/user/auth/claimBrand/sections/clasification";
 import jsCookie from 'js-cookie'
@@ -106,7 +104,7 @@ const UpdateBrandModule = ({ website, data }) => {
             type: 'image/jpge',
             webkitRelativePath: ""
         }
-        Post("products/addImage", verifyImage, {
+        Post(`/${router?.locale}products/addImage`, verifyImage, {
             headers: {
                 sldtoken: jsCookie.get("sldtoken"),
                 "Content-Type": "multipart/form-data"
@@ -162,7 +160,7 @@ const UpdateBrandModule = ({ website, data }) => {
             }
 
             if (data?._id && updateData && !error) {
-                Post(`brands/brand/${data?._id}/update`, updateData, {
+                Post(`/${router?.locale}brands/brand/${data?._id}/update`, updateData, {
                     headers: {
                         sldtoken: jsCookie.get("sldtoken")
                     }

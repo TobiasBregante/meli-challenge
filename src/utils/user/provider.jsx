@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import Get from '@/utils/hooks/get'
 import jsCookie from 'js-cookie'
 import {toast} from 'react-toastify'
+import { useRouter } from 'next/router';
 
 const UserContext = createContext();
 
@@ -11,18 +12,19 @@ function useUserContext() {
 
 function UserWrapper({ children, state }) {
     const [user, setUser] = useState(false)
+    const router = useRouter()
 
-    useEffect(()=>{
+    useEffect(() => {
         const token = jsCookie.get("sldtoken")
-        if (token) {
-            Get("user/me?withBrand=true",{
+        if (token && router?.locale) {
+            Get(`/${router?.locale}/user/me?withBrand=true`,{
                 headers:{
                     sldtoken: token
                 }
-            }).then(res =>{
+            }).then(res => {
                 setUser(res.data)
             })
-            .catch(err=>{
+            .catch(err => {
                 if (err.response) {
                     console.error(err)
                     return toast(err?.response?.data?.msg)
@@ -30,7 +32,7 @@ function UserWrapper({ children, state }) {
                 return toast("hubo un error con tu token")
             })
         }
-    },[state])
+    },[state, router])
 
     return (
         <UserContext.Provider value={user}>

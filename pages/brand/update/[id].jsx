@@ -14,8 +14,8 @@ const UpdateBrandPage = ({ website, data }) => {
 export async function getServerSideProps(ctx){
     return {
         props:{
-            website: await Get("website").then(r => r.data).catch(() => ({ })),
-            data: await Get(`brands/brand/${ctx.params.id}?withProducts=true`).then(r => r.data).catch(err => err.response.data),
+            website: await Get(`/${ctx?.locale}/website`).then(r => r.data).catch(() => ({ })),
+            data: await Get(`/${ctx?.locale}/brands/brand/${ctx.params.id}?withProducts=true`).then(r => r.data).catch(err => err.response.data),
         }
     }
 }

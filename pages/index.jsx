@@ -22,7 +22,7 @@ const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Joya
   }, [router])
 
   if (toCountryPage) {
-    return <SelectCountry/>
+    return <SelectCountry />
   }
 
 
@@ -50,16 +50,16 @@ export default Index
 export async function getServerSideProps(ctx) {
   return {
     props: {
-      Autos: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Accesorios para Autos").then(r => r.data).catch(() => []),
-      Celulares: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Accesorios para Celulares").then(r => r.data).catch(() => []),
-      Calzado: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Calzado").then(r => r.data).catch(() => []),
-      Mascotas: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Accesorios para Mascotas").then(r => r.data).catch(() => []),
-      JoyasAccesorios: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Joyas y Accesorios").then(r => r.data).catch(() => []),
-      ArticuloDeTemporada: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Artículo de Temporada").then(r => r.data).catch(() => []),
-      Electronica: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Electrónica").then(r => r.data).catch(() => []),
-      popularProducts: await Get("products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&hidde=Equipamiento").then(r => r.data).catch(() => []),
-      popularBrands: await Get("brands/find/query?limit=10&premiunOnly=true").then(r => r.data).catch(() => []),
-      website: await Get("website").then(r => r.data).catch(() => ({}))
+      Autos: await Get(`/${ctx?.locale}/products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Accesorios para Autos`).then(r => r.data).catch(() => []),
+      Celulares: await Get(`/${ctx?.locale}/products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Accesorios para Celulares`).then(r => r.data).catch(() => []),
+      Calzado: await Get(`/${ctx?.locale}/products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Calzado`).then(r => r.data).catch(() => []),
+      Mascotas: await Get(`/${ctx?.locale}/products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Accesorios para Mascotas`).then(r => r.data).catch(() => []),
+      JoyasAccesorios: await Get(`/${ctx?.locale}/products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Joyas y Accesorios`).then(r => r.data).catch(() => []),
+      ArticuloDeTemporada: await Get(`/${ctx?.locale}/products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Artículo de Temporada`).then(r => r.data).catch(() => []),
+      Electronica: await Get(`/${ctx?.locale}/products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Electrónica`).then(r => r.data).catch(() => []),
+      popularProducts: await Get(`/${ctx?.locale}/products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&hidde=Equipamiento`).then(r => r.data).catch(() => []),
+      popularBrands: await Get(`/${ctx?.locale}/brands/find/query?limit=10&premiunOnly=true`).then(r => r.data).catch(() => []),
+      website: await Get(`/${ctx?.locale}/website`).then(r => r.data).catch(() => ({}))
     }, // will be passed to the page component as props
   }
 }

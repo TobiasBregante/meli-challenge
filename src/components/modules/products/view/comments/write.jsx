@@ -5,11 +5,13 @@ import { useState } from "react"
 import jsCookie from 'js-cookie'
 import { toast } from "react-toastify"
 import { useUserContext } from "@/src/utils/user/provider"
+import { useRouter } from "next/router"
 
 const WriteComment = ({ data, isResponse, comment_id, comments, setComments, ...htmlProps }) => {
-    const [state, setState] = useState(""),
-        [isSubmiting, setSubmiting] = useState(false)
+    const [state, setState] = useState("")
+    const [isSubmiting, setSubmiting] = useState(false)
     const user = useUserContext()
+    const router = useRouter()
 
     const publish = () => {
         const body = {}
@@ -21,7 +23,7 @@ const WriteComment = ({ data, isResponse, comment_id, comments, setComments, ...
             body.comment = state
         }
 
-        Post(`products/product/${data?._id}/comment`, body, {
+        Post(`/${router?.locale}products/product/${data?._id}/comment`, body, {
             headers: { sldtoken: jsCookie.get('sldtoken') }
         }).then(res => {
             toast(res.data.msg)

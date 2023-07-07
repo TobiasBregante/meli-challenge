@@ -1,6 +1,5 @@
 import currency from 'currency.js';
 import Icon from '@/src/components/ui/icons';
-import Image from 'next/image';
 import Stars from '@/src/components/ui/stars'
 import SaveBookmark from '@/components/modules/products/saveBookmark'
 import Share from '@/components/modules/common/share';
@@ -51,14 +50,12 @@ const ProductInfo = ({ data }) => {
     let rating = data.reviews?.map(a => a.rating)
     rating = rating == undefined ? 5 : Math.round(rating.reduce((a, b) => a + b, 0) / rating.length)
 
-    let productImage = "https://res.cloudinary.com/saladapp/f_auto,c_limit,w_1920,q_auto/"
-
     const contact = () => {
         if(user?.email){
             const productTitle = data?.title?.toUpperCase()
             const msg = `Hola, te contacto desde la plataforma SaladaApp! Me interesa el producto: "${productTitle}"`
             window.open(`https://api.whatsapp.com/send?text=${msg}&phone=${parseInt(data?.brand?.phone)}`)
-            Get(`products/product/${data._id}/whatsappClick`)
+            Get(`/${router?.locale}/products/product/${data._id}/whatsappClick`)
     
             if (!data.reviews?.find(r => r.user._id == user._id)) {
                 setWriteReview(true)

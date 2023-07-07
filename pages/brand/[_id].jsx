@@ -31,7 +31,7 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
-      data: await Get(`brands/brand/${ctx.params._id}?withProducts=true`).then(r => r.data).catch(err => err.response.data),
+      data: await Get(`/${ctx?.locale}/brands/brand/${ctx.params._id}?withProducts=true`).then(r => r.data).catch(err => err.response.data),
     }, // will be passed to the page component as props
   }
 }
