@@ -14,7 +14,8 @@ const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Joya
   const [toCountryPage, setToCountryPage] = useState(false)
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window?.location?.pathname !== `/${router?.locale}/`) {
+    console.log(typeof window !== 'undefined' && window?.location?.pathname)
+    if (typeof window !== 'undefined' && window?.location?.pathname !== `/${router?.locale}`) {
       setToCountryPage(true)
     } else {
       setToCountryPage(false)
