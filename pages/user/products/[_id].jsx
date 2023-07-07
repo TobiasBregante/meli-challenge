@@ -2,7 +2,6 @@ import Page from "@Page";
 import ManageProduct from "@/src/components/modules/user/product/add";
 import Get from "@/src/utils/hooks/get";
 import { Container, Grid } from "@nextui-org/react";
-import SideBar from "@/src/components/modules/admin/sidebar";
 
 const EditProductPage = ({ website, data }) => {
     return (
@@ -25,8 +24,8 @@ export async function getServerSideProps(ctx) {
 
     return {
         props: {
-            website: await Get("website").then(r => r.data).catch(() => ({})),
-            data: await Get(`products/product/${ctx.params._id}?withBrand=true`).then(r => r.data).catch(() => ({}))
+            website: await Get(`/${ctx?.locale}/website`).then(r => r.data).catch(() => ({})),
+            data: await Get(`/${ctx?.locale}/products/product/${ctx.params._id}?withBrand=true`).then(r => r.data).catch(() => ({}))
         }
     }
 }

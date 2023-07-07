@@ -20,7 +20,7 @@ const UserNotifications = () => {
     const newNotifications = user.notifications.filter((notification) => notification.isReaded == false)
 
     const readNotifications = ()=>{
-        Get("user/me/readNotifications",{
+        Get(`/${router?.locale}/user/me/readNotifications`,{
             headers: {
                 sldtoken: jsCookie.get("sldtoken")
             }

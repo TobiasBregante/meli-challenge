@@ -99,7 +99,7 @@ const ManageProduct = ({ website, data }) => {
 
     const deleteProduct = () => {
         setDeleting(true)
-        Get(`products/product/${data._id}/delete`, {
+        Get(`/${router?.locale}/products/product/${data._id}/delete`, {
             headers: {
                 sldtoken: jsCookie.get("sldtoken")
             }

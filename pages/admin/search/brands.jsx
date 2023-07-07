@@ -31,7 +31,7 @@ export async function getServerSideProps(ctx) {
 
     return {
         props: {
-            data: await Get("brands/find/query?getAll=true").then(r => r.data).catch(() => [])
+            data: await Get(`/${ctx?.locale}/brands/find/query?getAll=true`).then(r => r.data).catch(() => [])
         }
     }
 }

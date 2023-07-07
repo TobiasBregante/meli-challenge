@@ -31,7 +31,7 @@ export async function getServerSideProps(ctx) {
 
     return {
         props: {
-            data: await Get("products/find/query?limit=1000").then(r => r.data).catch(() => [])
+            data: await Get(`/${ctx?.locale}/products/find/query?limit=1000`).then(r => r.data).catch(() => [])
         }
     }
 }

@@ -7,8 +7,9 @@ import UserChat from "@/src/components/modules/user/chats/chat"
 import Get from "@/src/utils/hooks/get"
 import useSWR from "swr"
 import jsCookie from 'js-cookie'
+import { useRouter } from "next/router"
 
-const fetcher = () => Get("chats/myChats", {
+const fetcher = locale => Get(`/${locale}/chats/myChats`, {
     headers: {
         sldtoken: jsCookie.get("sldtoken")
     }
@@ -16,8 +17,9 @@ const fetcher = () => Get("chats/myChats", {
 
 const Chats = () => {
     const [chatSelected, setChatSelected] = useState(0)
+    const router = useRouter()
 
-    const { data, error } = useSWR('/', fetcher,{refreshInterval: 1000})
+    const { data, error } = useSWR('/', () => fetcher(router?.locale),{refreshInterval: 1000})
 
     if (!data) {
         return (
@@ -37,7 +39,6 @@ const Chats = () => {
             </Page>
         )
     }
-
 
     return (
         <Page>

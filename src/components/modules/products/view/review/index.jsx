@@ -2,20 +2,21 @@ import Icon from '@/src/components/ui/icons';
 import Stars from '@/src/components/ui/stars';
 import timeago from '@/src/utils/timeago';
 import { useUserContext } from '@/src/utils/user/provider';
-import { Avatar, Button, Card, Grid, Loading, Modal, Text } from '@nextui-org/react';
+import { Avatar, Button, Card, Grid, Loading, Text } from '@nextui-org/react';
 import { Fragment, useState } from 'react';
-import WriteComment from './write';
 import jsCookie from 'js-cookie'
 import Post from '@/src/utils/hooks/post';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
 const Review = ({ data, canReply, productData, reviews, setReviews }) => {
     const user = useUserContext()
     const [isSubmiting, setSubmiting] = useState(false)
+    const router = useRouter()
 
     const removeById = () => {
         setSubmiting(true)
-        Post(`products/product/${productData._id}/review`, {
+        Post(`/${router?.locale}products/product/${productData._id}/review`, {
             removeBy_id: data._id
         }, {
             headers: { sldtoken: jsCookie.get('sldtoken') }

@@ -8,15 +8,17 @@ import WriteComment from './write';
 import jsCookie from 'js-cookie'
 import Post from '@/src/utils/hooks/post';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
 const Comment = ({ data, canReply, productData, comments,setComments }) => {
     const user = useUserContext()
-    const [isAnswering, setAnswering] = useState(false),
-        [isSubmiting, setSubmiting] = useState(false)
+    const [isAnswering, setAnswering] = useState(false)
+    const [isSubmiting, setSubmiting] = useState(false)
+    const router = useRouter()
 
     const removeById = () => {
         setSubmiting(true)
-        Post(`products/product/${productData._id}/comment`, {
+        Post(`/${router?.locale}products/product/${productData._id}/comment`, {
             removeBy_id: data._id
         }, {
             headers: { sldtoken: jsCookie.get('sldtoken') }

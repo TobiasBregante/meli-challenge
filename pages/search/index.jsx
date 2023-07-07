@@ -23,9 +23,9 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
-      products: useBrand == false ? await Get(`products/find/query${queryBuilder}`).then(r => r.data).catch(() => []) : null,
-      brands: useBrand ? await Get(`brands/find/query${queryBuilder}`).then(r => r.data).catch(() => []) : null,
-      website: await Get(`website`).then(r => r.data).catch(() => { }),
+      products: useBrand == false ? await Get(`/${ctx?.locale}/products/find/query${queryBuilder}`).then(r => r.data).catch(() => []) : null,
+      brands: useBrand ? await Get(`/${ctx?.locale}/brands/find/query${queryBuilder}`).then(r => r.data).catch(() => []) : null,
+      website: await Get(`/${ctx?.locale}/website`).then(r => r.data).catch(() => { }),
       query: ctx.query.text || "",
       params: ctx.query
     }, // will be passed to the page component as props

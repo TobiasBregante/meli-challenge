@@ -19,7 +19,6 @@ import Post from "@/src/utils/hooks/post";
 const ClaimPositionModule = ({ website }) => {
     const router = useRouter()
     const user = useUserContext()
-
     const [state, setState] = useState({
         brandName: { error: "", value: "" },
         category: { error: "", value: "" },
@@ -112,7 +111,7 @@ const ClaimPositionModule = ({ website }) => {
             type: 'image/jpge',
             webkitRelativePath: ""
         }
-        Post("products/addImage", verifyImage, {
+        Post(`/${router?.locale}products/addImage`, verifyImage, {
             headers: {
                 sldtoken: jsCookie.get("sldtoken"),
                 "Content-Type": "multipart/form-data"
@@ -168,7 +167,7 @@ const ClaimPositionModule = ({ website }) => {
 
             if (createData && !error) {
 
-                Put("user/auth/claimbrand", createData, {
+                Put(`/${router?.locale}user/auth/claimbrand`, createData, {
                     headers: {
                         sldtoken: jsCookie.get("sldtoken")
                     }

@@ -1,5 +1,3 @@
-const { Router } = require("next/router");
-
 const domains = {
   argentina: "ar",
   brasil: "br",
@@ -20,7 +18,6 @@ const domains = {
   mexico: "mx",
 };
 
-// Ejemplo de cómo obtener la lista de dominios de Argentina
 const defaultDomain = domains.argentina;
 
 module.exports = {
@@ -61,5 +58,5 @@ module.exports = {
     defaultLocale: defaultDomain,
     localeDetection: false,
   },
-  trailingSlash: true,
+  trailingSlash: false,
 }

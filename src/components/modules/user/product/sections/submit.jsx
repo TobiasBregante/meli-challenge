@@ -11,7 +11,6 @@ import Post from "@/src/utils/hooks/post"
 import { useRouter } from "next/router"
 
 const Submit = ({ state, setState, data, resetState }) => {
-
     const [isSubmiting, setSubmiting] = useState(false)
     const user = useUserContext()
     const router = useRouter()
@@ -95,7 +94,7 @@ const Submit = ({ state, setState, data, resetState }) => {
                 let formImage = new FormData();
                 formImage.append("file", img)
 
-                return Post("products/addImage", formImage, {
+                return Post(`/${router?.locale}products/addImage`, formImage, {
                     headers: {
                         sldtoken: jsCookie.get("sldtoken"),
                         "Content-Type": "multipart/form-data"
@@ -112,7 +111,7 @@ const Submit = ({ state, setState, data, resetState }) => {
             })
             const updateOrAdd = (body) => {
                 if (data) {
-                    Post(`products/product/${data._id}/update`, body, {
+                    Post(`/${router?.locale}products/product/${data._id}/update`, body, {
                         headers: {
                             sldtoken: jsCookie.get("sldtoken")
                         }

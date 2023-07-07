@@ -109,8 +109,8 @@ const SearchFilters = ({ categories, params }) => {
                                     </Button>
                                 </Grid>
                                 <Grid>
-                                    <Button auto
-
+                                    <Button 
+                                        auto
                                         icon={<Icon id="store" />}
                                         ghost={params.useBrand == "false" || params.useBrand == null/**should return false */}
                                         onPress={handleFilter("useBrand", true)}
@@ -121,59 +121,6 @@ const SearchFilters = ({ categories, params }) => {
                                 </Grid>
                             </Grid.Container>
                         </Grid>
-                        {
-                            params?.useBrand && params?.useBrand == "true" &&
-                            <Fragment>
-                                <Grid>
-                                    <Text h4 css={{ mt: 10 }}>
-                                        Ubicación
-                                    </Text>
-                                    <Dropdown>
-                                        <Dropdown.Button color="secondary" css={{ color: "$black" }}>
-                                            {
-                                                zone
-                                            }
-                                        </Dropdown.Button>
-                                        <Dropdown.Menu
-                                            selectionMode="single"
-                                            selectedKeys={zone}
-                                            onSelectionChange={handleSelect("zone")}>
-                                            <Dropdown.Item key="Todas las ubicaciones" icon={<Icon id="pin_drop" />}>Todas las ubicaciones</Dropdown.Item>
-                                            <Dropdown.Item key="la salada" icon={<Icon id="pin_drop" />}>La salada</Dropdown.Item>
-                                            <Dropdown.Item key="flores" icon={<Icon id="pin_drop" />}>Flores</Dropdown.Item>
-                                            <Dropdown.Item key="online" icon={<Icon id="language" />}>Online</Dropdown.Item>
-                                        </Dropdown.Menu>
-                                    </Dropdown>
-                                </Grid>
-                                {
-                                    zone == "la salada" &&
-                                    <Grid>
-                                        <Text h4 css={{ mt: 10 }}>
-                                            ¿En que galpón estan?
-                                        </Text>
-                                        <Dropdown>
-                                            <Dropdown.Button color="secondary" css={{ color: "$black" }}>
-                                                {
-                                                    shed
-                                                }
-                                            </Dropdown.Button>
-                                            <Dropdown.Menu
-                                                selectionMode="single"
-                                                selectedKeys={shed}
-                                                onSelectionChange={handleSelect("shed")}
-                                            >
-                                                <Dropdown.Item key="Todos los galpones">Todos los galpones</Dropdown.Item>
-                                                {
-                                                    Sheds.map(shed => (
-                                                        <Dropdown.Item key={shed.shed}>{shed.shed}</Dropdown.Item>
-                                                    ))
-                                                }
-                                            </Dropdown.Menu>
-
-                                        </Dropdown>
-                                    </Grid>}
-                            </Fragment>
-                        }
                         <Text h4 css={{ mt: 10 }}>
                             Categoria
                         </Text>

@@ -3,10 +3,6 @@ import { Fragment, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useUserContext } from '@/src/utils/user/provider';
 import ShouldLogin from '@/components/modules/user/errors/shouldLogin';
-import SellZone from '@/components/modules/user/auth/claimBrand/sections/sellZone'
-//Section: Zones
-import SaladaZone from '@/components/modules/user/auth/claimBrand/sections/saladaZone'
-import FloresZone from '@/components/modules/user/auth/claimBrand/sections/floresZone'
 //Validation
 import { toast } from 'react-toastify'
 import { Avatar, Button, Card, Grid, Input, Loading, Text } from "@nextui-org/react";
@@ -24,9 +20,10 @@ const UpdateBrandModule = ({ website, data }) => {
         category: { error: "", value: data.category },
         payMethod: { error: "", value: data.payMethod },
         location: {
-            zone: { error: "", value: data.location.zone },
+            zone: { error: "", value: "online" },
         },
     })
+
     const [isSubmiting, setSubmiting] = useState(false)
 
     if (!user) {
@@ -40,30 +37,6 @@ const UpdateBrandModule = ({ website, data }) => {
             ...state, brandName: {
                 error: "",
                 value: e.target.value
-            }
-        })
-    }
-
-    const handleZone = (v) => {
-        setState({
-            ...state, location: {
-                ...state.location,
-                zone: {
-                    error: "",
-                    value: v
-                }
-            }
-        })
-    }
-
-    const handleLocation = (key) => (e) => {
-        setState({
-            ...state, location: {
-                ...state.location,
-                [key]: {
-                    error: "",
-                    value: e.target.value
-                }
             }
         })
     }
@@ -120,7 +93,7 @@ const UpdateBrandModule = ({ website, data }) => {
         }
 
         if (!error) {
-            Post(`brands/brand/${data._id}/update`, value, {
+            Post(`/${router?.locale}brands/brand/${data._id}/update`, value, {
                 headers: {
                     sldtoken: jsCookie.get("sldtoken")
                 }
@@ -146,7 +119,7 @@ const UpdateBrandModule = ({ website, data }) => {
             new Date(now.getFullYear(), now.getMonth() + 6, now.getDate()),
             new Date(now.getFullYear() + 1, now.getMonth(), now.getDate())]
 
-        Post(`brands/brand/${data._id}/update`, {
+        Post(`/${router?.locale}brands/brand/${data._id}/update`, {
             isActiveUntil: dates[index]
         }, {
             headers: {
@@ -167,7 +140,7 @@ const UpdateBrandModule = ({ website, data }) => {
 
     const removeBrand = () => {
         setSubmiting(true)
-        Get(`brands/brand/${data._id}/delete`, {
+        Get(`/${router?.locale}/brands/brand/${data._id}/delete`, {
             headers: {
                 sldtoken: jsCookie.get("sldtoken")
             }
@@ -244,21 +217,8 @@ const UpdateBrandModule = ({ website, data }) => {
                                 <Grid>
                                     <Clasification state={state} onChange={handleGenericString} website={website} />
                                 </Grid>
-                                {/* <Grid>
-                                    <SellZone zone={state.location.zone} onClick={handleZone} />
-                                </Grid> */}
-                                <Grid>
-                                    {
-                                        state.location.zone.value == "la salada" &&
-                                        <SaladaZone state={state.location} onChange={handleLocation} />
-                                    }
-                                    {
-                                        state.location.zone.value == "flores" &&
-                                        <FloresZone state={state.location} onChange={handleLocation} />
-                                    }
-                                </Grid>
                                 {
-                                    user.isAdmin &&
+                                    user?.isAdmin &&
                                     <Fragment>
                                         <Card.Divider />
                                         <Text h3>
