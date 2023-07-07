@@ -54,7 +54,7 @@ const PopupForm = ({ website }) => {
             let formImage = new FormData();
             formImage.append("file", state.img)
 
-            Post("products/addImage", formImage, {
+            Post(`/${router?.locale}/products/addImage`, formImage, {
                 headers: {
                     sldtoken: jsCookie.get("sldtoken"),
                     "Content-Type": "multipart/form-data"

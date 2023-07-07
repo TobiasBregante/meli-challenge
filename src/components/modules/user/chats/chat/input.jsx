@@ -5,10 +5,12 @@ import { useUserContext } from "@/src/utils/user/provider"
 import { useState } from "react"
 import { toast } from "react-toastify"
 import jsCookie from 'js-cookie'
+import { useRouter } from "next/router"
 
 const UserChatInput = ({ data }) => {
     const user = useUserContext()
     const [state, setState] = useState("")
+    const router = useRouter()
 
     if (user == false) {
         return null
@@ -22,7 +24,7 @@ const UserChatInput = ({ data }) => {
         if (user.brand != undefined && user.brand._id == data.brand._id) {
             body.user = data.user._id
         }
-        Post(`/${ctx?.locale}chats/send`, body, {
+        Post(`/${router?.locale}chats/send`, body, {
             headers: {
                 sldtoken: jsCookie.get("sldtoken")
             }
