@@ -29,7 +29,7 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
-      data: await Get(`user/${ctx.params._id}`).then(r => r.data).catch(() => ({})),
+      data: await Get(`/${ctx?.locale}/user/${ctx.params._id}`).then(r => r.data).catch(() => ({})),
     }, // will be passed to the page component as props
   }
 }

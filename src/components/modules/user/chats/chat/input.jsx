@@ -22,7 +22,7 @@ const UserChatInput = ({ data }) => {
         if (user.brand != undefined && user.brand._id == data.brand._id) {
             body.user = data.user._id
         }
-        Post("chats/send", body, {
+        Post(`/${ctx?.locale}chats/send`, body, {
             headers: {
                 sldtoken: jsCookie.get("sldtoken")
             }

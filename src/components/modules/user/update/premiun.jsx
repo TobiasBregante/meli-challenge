@@ -19,7 +19,7 @@ const UpdatePremiunPlan = ({data}) => {
 
     const submit = () => {
         if (state.date && state.plan) {
-            Get(`user/${data._id}/managePremiun?upgrade=true&plan=${state.plan}&date=${state.date}`, {
+            Get(`/${router?.locale}/user/${data._id}/managePremiun?upgrade=true&plan=${state.plan}&date=${state.date}`, {
                 headers: {
                     sldtoken: jsCookie.get("sldtoken")
                 }
@@ -39,7 +39,7 @@ const UpdatePremiunPlan = ({data}) => {
     }
 
     const downgrade = () => {
-        Get(`user/${data._id}/managePremiun?downgrade=true`, {
+        Get(`/${router?.locale}/user/${data._id}/managePremiun?downgrade=true`, {
             headers: {
                 sldtoken: jsCookie.get("sldtoken")
             }

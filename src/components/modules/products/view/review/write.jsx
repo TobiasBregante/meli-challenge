@@ -5,11 +5,13 @@ import { useState } from "react"
 import jsCookie from 'js-cookie'
 import { toast } from 'react-toastify'
 import Post from "@/src/utils/hooks/post"
+import { useRouter } from "next/router"
 
 const WriteReview = ({ data, open, close }) => {
-    const [rating, setRating] = useState(1),
-        [review, setReview] = useState(""),
-        [isSubmiting, setSubmiting] = useState(false)
+    const [rating, setRating] = useState(1)
+    const [review, setReview] = useState("")
+    const [isSubmiting, setSubmiting] = useState(false)
+    const router = useRouter()
 
     const handleOnChangeRating = (star) => {
         setRating(star + 1)
@@ -20,7 +22,7 @@ const WriteReview = ({ data, open, close }) => {
 
     const submit = () => {
         setSubmiting(true)
-        Post(`products/product/${data._id}/review`, {
+        Post(`/${router?.locale}products/product/${data._id}/review`, {
             rating: rating,
             review: review
         }, {

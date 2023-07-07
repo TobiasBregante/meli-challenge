@@ -1,4 +1,4 @@
-import { Card, Grid, Input, Text } from '@nextui-org/react'
+import { Grid, Input } from '@nextui-org/react'
 import Icon from '@/ui/icons'
 import UsersList from '../user/lists/userList'
 

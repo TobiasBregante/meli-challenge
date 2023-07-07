@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 import UserNotifications from "../modules/user/notifications";
 import uniqid from 'uniqid'
 import Get from "@/src/utils/hooks/get";
-import LocaleSwitcher from "./localeSwitcher";
 import Link from "@/src/utils/hooks/link";
 
 const Header = () => {
@@ -17,7 +16,7 @@ const Header = () => {
     const router = useRouter()
 
     const getCategories = async () => {
-        await Get("website").then(r => {
+        await Get(`/${router?.locale}/website`).then(r => {
             setCategories(r?.data?.categories)
         }).catch(() => {
             setCategories({})
@@ -27,7 +26,6 @@ const Header = () => {
     useEffect(() => {
         getCategories()
     }, [])
-
 
     const handleSearch = (e) => {
         setSearchValue(e.target.value)

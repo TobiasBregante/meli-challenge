@@ -1,9 +1,6 @@
 import Image from 'next/image'
 import currency from 'currency.js'
-import Icon from '../../../ui/icons'
-import SaveBookmark from '@/components/modules/products/saveBookmark'
-import { Avatar, Card, Grid, Text } from '@nextui-org/react'
-import LocationBuilder from '../locationBuilder'
+import { Card, Grid, Text } from '@nextui-org/react'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from '@/src/utils/hooks/link'
@@ -11,9 +8,11 @@ import Link from '@/src/utils/hooks/link'
 const ProductCard = ({ data, className }) => {
     const [locale, setLocale] = useState('')
     const router = useRouter()
+    
     useEffect(() => {
         setLocale(router?.locale)
     }, [router])
+    
     if(!data) {
         return null
     }

@@ -5,10 +5,13 @@ import { Fragment, useState } from "react"
 import Post from "@/src/utils/hooks/post"
 import jsCookie from 'js-cookie'
 import { toast } from "react-toastify"
+import { useRouter } from "next/router"
 
 const HighLightForm = ({ website }) => {
-    const [state, setState] = useState(website.highlights || []),
-    [isSubmiting, setSubmiting] = useState(false)
+    const [state, setState] = useState(website.highlights || [])
+    const [isSubmiting, setSubmiting] = useState(false)
+    const router = useRouter()
+
     const handleImg = (i) => (e) => {
         setState(state.map((x, si) => {
             if (si == i) {
@@ -46,7 +49,7 @@ const HighLightForm = ({ website }) => {
             let formImage = new FormData();
             formImage.append("file", img.img)
 
-            return Post("products/addImage", formImage, {
+            return Post(`/${router?.locale}/products/addImage`, formImage, {
                 headers: {
                     sldtoken: jsCookie.get("sldtoken"),
                     "Content-Type": "multipart/form-data"
@@ -66,7 +69,7 @@ const HighLightForm = ({ website }) => {
         })
 
         Promise.all(imgs).then(data=>{
-            Post("website/update", {
+            Post(`/${ctx?.locale}/website/update`, {
                 highlights: [...state.filter(x => typeof x.img !== "object"),...data]
             }, {
                 headers: {

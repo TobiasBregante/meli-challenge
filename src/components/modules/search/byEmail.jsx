@@ -2,7 +2,6 @@ import { Card, Grid, Input, Text } from '@nextui-org/react'
 import Icon from '@/ui/icons'
 import UsersList from '../user/lists/userList'
 
-
 const SearchByEmailModule = ({ data, state, setState }) => {
 
     const handleChange = (e) => {

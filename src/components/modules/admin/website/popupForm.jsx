@@ -5,13 +5,16 @@ import { useState } from "react"
 import Post from "@/src/utils/hooks/post"
 import jsCookie from 'js-cookie'
 import { toast } from "react-toastify"
+import { useRouter } from "next/router"
 
-const   PopupForm = ({ website }) => {
+const PopupForm = ({ website }) => {
+    const [isSubmiting, setSubmiting] = useState(false)
     const [state, setState] = useState({
         link: website.popup.link,
         img: website.popup.img
-    }),
-        [isSubmiting, setSubmiting] = useState(false)
+    })
+    const router = useRouter()
+
     const handleImg = (e) => {
         setState({
             ...state,
@@ -28,7 +31,7 @@ const   PopupForm = ({ website }) => {
     const submit = () => {
 
         const update = (img_id) => {
-            Post("website/update", {
+            Post(`/${router?.locale}/website/update`, {
                 popup: {
                     link: state.link,
                     img: img_id

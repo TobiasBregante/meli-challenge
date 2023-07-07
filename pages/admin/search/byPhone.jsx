@@ -7,7 +7,7 @@ import Get from '@/src/utils/hooks/get'
 
 const SearchByPhonePage = ({ data }) => {
     const [state, setState] = useState(data)
-
+    
     return (
         <Page>
             <Container lg css={{ mb: "$10" }}>
@@ -27,11 +27,10 @@ const SearchByPhonePage = ({ data }) => {
 
 export default SearchByPhonePage
 
-export async function getServerSideProps(ctx) {
-
+export async function getServerSideProps(ctx) {    
     return {
         props: {
-            data: await Get("user/find?limit=100000").then(r => r.data).catch(() => [])
+            data: await Get(`/${ctx?.locale}/user/find?limit=100000`).then(r => r.data).catch(() => [])
         }
     }
 }
