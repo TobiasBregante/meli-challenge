@@ -94,7 +94,7 @@ const Submit = ({ state, setState, data, resetState }) => {
                 let formImage = new FormData();
                 formImage.append("file", img)
 
-                return Post(`/${router?.locale}products/addImage`, formImage, {
+                return Post(`/${router?.locale}/products/addImage`, formImage, {
                     headers: {
                         sldtoken: jsCookie.get("sldtoken"),
                         "Content-Type": "multipart/form-data"
@@ -111,7 +111,7 @@ const Submit = ({ state, setState, data, resetState }) => {
             })
             const updateOrAdd = (body) => {
                 if (data) {
-                    Post(`/${router?.locale}products/product/${data._id}/update`, body, {
+                    Post(`/${router?.locale}/products/product/${data._id}/update`, body, {
                         headers: {
                             sldtoken: jsCookie.get("sldtoken")
                         }
@@ -128,7 +128,7 @@ const Submit = ({ state, setState, data, resetState }) => {
                         setSubmiting(false)
                     })
                 } else {
-                    Put(`/${router?.locale}products/add`, body, {
+                    Put(`/${router?.locale}/products/add`, body, {
                         headers: {
                             sldtoken: jsCookie.get("sldtoken")
                         }

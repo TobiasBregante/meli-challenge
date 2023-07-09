@@ -22,7 +22,7 @@ const WriteReview = ({ data, open, close }) => {
 
     const submit = () => {
         setSubmiting(true)
-        Post(`/${router?.locale}products/product/${data._id}/review`, {
+        Post(`/${router?.locale}/products/product/${data._id}/review`, {
             rating: rating,
             review: review
         }, {
