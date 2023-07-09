@@ -18,7 +18,7 @@ const Comment = ({ data, canReply, productData, comments,setComments }) => {
 
     const removeById = () => {
         setSubmiting(true)
-        Post(`/${router?.locale}products/product/${productData._id}/comment`, {
+        Post(`/${router?.locale}/products/product/${productData._id}/comment`, {
             removeBy_id: data._id
         }, {
             headers: { sldtoken: jsCookie.get('sldtoken') }

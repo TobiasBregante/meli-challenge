@@ -93,7 +93,7 @@ const UpdateBrandModule = ({ website, data }) => {
         }
 
         if (!error) {
-            Post(`/${router?.locale}brands/brand/${data._id}/update`, value, {
+            Post(`/${router?.locale}/brands/brand/${data._id}/update`, value, {
                 headers: {
                     sldtoken: jsCookie.get("sldtoken")
                 }
@@ -119,7 +119,7 @@ const UpdateBrandModule = ({ website, data }) => {
             new Date(now.getFullYear(), now.getMonth() + 6, now.getDate()),
             new Date(now.getFullYear() + 1, now.getMonth(), now.getDate())]
 
-        Post(`/${router?.locale}brands/brand/${data._id}/update`, {
+        Post(`/${router?.locale}/brands/brand/${data._id}/update`, {
             isActiveUntil: dates[index]
         }, {
             headers: {
@@ -148,7 +148,7 @@ const UpdateBrandModule = ({ website, data }) => {
             toast(res.data.msg)
             setSubmiting(false)
             if (user.isAdmin) {
-                return router.push(`/./${router?.locale}admin/search/brands`)
+                return router.push(`/./${router?.locale}/admin/search/brands`)
             }
             router.push(`/./${router?.locale}/`)
         }).catch(err => {

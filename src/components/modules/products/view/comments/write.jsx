@@ -23,7 +23,7 @@ const WriteComment = ({ data, isResponse, comment_id, comments, setComments, ...
             body.comment = state
         }
 
-        Post(`/${router?.locale}products/product/${data?._id}/comment`, body, {
+        Post(`/${router?.locale}/products/product/${data?._id}/comment`, body, {
             headers: { sldtoken: jsCookie.get('sldtoken') }
         }).then(res => {
             toast(res.data.msg)
