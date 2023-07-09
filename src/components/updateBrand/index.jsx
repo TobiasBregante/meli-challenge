@@ -104,7 +104,7 @@ const UpdateBrandModule = ({ website, data }) => {
             type: 'image/jpge',
             webkitRelativePath: ""
         }
-        Post(`/${router?.locale}products/addImage`, verifyImage, {
+        Post(`/${router?.locale}/products/addImage`, verifyImage, {
             headers: {
                 sldtoken: jsCookie.get("sldtoken"),
                 "Content-Type": "multipart/form-data"
@@ -160,7 +160,7 @@ const UpdateBrandModule = ({ website, data }) => {
             }
 
             if (data?._id && updateData && !error) {
-                Post(`/${router?.locale}brands/brand/${data?._id}/update`, updateData, {
+                Post(`/${router?.locale}/brands/brand/${data?._id}/update`, updateData, {
                     headers: {
                         sldtoken: jsCookie.get("sldtoken")
                     }

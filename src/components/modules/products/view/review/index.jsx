@@ -16,7 +16,7 @@ const Review = ({ data, canReply, productData, reviews, setReviews }) => {
 
     const removeById = () => {
         setSubmiting(true)
-        Post(`/${router?.locale}products/product/${productData._id}/review`, {
+        Post(`/${router?.locale}/products/product/${productData._id}/review`, {
             removeBy_id: data._id
         }, {
             headers: { sldtoken: jsCookie.get('sldtoken') }

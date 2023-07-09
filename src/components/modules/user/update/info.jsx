@@ -52,7 +52,7 @@ const UpdateUserInfoModule = ({ data }) => {
         })
 
         if (!error) {
-            Post(`/${router?.locale}user/${data._id}`, {
+            Post(`/${router?.locale}/user/${data._id}`, {
                 isSeller: state.isSeller,
                 name: state.name.value,
                 lastName: state.lastName.value,
