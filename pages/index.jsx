@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import SelectCountry from '@/src/components/modules/selectCountry'
 
-const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, JoyasAccesorios, ArticuloDeTemporada, Mascotas, Electronica, Calzado }) => {
+const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, RopaInformal, JoyasAccesorios, Mascotas, Electronica, Calzado }) => {
   const router = useRouter()
   const [toCountryPage, setToCountryPage] = useState(false)
 
@@ -33,7 +33,7 @@ const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Joya
         <HighLightCarousel data={website.highlights} />
         <ProductCarousel title="Tendencia" data={popularProducts} categoryHidde={'Equipamiento'} link="/page/products/popular" />
         <ProductCarousel title="Calzado" data={Calzado} link="/page/products/calzado" />
-        <ProductCarousel title="Temporada" data={ArticuloDeTemporada} link="/page/products/temporada" />
+        <ProductCarousel title="Indumentaria" data={RopaInformal} link="/page/products/indumentaria" />
         <ProductCarousel title="Electrónica" data={Electronica} link="/page/products/electronica" />
         <BrandCarousel title="Marcas en tendencia" data={popularBrands} />
         <ProductCarousel title={`Joyas & Accesorios`} data={JoyasAccesorios} link="/page/products/joyas" />
@@ -48,19 +48,17 @@ const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Joya
 export default Index
 
 export async function getServerSideProps(ctx) {
-  console.log(ctx)
-  
   return {
     props: {
-      Autos: await Get(`/${ctx?.locale}/products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Accesorios para Autos`).then(r => r.data).catch(() => []),
-      Celulares: await Get(`/${ctx?.locale}/products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Accesorios para Celulares`).then(r => r.data).catch(() => []),
-      Calzado: await Get(`/${ctx?.locale}/products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Calzado`).then(r => r.data).catch(() => []),
-      Mascotas: await Get(`/${ctx?.locale}/products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Accesorios para Mascotas`).then(r => r.data).catch(() => []),
-      JoyasAccesorios: await Get(`/${ctx?.locale}/products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Joyas y Accesorios`).then(r => r.data).catch(() => []),
-      ArticuloDeTemporada: await Get(`/${ctx?.locale}/products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Artículo de Temporada`).then(r => r.data).catch(() => []),
-      Electronica: await Get(`/${ctx?.locale}/products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&product_category=Electrónica`).then(r => r.data).catch(() => []),
-      popularProducts: await Get(`/${ctx?.locale}/products/find/query?popular=false&premiunOnly=true&limit=10&isPublic=true&hidde=Equipamiento`).then(r => r.data).catch(() => []),
-      popularBrands: await Get(`/${ctx?.locale}/brands/find/query?limit=10&premiunOnly=true`).then(r => r.data).catch(() => []),
+      RopaInformal: await Get(`/${ctx?.locale}/products/find/query?category=${encodeURI('Ropa Informal')}&limit=10`).then(r => r.data).catch(() => []),
+      Autos: await Get(`/${ctx?.locale}/products/find/query?limit=10&product_category=${encodeURI('Accesorios para Autos')}`).then(r => r.data).catch(() => []),
+      Celulares: await Get(`/${ctx?.locale}/products/find/query?limit=10&product_category=${encodeURI('Accesorios para Celulares')}`).then(r => r.data).catch(() => []),
+      Calzado: await Get(`/${ctx?.locale}/products/find/query?limit=10&product_category=${encodeURI('Calzado')}`).then(r => r.data).catch(() => []),
+      Mascotas: await Get(`/${ctx?.locale}/products/find/query?limit=10&product_category=${encodeURI('Accesorios para Mascotas')}`).then(r => r.data).catch(() => []),
+      JoyasAccesorios: await Get(`/${ctx?.locale}/products/find/query?limit=10&product_category=${encodeURI('Joyas y Accesorios')}`).then(r => r.data).catch(() => []),
+      Electronica: await Get(`/${ctx?.locale}/products/find/query?category=${encodeURI('Electrónica')}&limit=10`).then(r => r.data).catch(() => []),
+      popularProducts: await Get(`/${ctx?.locale}/products/find/query?limit=10`).then(r => r.data).catch(() => []),
+      popularBrands: await Get(`/${ctx?.locale}/brands/find/query?limit=10`).then(r => r.data).catch(() => []),
       website: await Get(`/${ctx?.locale}/website`).then(r => r.data).catch(() => ({}))
     }, // will be passed to the page component as props
   }
