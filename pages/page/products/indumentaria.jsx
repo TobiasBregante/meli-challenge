@@ -6,10 +6,10 @@ import Get from '@/src/utils/hooks/get'
 
 const Season = ({ products, website }) => {
     return (
-        <Page categories={website?.categories} title='SaladaApp - Temporada'>
+        <Page categories={website?.categories} title='SaladaApp - Indumentaria'>
             <Container lg css={{ mb: "$10" }}>
                 <CategoriesCarousel data={website?.categories}/>
-                <UnorderedList title="Temporada" data={products} />
+                <UnorderedList title="Indumentaria" data={products} />
             </Container>
         </Page>
     )
@@ -21,7 +21,7 @@ export async function getServerSideProps(ctx) {
 
     return {
         props: {
-            products: await Get(`/${ctx?.locale}/products/find/query?popular=false&premiunOnly=true&limit=200&isPublic=true&product_category=Artículo de Temporada`).then(r => r.data).catch(() => []),
+            products: await Get(`/${ctx?.locale}/products/find/query?limit=200&product_category=Ropa Informal`).then(r => r.data).catch(() => []),
             website: await Get(`/${ctx?.locale}/website`).then(r => r.data).catch(() => ({ }))
         }, // will be passed to the page component as props
     }
