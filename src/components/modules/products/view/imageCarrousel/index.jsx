@@ -53,18 +53,26 @@ const ProductImageCarrousel = ({ imgs }) => {
                         onSlideChange={handleSwiperChange}
                     >
                         {
-                            imgs.map((img, imgI) => (
+                            imgs?.length > 0 && imgs?.map((img, imgI) => (
                                 <SwiperSlide key={imgI}>
-                                    <div>
-                                        <Image
-                                            src={`/${img}`}
-                                            width={1000}
-                                            height={800}
-                                            layout="responsive"
-                                            priority={imgI == 0}
-                                            onClick={() => setIsZoomed(true)}
-                                            alt={`image-${imgI}`}
-                                        />
+                                    <div className="containProductImageCardOpen">
+                                        <div className="productImageCardOpen">
+                                            <Image
+                                                style={{ display: 'block', margin: 'auto' }}
+                                                src={`/${img}`}
+                                                alt={`Ver ${imgI}`}
+                                                layout='fill'
+                                                objectFit='contain'
+
+                                                // src={`/${img}`}
+                                                // width={1000}
+                                                // height={800}
+                                                // layout="responsive"
+                                                priority={imgI == 0}
+                                                onClick={() => setIsZoomed(true)}
+                                                // alt={`image-${imgI}`}
+                                            />
+                                        </div>
                                     </div>
                                 </SwiperSlide>
                             ))

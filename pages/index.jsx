@@ -50,15 +50,15 @@ export default Index
 export async function getServerSideProps(ctx) {
   return {
     props: {
-      RopaInformal: await Get(`/${ctx?.locale}/products/find/query?category=${encodeURI('Ropa Informal')}&limit=10`).then(r => r.data).catch(() => []),
-      Autos: await Get(`/${ctx?.locale}/products/find/query?limit=10&product_category=${encodeURI('Accesorios para Autos')}`).then(r => r.data).catch(() => []),
-      Celulares: await Get(`/${ctx?.locale}/products/find/query?limit=10&product_category=${encodeURI('Accesorios para Celulares')}`).then(r => r.data).catch(() => []),
-      Calzado: await Get(`/${ctx?.locale}/products/find/query?limit=10&product_category=${encodeURI('Calzado')}`).then(r => r.data).catch(() => []),
-      Mascotas: await Get(`/${ctx?.locale}/products/find/query?limit=10&product_category=${encodeURI('Accesorios para Mascotas')}`).then(r => r.data).catch(() => []),
-      JoyasAccesorios: await Get(`/${ctx?.locale}/products/find/query?limit=10&product_category=${encodeURI('Joyas y Accesorios')}`).then(r => r.data).catch(() => []),
-      Electronica: await Get(`/${ctx?.locale}/products/find/query?category=${encodeURI('Electrónica')}&limit=10`).then(r => r.data).catch(() => []),
-      popularProducts: await Get(`/${ctx?.locale}/products/find/query?limit=10`).then(r => r.data).catch(() => []),
-      popularBrands: await Get(`/${ctx?.locale}/brands/find/query?limit=10`).then(r => r.data).catch(() => []),
+      RopaInformal: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${encodeURI('Ropa Informal')}&limit=10`).then(r => r.data).catch(() => []),
+      Autos: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Accesorios para Autos')}`).then(r => r.data).catch(() => []),
+      Celulares: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Accesorios para Celulares')}`).then(r => r.data).catch(() => []),
+      Calzado: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Calzado')}`).then(r => r.data).catch(() => []),
+      Mascotas: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Accesorios para Mascotas')}`).then(r => r.data).catch(() => []),
+      JoyasAccesorios: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Joyas y Accesorios')}`).then(r => r.data).catch(() => []),
+      Electronica: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${encodeURI('Electrónica')}&limit=10`).then(r => r.data).catch(() => []),
+      popularProducts: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10`).then(r => r.data).catch(() => []),
+      popularBrands: await Get(`/${ctx?.locale}/brands/find/query?popular=true&limit=10`).then(r => r.data).catch(() => []),
       website: await Get(`/${ctx?.locale}/website`).then(r => r.data).catch(() => ({}))
     }, // will be passed to the page component as props
   }

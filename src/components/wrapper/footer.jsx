@@ -28,6 +28,11 @@ const Footer = () => {
                             </span>
                         </Text>
                     </Grid>
+                    <Grid>
+                        <Text className="titleTextFooter">
+                            Contactenos
+                        </Text>
+                    </Grid>
                 </Container>
             </Card>
         </Fragment>

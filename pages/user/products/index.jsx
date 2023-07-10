@@ -25,7 +25,7 @@ export async function getServerSideProps(ctx) {
 
     return {
         props: {
-            data: await Get(`/${ctx?.locale}/products/find/query?limit=1000&brand_id=${ctx.query.brand}`).then(r => r.data).catch(() => [])
+            data: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=1000&brand_id=${ctx.query.brand}`).then(r => r.data).catch(() => [])
         }
     }
 }

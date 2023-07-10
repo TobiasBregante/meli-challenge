@@ -20,8 +20,8 @@ export async function getServerSideProps(ctx) {
   return {
     props: {
       data: data,
-      relateds: await Get(`/${ctx?.locale}/products/find/query?category=${data.category}&limit=10`).then(r=>r.data).catch(()=>({})),
-      brandProducts: await Get(`/${ctx?.locale}/products/find/query?brand_id=${data.brand_id}&limit=10`).then(r=>r.data).catch(()=>({}))
+      relateds: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${data.category}&limit=10`).then(r=>r.data).catch(()=>({})),
+      brandProducts: await Get(`/${ctx?.locale}/products/find/query?popular=true&brand_id=${data.brand_id}&limit=10`).then(r=>r.data).catch(()=>({}))
     }, // will be passed to the page component as props
   }
 }
