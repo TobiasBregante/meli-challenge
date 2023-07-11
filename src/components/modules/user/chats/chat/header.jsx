@@ -1,10 +1,10 @@
 import Icon from "@/src/components/ui/icons"
 import { useUserContext } from "@/src/utils/user/provider"
 import { Button, Grid, Text } from "@nextui-org/react"
-import Image from "next/image"
+import Image from "next/legacy/image"
 
 const UserChatHeader = ({ data }) => {
-    const headerData = data.user
+    let headerData = data.user
     const user = useUserContext()
     
     if (data.user._id == user._id) {

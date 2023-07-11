@@ -1,6 +1,6 @@
 import Link from "@/src/utils/hooks/link"
 import { Button, Grid, Modal } from "@nextui-org/react"
-import Image from "next/image"
+import Image from "next/legacy/image"
 
 const AdsModals = ({ img, link }) => {
     return (

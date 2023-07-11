@@ -1,5 +1,5 @@
 import { Button, Card, Grid, Text } from "@nextui-org/react"
-import Image from "next/image"
+import Image from "next/legacy/image"
 import Stars from "../../ui/stars"
 import Share from "../common/share"
 

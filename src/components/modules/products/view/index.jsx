@@ -14,6 +14,7 @@ const ProductModule = ({ data, relateds, brandProducts }) => {
     if(!data) {
         return null
     }
+    
     return (
         <Fragment>
             <Grid.Container direction="column">

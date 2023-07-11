@@ -2,7 +2,7 @@ import Page from '@Page'
 import { Container, Text, Grid } from '@nextui-org/react'
 import { useRouter } from 'next/router'
 import { SVGFlag } from 'use-flags'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 
 const SelectCountry = () => {
     const router = useRouter()

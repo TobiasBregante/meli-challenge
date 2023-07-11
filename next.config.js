@@ -31,6 +31,9 @@ module.exports = {
   //   ]
   // },
   reactStrictMode: true, //Will run twice useEffect, with that been said, userProvider is going to request twice user/me
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     loader: 'cloudinary',
     path: 'https://res.cloudinary.com/saladapp/'

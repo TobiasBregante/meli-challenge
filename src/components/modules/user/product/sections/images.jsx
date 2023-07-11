@@ -2,7 +2,7 @@ import Icon from "@/src/components/ui/icons"
 import Link from "@/src/utils/hooks/link"
 import { useUserContext } from "@/src/utils/user/provider"
 import { Card, Grid, Text, Image as UiImage } from "@nextui-org/react"
-import Image from "next/image"
+import Image from "next/legacy/image"
 import { FileUploader } from "react-drag-drop-files"
 import { toast } from "react-toastify"
 
