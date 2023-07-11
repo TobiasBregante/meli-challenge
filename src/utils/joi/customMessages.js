@@ -9,7 +9,7 @@ const stringMessages = (path) => {
         'string.empty': "'@path' no puede estar vacio".replace("@path", path),
         'string.pattern.base': "'@path' tiene un valor incorrecto".replace(/@path/g, path),
         'any.only': "'@path' debe ser uno de los siguientes valores {#valids}".replace("@path", path)
-    }
+    };
 }
 
 const numberMessages = (path) => {

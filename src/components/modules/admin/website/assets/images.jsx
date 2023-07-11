@@ -1,6 +1,6 @@
 import Icon from "@/src/components/ui/icons"
 import { Card, Grid, Text, Image as UiImage } from "@nextui-org/react"
-import Image from "next/image"
+import Image from "next/legacy/image"
 import { FileUploader } from "react-drag-drop-files"
 
 const ImagesSection = ({ state, setState, hideLabel }) => {

@@ -16,7 +16,7 @@ const addBookmark = (_id)=>{
     window.localStorage.setItem('bookmarks', JSON.stringify(bookmarks))
 }
 const removeBookmark = (_id)=>{
-    const bookmarks = getBookmarks()
+    let bookmarks = getBookmarks()
     bookmarks = bookmarks.filter(bookmark=>_id!=bookmark)
     window.localStorage.setItem('bookmarks', JSON.stringify(bookmarks))
 }

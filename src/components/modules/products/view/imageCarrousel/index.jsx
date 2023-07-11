@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from "next/legacy/image"
 import { Fragment, useState } from "react"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
@@ -27,20 +27,25 @@ const ProductImageCarrousel = ({ imgs }) => {
 
     return (
         <Fragment>
-            <Modal width="100vw" noPadding open={isZoomed} onClose={() => setIsZoomed(false)}
-            >
-                <div>
-                    <Image
-                        src={`/${imgs[imgSelected]}`}
-                        css={{ h: "auto", w: "50vw !important", "@mdMax": { w: "100vw !important" } }}
-                        width={100}
-                        height={100}
-                        layout="responsive"
-                        priority={imgSelected == 0}
-                        alt={`image-${imgSelected}`}
-                    />
-                </div>
-            </Modal>
+            {
+                imgs?.length > 0 && (
+                    <Modal width="100vw" noPadding open={isZoomed} onClose={() => setIsZoomed(false)}
+                    >
+                        <div>
+                            <Image
+                                src={`/${imgs[imgSelected]}`}
+                                aria-label={'Image Carousell'}
+                                css={{ h: "auto", w: "50vw !important", "@mdMax": { w: "100vw !important" } }}
+                                width={100}
+                                height={100}
+                                layout="responsive"
+                                priority={imgSelected == 0}
+                                alt={`image-${imgSelected}`}
+                            />
+                        </div>
+                    </Modal>
+                )
+            }
             <Grid.Container direction="column">
                 <Grid css={{ w: "100%" }}>
                     <Swiper

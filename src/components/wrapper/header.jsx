@@ -1,6 +1,6 @@
 import Icon from "@/ui/icons";
 import UserHeaderMenu from "@/src/components/modules/user/avatar/userHeaderMenu";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useEffect, useState } from 'react'
 import { Button, Card, Container, Grid, Input, Text, Dropdown } from "@nextui-org/react";
 import { useRouter } from "next/router";

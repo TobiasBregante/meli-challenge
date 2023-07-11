@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import currency from 'currency.js'
 import { Card, Text } from '@nextui-org/react'
 import Link from '@/src/utils/hooks/link'
