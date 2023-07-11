@@ -28,6 +28,7 @@ const Footer = () => {
                                     Contactenos
                                 </Text>
                                 <Text className="textFooter">
+                                    {/* eslint-disable-line */}
                                     <img src="/whats-app-outlined.svg" alt="contact us" className="svg"/> 
                                     Whats App
                                     <span className="numberPhone">
@@ -35,6 +36,7 @@ const Footer = () => {
                                     </span>
                                 </Text>
                                 <Text className="textFooter">
+                                    {/* eslint-disable-line */}
                                     <img src="/call.svg" alt="call us" className="svg"/> 
                                     Llamanos
                                     <span className="numberPhone">
@@ -48,6 +50,7 @@ const Footer = () => {
                                     href="https://apps.apple.com/ar/app/salada-app/id1526227412" 
                                     target={'_blank'} 
                                     className="downloadAppBtn">
+                                    {/* eslint-disable-line */}
                                     <img src="ios.png" alt="Descargá La App!" />
                                 </a>
                             </Grid>

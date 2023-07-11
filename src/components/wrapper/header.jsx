@@ -23,6 +23,7 @@ const Header = ({ contentful }) => {
         })
     }
 
+    {/* eslint-disable-line */}
     useEffect(() => {
         console.log(contentful)
         getCategories()
@@ -64,6 +65,7 @@ const Header = ({ contentful }) => {
                                 {categories?.length > 0 && (
                                     <Dropdown>
                                         <Dropdown.Button className="btn" size={'sm'} css={{ bg: 'transparent', color: '$white' }} flat>
+                                            {/* eslint-disable-line */}
                                             <img
                                                 width={50}
                                                 height={50}
