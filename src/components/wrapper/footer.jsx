@@ -1,39 +1,96 @@
-import { Card, Container, Text, Grid } from "@nextui-org/react";
-import { Fragment } from "react";
+import { Card, Text, Grid } from "@nextui-org/react";
+import { useRouter } from "next/router";
+import { Fragment, useState } from "react";
 
 const Footer = () => {
+    const categories = [
+        { name: 'Productos Populares', url: "/page/products/popular" },
+        { name: 'Calzado', url: "/page/products/calzado" },
+        { name: 'Indumentaria', url: "/page/products/indumentaria" },
+        { name: 'Electrónica', url: "/page/products/electronica" },
+        { name: 'Joyas y Accesorios', url: "/page/products/joyas" },
+        { name: 'Mascotas', url: "/page/products/mascotas" },
+        { name: 'Celulares', url: "/page/products/celulares" },
+        { name: 'Autos', url: "/page/products/autos" },
+    ]
+    const router = useRouter()
+
     return (
         <Fragment>
             <Card variant="flat" css={{ borderRadius: 0, bg: "$primary" }} className='footer'>
-                <Container lg>
-                    <Grid>
-                        <Text className="brandingTextFooter">
-                            SaladaApp
-                        </Text>
-                        <Text className="titleTextFooter">
-                            Contactenos
-                        </Text>
-                        <Text className="textFooter">
-                            <img src="/whats-app-outlined.svg" alt="contact us" className="svg"/> 
-                            Whats App
-                            <span className="numberPhone">
-                                +54 9 11-2476-7008
-                            </span>
-                        </Text>
-                        <Text className="textFooter">
-                            <img src="/call.svg" alt="call us" className="svg"/> 
-                            Llamanos
-                            <span className="numberPhone">
-                                +54 9 11-2476-7008
-                            </span>
-                        </Text>
-                    </Grid>
-                    <Grid>
-                        <Text className="titleTextFooter">
-                            Contactenos
-                        </Text>
-                    </Grid>
-                </Container>
+                <Grid.Container>
+                        <Grid xs={12} sm={4} md={4} lg={4} xl={4}>
+                            <Grid>
+                                <Text className="brandingTextFooter">
+                                    SaladaApp
+                                </Text>
+                                <Text className="titleTextFooter">
+                                    Contactenos
+                                </Text>
+                                <Text className="textFooter">
+                                    <img src="/whats-app-outlined.svg" alt="contact us" className="svg"/> 
+                                    Whats App
+                                    <span className="numberPhone">
+                                        +54 9 11-2476-7008
+                                    </span>
+                                </Text>
+                                <Text className="textFooter">
+                                    <img src="/call.svg" alt="call us" className="svg"/> 
+                                    Llamanos
+                                    <span className="numberPhone">
+                                        +54 9 11-2476-7008
+                                    </span>
+                                </Text>
+                                <Text className="downloadAppText"> 
+                                    Descargá La App
+                                </Text>
+                                <a 
+                                    href="https://apps.apple.com/ar/app/salada-app/id1526227412" 
+                                    target={'_blank'} 
+                                    className="downloadAppBtn">
+                                    <img src="ios.png" alt="Descargá La App!" />
+                                </a>
+                            </Grid>
+                        </Grid>
+                        <Grid xs={12} sm={4} md={4} lg={4} xl={4}>
+                            <Grid>
+                                <Text className="titleTextFooter">
+                                    Categorías Más Populares
+                                    <hr />
+                                    <ul>
+                                        {categories?.length > 0 && categories?.map((obj, o) => (
+                                            <li key={o}>
+                                                <a href={`/./${router?.locale}${obj?.url}`}>{obj?.name}</a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </Text>
+                            </Grid>
+                        </Grid>
+                        <Grid xs={12} sm={4} md={4} lg={4} xl={4}>
+                            <Text className="titleTextFooter">
+                                Servicio Al Cliente
+                                <hr />
+                                <ul>
+                                    <li key={'suscripcion'}>
+                                        <a href={`/./${router?.locale}/docs/subscriptions`}>
+                                            Suscripción
+                                        </a>
+                                    </li>
+                                    <li key={'faqs'}>
+                                        <a href={`/./${router?.locale}/docs/faq`}>
+                                            Preguntas frecuentes
+                                        </a>
+                                    </li>
+                                </ul>
+                            </Text>
+                        </Grid>
+                        <Grid xs={12}>
+                            <p className="copyRight">
+                                &copy; {(new Date())?.getFullYear()} Todos los derechos reservados. SaladaApp.com
+                            </p>
+                        </Grid>
+                </Grid.Container>
             </Card>
         </Fragment>
     )

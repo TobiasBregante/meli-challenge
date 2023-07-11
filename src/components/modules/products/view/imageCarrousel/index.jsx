@@ -25,7 +25,6 @@ const ProductImageCarrousel = ({ imgs }) => {
         setImgSelected(e.activeIndex)
     }
 
-
     return (
         <Fragment>
             <Modal width="100vw" noPadding open={isZoomed} onClose={() => setIsZoomed(false)}
@@ -63,14 +62,8 @@ const ProductImageCarrousel = ({ imgs }) => {
                                                 alt={`Ver ${imgI}`}
                                                 layout='fill'
                                                 objectFit='contain'
-
-                                                // src={`/${img}`}
-                                                // width={1000}
-                                                // height={800}
-                                                // layout="responsive"
                                                 priority={imgI == 0}
                                                 onClick={() => setIsZoomed(true)}
-                                                // alt={`image-${imgI}`}
                                             />
                                         </div>
                                     </div>
@@ -87,7 +80,7 @@ const ProductImageCarrousel = ({ imgs }) => {
                         slidesPerView={7}
                     >
                         {
-                            imgs.map((img, imgI) => (
+                            imgs?.length > 0 && imgs?.map((img, imgI) => (
                                 <SwiperSlide key={imgI}>
                                     <div>
                                         <Image
