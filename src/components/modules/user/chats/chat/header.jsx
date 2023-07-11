@@ -4,7 +4,7 @@ import { Button, Grid, Text } from "@nextui-org/react"
 import Image from "next/legacy/image"
 
 const UserChatHeader = ({ data }) => {
-    const headerData = data.user
+    let headerData = data.user
     const user = useUserContext()
     
     if (data.user._id == user._id) {
