@@ -1,6 +1,6 @@
 import Icon from "@/ui/icons";
 import UserHeaderMenu from "@/src/components/modules/user/avatar/userHeaderMenu";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useEffect, useState } from 'react'
 import { Button, Card, Container, Grid, Input, Text, Dropdown } from "@nextui-org/react";
 import { useRouter } from "next/router";
@@ -23,6 +23,7 @@ const Header = ({ contentful }) => {
         })
     }
 
+    {/* eslint-disable-line */}
     useEffect(() => {
         console.log(contentful)
         getCategories()
@@ -64,6 +65,7 @@ const Header = ({ contentful }) => {
                                 {categories?.length > 0 && (
                                     <Dropdown>
                                         <Dropdown.Button className="btn" size={'sm'} css={{ bg: 'transparent', color: '$white' }} flat>
+                                            {/* eslint-disable-line */}
                                             <img
                                                 width={50}
                                                 height={50}

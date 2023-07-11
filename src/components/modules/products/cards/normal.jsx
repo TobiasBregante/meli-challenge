@@ -1,22 +1,12 @@
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import currency from 'currency.js'
-import { Card, Grid, Text } from '@nextui-org/react'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import { Card, Text } from '@nextui-org/react'
 import Link from '@/src/utils/hooks/link'
 
 const ProductCard = ({ data, className }) => {
-    const [locale, setLocale] = useState('')
-    const router = useRouter()
-    
-    useEffect(() => {
-        setLocale(router?.locale)
-    }, [router])
-    
     if(!data) {
         return null
     }
-
 
     const lowestPriceSelect = () => {
         const {
@@ -50,7 +40,6 @@ const ProductCard = ({ data, className }) => {
         
         return currency(Math.min(...prices), { decimal: ",", separator: "." }).format()
     }
-
 
     return (
         <Card variant="flat" css={{ bg: "$white", }} isHoverable className={`productCard ${className}`}>

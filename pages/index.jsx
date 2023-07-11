@@ -31,7 +31,7 @@ const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Ropa
       <Container lg css={{ mb: "$10", ml: 0, mr: 0 }} className='container-fluid'>
         {/* <AdsModals img={website?.popup?.img} link={website?.popup?.link}/> */}
         <HighLightCarousel data={website.highlights} />
-        <ProductCarousel title="Tendencia" data={popularProducts} categoryHidde={'Equipamiento'} link="/page/products/popular" />
+        <ProductCarousel title="Tendencia" data={popularProducts} link="/page/products/popular" />
         <ProductCarousel title="Calzado" data={Calzado} link="/page/products/calzado" />
         <ProductCarousel title="Indumentaria" data={RopaInformal} link="/page/products/indumentaria" />
         <ProductCarousel title="Electrónica" data={Electronica} link="/page/products/electronica" />

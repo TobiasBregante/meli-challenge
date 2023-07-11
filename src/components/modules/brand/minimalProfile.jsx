@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import Icon from '@/ui/icons'
 import Share from '@/components/modules/common/share'
 import { Button, Card, Grid, Text } from '@nextui-org/react'

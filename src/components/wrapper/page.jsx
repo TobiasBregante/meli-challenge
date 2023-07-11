@@ -32,7 +32,7 @@ const Page = ({ title, description, image, children, hiddeNavbar }) => {
                     children || null
                 }
                 <LocaleSwitcher contentful={content} fixed={true}/>
-                <Footer contentful={content}/>
+                <Footer categories={categories} contentful={content}/>
             </UserWrapper>
         </Fragment>
     )

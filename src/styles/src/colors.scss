@@ -496,10 +496,54 @@ html, body{
 }
 .footer {
     @media (max-width: $isMobile) {
-        padding: 30px 0 80px 0;
+        padding: 30px 20px 80px 20px;
     }
     padding: 80px 123px;
     color: $white;
+    hr {
+        color: $white !important;
+        height: 3px !important;
+        margin-top: 16px;
+    }
+    ul {
+        box-sizing: border-box;
+        margin: 0;
+        margin-top: 20px;
+        display: block;
+        padding: 0;
+        a {
+            color: $white;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+        }
+        li {
+            list-style: inside;
+            color: $white;
+        }
+    }
+    .downloadAppText {
+        color: $white;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        margin-bottom: 20px;
+        margin-top: 30px;
+    }
+    .downloadAppBtn, .downloadAppBtn img{
+        width: 167px;
+        height: 55px;
+        flex-shrink: 0;
+    }
+    .copyRight {
+        color: $white !important;
+        text-align: center !important;
+        width: 100% !important;
+        font-size: 20px !important;
+        font-style: normal !important;
+        font-weight: 300 !important;
+        margin-top: 110px;
+    }
 }
 .brandingTextFooter {
     color: $white;
@@ -507,6 +551,9 @@ html, body{
     font-weight: 400;
 }
 .titleTextFooter {
+    @media (max-width: $isMobile) {
+        margin-top: 20px;
+    }
     color: $white;
     font-size: 20px;
     font-weight: 400;

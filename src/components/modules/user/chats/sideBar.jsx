@@ -1,7 +1,7 @@
 import timeago from "@/src/utils/timeago"
 import { useUserContext } from "@/src/utils/user/provider"
 import { Card, Grid, Text } from "@nextui-org/react"
-import Image from "next/image"
+import Image from "next/legacy/image"
 
 const UserSideBar = ({ data, chatSelected, setChatSelected }) => {
 
