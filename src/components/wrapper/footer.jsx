@@ -51,7 +51,7 @@ const Footer = () => {
                                     target={'_blank'} 
                                     className="downloadAppBtn">
                                     {/* eslint-disable-line */}
-                                    <img src="ios.png" alt="Descargá La App!" />
+                                    <img src="/ios.png" alt="Descargá La App!" />
                                 </a>
                             </Grid>
                         </Grid>
