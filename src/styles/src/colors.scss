@@ -379,7 +379,17 @@ html, body{
     width: 50px !important;
     height: 50px !important;
     span {
+        position: absolute;
+        bottom: 0;
+        width: 50%;
+        height: 50%;
+        right: 0;
+        left: 0;
+        top: 0;
+        padding: 0;
+        margin: auto;
         color: $white !important;
+        display: block;
     }
     z-index: 999 !important;
     bottom: 0 !important;
