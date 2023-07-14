@@ -28,10 +28,10 @@ const CarouselTitle = ({ title, link }) => {
 
 }
 
-const BrandCarousel = ({ title, data, link }) => {
+const BrandCarousel = ({ title, data, link, noPadding }) => {
 
   return (
-    <div className='carousell-product'>
+    <div className={`carousell-product ${noPadding ? 'noPaddingBrandCar' : ''}`}>
       <CarouselTitle title={title} link={link} />
       <Swiper
         spaceBetween={47}

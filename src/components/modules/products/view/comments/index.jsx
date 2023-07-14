@@ -10,7 +10,7 @@ import Post from '@/src/utils/hooks/post';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 
-const Comment = ({ data, canReply, productData, comments,setComments }) => {
+const Comment = ({ data, canReply, productData, comments, setComments }) => {
     const user = useUserContext()
     const [isAnswering, setAnswering] = useState(false)
     const [isSubmiting, setSubmiting] = useState(false)
@@ -122,14 +122,14 @@ const Comment = ({ data, canReply, productData, comments,setComments }) => {
 }
 
 
-const ProductComments = ({ data }) => {
+const ProductComments = ({ data, bentComment }) => {
     const [limit, setLimit] = useState(3),
     [comments,setComments] = useState(data?.comments)
     const user = useUserContext()
 
     return (
         <Fragment>
-            <Card id="comments">
+            <Card className={bentComment ? 'bentComments' : 'comments'}>
                 <Card.Body>
                     <Text tag="h3" className="d-flex flex-row">
                         <Icon id="forum" className="me-2 mt-01" />

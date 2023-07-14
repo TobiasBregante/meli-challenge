@@ -60,6 +60,7 @@ const WriteComment = ({ data, isResponse, comment_id, comments, setComments, ...
     return (
         <Grid.Container direction="column">
             <Textarea
+                className="bentTextarea"
                 label={<Text weight="bold">
                     {
                         isResponse ? "Responde el comentario" : "Escribe un comentario"
