@@ -8,9 +8,11 @@ import categories from '@/src/utils/user/brand/categories';
 import LocaleSwitcher from './localeSwitcher';
 import contentful from './content';
 import BentHeader from './bentHeader';
+import { useRouter } from 'next/router';
 
-const Page = ({ title, description, image, children, hiddeNavbar, hiddeFooter, bent }) => {
+const Page = ({ title, description, image, children, hiddeNavbar, hiddeFooter, bent, countryLocation }) => {
     const [content, setContent] = useState(null)
+    const router = useRouter()
 
     useEffect(() => {
         setContent(JSON.parse(contentful))
@@ -33,7 +35,7 @@ const Page = ({ title, description, image, children, hiddeNavbar, hiddeFooter, b
                     children || null
                 }
                 {!bent && <LocaleSwitcher contentful={content} fixed={true}/>}
-                <BentHeader bent={bent}/>
+                {!countryLocation && <BentHeader bent={bent}/>}
                 {!hiddeFooter && <Footer categories={categories} contentful={content}/>}
             </UserWrapper>
         </Fragment>

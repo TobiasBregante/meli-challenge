@@ -25,7 +25,6 @@ const Header = ({ contentful }) => {
 
     {/* eslint-disable-line */}
     useEffect(() => {
-        console.log(contentful)
         getCategories()
     }, [])
 
