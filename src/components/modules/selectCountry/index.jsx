@@ -8,7 +8,7 @@ const SelectCountry = () => {
     const router = useRouter()
   
     return (
-      <Page hiddeNavbar={true}>
+      <Page hiddeNavbar={true} countryLocation={true}>
         <Container lg css={{ mb: "$10", ml: 0, mr: 0 }} className='selectCountryPageContain'>
           <Grid.Container gap={1}>
             <Grid.Container direction="row">
