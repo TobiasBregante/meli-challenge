@@ -24,7 +24,7 @@ const Chats = () => {
     if (!data) {
         return (
             <Page>
-                <Container lg>
+                <Container fluid>
                     <Grid.Container gap={1}>
                         <Grid xs={0} md={4} lg={3}>
                             <UserSideBar data={[]} chatSelected={chatSelected} setChatSelected={setChatSelected} />
@@ -42,7 +42,7 @@ const Chats = () => {
 
     return (
         <Page>
-            <Container lg>
+            <Container fluid>
                 <Grid.Container gap={1}>
                     <Grid xs={0} md={4} lg={3}>
                         <UserSideBar data={data} chatSelected={chatSelected} setChatSelected={setChatSelected} />

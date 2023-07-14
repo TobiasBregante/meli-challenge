@@ -27,7 +27,7 @@ const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Ropa
 
   return (
     <Page categories={website?.categories}>
-      <Container lg css={{ mb: "$10", ml: 0, mr: 0 }} className='container-fluid'>
+      <Container fluid css={{ mb: "$10", ml: 0, mr: 0 }} className='container-fluid'>
         {/* <AdsModals img={website?.popup?.img} link={website?.popup?.link}/> */}
         <HighLightCarousel data={website.highlights} />
         <ProductCarousel title="Tendencia" bent={true} data={popularProducts} link="/category/popular" />
