@@ -31,7 +31,7 @@ const CardPlan = ({ title, children, className }) => {
 const Subscriptions = () => {
     return (
         <Page>
-            <Container lg className='suscriptionContainer'>
+            <Container fluid className='suscriptionContainer'>
                 <Grid.Container gap={2} justify="center">
                     <CardPlan title={'Esencial'}>
                         <ul>

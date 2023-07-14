@@ -9,7 +9,7 @@ const SelectCountry = () => {
   
     return (
       <Page hiddeNavbar={true} countryLocation={true}>
-        <Container lg css={{ mb: "$10", ml: 0, mr: 0 }} className='selectCountryPageContain'>
+        <Container fluid css={{ mb: "$10", ml: 0, mr: 0 }} className='selectCountryPageContain'>
           <Grid.Container gap={1}>
             <Grid.Container direction="row">
               <Grid className="brandingSelectCountry">

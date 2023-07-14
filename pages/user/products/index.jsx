@@ -7,7 +7,7 @@ import Get from '@/src/utils/hooks/get'
 const SearchByBrandsPage = ({ data }) => {
     return (
         <Page>
-            <Container lg css={{ mb: "$10" }}>
+            <Container fluid css={{ mb: "$10" }}>
                 <Grid.Container gap={2} justify="center">
                     <Grid xs={12} sm={9}>
                         <SearchProductModule data={data} isSeller={true}/>

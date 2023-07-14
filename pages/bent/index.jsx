@@ -15,7 +15,7 @@ const Bent = ({ products,  website }) => {
 
     return (
         <Page bent={true} categories={website?.categories} title='Bent - SaladaApp' hiddeNavbar={true} hiddeFooter={true}>
-            <Container lg css={{ mb: "$10" }} className='container-unorderedList container-bent'>
+            <Container fluid css={{ mb: "$10" }} className='container-unorderedList container-bent'>
                 <BentSwiper data={dataFilter}/>
             </Container>
         </Page>
