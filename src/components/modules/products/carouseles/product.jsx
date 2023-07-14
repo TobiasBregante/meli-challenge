@@ -4,11 +4,12 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import ProductCard from '@/src/components/modules/products/cards/normal';
 import Icon from '@/ui/icons';
-import { Grid, Text } from '@nextui-org/react';
+import { Badge, Grid, Text } from '@nextui-org/react';
 import { Fragment, useEffect, useState } from 'react';
 import Link from '@/src/utils/hooks/link';
 
-const CarouselTitle = ({ title, link }) => {
+const CarouselTitle = ({ title, link, bent }) => {
+
   return (
     <Grid.Container css={{ mt: 10 }}>
       <Text h3 css={{ p: 2, borderRadius: '10px' }}>
@@ -23,6 +24,15 @@ const CarouselTitle = ({ title, link }) => {
             </Text>
           </Link>
           <Icon id="chevron_right" css={{ pt: 10 }} color="primary" />
+            {
+              bent && <Link href={`/bent`}>
+                <Text css={{ pt: 6, ml: 10, fontWeight: 600 }} color="primary">
+                  <Badge enableShadow disableOutline color="success" css={{ ml: 5 }}>
+                    <u>Probar Bent</u>
+                  </Badge>
+                </Text>
+              </Link>
+            }
         </Fragment>
       }
     </Grid.Container>
@@ -30,7 +40,7 @@ const CarouselTitle = ({ title, link }) => {
 
 }
 
-const ProductCarousel = ({ title, data, link, categoryHidde }) => {
+const ProductCarousel = ({ title, data, link, categoryHidde, bent }) => {
   const [dataFilter, setDataFilter] = useState([])
 
   useEffect(() => {
@@ -43,7 +53,7 @@ const ProductCarousel = ({ title, data, link, categoryHidde }) => {
   } else {
     return (
       <div className='carousell-product'>
-        <CarouselTitle title={title} link={link} />
+        <CarouselTitle title={title} link={link} bent={bent}/>
         <Swiper
           spaceBetween={10}
           modules={[Navigation]}
@@ -65,7 +75,7 @@ const ProductCarousel = ({ title, data, link, categoryHidde }) => {
           {
             dataFilter?.length > 0 && dataFilter?.map((cardData, cardI) => (
               <SwiperSlide key={cardI} className='carousell'>
-                <ProductCard data={cardData} />
+                <ProductCard data={cardData}/>
               </SwiperSlide>
             ))
           }

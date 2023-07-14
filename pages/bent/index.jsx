@@ -1,11 +1,11 @@
 import Page from '@Page'
 import CategoriesCarousel from '@/src/components/modules/products/carouseles/categories'
 import { Container } from '@nextui-org/react'
-import UnorderedList from '@/src/components/modules/products/list/unordered'
 import Get from '@/src/utils/hooks/get'
 import { useEffect, useState } from 'react'
+import BentSwiper from '@/src/components/modules/products/carouseles/bent'
 
-const Popular = ({ products,  website }) => {
+const Bent = ({ products,  website }) => {
     const [dataFilter, setDataFilter] = useState([])
 
     useEffect(() => {
@@ -14,16 +14,15 @@ const Popular = ({ products,  website }) => {
     }, [products])
 
     return (
-        <Page categories={website?.categories} title='SaladaApp - Populares'>
-            <Container lg css={{ mb: "$10" }} className='container-unorderedList'>
-                <CategoriesCarousel data={website.categories}/>
-                <UnorderedList title="Productos mas populares" data={dataFilter} />
+        <Page bent={true} categories={website?.categories} title='Bent - SaladaApp' hiddeNavbar={true} hiddeFooter={true}>
+            <Container lg css={{ mb: "$10" }} className='container-unorderedList container-bent'>
+                <BentSwiper data={dataFilter}/>
             </Container>
         </Page>
     )
 }
 
-export default Popular
+export default Bent
 
 export async function getServerSideProps(ctx) {
 

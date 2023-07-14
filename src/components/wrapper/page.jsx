@@ -7,8 +7,9 @@ import UserWrapper from '@/utils/user/provider';
 import categories from '@/src/utils/user/brand/categories';
 import LocaleSwitcher from './localeSwitcher';
 import contentful from './content';
+import BentHeader from './bentHeader';
 
-const Page = ({ title, description, image, children, hiddeNavbar }) => {
+const Page = ({ title, description, image, children, hiddeNavbar, hiddeFooter, bent }) => {
     const [content, setContent] = useState(null)
 
     useEffect(() => {
@@ -31,8 +32,9 @@ const Page = ({ title, description, image, children, hiddeNavbar }) => {
                 {
                     children || null
                 }
-                <LocaleSwitcher contentful={content} fixed={true}/>
-                <Footer categories={categories} contentful={content}/>
+                {!bent && <LocaleSwitcher contentful={content} fixed={true}/>}
+                <BentHeader bent={bent}/>
+                {!hiddeFooter && <Footer categories={categories} contentful={content}/>}
             </UserWrapper>
         </Fragment>
     )
