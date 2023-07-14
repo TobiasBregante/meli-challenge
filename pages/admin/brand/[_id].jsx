@@ -8,7 +8,7 @@ const UpdateUser = ({ data, website }) => {
 
   return (
     <Page>
-      <Container lg >
+      <Container fluid>
         <Grid.Container gap={2}>
           <Grid xs={12} md={3} >
             <SideBar selected="brands" />

@@ -122,7 +122,7 @@ const ManageProduct = ({ website, data }) => {
 
 
     return (
-        <Container lg>
+        <Container fluid>
 
             <Grid.Container justify="center" css={{ my: 20 }}>
                 <Grid xs={12} md={10} >

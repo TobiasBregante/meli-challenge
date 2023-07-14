@@ -7,7 +7,7 @@ const SearchPage = ({ products, brands, query, website, params }) => {
 
   return (
     <Page>
-      <Container lg>
+      <Container fluid>
         <SearchModule products={products} brands={brands} query={query} categories={website.categories} params={params} />
       </Container>
     </Page>
