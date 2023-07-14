@@ -4,14 +4,14 @@ import { Fragment, useState } from "react";
 
 const Footer = () => {
     const categories = [
-        { name: 'Productos Populares', url: "/page/products/popular" },
-        { name: 'Calzado', url: "/page/products/calzado" },
-        { name: 'Indumentaria', url: "/page/products/indumentaria" },
-        { name: 'Electrónica', url: "/page/products/electronica" },
-        { name: 'Joyas y Accesorios', url: "/page/products/joyas" },
-        { name: 'Mascotas', url: "/page/products/mascotas" },
-        { name: 'Celulares', url: "/page/products/celulares" },
-        { name: 'Autos', url: "/page/products/autos" },
+        { name: 'Productos Populares', url: "/category/popular" },
+        { name: 'Calzado', url: "/category/Calzado" },
+        { name: 'Indumentaria', url: "/category/Ropa Informal" },
+        { name: 'Electrónica', url: "/category/Electrónica" },
+        { name: 'Joyas y Accesorios', url: "/category/Joyas y Accesorios" },
+        { name: 'Mascotas', url: "/category/Accesorios para Mascotas" },
+        { name: 'Celulares', url: "/category/Accesorios para Celulares" },
+        { name: 'Autos', url: "/category/Accesorios para Autos" },
     ]
     const router = useRouter()
 

@@ -79,7 +79,7 @@ const Header = ({ contentful }) => {
                                                     key={uniqid()}
                                                     color={'primary'}
                                                 >
-                                                    <Link className="linkCategoryHeader" href={`/page/category/${item?.name}`}>
+                                                    <Link className="linkCategoryHeader" href={`/category/${item?.name}`}>
                                                         {item.name}
                                                     </Link>
                                                 </Dropdown.Item>
