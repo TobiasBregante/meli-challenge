@@ -40,7 +40,7 @@ const Header = ({ contentful }) => {
 
     return (
         <Card variant="flat" css={{ borderRadius: 0, bg: "#fff" }}>
-            <Container fluid>
+            <Container xl>
                 {
                     isSearchOpen ?
                         <Grid.Container css={{ my: 10, }} justify="center">

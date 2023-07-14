@@ -8,7 +8,7 @@ import Get from '@/src/utils/hooks/get'
 const ProductsByCategory = ({ products, brands, website, category }) => {
     return (
         <Page categories={website?.categories}>
-            <Container fluid css={{ mb: "$10" }}>
+            <Container xl css={{ mb: "$10" }}>
                 <CategoriesCarousel data={website.categories}/>
                 {
                     brands?.length > 0 && <BrandCarousel noPadding={true} title={`${encodeURI(category)?.toLowerCase() !== 'popular' ? category : 'Tendencia'}`} data={brands} />

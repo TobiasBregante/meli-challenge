@@ -7,7 +7,7 @@ import SideBar from "@/src/components/modules/admin/sidebar";
 const EditProductPage = ({ website, data }) => {
     return (
         <Page>
-            <Container fluid>
+            <Container xl>
                 <Grid.Container gap={2}>
                     <Grid xs={12} md={3} >
                         <SideBar selected="products" />
