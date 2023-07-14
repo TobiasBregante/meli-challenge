@@ -12,11 +12,9 @@ const SaveBookmark = ({ _id, bent, doubleTap, className, ...htmlProps }) => {
     useEffect(() => {
         doubleTap != state && setState(!state)
         handleSave()
-        console.log(true)
     }, [doubleTap])
 
     const handleSave = () => {
-        console.log(state)
         if (!state == true) {
             addBookmark(_id)
         }else{
