@@ -9,7 +9,7 @@ const BrandPage = ({ data }) => {
   if (data.msg) {
     return (
       <Page title={data.msg == "Pausado" ? "Marca pausada" : "Marca no encontrada"}>
-        <Container fluid>
+        <Container xl>
           <BrandNotFound isPaused={data.msg === "Pausado"} />
         </Container>
       </Page>
@@ -18,7 +18,7 @@ const BrandPage = ({ data }) => {
 
   return (
     <Page title={`${data.brandName} - SaladaApp`}>
-      <Container fluid>
+      <Container xl>
         <BrandProfileModule data={data} />
       </Container>
     </Page>

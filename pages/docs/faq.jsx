@@ -5,7 +5,7 @@ const Faq = () => {
     return (
         <Page>
 
-            <Container fluid>
+            <Container xl>
                 <Grid.Container justify="center" gap={2}>
                     <Grid xs={12} sm={8}>
                         <Card>

@@ -6,7 +6,7 @@ import { Container, Grid } from "@nextui-org/react";
 const EditProductPage = ({ website, data }) => {
     return (
         <Page>
-            <Container fluid>
+            <Container xl>
                 <Grid.Container gap={2} justify="center">
                     <Grid xs={12} sm={9} >
                         <ManageProduct website={website} data={data} />

@@ -6,7 +6,7 @@ import Get from '@/src/utils/hooks/get';
 const ProductPage = ({ data, relateds, brandProducts }) => {
   return (
     <Page>
-      <Container fluid css={{ mb: "$10", ml: 0, mr: 0 }} className='container-fluid'>
+      <Container xl css={{ mb: "$10", ml: 0, mr: 0 }} className='container-fluid'>
         <ProductModule data={data} relateds={relateds} brandProducts={brandProducts}/>
       </Container>
     </Page>

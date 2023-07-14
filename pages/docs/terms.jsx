@@ -4,7 +4,7 @@ import Page from '@Page'
 const TermsPage = () => {
     return (
         <Page title="Terminos y condiciones - SaladaApp">
-            <Container fluid>
+            <Container xl>
                 <Text >
                     <Text tag="h1">
                         Términos y condiciones de uso del Sitio
