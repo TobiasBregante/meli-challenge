@@ -3,7 +3,6 @@ import Icon from '@/ui/icons'
 import UsersList from '../user/lists/userList'
 
 const SearchByPhoneModule = ({ data, state, setState }) => {
-
     const handleChange = (e) => {
         setState(data.filter(user => user.cellPhone.indexOf(e.target.value) > -1))
     }
