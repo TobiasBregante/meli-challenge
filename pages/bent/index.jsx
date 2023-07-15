@@ -4,7 +4,7 @@ import { Container } from '@nextui-org/react'
 import Get from '@/src/utils/hooks/get'
 import { useEffect, useState } from 'react'
 import BentSwiper from '@/src/components/modules/products/carouseles/bent'
-import GetItem from '@/src/utils/localStorage/GetItem'
+import GetItem from '@/src/utils/localStorage/getItem'
 import { useRouter } from 'next/router'
 
 const Bent = ({ allProducts, website }) => {

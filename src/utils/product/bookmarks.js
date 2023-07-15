@@ -1,5 +1,5 @@
-import GetItem from "../localStorage/GetItem"
-import SetItem from "../localStorage/SetItem"
+import GetItem from "../localStorage/getItem"
+import SetItem from "../localStorage/setItem"
  
 const Bookmarks = (_id, clicked) => {
     let likesList = typeof GetItem('bookmarks')?.bookmarks === 'undefined' ? [] : GetItem('bookmarks')?.bookmarks
