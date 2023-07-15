@@ -77,8 +77,8 @@ const SignInModule = () => {
     }
 
     return (
-        <Grid.Container justify="center" css={{ mt: 20 }}>
-            <Grid xs={12} sm={4} md={3}>
+        <Grid.Container justify="center" css={{ mt: 20, minHeight: '100vh' }}>
+            <Grid xs={12} sm={4} md={3} css={{ h: '50%' }}>
                 <Card variant="flat" css={{bg:"$white"}}>
                     <Card.Header>
                         <Grid.Container justify="center">
@@ -118,11 +118,11 @@ const SignInModule = () => {
                             css={{ mb: 30 }}
                         />
                         <Grid.Container justify="flex-end">
-                            <Button css={{ bg: "$secondary" }} onPress={submit}>
-                                <Text weight="bold">
+                            <Button css={{ bg: "$primary" }} onPress={submit}>
+                                <Text weight="bold" color="$white">
                                     Ingresar
                                 </Text>
-                                <Icon id="arrow_forward" css={{ color: "$black" }} />
+                                <Icon id="arrow_forward" css={{ color: "$white" }} />
                             </Button>
                         </Grid.Container>
                         <Text>

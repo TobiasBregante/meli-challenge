@@ -1,15 +1,5 @@
-const GetItem = ( itemName ) => {
-    return (typeof window !== 'undefined' 
-    && localStorage.getItem(itemName) 
-    ? JSON.parse(localStorage.getItem(itemName)) : {})
- }
- 
- const SetItem = ( itemName, itemValue ) => {
-    const newValue = {}
-    newValue[itemName] = itemValue 
-    localStorage.setItem(itemName, JSON.stringify(newValue))
-    return true
- }
+import GetItem from "../localStorage/GetItem"
+import SetItem from "../localStorage/SetItem"
  
 const Bookmarks = (_id, clicked) => {
     let likesList = typeof GetItem('bookmarks')?.bookmarks === 'undefined' ? [] : GetItem('bookmarks')?.bookmarks

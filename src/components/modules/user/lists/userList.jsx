@@ -1,6 +1,6 @@
 import Icon from "@/src/components/ui/icons"
 import timeago from "@/src/utils/timeago"
-import { Badge, Button, Container, Table } from "@nextui-org/react"
+import { Badge, Container, Table } from "@nextui-org/react"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 
@@ -21,6 +21,7 @@ const UsersList = ({ data }) => {
         const user = data[Array.from(e)[0]]
         router.push(`/./${router?.locale}/admin/user/${user._id}`)
     }
+    
     return (
         <Container className="tableUsers">
             <Table
