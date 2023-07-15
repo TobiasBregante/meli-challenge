@@ -5,17 +5,18 @@ import SaveBookmark from "../saveBookmark"
 import { Fragment, useEffect, useState } from "react"
 import ProductComments from "../view/comments"
 import Icon from "@/src/components/ui/icons"
-import { isBookmarked } from "@/src/utils/product/bookmarks"
 import { useRouter } from "next/router"
+import Bookmarks from "@/src/utils/product/bookmarks"
 
 const BentCard = ({ data, className }) => {
     const [doubleTap, setDoubleTap] = useState(false)
     const [openComments, setOpenComments] = useState(false)
     const router = useRouter()
 
-    useEffect(() => {
-        setDoubleTap(isBookmarked(data?._id))
-    }, [data])
+    const handlerLike = _id => {
+        Bookmarks(_id, true)
+        setDoubleTap(!doubleTap)
+    }
 
     const handlerComments = () => setOpenComments(!openComments)
 
@@ -63,7 +64,7 @@ const BentCard = ({ data, className }) => {
             variant="flat" 
             css={{ bg: "$white", }} 
             className={`${className} bentCard`} 
-            onDoubleClick={() => setDoubleTap(!doubleTap)}>
+            onDoubleClick={() => handlerLike(data?._id)}>
            <div className='bentImageCard'>
                 <Image
                     style={{ display: 'block', margin: 'auto' }}

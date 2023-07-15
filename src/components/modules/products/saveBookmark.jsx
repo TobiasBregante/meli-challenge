@@ -1,25 +1,18 @@
 import Icon from '@/ui/icons'
 import { useEffect, useState } from 'react'
-import { addBookmark, removeBookmark, isBookmarked } from '@/utils/product/bookmarks'
+import { useRouter } from 'next/router'
+import Bookmarks from '@/src/utils/product/bookmarks'
 
 const SaveBookmark = ({ _id, bent, doubleTap, className, ...htmlProps }) => {
     const [state, setState] = useState(false)
-
-    useEffect(()=>{
-        setState(isBookmarked(_id))
-    }, [state, _id, doubleTap])
+    const router = useRouter()
 
     useEffect(() => {
-        doubleTap != state && setState(!state)
-        handleSave()
-    }, [doubleTap])
+        setState(Bookmarks(_id, false))
+    }, [router, doubleTap])
 
-    const handleSave = () => {
-        if (!state == true) {
-            addBookmark(_id)
-        }else{
-            removeBookmark(_id)
-        }
+    const handlerLike = _id => {
+        Bookmarks(_id, true)
         setState(!state)
     }
 
@@ -27,8 +20,8 @@ const SaveBookmark = ({ _id, bent, doubleTap, className, ...htmlProps }) => {
         <Icon
             color={state ? '$warning' : '$dark'}
             id='favorite'
-            className={`pointer transition-25 ${(state) && "bookmark-true"} ${className}`}
-            onClick={handleSave}
+            className={`pointer transition-25 ${state ? 'bookmark-true' : ''} ${className}`}
+            onClick={() => handlerLike(_id)}
             {...htmlProps} 
         />
     )
