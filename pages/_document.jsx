@@ -16,7 +16,8 @@ class MyDocument extends Document {
             <Html lang="es">
                 <Head>
                     {CssBaseline.flush()}
-                    
+                    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+                    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round&display=swap" rel="stylesheet" />
                 </Head>
                 <body>
                     <Main />
