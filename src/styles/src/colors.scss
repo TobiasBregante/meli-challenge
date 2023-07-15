@@ -765,3 +765,11 @@ html, body{
         margin-left: 34px;
     }
 }
+.tableUsers {
+    height: 51vh !important;
+    overflow: scroll;
+    overflow-y: scroll;
+    .nextui-table-container {
+        overflow: visible;
+    }
+}

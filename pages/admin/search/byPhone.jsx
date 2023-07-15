@@ -2,11 +2,15 @@ import Page from '@Page'
 import { Container, Grid } from '@nextui-org/react'
 import SideBar from '@/src/components/modules/admin/sidebar'
 import SearchByPhoneModule from '@/src/components/modules/search/byPhone'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Get from '@/src/utils/hooks/get'
 
 const SearchByPhonePage = ({ data }) => {
-    const [state, setState] = useState(data)
+    const [state, setState] = useState([])
+
+    useEffect(() => {
+        setState(data)
+    }, [data])
     
     return (
         <Page>
