@@ -63,7 +63,7 @@ const SearchFilters = ({ categories, params }) => {
 
     return (
         <Grid.Container direction="column">
-            <Button icon={<Icon id="filter_list" color="white" />} onPress={()=>setOpen(!isOpen)} css={{"@sm": { d: "none" }}}>
+            <Button color={'gradient'} icon={<Icon id="filter_list" color="white" />} onPress={()=>setOpen(!isOpen)} css={{"@sm": { d: "none" }}}>
                 Filtros
             </Button>
             <Card css={{ h: "auto", "@smMax": { d: isOpen ? "none" : "" } }}>
@@ -78,7 +78,7 @@ const SearchFilters = ({ categories, params }) => {
                                 Ordenar por
                             </Text>
                             <Dropdown>
-                                <Dropdown.Button color="secondary" css={{ color: "$black" }}>
+                                <Dropdown.Button color="primary" css={{ color: "$white" }}>
                                     {
                                         orderBy
                                     }
@@ -100,10 +100,10 @@ const SearchFilters = ({ categories, params }) => {
                             <Grid.Container justify="space-between">
                                 <Grid>
                                     <Button auto
-                                        icon={<Icon id="home" />}
+                                        icon={<Icon id="home" color='$black'/>}
                                         ghost={params.useBrand == "true"  /**should return false */}
                                         onPress={handleFilter("useBrand", false)}
-                                        color="secondary"
+                                        color="primary"
                                         css={{ color: "$black", mb: 5 }}>
                                         Producto
                                     </Button>
@@ -111,10 +111,10 @@ const SearchFilters = ({ categories, params }) => {
                                 <Grid>
                                     <Button 
                                         auto
-                                        icon={<Icon id="store" />}
+                                        icon={<Icon id="store" color='$black'/>}
                                         ghost={params.useBrand == "false" || params.useBrand == null/**should return false */}
                                         onPress={handleFilter("useBrand", true)}
-                                        color="secondary"
+                                        color="primary"
                                         css={{ color: "$black", mb: 5 }}>
                                         Marcas
                                     </Button>
@@ -125,17 +125,16 @@ const SearchFilters = ({ categories, params }) => {
                             Categoria
                         </Text>
                         <Grid>
-
                             <Grid.Container gap={.2}>
                                 {
                                     categories?.length > 0 && categories?.map((category, i) => (
                                         <Grid key={i}>
                                             <Button auto
-                                                ghost={params.category != category.name || params.category == null}
-                                                onPress={handleFilter("category", category.name)}
-                                                color="secondary"
+                                                ghost={params?.category != category?.name || params?.category == null}
+                                                onPress={handleFilter("category", category?.name)}
+                                                color="primary"
                                                 css={{ color: "$black" }}>
-                                                {category.name}
+                                                {category?.name}
                                             </Button>
                                         </Grid>
                                     ))

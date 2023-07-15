@@ -773,3 +773,8 @@ html, body{
         overflow: visible;
     }
 }
+.btnSearchFilterDesktop {
+    @media (max-width: $isMobile) {
+        display: none;
+    }
+}

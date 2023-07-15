@@ -178,11 +178,11 @@ const SignUpModule = () => {
                                 isSelected={acceptTermsOfService}
                                 onChange={setAcceptTermsOfService} />
                             <Grid.Container justify="center">
-                                <Button color="secondary"
-                                    css={{ fontWeight: "$bold", color: "$black", mt: "$10" }}
+                                <Button color="primary"
+                                    css={{ fontWeight: "$bold", color: "$white", mt: "$10" }}
                                     onPress={submit}>
-                                    {state.isSeller == true ? "Siguiente paso" : "Registrarme"}
-                                    <Icon css={{ color: "$black" }} id={state.isSeller == true ? "arrow_forward" : "person_add"} />
+                                    {state?.isSeller == true ? "Siguiente paso" : "Registrarme"}
+                                    <Icon css={{ color: "$white" }} id={state?.isSeller == true ? "arrow_forward" : "person_add"} />
                                 </Button>
                             </Grid.Container>
                         </Grid.Container>
