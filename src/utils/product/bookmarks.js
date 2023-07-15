@@ -1,29 +1,34 @@
-const getBookmarks = ()=>{
-    const bookmarks = window.localStorage.getItem('bookmarks');
-    if (bookmarks) {
-        return JSON.parse(bookmarks)
+const GetItem = ( itemName ) => {
+    return (typeof window !== 'undefined' 
+    && localStorage.getItem(itemName) 
+    ? JSON.parse(localStorage.getItem(itemName)) : {})
+ }
+ 
+ const SetItem = ( itemName, itemValue ) => {
+    const newValue = {}
+    newValue[itemName] = itemValue 
+    localStorage.setItem(itemName, JSON.stringify(newValue))
+    return true
+ }
+ 
+const Bookmarks = (_id, clicked) => {
+    let likesList = typeof GetItem('bookmarks')?.bookmarks === 'undefined' ? [] : GetItem('bookmarks')?.bookmarks
+    if (_id, clicked) {
+        if (likesList?.some(storage => storage === _id)) {
+            const index = likesList?.indexOf(_id)
+    
+            if (index > -1) {
+                likesList?.splice(index, 1)
+            }
+        } else {
+            likesList?.push(_id)
+        }
+        SetItem('bookmarks', likesList)
+        return _id && likesList?.some(storage => storage === _id)
     }
-    return []
+    if (_id && !clicked) {
+        return _id && likesList?.some(storage => storage === _id)
+    }
 }
 
-const isBookmarked = (_id) =>{
-    return getBookmarks().some(bookmark=>bookmark==_id)
-}
-
-const addBookmark = (_id)=>{
-    const bookmarks = getBookmarks()
-    bookmarks.push(_id)
-    window.localStorage.setItem('bookmarks', JSON.stringify(bookmarks))
-}
-const removeBookmark = (_id)=>{
-    let bookmarks = getBookmarks()
-    bookmarks = bookmarks.filter(bookmark=>_id!=bookmark)
-    window.localStorage.setItem('bookmarks', JSON.stringify(bookmarks))
-}
-
-export {
-    getBookmarks,
-    addBookmark,
-    removeBookmark,
-    isBookmarked
-}
+export default Bookmarks
