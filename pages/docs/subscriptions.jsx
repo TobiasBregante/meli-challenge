@@ -47,7 +47,7 @@ const Subscriptions = () => {
                                 </Text>
                             </li>
                             <li>
-                                <Text>Valor: $12 USD (debito automático mensual)</Text>
+                                <Text>Valor: $5499 ARS (debito automático mensual)</Text>
                             </li>
                         </ul>
                     </CardPlan>
@@ -72,7 +72,7 @@ const Subscriptions = () => {
                             </li>
                             <li>
                                 <Text>
-                                    Valor: $33.99 USD (pago único por el periodo trimestral)
+                                    Valor: $17499 ARS (pago único por el periodo trimestral)
                                 </Text>
                             </li>
                         </ul>
@@ -101,7 +101,7 @@ const Subscriptions = () => {
                             </li>
                             <li>
                                 <Text>
-                                    Valor: $63.99 (pago único por el periodo semestral)
+                                    Valor: $32499 ARS (pago único por el periodo semestral)
                                 </Text>
                             </li>
                         </ul>
@@ -130,7 +130,7 @@ const Subscriptions = () => {
                             </li>
                             <li>
                                 <Text>
-                                    Valor: $92.99 (pago único por el periodo anual + un mes de servicio gratis
+                                    Valor: $47299 ARS (pago único por el periodo anual + un mes de servicio gratis
                                 </Text>
                             </li>
                         </ul>
