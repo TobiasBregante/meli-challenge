@@ -8,12 +8,16 @@ import UserNotifications from "../modules/user/notifications";
 import uniqid from 'uniqid'
 import Get from "@/src/utils/hooks/get";
 import Link from "@/src/utils/hooks/link";
+import { useUserContext } from "@/src/utils/user/provider";
+import userLevel from "../modules/user/level";
 
 const Header = ({ contentful }) => {
     const [isSearchOpen, openSearchBar] = useState(false)
     const [searchValue, setSearchValue] = useState("")
     const [categories, setCategories] = useState({})
     const router = useRouter()
+    const user = useUserContext()
+    const [level, setLevel] = useState(0)
 
     const getCategories = async () => {
         await Get(`/${router?.locale}/website`).then(r => {
@@ -22,8 +26,16 @@ const Header = ({ contentful }) => {
             setCategories({})
         })
     }
+    
+    const getUser = async () => {
+        const userProducts = await Get(`/${router?.locale}/products/find/query?brand_id=${user?.brand?._id}&level=true`).then(r => r?.data?.count).catch(() => ({}))
+        setLevel(userLevel({ countProducts: userProducts }))
+    }
+    useEffect(() => {
+        user?.brand?._id && getUser()
+    }, [router, user])
 
-    {/* eslint-disable-line */}
+    {/* eslint-disable-line */ }
     useEffect(() => {
         getCategories()
     }, [])
@@ -36,6 +48,10 @@ const Header = ({ contentful }) => {
         if (e.key == "Enter" && searchValue.length > 0) {
             router.push(`/./${router?.locale}/search?text=${searchValue}`)
         }
+    }
+
+    const suscriberBtn = () => {
+        user?.brand?._id ? router?.push(`/./${router?.locale}/niveles`) : router?.push(`/./${router?.locale}/docs/subscriptions`)
     }
 
     return (
@@ -125,6 +141,13 @@ const Header = ({ contentful }) => {
                                 />
                             </Grid>
                             <Grid>
+                                <Grid.Container>
+                                    <Grid css={{ '@smMax': { display: 'none' } }}>
+                                        <Button onClick={suscriberBtn} className="levelHeader" size={'md'} color={'gradient'}>
+                                            {user?.brand?._id ? `Nivel ${level}` : 'Por $5499 ¡Suscribite a nivel 5!'} <Icon css={{ ml: 5, color: '$white' }} id={'rocket_launch'}/>
+                                        </Button>
+                                    </Grid>
+                                </Grid.Container>
                                 <Grid.Container gap={.5}>
                                     <Grid css={{ "@sm": { display: "none" } }}>
                                         <Button size={'sm'} auto css={{ bg: "$white", color: "$black" }} icon={<Icon id="search" />} onClick={() => openSearchBar(true)} />

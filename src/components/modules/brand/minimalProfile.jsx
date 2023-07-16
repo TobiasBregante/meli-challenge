@@ -6,6 +6,7 @@ import Router, { useRouter } from 'next/router'
 import { useUserContext } from '@/src/utils/user/provider';
 import { useEffect, useState } from 'react'
 import Link from '@/src/utils/hooks/link'
+import userLevel from "../user/level"
 
 const showUploadWidget = () => { 
     cloudinary.openUploadWidget({ 
@@ -63,10 +64,15 @@ const BrandProfileMinimal = ({ data, hideFullProfile }) => {
     const user = useUserContext()
     const [isAdmin, setIsAdmin] = useState(false)
     const router = useRouter()
+    const [level, setLevel] = useState(0)
 
     useEffect(() => {
         setIsAdmin(user?._id === data?.isOwnedBy) 
     }, [user, data])
+
+    useEffect(() => {
+        setLevel(userLevel({ countProducts: data?.products?.length }))
+    }, [router, data])
 
     const redirectToUpdateProfile = () => Router?.push(`/./${router?.locale}/brand/update/${data?._id}`)
     
@@ -107,17 +113,20 @@ const BrandProfileMinimal = ({ data, hideFullProfile }) => {
                 </Grid.Container>
                <Grid>
                 <Text h2>
-                        <span style={{
-                            color: '#000',
-                            fontSize: 14,
-                            letterSpacing: 1.4,
-                            padding: 9,
-                            borderRadius: 8,
-                            backgroundColor: 'rgba(255, 255, 255, .5)'
-                        }}>
-                            {data.brandName}
-                        </span>
-                    </Text>
+                    <span style={{
+                        color: '#000',
+                        fontSize: 14,
+                        letterSpacing: 1.4,
+                        padding: 9,
+                        borderRadius: 8,
+                        backgroundColor: 'rgba(255, 255, 255, .5)'
+                    }}>
+                        {data?.brandName}
+                    </span>
+                </Text>
+                <Button className="levelHeader" size={'sm'} color={'gradient'} onClick={() => router?.push(`/./${router?.locale}/niveles`)}>
+                    Nivel {level} <Icon css={{ ml: 5, color: '$white' }} id={'rocket_launch'}/>
+                </Button>
                </Grid>
                 {
                     (hideFullProfile == false || hideFullProfile == undefined) &&
