@@ -17,7 +17,7 @@ const BrandPage = ({ data }) => {
   }
 
   return (
-    <Page title={`${data.brandName} - SaladaApp`}>
+    <Page title={`${data?.brandName} - SaladaApp`}>
       <Container xl>
         <BrandProfileModule data={data} />
       </Container>

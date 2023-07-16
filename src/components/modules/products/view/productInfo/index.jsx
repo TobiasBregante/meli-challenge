@@ -97,10 +97,15 @@ const ProductInfo = ({ data }) => {
                         </Text>
                     </Grid>
                     <Grid xs={12}>
+                        <Button className="levelHeader" size={'xs'} color={'gradient'} onClick={() => router?.push(`/./${router?.locale}/niveles`)}>
+                            Suma puntos <Icon css={{ ml: 5, color: '$white' }} id={'rocket_launch'}/>
+                        </Button>
+                    </Grid>
+                    <Grid xs={12}>
                         <Button 
                             className='contactBtnProduct'
                             auto
-                            iconRight={<Icon id="/whatsappicon" color="$white" />}
+                            iconRight={<Icon id="/whatsappicon" color="$white"/>}
                             css={{ bg: "$whatsapp", w: "100%", mb: 10 }}
                             onPress={contact}>
                             CONTACTAR

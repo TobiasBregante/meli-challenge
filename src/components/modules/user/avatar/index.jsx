@@ -34,41 +34,38 @@ const UserAvatar = () => {
                         <Link href={`/`}>Inicio</Link>
                     </Dropdown.Item>
                     {
-                        user.isAdmin &&
+                        user?.isAdmin &&
                         <Dropdown.Item key="panel" withDivider icon={<Icon id="person" />}>
                             <Link href={"/admin"}>Panel</Link>
                         </Dropdown.Item>
                     }
                     {
-                        (user.isSeller && user.brand) &&
+                        (user?.isSeller && user?.brand) &&
                         <Dropdown.Item key="profile" withDivider icon={<Icon id="person" />}>
                             <Link href={`/brand/${user.brand._id}`}>Mi perfil</Link>
                         </Dropdown.Item>
                     }
                     {
-                        (user.isSeller && user.brand) &&
+                        (user?.isSeller && user?.brand) &&
                         <Dropdown.Item key="products" withDivider icon={<Icon id="dashboard" />}>
                             <Link href={`/user/products?brand=${user.brand._id}`}>Mis productos</Link>
                         </Dropdown.Item>
                     }
                     {
-                        (user.isSeller && user.brand) &&
+                        (user?.isSeller && user?.brand) &&
                         <Dropdown.Item key="addProduct" icon={<Icon id="dashboard" />}>
                             <Link href={`/user/products/add`}>Añadir producto</Link>
                         </Dropdown.Item>
                     }
                     {
-                        (user.isSeller && !user.brand) &&
+                        (user?.isSeller && !user?.brand) &&
                         <Dropdown.Item key="claimBrand" icon={<Icon id="dashboard" />}>
                             <Link href={`/user/claimBrand`}>Crear marca</Link>
                         </Dropdown.Item>
                     }
-                    {
-                        user.isSeller &&
-                        <Dropdown.Item key="subscriptions" withDivider icon={<Icon id="subscriptions" />}>
-                            <Link href={`/docs/subscriptions`}>Suscripción</Link>
-                        </Dropdown.Item>
-                    }
+                    <Dropdown.Item key="subscriptions" withDivider icon={<Icon id="subscriptions" />}>
+                        <Link href={`/docs/subscriptions`}>Suscripción</Link>
+                    </Dropdown.Item>
                     <Dropdown.Item key="support" withDivider icon={<Icon id="support_agent" />}>Servicio al cliente</Dropdown.Item>
                     <Dropdown.Item key="faq" icon={<Icon id="quiz" />}>
                         <Link href={`/docs/faq`}>Preguntas frecuentes</Link>
