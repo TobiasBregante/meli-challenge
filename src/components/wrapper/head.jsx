@@ -66,6 +66,7 @@ const Head = ({ title, description, image }) => {
                 <meta property="og:image" content={image} />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+                <meta name="viewport" content="width=device-width, user-scalable=no"/>
             </NextHead>
         </Fragment>
     )

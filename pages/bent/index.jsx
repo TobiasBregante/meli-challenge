@@ -20,6 +20,7 @@ const Bent = ({ allProducts, website }) => {
     
     useEffect(() => {
         handlerSetSortByFavorite()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [router, allProducts])
 
 
