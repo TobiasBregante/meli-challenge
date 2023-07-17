@@ -26,10 +26,6 @@ const BentHeader = ({ bent }) => {
         }
     }
 
-    useEffect(() => {
-        console.log(user)
-    }, [user])
-
     return (
         <Fragment>
             <Grid.Container className="headerBottomContain" css={{ '@smMin': { display: bent ? '' : 'none' } }}>
