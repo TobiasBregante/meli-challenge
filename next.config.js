@@ -30,6 +30,19 @@ module.exports = {
   //     },
   //   ]
   // },
+  async headers() {
+    return [
+      {
+        source: '/',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: 'https://saladaapp.com.ar https://saladaapp.com https://www.saladaapp.com.ar https://www.saladaapp.com'
+          }
+        ]
+      }
+    ];
+  },
   reactStrictMode: true, //Will run twice useEffect, with that been said, userProvider is going to request twice user/me
   eslint: {
     ignoreDuringBuilds: true,

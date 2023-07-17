@@ -1,8 +1,7 @@
 import Image from "next/legacy/image"
-import currency from 'currency.js'
-import { Card, Grid } from '@nextui-org/react'
+import { Avatar, Card, Grid, Text } from '@nextui-org/react'
 import SaveBookmark from "../saveBookmark"
-import { Fragment, useEffect, useState } from "react"
+import { Fragment, useState } from "react"
 import ProductComments from "../view/comments"
 import Icon from "@/src/components/ui/icons"
 import { useRouter } from "next/router"
@@ -24,39 +23,6 @@ const BentCard = ({ data, className }) => {
         return null
     }
 
-    const lowestPriceSelect = () => {
-        const {
-            minPerCurve,
-            minPerDozen,
-            minPerQuantity,
-            minPerTask,
-            minPerWholesale,
-            perCurve,
-            perDozen,
-            perQuantity,
-            perTask,
-            retail,
-            wholesale
-        } = data?.prices
-        
-        let prices = [
-            retail
-            || minPerCurve
-            || minPerDozen
-            || minPerQuantity
-            || minPerTask
-            || minPerWholesale
-            || perCurve
-            || perDozen
-            || perQuantity
-            || perTask
-            || wholesale
-        ]
-        prices = prices.filter(price => price != 0 && price != undefined)
-        
-        return currency(Math.min(...prices), { decimal: ",", separator: "." }).format()
-    }
-
     const goToProduct = () => router?.push(`/${router?.locale}/product/${data?._id}`)
 
     return (
@@ -71,7 +37,7 @@ const BentCard = ({ data, className }) => {
                     src={data?.imgs[0]}
                     alt={data?.title}
                     layout='fill'
-                    objectFit='cover'
+                    objectFit='contain'
                 />
             </div>
             {openComments && (
@@ -91,6 +57,14 @@ const BentCard = ({ data, className }) => {
                     <Icon id={'bolt'} className='bentIconComment bentBoltBtn'/>
                 </button>
             </Grid>
+            <Grid.Container className="bentBrandInfoFooter">
+                <Avatar className="brandAvatar" size={'md'} src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${data?.brand?.imgs?.principal || 'uO3wK0EqPoTvyU41rnxLTbuBYjy-k9bY'}`} />
+                <Grid xs={8.92} className="bentCardDescription">
+                    <Text size={12} color={'$white'}>
+                        {data?.description?.slice(0, 85)}...
+                    </Text>
+                </Grid>
+            </Grid.Container>
         </Card>
     )
 }
