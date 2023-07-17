@@ -33,6 +33,9 @@ const UserAvatar = () => {
                     <Dropdown.Item key="home" icon={<Icon id="home" />}>
                         <Link href={`/`}>Inicio</Link>
                     </Dropdown.Item>
+                    <Dropdown.Item key="bent">
+                        <Link href={`/bent`}>Bent</Link>
+                    </Dropdown.Item>
                     {
                         user?.isAdmin &&
                         <Dropdown.Item key="panel" withDivider icon={<Icon id="person" />}>

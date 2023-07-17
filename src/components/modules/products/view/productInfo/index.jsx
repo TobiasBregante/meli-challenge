@@ -63,7 +63,6 @@ const ProductInfo = ({ data }) => {
         } else {
             router?.push(`/./${router?.locale}/user/auth/signup`)
         }
-
     }
 
     return (
