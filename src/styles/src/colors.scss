@@ -237,6 +237,7 @@ html, body{
     background-color: #f2f2f2; 
 }
 .container-bent {
+    overflow-y: hidden !important;
     padding: 0;
 }
 .bentCard {
@@ -272,7 +273,7 @@ html, body{
         .bentBrandInfoFooter {
             // background-color: red !important;
             width: 100vw !important;
-            height: 20vh !important;
+            height: 26vh !important;
             text-align: left;
             display: flex;
             margin: auto;
@@ -338,7 +339,7 @@ html, body{
     }
     .bentComments {
         position: absolute !important;
-        height: 90vh !important;
+        height: 80vh !important;
         width: 100vw !important;
         z-index: 9999 !important;
         margin-bottom: 0 !important;
@@ -373,7 +374,7 @@ html, body{
         position: absolute;
         z-index: 9999;
         margin: auto;
-        margin-top: 8vh;
+        margin-top: 18vh;
         border: 0;
         width: 15vw;
         right: 0;
@@ -384,7 +385,7 @@ html, body{
         background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .6));
         text-align: left;
         width: 45vw;
-        height: 20vh;
+        height: 26vh;
         display: flex;
         margin: auto;
         margin-left: 27.5vw;
@@ -405,6 +406,56 @@ html, body{
             border-color: $white;
             color: $white;
         }
+    }
+}
+.btnNavbarListBottom {
+    background: transparent;
+    border-radius: 50px;
+    position: fixed;
+    cursor: pointer;
+    z-index: 99999;
+    border: none;
+    height: 50px;
+    width: 50px;
+    margin: auto;
+    right: 0;
+    top: 0;
+    span {
+        color: $white;
+    }
+}
+.navbarListBottom {
+    @media (max-width: $isMobile) {
+        width: 60vw;    
+    }
+    background-color: $primary;
+    padding: 100px 0;
+    margin-bottom: 8vh;
+    position: fixed;
+    z-index: 9999;
+    height: 100vh;
+    width: 25vw;
+    bottom: 0;
+    right: 0;
+    button {
+        width: 95%;
+        background: transparent;
+        color: $white;
+        margin: 1% auto;
+
+    }
+    a {
+        position: absolute;
+        color: $white;
+        height: 100%;
+        width: 100%;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        top: 0;
+    }
+    span {
+        color: $white;
     }
 }
 .bentHeaderContainer{
@@ -447,12 +498,14 @@ html, body{
 }
 .bentHeaderToBent {
     border: 2px solid $white !important;
-    margin: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 5px;
     padding: 0 !important;
     color: $white !important;
     background: transparent;
-    width: 30px !important;
-    height: 30px !important;
+    width: 28px !important;
+    height: 28px !important;
     border-radius: 10px;
     cursor: pointer;
     font-size: 14px;
@@ -461,9 +514,11 @@ html, body{
     background: transparent;
     cursor: pointer;
     border: none;
-    margin: auto !important;
-    width: 50px !important;
-    height: 50px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 5px;
+    width: 20px !important;
+    height: 20px !important;
     z-index: 999 !important;
     border-radius: 50%;
 }
@@ -473,13 +528,14 @@ html, body{
     position: relative;
     border: none;
     margin: auto !important;
-    width: 50px !important;
-    height: 50px !important;
+    margin-top: 0% !important;
+    width: 40px !important;
+    height: 40px !important;
     span {
         position: absolute;
         bottom: 0;
-        width: 50%;
-        height: 50%;
+        width: 40px;
+        height: 26px;
         right: 0;
         left: 0;
         top: 0;

@@ -12,10 +12,11 @@ import { Grid, Text } from '@nextui-org/react';
 
 const BentSwiper = ({ data }) => {
     const [swipeUp, setSwipeUp] = useState(0)
-    const currentSeconds = 0
+    // const [lastDate, setLastDate] = useState(new Date())
 
     useEffect(() => {
         setSwipeUp(0)
+        // setLastDate(new Date())
     }, [data])
 
     useEffect(() => {
@@ -31,9 +32,9 @@ const BentSwiper = ({ data }) => {
             </Grid.Container>
             <Swiper
                 direction={'vertical'}
-                onSlideChange={() => {
+                // onSlideChange={() => {
                     
-                }}
+                // }}
             >
                 {
                     data?.length > 0 && data?.map((obj, i) => (
