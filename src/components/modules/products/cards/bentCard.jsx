@@ -17,6 +17,8 @@ const BentCard = ({ data, className }) => {
         setDoubleTap(!doubleTap)
     }
 
+    const goToBrand = () => router?.push(`/${router?.locale}/brand/${data?.brand?._id}`)
+
     const handlerComments = () => setOpenComments(!openComments)
 
     if(!data) {
@@ -58,8 +60,20 @@ const BentCard = ({ data, className }) => {
                 </button>
             </Grid>
             <Grid.Container className="bentBrandInfoFooter">
-                <Avatar className="brandAvatar" size={'md'} src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${data?.brand?.imgs?.principal || 'uO3wK0EqPoTvyU41rnxLTbuBYjy-k9bY'}`} />
-                <Grid xs={8.92} className="bentCardDescription">
+                <Grid xs={1.3}>
+                    <Avatar 
+                        onClick={goToBrand}
+                        className="brandAvatar" 
+                        size={'md'} 
+                        src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${data?.brand?.imgs?.principal || 'uO3wK0EqPoTvyU41rnxLTbuBYjy-k9bY'}`} 
+                    />
+                </Grid>
+                <Grid xs={7} className="bentCardDescription">
+                    <Text size={12} color={'$white'} css={{ fontWeight: 600 }}>
+                        {data?.brand?.brandName?.slice(0, 30)}
+                    </Text>
+                </Grid>
+                <Grid xs={10} className="bentCardDescription">
                     <Text size={12} color={'$white'}>
                         {data?.description?.slice(0, 85)}...
                     </Text>
