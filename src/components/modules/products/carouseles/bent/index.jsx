@@ -31,6 +31,7 @@ const BentSwiper = ({ data }) => {
                 </Text>
             </Grid.Container>
             <Swiper
+                loop={true}
                 direction={'vertical'}
                 // onSlideChange={() => {
                     
