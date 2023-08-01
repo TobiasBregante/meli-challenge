@@ -1,3 +1,5 @@
+const destinationHost = "https://www.saladaapp.com.ar"
+
 const domains = {
   argentina: "ar",
   brasil: "br",
@@ -30,6 +32,29 @@ module.exports = {
   //     },
   //   ]
   // },
+  async rewrites() {
+    return [
+      // All routes from the LP
+      {
+        source: "/:path*",
+        destination: "/:path*",
+      },
+
+      // Static files of the App
+      {
+        source: "/favicon.ico",
+        destination: `${destinationHost}/favicon.ico`,
+      },
+      {
+        source: "/static/:path*",
+        destination: `${destinationHost}/static/:path*`,
+      },
+      {
+        source: "/fonts/:path*",
+        destination: `${destinationHost}/fonts/:path*`,
+      },
+    ]
+  },
   async headers() {
     return [
       {
