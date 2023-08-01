@@ -7,33 +7,37 @@ import Get from '@/src/utils/hooks/get'
 import ShouldLogin from '@/src/components/modules/user/errors/shouldLogin'
 import { useUserContext } from '@/src/utils/user/provider'
 
-const SearchByBrandsPage = ({ data }) => {
+const SearchByBrandsComponent = ({ data }) => {
     const [state, setState] = useState(data)
     const user = useUserContext()
 
     if (!user) {
         return (
-            <Page>
-                <Container xl css={{ mb: "$10" }}>
-                    <ShouldLogin />
-                </Container>
-            </Page>
+            <Container xl css={{ mb: "$10" }}>
+                <ShouldLogin />
+            </Container>
         )
     }
 
     return (
-        <Page>
-            <Container xl css={{ mb: "$10" }}>
-                <Grid.Container gap={2}>
-                    <Grid xs={12} md={3} >
-                        <SideBar selected="brand" />
-                    </Grid>
-                    <Grid xs={12} md={9}>
-                        <SearchBrandModule data={data} state={state} setState={setState} />
-                    </Grid>
-                </Grid.Container>
+        <Container xl css={{ mb: "$10" }}>
+            <Grid.Container gap={2}>
+                <Grid xs={12} md={3} >
+                    <SideBar selected="brand" />
+                </Grid>
+                <Grid xs={12} md={9}>
+                    <SearchBrandModule data={data} state={state} setState={setState} />
+                </Grid>
+            </Grid.Container>
 
-            </Container>
+        </Container>
+    )
+}
+
+const SearchByBrandsPage = ({ data }) => {
+    return (
+        <Page>
+            <SearchByBrandsComponent data={data}/>
         </Page>
     )
 }
