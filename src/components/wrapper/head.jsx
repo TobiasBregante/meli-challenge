@@ -64,6 +64,9 @@ const Head = ({ title, description, image }) => {
                 <meta property="og:title" content={title} />
                 <meta property="og:description" content={description} />
                 <meta property="og:image" content={image} />
+                <link rel="icon" href="/favicon.ico" sizes="32x32" />
+                <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+                <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
                 <meta name="viewport" content="width=device-width, user-scalable=no"/>
@@ -74,8 +77,10 @@ const Head = ({ title, description, image }) => {
 
 Head.defaultProps = {
     title: "SaladaApp",
-    description: "Comprá directo a fabricante y mayoristas de la Salada en un solo Click sin intermediarios ni comisiones",
-    image: "/logo2.png"
+    description: `Comprá directo a fabricante y mayoristas de la Salada en un solo Click sin intermediarios ni comisiones.
+    QUIVINCHA, COLORES, FELIPE, 27 DE MAYO, GAL. AMALIA, TILKARA, GAL. VALENCIA, MARÍA CONCEPCIÓN, GAL. MILAGROS, GAL. SAN JORGE, FACTORY, IMPERIO, El TRÉBOL, LA UNIÓN, JR, TRINIDAD, ARCO IRIS, EL ÁRBOL, ANGIE, COTY, SAN CAYETANO, JJ VALLE 3062, LA ARAÑITA, VIRGILIO, LOS KOREANOS, PUNTA MOGOTE, OCEAN, URKUPIÑA, ATLANTIDA
+    `,
+    image: "/saladaAppBrandPreview.png"
 }
 
 export default Head
