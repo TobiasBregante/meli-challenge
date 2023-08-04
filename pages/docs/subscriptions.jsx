@@ -2,7 +2,7 @@ import { Button, Card, Container, Grid, Text } from '@nextui-org/react'
 import Page from '@Page'
 import { Fragment } from 'react'
 
-const CardPlan = ({ title, children, className }) => {
+const CardPlan = ({ title, children, className, linkPlan }) => {
     return (
         <Fragment>
         <Grid xs={12} md={3}>
@@ -17,7 +17,7 @@ const CardPlan = ({ title, children, className }) => {
                 <Card.Body className='cardBodyPlan'>
                     {children}
                     <Button color={'gradient'} size='lg' onPress={() => {
-                        window.open(`https://api.whatsapp.com/send?text=Hola quiero contratar el plan ${title}&phone=5491124767008`)
+                        window.open(linkPlan)
                     }}>
                         Contactar por plan {title}
                     </Button>
@@ -33,7 +33,7 @@ const Subscriptions = () => {
         <Page>
             <Container xl className='suscriptionContainer'>
                 <Grid.Container gap={2} justify="center">
-                    <CardPlan title={'Nivel 1'}>
+                    <CardPlan title={'Nivel 1'} linkPlan={'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c9380848924fbc5018926c05eee007e'}>
                         <ul>
                             <li>
                                 <Text>Publicar productos</Text>
@@ -48,7 +48,7 @@ const Subscriptions = () => {
                             </li>
                         </ul>
                     </CardPlan>
-                    <CardPlan title={'Nivel 2'}  className='planRemarked'>
+                    <CardPlan title={'Nivel 2'} className='planRemarked' linkPlan={'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c93808489c053560189c2cb971a0131'}>
                         <ul>
                             <li>
                                 <Text>Publicar productos</Text>
@@ -71,7 +71,7 @@ const Subscriptions = () => {
                             </li>
                         </ul>
                     </CardPlan>
-                    <CardPlan title={'Nivel 3'}>
+                    <CardPlan title={'Nivel 3'} linkPlan={'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c93808489c053560189c2cf1b8e0134'}>
                         <ul>
                             <li>
                                 <Text>Publicar productos</Text>
@@ -97,7 +97,7 @@ const Subscriptions = () => {
                             </li>
                         </ul>
                     </CardPlan>
-                    <CardPlan title={'Nivel 4'}>
+                    <CardPlan title={'Nivel 4'} linkPlan={'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=2c93808489b645790189c2d03e560453'}>
                         <ul>
                             <li>
                                 <Text>Publicar productos</Text>
