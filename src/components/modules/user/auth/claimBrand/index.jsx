@@ -73,6 +73,12 @@ const ClaimPositionModule = ({ website }) => {
             <ShouldLogin />
         )
     }
+
+    if(!user?.status?.isPremiun) {
+        router?.push(`/./${router?.locale}/docs/subscriptions`)
+        return null
+    }
+
     if (!user.isSeller) {
         return (
             <ShouldBeSeller />
