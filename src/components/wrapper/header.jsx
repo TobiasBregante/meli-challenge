@@ -144,7 +144,7 @@ const Header = ({ contentful }) => {
                                 <Grid.Container>
                                     <Grid css={{ '@smMax': { display: 'none' } }}>
                                         <Button onClick={suscriberBtn} className="levelHeader" size={'md'} color={'gradient'}>
-                                            {user?.brand?._id ? `Nivel ${level}` : 'Por $5499 ¡Suscribite a nivel 5!'} <Icon css={{ ml: 5, color: '$white' }} id={'rocket_launch'}/>
+                                            {user?.brand?._id ? `Nivel ${level}` : 'Por $5499 ¡Suscribite a nivel 1!'} <Icon css={{ ml: 5, color: '$white' }} id={'rocket_launch'}/>
                                         </Button>
                                     </Grid>
                                 </Grid.Container>
