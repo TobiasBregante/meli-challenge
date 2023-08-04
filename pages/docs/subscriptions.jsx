@@ -33,13 +33,10 @@ const Subscriptions = () => {
         <Page>
             <Container xl className='suscriptionContainer'>
                 <Grid.Container gap={2} justify="center">
-                    <CardPlan title={'Esencial'}>
+                    <CardPlan title={'Nivel 1'}>
                         <ul>
                             <li>
-                                <Text>Publicar hasta 5 Productos</Text>
-                            </li>
-                            <li>
-                                <Text>Hasta 5 imágenes por Producto</Text>
+                                <Text>Publicar productos</Text>
                             </li>
                             <li>
                                 <Text>
@@ -51,19 +48,16 @@ const Subscriptions = () => {
                             </li>
                         </ul>
                     </CardPlan>
-                    <CardPlan title={'Premium'}  className='planRemarked'>
+                    <CardPlan title={'Nivel 2'}  className='planRemarked'>
                         <ul>
                             <li>
-                                <Text>Publicar hasta 10 Productos</Text>
-                            </li>
-                            <li>
-                                <Text>Hasta 10 imágenes por Producto</Text>
+                                <Text>Publicar productos</Text>
                             </li>
                             <li>
                                 <Text>Aparición en primeros 10 resultados de búsquedas</Text>
                             </li>
                             <li>
-                                <Text>Insignia Silver</Text>
+                                <Text>Insignia Nivel 2</Text>
                             </li>
                             <li>
                                 <Text>
@@ -77,13 +71,10 @@ const Subscriptions = () => {
                             </li>
                         </ul>
                     </CardPlan>
-                    <CardPlan title={'Deluxe'}>
+                    <CardPlan title={'Nivel 3'}>
                         <ul>
                             <li>
-                                <Text>Publicar más de 10 Productos</Text>
-                            </li>
-                            <li>
-                                <Text>Hasta 10 imágenes por Producto</Text>
+                                <Text>Publicar productos</Text>
                             </li>
                             <li>
                                 <Text>Aparición en primeros 10 resultados de búsquedas</Text>
@@ -92,7 +83,7 @@ const Subscriptions = () => {
                                 <Text>Posicionamiento exclusivo</Text>
                             </li>
                             <li>
-                                <Text>Insignia Gold</Text>
+                                <Text>Insignia Nivel 3</Text>
                             </li>
                             <li>
                                 <Text>
@@ -106,13 +97,10 @@ const Subscriptions = () => {
                             </li>
                         </ul>
                     </CardPlan>
-                    <CardPlan title={'Platinum'}>
+                    <CardPlan title={'Nivel 4'}>
                         <ul>
                             <li>
-                                <Text>Publicar más de 10 Productos</Text>
-                            </li>
-                            <li>
-                                <Text>Hasta 10 imágenes por Producto</Text>
+                                <Text>Publicar productos</Text>
                             </li>
                             <li>
                                 <Text>Aparición en primeros 10 resultados de búsquedas</Text>
@@ -121,7 +109,7 @@ const Subscriptions = () => {
                                 <Text>Posicionamiento exclusivo</Text>
                             </li>
                             <li>
-                                <Text>Insignia Gold</Text>
+                                <Text>Insignia Nivel 4</Text>
                             </li>
                             <li>
                                 <Text>
