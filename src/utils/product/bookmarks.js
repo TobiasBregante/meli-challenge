@@ -3,7 +3,7 @@ import SetItem from "../localStorage/setItem"
  
 const Bookmarks = (_id, clicked) => {
     let likesList = typeof GetItem('bookmarks')?.bookmarks === 'undefined' ? [] : GetItem('bookmarks')?.bookmarks
-    if (_id, clicked) {
+    if (_id && clicked) {
         if (likesList?.some(storage => storage === _id)) {
             const index = likesList?.indexOf(_id)
     

@@ -1,6 +1,6 @@
 import { Card, Text, Grid } from "@nextui-org/react";
 import { useRouter } from "next/router";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 
 const Footer = () => {
     const categories = [
@@ -14,7 +14,7 @@ const Footer = () => {
         { name: 'Autos', url: "/category/Accesorios para Autos" },
     ]
     const router = useRouter()
-
+    
     return (
         <Fragment>
             <Card variant="flat" css={{ borderRadius: 0, bg: "$primary" }} className='footer'>
