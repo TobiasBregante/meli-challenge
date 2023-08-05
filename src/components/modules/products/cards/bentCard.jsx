@@ -12,6 +12,8 @@ const BentCard = ({ data, className }) => {
     const [openComments, setOpenComments] = useState(false)
     const router = useRouter()
 
+    const getRandomImg = max => Math.floor(Math.random() * max);
+
     const handlerLike = _id => {
         Bookmarks(_id, true)
         setDoubleTap(!doubleTap)
@@ -36,7 +38,7 @@ const BentCard = ({ data, className }) => {
            <div className='bentImageCard'>
                 <Image
                     style={{ display: 'block', margin: 'auto' }}
-                    src={data?.imgs[0]}
+                    src={data?.imgs[getRandomImg(data?.imgs?.length)]}
                     alt={data?.title}
                     layout='fill'
                     objectFit='contain'
