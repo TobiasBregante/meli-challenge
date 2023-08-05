@@ -8,6 +8,8 @@ const ProductCard = ({ data, className }) => {
         return null
     }
 
+    const getRandomImg = max => Math.floor(Math.random() * max);
+
     const lowestPriceSelect = () => {
         const {
             minPerCurve,
@@ -49,8 +51,8 @@ const ProductCard = ({ data, className }) => {
                         <div className='productImageCard'>
                             <Image
                                 style={{ display: 'block', margin: 'auto' }}
-                                src={data.imgs[0]}
-                                alt={data.title}
+                                src={data?.imgs[getRandomImg(data?.imgs?.length)]}
+                                alt={data?.title}
                                 layout='fill'
                                 objectFit='cover'
                             />
