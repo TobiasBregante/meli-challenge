@@ -63,7 +63,6 @@ const ClaimPositionModule = ({ website }) => {
     }
 
     useEffect(() => {
-        console.log(user)
         if (user) {
             handleImgs()
         }
