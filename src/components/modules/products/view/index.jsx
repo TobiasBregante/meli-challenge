@@ -8,13 +8,22 @@ import ProductReviews from './review';
 import ProductDescription from './description';
 import ProductTimeStamp from './timestamp';
 import jsCookie from 'js-cookie'
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
+import ViewedProducts from '@/src/utils/product/viewedProducts';
+import { useRouter } from 'next/router';
 
 const ProductModule = ({ data, relateds, brandProducts }) => {
+    const router = useRouter()
+    
+    useEffect(() => { 
+        data && ViewedProducts(data, true)
+    }, [data, router])
+
     if(!data) {
         return null
     }
     
+
     return (
         <Fragment>
             <Grid.Container direction="column">

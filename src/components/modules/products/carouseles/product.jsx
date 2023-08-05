@@ -23,16 +23,6 @@ const CarouselTitle = ({ title, link, bent }) => {
               <u>Ver más</u>
             </Text>
           </Link>
-          <Icon id="chevron_right" css={{ pt: 10 }} color="primary" />
-            {
-              bent && <Link href={`/bent`}>
-                <Text css={{ pt: 6, ml: 10, fontWeight: 600 }} color="primary">
-                  <Badge enableShadow disableOutline color="success" css={{ ml: 5 }}>
-                    <u>Probar Bent</u>
-                  </Badge>
-                </Text>
-              </Link>
-            }
         </Fragment>
       }
     </Grid.Container>
