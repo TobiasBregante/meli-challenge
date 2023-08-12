@@ -7,8 +7,9 @@ import Icon from '@/ui/icons';
 import { Badge, Grid, Text } from '@nextui-org/react';
 import { Fragment, useEffect, useState } from 'react';
 import Link from '@/src/utils/hooks/link';
+import BannerSuscriber from '@/src/components/bannerSuscriber';
 
-const CarouselTitle = ({ title, link, bent }) => {
+const CarouselTitle = ({ title, link }) => {
 
   return (
     <Grid.Container css={{ mt: 10 }}>
@@ -43,6 +44,7 @@ const ProductCarousel = ({ title, data, link, categoryHidde, bent }) => {
   } else {
     return (
       <div className='carousell-product'>
+        <BannerSuscriber/>
         <CarouselTitle title={title} link={link} bent={bent}/>
         <Swiper
           spaceBetween={10}

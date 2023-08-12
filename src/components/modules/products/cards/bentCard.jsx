@@ -38,7 +38,7 @@ const BentCard = ({ data, className }) => {
            <div className='bentImageCard'>
                 <Image
                     style={{ display: 'block', margin: 'auto' }}
-                    src={data?.imgs[getRandomImg(data?.imgs?.length)]}
+                    src={data?.imgs[getRandomImg(data?.imgs?.length - 1)]}
                     alt={data?.title}
                     layout='fill'
                     objectFit='contain'

@@ -82,7 +82,7 @@ const BrandProfileMinimal = ({ data, hideFullProfile }) => {
                 {
                     isAdmin && (
                         <Grid.Container>
-                            <Button className='btnProfileEdit' size={'xs'} color='default' onClick={redirectToUpdateProfile}
+                            <Button className='btnProfileEdit wppBtn' size={'xs'} color='default' onClick={redirectToUpdateProfile}
                                 icon={
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -131,7 +131,7 @@ const BrandProfileMinimal = ({ data, hideFullProfile }) => {
                 {
                     (hideFullProfile == false || hideFullProfile == undefined) &&
                     <Link href={`/brand/${data._id}`}>
-                        <Button color="secondary" auto icon={<Icon id="open_in_new" color="white" />} css={{ mb: 10 }}>
+                        <Button shadow className='wppBtn' auto icon={<Icon id="open_in_new" color="white" />} css={{ mb: 10 }}>
                             Catálogo
                         </Button>
                     </Link>
