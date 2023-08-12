@@ -45,37 +45,35 @@ const ProductCard = ({ data, className }) => {
 
     return (
         <Card variant="flat" css={{ bg: "$white", }} isHoverable className={`productCard ${className}`}>
-            <Link href={`/product/${data._id}`}>
-                <a className='productCardLink'>
-                    <div className='containProductImageCard'>
-                        <div className='productImageCard'>
-                            <Image
-                                style={{ display: 'block', margin: 'auto' }}
-                                src={data?.imgs[getRandomImg(data?.imgs?.length)]}
-                                alt={data?.title}
-                                layout='fill'
-                                objectFit='cover'
-                            />
-                        </div>
+            <Link href={`/product/${data._id}`} className='productCardLink'>
+                <div className='containProductImageCard'>
+                    <div className='productImageCard'>
+                        <Image
+                            style={{ display: 'block', margin: 'auto' }}
+                            src={data?.imgs[getRandomImg(data?.imgs?.length - 1)]}
+                            alt={data?.title}
+                            layout='fill'
+                            objectFit='cover'
+                        />
                     </div>
-                    <Card.Body css={{ pb: 0, overflow: "hidden" }} className='productInfo'>
-                        <Text>
-                            <p>
-                                {data?.title?.length > 95 ? `${data?.title?.slice(0, 95)}...` : data?.title}
-                            </p>
-                        </Text>
-                        <Text>
-                            <p className='priceNormal'>
-                                {lowestPriceSelect()}
-                            </p>
-                        </Text>
-                        <Text>
-                            <p className='stock'>
-                                {data?.stock > 0 ? `${data?.stock} unidades` : 'Consultar disponibilidad'}
-                            </p>
-                        </Text>
-                    </Card.Body>
-                </a>
+                </div>
+                <Card.Body css={{ pb: 0, overflow: "hidden" }} className='productInfo'>
+                    <Text>
+                        <p>
+                            {data?.title?.length > 95 ? `${data?.title?.slice(0, 95)}...` : data?.title}
+                        </p>
+                    </Text>
+                    <Text>
+                        <p className='priceNormal'>
+                            {lowestPriceSelect()}
+                        </p>
+                    </Text>
+                    <Text>
+                        <p className='stock'>
+                            {data?.stock > 0 ? `${data?.stock} unidades` : 'Consultar disponibilidad'}
+                        </p>
+                    </Text>
+                </Card.Body>
             </Link>
         </Card>
     )

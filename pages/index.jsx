@@ -1,7 +1,7 @@
 import Page from '@Page'
 import ProductCarousel from '@/src/components/modules/products/carouseles/product'
 import HighLightCarousel from '@/src/components/modules/products/carouseles/highlight'
-import { Container, Grid } from '@nextui-org/react'
+import { Badge, Button, Card, Container, Grid, Text } from '@nextui-org/react'
 import BrandCarousel from '@/src/components/modules/brand/carouseles/brands'
 import AdsModals from '@/src/components/modules/products/ads/modals'
 import Get from '@/utils/hooks/get'
@@ -35,17 +35,17 @@ const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Ropa
       <Container xl css={{ mb: "$10", ml: 0, mr: 0 }} className='container-fluid'>
         {/* <AdsModals img={website?.popup?.img} link={website?.popup?.link}/> */}
         <HighLightCarousel data={website.highlights} />
-        <ProductCarousel title="Reciente" bent={true} data={viewed} />
-        <ProductCarousel title="Tendencia" bent={true} data={popularProducts} link="/category/popular" />
-        <ProductCarousel title="Entretenimiento" bent={true} data={Jugueteria} link="/category/Juguetería" />
-        <ProductCarousel title="Calzado" bent={true} data={Calzado} link="/category/Calzado" />
-        <ProductCarousel title="Indumentaria" bent={true} data={RopaInformal} link="/category/Ropa Informal" />
-        <ProductCarousel title="Electrónica" bent={true} data={Electronica} link="/category/Electrónica" />
+        <ProductCarousel title="Reciente" data={viewed} />
+        <ProductCarousel title="Tendencia" data={popularProducts} link="/category/popular" />
+        <ProductCarousel title="Entretenimiento" data={Jugueteria} link="/category/Juguetería" />
+        <ProductCarousel title="Calzado" data={Calzado} link="/category/Calzado" />
+        <ProductCarousel title="Indumentaria" data={RopaInformal} link="/category/Ropa Informal" />
+        <ProductCarousel title="Electrónica" data={Electronica} link="/category/Electrónica" />
         <BrandCarousel title="Marcas en tendencia" data={popularBrands} />
-        <ProductCarousel title={`Joyas & Accesorios`} bent={true} data={JoyasAccesorios} link="/category/Joyas y Accesorios" />
-        <ProductCarousel title="Mascotas" bent={true} data={Mascotas} link="/category/Accesorios para Mascotas" />
-        <ProductCarousel title="Celulares" bent={true} data={Celulares} link="/category/Accesorios para Celulares" />
-        <ProductCarousel title="Autos" bent={true} data={Autos} link="/category/Accesorios para Autos" />
+        <ProductCarousel title={`Joyas & Accesorios`} data={JoyasAccesorios} link="/category/Joyas y Accesorios" />
+        <ProductCarousel title="Mascotas" data={Mascotas} link="/category/Accesorios para Mascotas" />
+        <ProductCarousel title="Celulares" data={Celulares} link="/category/Accesorios para Celulares" />
+        <ProductCarousel title="Autos" data={Autos} link="/category/Accesorios para Autos" />
       </Container>
     </Page>
   )

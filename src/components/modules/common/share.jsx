@@ -27,6 +27,7 @@ const Share = ({ link }) => {
                 icon={
                     <Icon id="share" color='secondary' />
                 } 
+                shadow
                 color='' 
                 auto 
                 onClick={() => setState(true)}>

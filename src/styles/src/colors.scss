@@ -18,6 +18,12 @@ $white: #FFFFFF;
 $line: #D9D9D9;
 $background4: #EAEAEA;
 
+.wppBtn {
+    background: #11998e;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #38ef7d, #11998e);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #38ef7d, #11998e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
 html, body{
     background-color: #f4f4f4 !important;
 }
@@ -659,6 +665,9 @@ html, body{
     top: 0;
 }
 .contactBtnProduct {
+    background: #11998e;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #38ef7d, #11998e);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #38ef7d, #11998e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
     @media (min-width: $isMobile) {
         width: 15vw;
     }
@@ -936,4 +945,169 @@ background: linear-gradient(to left, #49a09d, #5f2c82); /* W3C, IE 10+/ Edge, Fi
 }
 .levelHeader {
     font-weight: 900;
+}
+.banner-suscriber-ads {
+    * {
+        overflow:unset
+    }
+    h2 {
+        text-align: center;
+        font-size: 1rem;  
+        color: $white;
+        margin: 0;
+    }
+    .badgePrice {
+        span {
+            font-size: 1.2rem;
+            border: 0;
+        }
+    }
+    .circle {
+        background: #A1FFCE;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to top, #FAFFD1, #A1FFCE);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to top, #FAFFD1, #A1FFCE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
+        animation: rotacion 4s infinite linear;
+        position: absolute;
+        border-radius: 50%;
+        height: 210px;
+        width: 220px;
+        margin: -80px -50px 0 0;
+        z-index: -1;
+        right: 0;
+        top: 0;
+    }
+    .circle-2 {
+        background: #83a4d4;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to top, #b6fbff, #83a4d4);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to top, #b6fbff, #83a4d4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
+        animation: rotacion 4s infinite linear;
+        position: absolute;
+        border-radius: 50%;
+        height: 170px;
+        width: 180px;
+        margin: 0 0 -80px -50px;
+        z-index: -1;
+        bottom: 0;
+        left: 0;
+    }
+    @keyframes rotacion {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    cursor: pointer;
+    margin-top: 1vh;
+}
+.adsBg0 {
+    background: #ec008c;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #fc6767, #ec008c);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #fc6767, #ec008c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    .badgePrice {
+        span {
+            background: #ec008c;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to left, #fc6767, #ec008c);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to left, #fc6767, #ec008c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */            
+        }
+    }    
+}
+.adsBg1 {
+    background: #8E2DE2;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #4A00E0, #8E2DE2);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #4A00E0, #8E2DE2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    .badgePrice {
+        span {
+            background: #8E2DE2;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to left, #4A00E0, #8E2DE2);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to left, #4A00E0, #8E2DE2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+    }
+}
+.adsBg2 {
+    background: #00c3ff;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #ffff1c, #00c3ff);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #ffff1c, #00c3ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    .badgePrice {
+        span {
+            background: #00c3ff;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to left, #ffff1c, #00c3ff);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to left, #ffff1c, #00c3ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+    }
+}
+.adsBg3 {
+    background: #FF5F6D;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFC371, #FF5F6D);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFC371, #FF5F6D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    .badgePrice {
+        span {
+            background: #FF5F6D;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to left, #FFC371, #FF5F6D);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to left, #FFC371, #FF5F6D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */            
+        }
+    }
+}
+.adsBg4 {
+    background: #00B4DB;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
+    .badgePrice {
+        span {
+            background: #00B4DB;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to left, #0083B0, #00B4DB);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to left, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+    }
+}
+.adsBg5 {
+    background: #77A1D3;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #E684AE, #79CBCA, #77A1D3);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #E684AE, #79CBCA, #77A1D3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
+    .badgePrice {
+        span {
+            background: #77A1D3;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to left, #E684AE, #79CBCA, #77A1D3);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to left, #E684AE, #79CBCA, #77A1D3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+    }
+}
+.adsBg6 {
+    background: #ef32d9;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #89fffd, #ef32d9);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #89fffd, #ef32d9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
+    .badgePrice {
+        span {
+            background: #ef32d9;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to left, #89fffd, #ef32d9);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to left, #89fffd, #ef32d9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */                        
+        }
+    }
+}
+.adsBg7 {
+    background: #833ab4;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #fcb045, #fd1d1d, #833ab4);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #fcb045, #fd1d1d, #833ab4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
+    .badgePrice {
+        span {
+            background: #833ab4;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to left, #fcb045, #fd1d1d, #833ab4);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to left, #fcb045, #fd1d1d, #833ab4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */            
+        }
+    }
+}
+.adsBg8 {
+    background: #00bf8f;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #001510, #00bf8f);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #001510, #00bf8f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
+    .badgePrice {
+        span {
+            background: #00bf8f;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to left, #001510, #00bf8f);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to left, #001510, #00bf8f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */               
+        }
+    }   
 }
