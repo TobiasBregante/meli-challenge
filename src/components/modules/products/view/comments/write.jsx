@@ -73,6 +73,7 @@ const WriteComment = ({ data, isResponse, comment_id, comments, setComments, ...
             />
             <Grid.Container justify="flex-end" css={{ mt: 10 }}>
                 <Button
+                    className='wppBtn'
                     auto
                     disabled={isSubmiting}
                     iconRight={isSubmiting ? <Loading type="points" color="currentColor" /> : <Icon id="send" color="white" />}
