@@ -31,7 +31,7 @@ const CarouselTitle = ({ title, link }) => {
 
 }
 
-const ProductCarousel = ({ title, data, link, categoryHidde, bent }) => {
+const ProductCarousel = ({ title, data, link, categoryHidde, bent, hiddeBannerSuscription }) => {
   const [dataFilter, setDataFilter] = useState([])
 
   useEffect(() => {
@@ -41,11 +41,13 @@ const ProductCarousel = ({ title, data, link, categoryHidde, bent }) => {
 
   if (data?.length < 1) {
     return null
-  } else {
+  }
+
+  if (dataFilter?.length > 0 ) {
     return (
       <div className='carousell-product'>
-        <BannerSuscriber/>
-        <CarouselTitle title={title} link={link} bent={bent}/>
+        <BannerSuscriber hidde={hiddeBannerSuscription}/>
+        <CarouselTitle title={title} link={link} bent={bent} />
         <Swiper
           spaceBetween={10}
           modules={[Navigation]}
@@ -65,9 +67,9 @@ const ProductCarousel = ({ title, data, link, categoryHidde, bent }) => {
           }}
         >
           {
-            dataFilter?.length > 0 && dataFilter?.map((cardData, cardI) => (
+            dataFilter?.map((cardData, cardI) => (
               <SwiperSlide key={cardI} className='carousell'>
-                <ProductCard data={cardData}/>
+                <ProductCard data={cardData} />
               </SwiperSlide>
             ))
           }
@@ -75,7 +77,7 @@ const ProductCarousel = ({ title, data, link, categoryHidde, bent }) => {
       </div>
     );
   }
-
+  
 }
 
 export default ProductCarousel;
