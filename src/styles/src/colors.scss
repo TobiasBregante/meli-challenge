@@ -1003,6 +1003,13 @@ background: linear-gradient(to left, #49a09d, #5f2c82); /* W3C, IE 10+/ Edge, Fi
     cursor: pointer;
     margin-top: 1vh;
 }
+.banner-suscriber-ads-card {
+    @media (max-width: $isMobile) {
+        height: 15vh;
+    }
+    height: 20vh;
+    text-shadow: 0px 0px 10px #000;
+}
 .adsBg0 {
     background: #ec008c;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #fc6767, #ec008c);  /* Chrome 10-25, Safari 5.1-6 */

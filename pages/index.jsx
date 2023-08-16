@@ -1,7 +1,7 @@
 import Page from '@Page'
 import ProductCarousel from '@/src/components/modules/products/carouseles/product'
 import HighLightCarousel from '@/src/components/modules/products/carouseles/highlight'
-import { Badge, Button, Card, Container, Grid, Text } from '@nextui-org/react'
+import { Badge, Button, Card, Col, Container, Grid, Text } from '@nextui-org/react'
 import BrandCarousel from '@/src/components/modules/brand/carouseles/brands'
 import AdsModals from '@/src/components/modules/products/ads/modals'
 import Get from '@/utils/hooks/get'
@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import SelectCountry from '@/src/components/modules/selectCountry'
 import ViewedProducts from '@/src/utils/product/viewedProducts'
+import BannerSuscriber from '@/src/components/bannerSuscriber'
 
 const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, RopaInformal, JoyasAccesorios, Mascotas, Electronica, Calzado, Jugueteria }) => {
   const router = useRouter()
@@ -35,7 +36,13 @@ const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Ropa
       <Container xl css={{ mb: "$10", ml: 0, mr: 0 }} className='container-fluid'>
         {/* <AdsModals img={website?.popup?.img} link={website?.popup?.link}/> */}
         <HighLightCarousel data={website.highlights} />
-        <ProductCarousel title="Reciente" data={viewed} />
+        
+        <BannerSuscriber items={[
+          { content: <>Promocionate y llegá a tu audiencia <Badge className='badgePrice'>Registrate ahora</Badge></>, className: 'ads-card-audience adsBg1' },
+          { content: <>Creá tu marca y comenzá a publicar <Badge className='badgePrice'>Comencemos</Badge></>, className: 'ads-card-audience adsBg3' },
+        ]}/>
+        
+        <ProductCarousel hiddeBannerSuscription={true} title="Reciente" data={viewed} />
         <ProductCarousel title="Tendencia" data={popularProducts} link="/category/popular" />
         <ProductCarousel title="Entretenimiento" data={Jugueteria} link="/category/Juguetería" />
         <ProductCarousel title="Calzado" data={Calzado} link="/category/Calzado" />
