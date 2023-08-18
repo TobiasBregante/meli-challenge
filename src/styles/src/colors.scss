@@ -73,6 +73,9 @@ html, body{
     width: 100vw;
 }
 .carousell-product {
+    * {  
+        box-shadow: none !important;
+    }
     @media (max-width: $isMobile) {
         width: 100%;
     }
@@ -1003,6 +1006,11 @@ background: linear-gradient(to left, #49a09d, #5f2c82); /* W3C, IE 10+/ Edge, Fi
     cursor: pointer;
     margin-top: 1vh;
 }
+.banner-ads-home {
+    @media (max-width: $isMobile) {
+        display: none;
+    }
+}
 .banner-suscriber-ads-card {
     @media (max-width: $isMobile) {
         height: 15vh;
@@ -1117,4 +1125,7 @@ background: linear-gradient(to left, #49a09d, #5f2c82); /* W3C, IE 10+/ Edge, Fi
             background: linear-gradient(to left, #001510, #00bf8f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */               
         }
     }   
+}
+.m-auto {
+    margin: auto;
 }
