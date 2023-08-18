@@ -10,6 +10,7 @@ const HighLightCarousel = ({ data }) => {
 
   return (
     <Swiper
+      className='banner-ads-home'
       spaceBetween={10}
       modules={[Pagination, Autoplay]}
       pagination

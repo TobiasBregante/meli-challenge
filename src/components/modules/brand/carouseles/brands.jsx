@@ -34,7 +34,7 @@ const BrandCarousel = ({ title, data, link, noPadding }) => {
     <div className={`carousell-product ${noPadding ? 'noPaddingBrandCar' : ''}`}>
       <CarouselTitle title={title} link={link} />
       <Swiper
-        spaceBetween={47}
+        spaceBetween={10}
         modules={[Navigation, Autoplay]}
         autoplay={{ delay: 6000 }}
         breakpoints={{
@@ -53,7 +53,7 @@ const BrandCarousel = ({ title, data, link, noPadding }) => {
       >
         {
           data.map((cardData, cardI) => (
-            <SwiperSlide key={cardI} className='carousell'>
+            <SwiperSlide key={cardI} className='carousell' style={{ margin: 'auto' }}>
               <BrandCard data={cardData} />
             </SwiperSlide>
           ))
