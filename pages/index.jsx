@@ -15,7 +15,11 @@ const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Ropa
   const router = useRouter()
   const [toCountryPage, setToCountryPage] = useState(false)
   const [viewed, setViewed] = useState([])
-
+  const itemsSuscriber = [
+    { content: <>Promocionate y llegá a tu audiencia <Badge className='badgePrice'>Registrate ahora</Badge></>, className: 'ads-card-audience adsBg1' },
+    { content: <>Creá tu marca y comenzá a publicar <Badge className='badgePrice'>Comencemos</Badge></>, className: 'ads-card-audience adsBg3' },
+  ]
+  
   useEffect(() => {
     if (ViewedProducts()?.length > 0) {
       setViewed(ViewedProducts())
@@ -36,23 +40,18 @@ const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Ropa
       <Container xl css={{ mb: "$10", ml: 0, mr: 0 }} className='container-fluid'>
         {/* <AdsModals img={website?.popup?.img} link={website?.popup?.link}/> */}
         <HighLightCarousel data={website.highlights} />
-        
-        <BannerSuscriber items={[
-          { content: <>Promocionate y llegá a tu audiencia <Badge className='badgePrice'>Registrate ahora</Badge></>, className: 'ads-card-audience adsBg1' },
-          { content: <>Creá tu marca y comenzá a publicar <Badge className='badgePrice'>Comencemos</Badge></>, className: 'ads-card-audience adsBg3' },
-        ]}/>
-        
+        <BannerSuscriber items={itemsSuscriber}/>
         <ProductCarousel hiddeBannerSuscription={true} title="Reciente" data={viewed} />
-        <ProductCarousel title="Tendencia" data={popularProducts} link="/category/popular" />
+        <ProductCarousel hiddeBannerSuscription={viewed?.length > 0 ? false : true} title="Tendencia" data={popularProducts} link="/category/popular" />
         <ProductCarousel title="Entretenimiento" data={Jugueteria} link="/category/Juguetería" />
-        <ProductCarousel title="Calzado" data={Calzado} link="/category/Calzado" />
+        <ProductCarousel hiddeBannerSuscription={true} title="Calzado" data={Calzado} link="/category/Calzado" />
         <ProductCarousel title="Indumentaria" data={RopaInformal} link="/category/Ropa Informal" />
-        <ProductCarousel title="Electrónica" data={Electronica} link="/category/Electrónica" />
+        <ProductCarousel hiddeBannerSuscription={true} title="Electrónica" data={Electronica} link="/category/Electrónica" />
         <BrandCarousel title="Marcas en tendencia" data={popularBrands} />
         <ProductCarousel title={`Joyas & Accesorios`} data={JoyasAccesorios} link="/category/Joyas y Accesorios" />
-        <ProductCarousel title="Mascotas" data={Mascotas} link="/category/Accesorios para Mascotas" />
+        <ProductCarousel hiddeBannerSuscription={true} title="Mascotas" data={Mascotas} link="/category/Accesorios para Mascotas" />
         <ProductCarousel title="Celulares" data={Celulares} link="/category/Accesorios para Celulares" />
-        <ProductCarousel title="Autos" data={Autos} link="/category/Accesorios para Autos" />
+        <ProductCarousel hiddeBannerSuscription={true} title="Autos" data={Autos} link="/category/Accesorios para Autos" />
       </Container>
     </Page>
   )
