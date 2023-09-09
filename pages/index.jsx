@@ -39,18 +39,18 @@ const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Ropa
     <Page categories={website?.categories}>
       <Container xl css={{ mb: "$10", ml: 0, mr: 0 }} className='container-fluid'>
         {/* <AdsModals img={website?.popup?.img} link={website?.popup?.link}/> */}
-        <HighLightCarousel data={website.highlights} />
-        <BannerSuscriber items={itemsSuscriber}/>
+        {/* <HighLightCarousel data={website.highlights} /> */}
+        {/* <BannerSuscriber items={itemsSuscriber}/> */}
         <ProductCarousel hiddeBannerSuscription={true} title="Reciente" data={viewed} />
-        <ProductCarousel hiddeBannerSuscription={viewed?.length > 0 ? false : true} title="Tendencia" data={popularProducts} link="/category/popular" />
-        <ProductCarousel title="Entretenimiento" data={Jugueteria} link="/category/Juguetería" />
+        <ProductCarousel hiddeBannerSuscription={true} title="Tendencia" data={popularProducts} link="/category/popular" />
+        <ProductCarousel hiddeBannerSuscription={true} title="Entretenimiento" data={Jugueteria} link="/category/Juguetería" />
         <ProductCarousel hiddeBannerSuscription={true} title="Calzado" data={Calzado} link="/category/Calzado" />
-        <ProductCarousel title="Indumentaria" data={RopaInformal} link="/category/Ropa Informal" />
+        <ProductCarousel hiddeBannerSuscription={true} title="Indumentaria" data={RopaInformal} link="/category/Ropa Informal" />
         <ProductCarousel hiddeBannerSuscription={true} title="Electrónica" data={Electronica} link="/category/Electrónica" />
-        <BrandCarousel title="Marcas en tendencia" data={popularBrands} />
-        <ProductCarousel title={`Joyas & Accesorios`} data={JoyasAccesorios} link="/category/Joyas y Accesorios" />
+        {/* <BrandCarousel title="Marcas en tendencia" data={popularBrands} /> */}
+        <ProductCarousel hiddeBannerSuscription={true} title={`Joyas & Accesorios`} data={JoyasAccesorios} link="/category/Joyas y Accesorios" />
         <ProductCarousel hiddeBannerSuscription={true} title="Mascotas" data={Mascotas} link="/category/Accesorios para Mascotas" />
-        <ProductCarousel title="Celulares" data={Celulares} link="/category/Accesorios para Celulares" />
+        <ProductCarousel hiddeBannerSuscription={true} title="Celulares" data={Celulares} link="/category/Accesorios para Celulares" />
         <ProductCarousel hiddeBannerSuscription={true} title="Autos" data={Autos} link="/category/Accesorios para Autos" />
       </Container>
     </Page>

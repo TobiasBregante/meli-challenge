@@ -63,8 +63,8 @@ const ProductModule = ({ data, relateds, brandProducts }) => {
                 </Grid.Container>
 
             </Grid.Container>
-            <ProductBottomRecomendation data={relateds} title="Recomendados" />
-            <ProductBottomRecomendation data={brandProducts} title={`De ${data?.brand?.brandName}`} />
+            <ProductBottomRecomendation hiddeBannerSuscription={true} data={relateds} title="Recomendados" />
+            <ProductBottomRecomendation hiddeBannerSuscription={true} data={brandProducts} title={`De ${data?.brand?.brandName}`} />
         </Fragment>
     )
 
