@@ -11,7 +11,7 @@ import SelectCountry from '@/src/components/modules/selectCountry'
 import ViewedProducts from '@/src/utils/product/viewedProducts'
 import BannerSuscriber from '@/src/components/bannerSuscriber'
 
-const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, RopaInformal, JoyasAccesorios, Mascotas, Electronica, Calzado, Jugueteria }) => {
+const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, RopaInformal, JoyasAccesorios, Mascotas, Electronica, Calzado, Jugueteria, Hogar }) => {
   const router = useRouter()
   const [toCountryPage, setToCountryPage] = useState(false)
   const [viewed, setViewed] = useState([])
@@ -41,6 +41,7 @@ const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Ropa
         {/* <AdsModals img={website?.popup?.img} link={website?.popup?.link}/> */}
         {/* <HighLightCarousel data={website.highlights} /> */}
         {/* <BannerSuscriber items={itemsSuscriber}/> */}
+        <ProductCarousel hiddeBannerSuscription={true} title="Para el hogar" data={Hogar} />
         <ProductCarousel hiddeBannerSuscription={true} title="Reciente" data={viewed} />
         <ProductCarousel hiddeBannerSuscription={true} title="Tendencia" data={popularProducts} link="/category/popular" />
         <ProductCarousel hiddeBannerSuscription={true} title="Entretenimiento" data={Jugueteria} link="/category/Juguetería" />
@@ -62,6 +63,7 @@ export default Index
 export async function getServerSideProps(ctx) {
   return {
     props: {
+      Hogar: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${encodeURI('Artículos para el Hogar')}&limit=10`).then(r => r.data).catch(() => []),
       RopaInformal: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${encodeURI('Ropa Informal')}&limit=10`).then(r => r.data).catch(() => []),
       Autos: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Accesorios para Autos')}`).then(r => r.data).catch(() => []),
       Jugueteria: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Juguetería')}`).then(r => r.data).catch(() => []),
