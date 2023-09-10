@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import Get from '@/src/utils/hooks/get';
 import WriteReview from '../review/write';
 import { useUserContext } from '@/src/utils/user/provider';
+import CheckoutPro from '@/src/components/payments/checkoutPro';
 
 const ProductInfo = ({ data }) => {
     const user = useUserContext()
@@ -17,31 +18,11 @@ const ProductInfo = ({ data }) => {
 
     const lowestPriceSelect = () => {
         const {
-            minPerCurve,
-            minPerDozen,
-            minPerQuantity,
-            minPerTask,
-            minPerWholesale,
-            perCurve,
-            perDozen,
-            perQuantity,
-            perTask,
-            retail,
-            wholesale
+            retail
         } = data?.prices
         
         let prices = [
             retail
-            || minPerDozen
-            || minPerQuantity
-            || minPerTask
-            || minPerWholesale
-            || perCurve
-            || perDozen
-            || perQuantity
-            || perTask
-            || wholesale
-            || minPerCurve
         ]
         prices = prices.filter(price => price != 0 && price != undefined)
         return currency(Math.min(...prices), { decimal: ",", separator: "." }).format()
@@ -101,16 +82,7 @@ const ProductInfo = ({ data }) => {
                         </Button>
                     </Grid>
                     <Grid xs={12}>
-                        <Button 
-                            size={'md'}
-                            className='contactBtnProduct'
-                            auto
-                            shadow
-                            iconRight={<Icon width={20} height={20} id="/whatsappicon" color="$white"/>}
-                            css={{ bg: "$whatsapp", w: "100%", mb: 10 }}
-                            onPress={contact}>
-                            WhatsApp
-                        </Button>
+                        <CheckoutPro data={data}/>
                     </Grid>
                     <Grid>
                         <Share link={`product/${data?._id}`} />
