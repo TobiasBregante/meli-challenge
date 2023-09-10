@@ -4,6 +4,7 @@ import { Fragment } from "react";
 
 const Footer = () => {
     const categories = [
+        { name: 'Hogar', url: '/category/Artículos para el Hogar' },
         { name: 'Productos Populares', url: "/category/popular" },
         { name: 'Calzado', url: "/category/Calzado" },
         { name: 'Indumentaria', url: "/category/Ropa Informal" },
@@ -43,16 +44,6 @@ const Footer = () => {
                                         +54 9 11-2476-7008
                                     </span>
                                 </Text>
-                                <Text className="downloadAppText"> 
-                                    Descargá La App
-                                </Text>
-                                <a 
-                                    href="https://apps.apple.com/ar/app/salada-app/id1526227412" 
-                                    target={'_blank'} 
-                                    className="downloadAppBtn">
-                                    {/* eslint-disable-line */}
-                                    <img src="/ios.png" alt="Descargá La App!" />
-                                </a>
                             </Grid>
                         </Grid>
                         <Grid xs={12} sm={4} md={4} lg={4} xl={4}>
