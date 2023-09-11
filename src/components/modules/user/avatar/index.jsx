@@ -66,9 +66,6 @@ const UserAvatar = () => {
                             <Link href={`/user/claimBrand`}>Crear marca</Link>
                         </Dropdown.Item>
                     }
-                    <Dropdown.Item key="subscriptions" withDivider icon={<Icon id="subscriptions" />}>
-                        <Link href={`/docs/subscriptions`}>Suscripción</Link>
-                    </Dropdown.Item>
                     <Dropdown.Item key="support" withDivider icon={<Icon id="support_agent" />}>Servicio al cliente</Dropdown.Item>
                     <Dropdown.Item key="faq" icon={<Icon id="quiz" />}>
                         <Link href={`/docs/faq`}>Preguntas frecuentes</Link>

@@ -87,9 +87,6 @@ const BentHeader = ({ bent }) => {
                                         <Link href={`/user/claimBrand`}>Crear marca</Link>
                                     </Button>
                                 }
-                                <Button key="subscriptions" iconRight={<Icon id="subscriptions" />}>
-                                    <Link href={`/docs/subscriptions`}>Suscripción</Link>
-                                </Button>
                                 <Button onPress={() => {
                                     window.open(`https://api.whatsapp.com/send?text=Hola! Necesito soporte en Iwarket&phone=5491124767008`)
                                 }} key="support" iconRight={<Icon id="support_agent" />}>Servicio al cliente</Button>
