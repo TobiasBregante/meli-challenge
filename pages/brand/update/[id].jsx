@@ -4,7 +4,7 @@ import Get from "@/src/utils/hooks/get";
 
 const UpdateBrandPage = ({ website, data }) => {
     return (
-        <Page title="SaladaApp - Reclamar puesto" >
+        <Page title="Iwarket - Reclamar puesto" >
             <UpdateBrand website={ website } data={data}/>
         </Page>
     )

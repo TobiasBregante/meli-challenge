@@ -34,7 +34,7 @@ const ProductInfo = ({ data }) => {
     const contact = () => {
         if(user?.email){
             const productTitle = data?.title?.toUpperCase()
-            const msg = `Hola, te contacto desde la plataforma SaladaApp! Me interesa el producto: "${productTitle}"`
+            const msg = `Hola, te contacto desde la plataforma Iwarket! Me interesa el producto: "${productTitle}"`
             window.open(`https://api.whatsapp.com/send?text=${msg}&phone=${parseInt(data?.brand?.phone)}`)
             Get(`/${router?.locale}/products/product/${data._id}/whatsappClick`)
     

@@ -107,22 +107,12 @@ const Header = ({ contentful }) => {
                                         <Grid className="branding">
                                             <div>
                                                 <Image
-                                                    width={50}
+                                                    width={90}
                                                     height={50}
-                                                    src="/logo2.png"
+                                                    src="/brand_qdbfjo.png"
                                                     objectFit='contain'
-                                                    alt="Salada-app-logo" />
+                                                    alt="Iwarket-logo" />
                                             </div>
-                                        </Grid>
-                                        <Grid className="brandingText">
-                                            <Text h4 css={{ marginLeft: 6 }}>
-                                                <span style={{ display: 'block', marginBottom: -15 }}>
-                                                    salada
-                                                </span>
-                                                <span style={{ display: 'block' }}>
-                                                    app
-                                                </span>
-                                            </Text>
                                         </Grid>
                                     </Grid.Container>
                                 </Link>

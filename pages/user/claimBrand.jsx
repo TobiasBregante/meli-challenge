@@ -4,7 +4,7 @@ import Get from "@/src/utils/hooks/get";
 
 const SignUpPage = ({ website }) => {
     return (
-        <Page title="SaladaApp - Reclamar puesto" >
+        <Page title="Iwarket - Reclamar puesto" >
             <ClaimBrand website={ website }/>
         </Page>
     )

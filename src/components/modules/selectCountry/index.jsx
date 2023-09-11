@@ -17,7 +17,7 @@ const SelectCountry = () => {
                   <Image
                     width={50}
                     height={50}
-                    src="/logo2.png"
+                    src="/brand_qdbfjo.png"
                     objectFit='contain'
                     alt="Salada-app-logo" />
                 </div>

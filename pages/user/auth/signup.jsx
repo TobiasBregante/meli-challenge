@@ -3,7 +3,7 @@ import SignUpModule from "@/src/components/modules/user/auth/signup";
 
 const SignUpPage = () => {
     return (
-        <Page title="SaladaApp - Registrarse" >
+        <Page title="Iwarket - Registrarse" >
             <SignUpModule/>
         </Page>
     )

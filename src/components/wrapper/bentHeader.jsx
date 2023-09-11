@@ -23,7 +23,7 @@ const BentHeader = ({ bent }) => {
             logout()
         }
         if (e == "support") {
-            window.open("https://api.whatsapp.com/send?phone=541170895828&text=Hola%20tengo%20una%20problema%20con%20la%20app%20de%20saladaapp")
+            window.open("https://api.whatsapp.com/send?phone=541170895828&text=Hola%20tengo%20una%20problema%20con%20la%20app%20de%20Iwarket")
         }
     }
 
@@ -91,7 +91,7 @@ const BentHeader = ({ bent }) => {
                                     <Link href={`/docs/subscriptions`}>Suscripción</Link>
                                 </Button>
                                 <Button onPress={() => {
-                                    window.open(`https://api.whatsapp.com/send?text=Hola! Necesito soporte en SaladaApp&phone=5491124767008`)
+                                    window.open(`https://api.whatsapp.com/send?text=Hola! Necesito soporte en Iwarket&phone=5491124767008`)
                                 }} key="support" iconRight={<Icon id="support_agent" />}>Servicio al cliente</Button>
                                 <Button key="faq" iconRight={<Icon id="quiz" />}>
                                     <Link href={`/docs/faq`}>Preguntas frecuentes</Link>
