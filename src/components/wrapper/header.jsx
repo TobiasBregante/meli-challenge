@@ -75,7 +75,7 @@ const Header = ({ contentful }) => {
                             />
                         </Grid.Container>
                         :
-                        <Grid.Container css={{ my: 10, }} justify="space-between">
+                        <Grid.Container css={{ my: 10 }} justify="space-between">
                             <Grid css={{ cursor: 'pointer' }}>
                                 {categories?.length > 0 && (
                                     <Dropdown>
@@ -85,7 +85,7 @@ const Header = ({ contentful }) => {
                                                 width={50}
                                                 height={50}
                                                 src={'/img/navbar.svg'}
-                                                alt="Salada-navbar"
+                                                alt="Iwarket-navbar"
                                             />
                                         </Dropdown.Button>
                                         <Dropdown.Menu aria-label="Dynamic Actions" items={categories}>
