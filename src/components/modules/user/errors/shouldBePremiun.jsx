@@ -10,11 +10,6 @@ const ShouldBePremiun = () => {
                     Has alcanzado el limite de 5 productos
                 </Text>
             </Grid.Container>
-            <Grid.Container justify="center">
-                <Button icon={<Icon id="upgrade" />} auto css={{ color: "$dark" }} onPress={() =>router.push(`/./${router?.locale}/docs/subscriptions`)}>
-                    Pasate a premiun
-                </Button>
-            </Grid.Container>
         </Grid.Container>
     )
 }

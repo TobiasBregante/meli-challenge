@@ -50,10 +50,6 @@ const Header = ({ contentful }) => {
         }
     }
 
-    const suscriberBtn = () => {
-        user?.brand?._id ? router?.push(`/./${router?.locale}/niveles`) : router?.push(`/./${router?.locale}/docs/subscriptions`)
-    }
-
     return (
         <Card variant="flat" css={{ borderRadius: 0, bg: "#fff" }}>
             <Container xl>
@@ -133,8 +129,8 @@ const Header = ({ contentful }) => {
                             <Grid>
                                 <Grid.Container>
                                     <Grid css={{ '@smMax': { display: 'none' } }}>
-                                        <Button onClick={suscriberBtn} className="levelHeader" size={'md'} color={'gradient'}>
-                                            {user?.brand?._id ? `Nivel ${level}` : 'Por $5499 ¡Suscribite a nivel 1!'} <Icon css={{ ml: 5, color: '$white' }} id={'rocket_launch'}/>
+                                        <Button className="levelHeader" size={'md'} color={'gradient'}>
+                                            {user?.brand?._id ? `Nivel ${level}` : '¡Hay envíos a tu localidad!'} <Icon css={{ ml: 5, color: '$white' }} id={'rocket_launch'}/>
                                         </Button>
                                     </Grid>
                                 </Grid.Container>

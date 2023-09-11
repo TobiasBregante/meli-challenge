@@ -6,73 +6,15 @@ import Router, { useRouter } from 'next/router'
 import { useUserContext } from '@/src/utils/user/provider';
 import { useEffect, useState } from 'react'
 import Link from '@/src/utils/hooks/link'
-import userLevel from "../user/level"
-
-const showUploadWidget = () => { 
-    cloudinary.openUploadWidget({ 
-        cloudName: "saladapp", 
-        // uploadPreset: "<upload preset>", 
-        sources: [
-            "local", 
-            "url", 
-            "camera", 
-            "image_search", 
-            "google_drive", 
-            "facebook", 
-            "dropbox", 
-            "instagram", 
-            "shutterstock", 
-            "getty", 
-            "istock", 
-            "unsplash"
-        ], 
-        googleApiKey: "<image_search_google_api_key>", 
-        showAdvancedOptions: true, 
-        cropping: true, 
-        multiple: false, 
-        defaultSource: "local", 
-        styles: { 
-            palette: { 
-                window: "#FFFFFF", 
-                windowBorder: "#90A0B3", 
-                tabIcon: "#0078FF", 
-                menuIcons: "#5A616A", 
-                textDark: "#000000", 
-                textLight: "#FFFFFF", 
-                link: "#0078FF", 
-                action: "#FF620C", 
-                inactiveTabIcon: "#0E2F5A", 
-                error: "#F44235", 
-                inProgress: "#0078FF", 
-                complete: "#20B832", 
-                sourceBg: "#E4EBF1" 
-            }, 
-            fonts: { 
-                default: { 
-                    active: true 
-                } 
-            } 
-        } 
-    }, (err, info) => { 
-        if (!err) { 
-            console.log("Upload Widget event - ", info); 
-        } 
-    }); 
-}
 
 const BrandProfileMinimal = ({ data, hideFullProfile }) => {
     const user = useUserContext()
     const [isAdmin, setIsAdmin] = useState(false)
     const router = useRouter()
-    const [level, setLevel] = useState(0)
 
     useEffect(() => {
         setIsAdmin(user?._id === data?.isOwnedBy) 
     }, [user, data])
-
-    useEffect(() => {
-        setLevel(userLevel({ countProducts: data?.products?.length }))
-    }, [router, data])
 
     const redirectToUpdateProfile = () => Router?.push(`/./${router?.locale}/brand/update/${data?._id}`)
     
@@ -124,9 +66,6 @@ const BrandProfileMinimal = ({ data, hideFullProfile }) => {
                         {data?.brandName}
                     </span>
                 </Text>
-                <Button className="levelHeader" size={'sm'} color={'gradient'} onClick={() => router?.push(`/./${router?.locale}/niveles`)}>
-                    Nivel {level} <Icon css={{ ml: 5, color: '$white' }} id={'rocket_launch'}/>
-                </Button>
                </Grid>
                 {
                     (hideFullProfile == false || hideFullProfile == undefined) &&

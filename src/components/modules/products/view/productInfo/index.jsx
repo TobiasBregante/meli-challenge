@@ -77,7 +77,7 @@ const ProductInfo = ({ data }) => {
                         </Text>
                     </Grid>
                     <Grid xs={12}>
-                        <Button shadow className="levelHeader" size={'xs'} color={'gradient'} onClick={() => router?.push(`/./${router?.locale}/niveles`)}>
+                        <Button shadow className="levelHeader" size={'xs'} color={'gradient'}>
                             Suma puntos <Icon css={{ ml: 5, color: '$white' }} id={'rocket_launch'}/>
                         </Button>
                     </Grid>

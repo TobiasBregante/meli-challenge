@@ -19,12 +19,6 @@ const ImagesSection = ({ state, setState }) => {
             if ([...state.imgs.value, ...flArray].length > 9) {
                 toast("Solo puedes subir 10 imagenes")
             }
-        } else {
-            if ([...state.imgs.value, ...flArray].length > 4) {
-                toast(<Link href="/docs/subscriptions">
-                    Pasate a premiun para subir mas fotos, hace click aca
-                </Link>)
-            }
         }
 
         setState({

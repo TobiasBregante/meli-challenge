@@ -55,8 +55,6 @@ const BannerSuscriber = ({ hidde, items }) => {
         return null
     }
 
-    const goToPlans = () => router?.push(`/./${router?.locale}/docs/subscriptions`)
-
     if (hidde) {
         return null
     }
@@ -83,7 +81,7 @@ const BannerSuscriber = ({ hidde, items }) => {
                     }}
                 >
                     <SwiperSlide key={'00'} className='carousell' style={{ margin: 'auto' }}>
-                        <Grid xs={12} sm={12} md={12} lg={6} xl={6} onClick={goToPlans}>
+                        <Grid xs={12} sm={12} md={12} lg={6} xl={6}>
                             <Card isHoverable className={`banner-suscriber-ads banner-suscriber-ads-card adsBg${getRandomNumber(8)}`}>
                                 <Card.Body>
                                     <div className='circle-2' />
@@ -120,7 +118,7 @@ const BannerSuscriber = ({ hidde, items }) => {
 
     return (
         <Grid.Container>
-            <Grid className='m-auto' xs={11.5} sm={11.5} md={12} lg={12} xl={12} onClick={goToPlans}>
+            <Grid className='m-auto' xs={11.5} sm={11.5} md={12} lg={12} xl={12}>
                 <Card isHoverable className={`banner-suscriber-ads adsBg${getRandomNumber(8)}`}>
                     <Card.Body>
                         <div className='circle-2' />

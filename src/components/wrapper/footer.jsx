@@ -66,11 +66,6 @@ const Footer = () => {
                                 Servicio Al Cliente
                                 <hr />
                                 <ul>
-                                    <li key={'suscripcion'}>
-                                        <a href={`/./${router?.locale}/docs/subscriptions`}>
-                                            Suscripción
-                                        </a>
-                                    </li>
                                     <li key={'faqs'}>
                                         <a href={`/./${router?.locale}/docs/faq`}>
                                             Preguntas frecuentes
