@@ -75,7 +75,7 @@ const ClaimPositionModule = ({ website }) => {
     }
 
     if(!user?.status?.isPremiun) {
-        router?.push(`/./${router?.locale}/docs/subscriptions`)
+        router?.push(`/./${router?.locale}`)
         return null
     }
 
