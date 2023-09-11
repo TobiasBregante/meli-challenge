@@ -20,7 +20,7 @@ const UserAvatar = () => {
             logout()
         }
         if (e == "support") {
-            window.open("https://api.whatsapp.com/send?phone=541170895828&text=Hola%20tengo%20una%20problema%20con%20la%20app%20de%20saladaapp")
+            window.open("https://api.whatsapp.com/send?phone=541170895828&text=Hola%20tengo%20una%20problema%20con%20la%20app%20de%20Iwarket")
         }
     }
 

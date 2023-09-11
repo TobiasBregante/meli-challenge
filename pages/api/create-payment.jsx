@@ -3,7 +3,7 @@ import axios from 'axios';
 export default async function handler(req, res) {
   try {
     // Configura las credenciales de Mercado Pago
-    const accessToken = 'APP_USR-4128705031394975-102715-7eb2250f00d197dce296703c08a194de-348846213'; // Reemplaza con tu access token de Mercado Pago
+    const accessToken = process.env.ACCESS_TOKEN_MP; // Reemplaza con tu access token de Mercado Pago
 
     // Crea una preferencia de pago en Mercado Pago
     const response = await axios.post(

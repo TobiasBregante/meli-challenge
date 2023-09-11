@@ -23,7 +23,7 @@ const Footer = () => {
                         <Grid xs={12} sm={4} md={4} lg={4} xl={4}>
                             <Grid>
                                 <Text className="brandingTextFooter">
-                                    SaladaApp
+                                    Iwarket
                                 </Text>
                                 <Text className="titleTextFooter">
                                     Contactenos
@@ -81,7 +81,7 @@ const Footer = () => {
                         </Grid>
                         <Grid xs={12}>
                             <p className="copyRight">
-                                &copy; {(new Date())?.getFullYear()} Todos los derechos reservados. SaladaApp.com
+                                &copy; {(new Date())?.getFullYear()} Todos los derechos reservados. Iwarket.com
                             </p>
                         </Grid>
                 </Grid.Container>

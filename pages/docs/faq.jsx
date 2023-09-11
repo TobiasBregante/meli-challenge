@@ -19,13 +19,13 @@ const Faq = () => {
                             <Card.Body>
                                 <Grid.Container direction="column">
                                     <Text h2>PREGUNTAS FRECUENTES COMPRADORES</Text>
-                                    <Collapse title="¿Necesito descargar alguna aplicación para acceder a SaladaApp?">
+                                    <Collapse title="¿Necesito descargar alguna aplicación para acceder a Iwarket?">
                                         <Text>
                                             No es necesario descargar ninguna app, solo abres tu navegador y buscas la pagina
                                         </Text>
                                     </Collapse>
 
-                                    <Collapse title="Me tengo que registrar para comprar en SaladaApp?">
+                                    <Collapse title="Me tengo que registrar para comprar en Iwarket?">
                                         <Text>Si debes registrarte con un email o Facebook</Text>
                                     </Collapse>
 
@@ -41,7 +41,7 @@ const Faq = () => {
                                         <Text>Cuando eliges tu producto encontraras botones con las opciones de compra, haz click en alguno de ellos y te direccionara al Whats App del fabricante</Text>
                                     </Collapse>
 
-                                    <Collapse title="SaladaApp hace envíos?">
+                                    <Collapse title="Iwarket hace envíos?">
                                         <Text>No, el envió lo pactas con el fabricante</Text>
                                     </Collapse>
 
@@ -49,11 +49,11 @@ const Faq = () => {
                                         <Text>Eso lo informa el fabricante que es quien se encarga del envió</Text>
                                     </Collapse>
 
-                                    <Collapse title="SaladaApp me cobra Comisión">
+                                    <Collapse title="Iwarket me cobra Comisión">
                                         <Text>No se abona Comisión</Text>
                                     </Collapse>
 
-                                    <Collapse title="SaladaApp realiza cobros">
+                                    <Collapse title="Iwarket realiza cobros">
                                         <Text>No, el pago lo pactas directo con el vendedor</Text>
                                     </Collapse>
 

@@ -84,7 +84,7 @@ const SignInModule = () => {
                         <Grid.Container justify="center">
                             <Grid>
                                 <Text h3 weight="bold">
-                                    Iniciar Sesión en SaladaApp
+                                    Iniciar Sesión en Iwarket
                                 </Text>
                             </Grid>
                         </Grid.Container>

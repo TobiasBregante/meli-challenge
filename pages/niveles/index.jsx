@@ -14,16 +14,16 @@ const Faq = () => {
                             <Card.Header>
                                 <Grid.Container justify="center">
                                     <Text h2 css={{ fontSize: 25, color: '$primary' }}>
-                                        SaladaApp Puntos
+                                        Iwarket Puntos
                                     </Text>
                                 </Grid.Container>
                             </Card.Header>
                             <Card.Body>
                                 <Grid.Container direction="column" css={{ minHeight: '100vh' }}>
                                     <Text h2 css={{ fontSize: 25 }}>Preguntas Frecuentes</Text>
-                                    <Collapse title="¿Cómo subo de nivel en SaladaApp?">
+                                    <Collapse title="¿Cómo subo de nivel en Iwarket?">
                                         <Text>
-                                            Tenés metas que cumplir en SaladaApp, y esas metas principalmente son de cantidad de productos publicados.
+                                            Tenés metas que cumplir en Iwarket, y esas metas principalmente son de cantidad de productos publicados.
                                         </Text>
                                     </Collapse>
                                     <Collapse title="¿Qué cantidad de productos debo publicar por cada nivel?">
@@ -45,11 +45,11 @@ const Faq = () => {
                                     </Collapse>
                                     <Collapse title="¿Qué beneficios me da subir de nivel?">
                                         <Text>
-                                            Cada nivel te brinda ventajas adicionales y mayores oportunidades de visibilidad y ventas en la plataforma de SaladaApp. A medida que publiques más productos, podrás avanzar en los niveles y aprovechar al máximo nuestro servicio.
+                                            Cada nivel te brinda ventajas adicionales y mayores oportunidades de visibilidad y ventas en la plataforma de Iwarket. A medida que publiques más productos, podrás avanzar en los niveles y aprovechar al máximo nuestro servicio.
                                             Recuerda que cuanto mayor sea la cantidad de productos publicados, mayor será tu exposición y las posibilidades de captar la atención de los compradores interesados en tus productos.
                                         </Text>
                                         <Text css={{ mt: 10 }}>
-                                            ¡Sigue agregando productos a tu catálogo y alcanza niveles superiores en SaladaApp!
+                                            ¡Sigue agregando productos a tu catálogo y alcanza niveles superiores en Iwarket!
                                         </Text>
                                     </Collapse>
                                     <Grid css={{ m: 'auto', mt: 50 }}>

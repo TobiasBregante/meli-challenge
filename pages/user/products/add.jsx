@@ -5,7 +5,7 @@ import { Grid } from "@nextui-org/react";
 
 const AddProductPage = ({ website }) => {
     return (
-        <Page title="SaladaApp - Añadir producto" >
+        <Page title="Iwarket - Añadir producto" >
             <Grid.Container justify="center">
                 <Grid xs={12} sm={6}>
                     <AddProduct website={website} />
