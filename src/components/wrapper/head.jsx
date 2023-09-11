@@ -76,11 +76,9 @@ const Head = ({ title, description, image }) => {
 }
 
 Head.defaultProps = {
-    title: "SaladaApp",
-    description: `Comprá directo a fabricante y mayoristas de la Salada en un solo Click sin intermediarios ni comisiones.
-    QUIVINCHA, COLORES, FELIPE, 27 DE MAYO, GAL. AMALIA, TILKARA, GAL. VALENCIA, MARÍA CONCEPCIÓN, GAL. MILAGROS, GAL. SAN JORGE, FACTORY, IMPERIO, El TRÉBOL, LA UNIÓN, JR, TRINIDAD, ARCO IRIS, EL ÁRBOL, ANGIE, COTY, SAN CAYETANO, JJ VALLE 3062, LA ARAÑITA, VIRGILIO, LOS KOREANOS, PUNTA MOGOTE, OCEAN, URKUPIÑA, ATLANTIDA
-    `,
-    image: "/saladaAppBrandPreview.png"
+    title: "Iwarket",
+    description: `Comprá en un solo Click al mejor precio.`,
+    image: "/mobile/ms-icon-310x310.png"
 }
 
 export default Head

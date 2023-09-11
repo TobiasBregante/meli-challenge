@@ -150,7 +150,7 @@ const SignUpModule = () => {
                         <Grid.Container justify="center">
                             <Grid>
                                 <Text h3 weight="bold">
-                                    Registrate en SaladaApp
+                                    Registrate en Iwarket
                                 </Text>
                             </Grid>
                         </Grid.Container>
