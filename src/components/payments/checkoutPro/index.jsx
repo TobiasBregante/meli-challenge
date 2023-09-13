@@ -5,13 +5,19 @@ import { Modal, useModal, Button, Text, Input, Grid } from "@nextui-org/react";
 const CheckoutPro = ({ data }) => {
     const [nombre, setNombre] = useState('');
     const [email, setEmail] = useState('');
+    
+    const [city, setCity] = useState('');
+    const [address, setAddress] = useState('');    
+    const [postalCode, setPostalCode] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [aditional, setAditional] = useState('');
     const { setVisible, bindings } = useModal();
 
     const handleSubmit = async e => {
         e.preventDefault();
 
         try {
-            // Crea una preferencia de pago en el servidor
             const response = await axios.post('/api/create-payment', JSON.stringify({
                 items: [
                     {
@@ -24,6 +30,17 @@ const CheckoutPro = ({ data }) => {
                 payer: {
                     name: nombre,
                     email: email
+                },
+                additional_information: {
+                    city: city,
+                    address: address,    
+                    postalCode: postalCode,
+                    phone: phone,
+                    email: email,
+                    name: nombre,
+                    last_name: lastName,
+                    country: 'Argentina',
+                    zip_code: postalCode,
                 }
             }), {
                 headers: {
@@ -62,7 +79,7 @@ const CheckoutPro = ({ data }) => {
                     </Text>
                 </Modal.Header>
                 <Modal.Body>
-                    <Grid.Container gap={4} justify='center'>
+                    <Grid.Container gap={2} justify='center'>
                         <form onSubmit={handleSubmit} className='formPay'>
                             <Grid xs={12}>
                                 <Input
@@ -79,12 +96,70 @@ const CheckoutPro = ({ data }) => {
                             <Grid xs={12}>
                                 <Input
                                     auto
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)}
+                                    required
+                                    bordered
+                                    type={'text'}
+                                    labelPlaceholder="Apellido"
+                                    color="primary"
+                                    css={{ w: "100%" }} />
+                            </Grid>
+                            <Grid xs={12}>
+                                <Input
+                                    auto
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
                                     bordered
                                     type={'email'}
                                     labelPlaceholder="Email"
+                                    color="primary"
+                                    css={{ w: "100%" }} />
+                            </Grid>
+                            <Grid xs={12}>
+                                <Input
+                                    auto
+                                    value={city}
+                                    onChange={(e) => setCity(e.target.value)}
+                                    required
+                                    bordered
+                                    type={'text'}
+                                    labelPlaceholder="Ciudad"
+                                    color="primary"
+                                    css={{ w: "45%", marginRight: '5%' }} />
+                                <Input
+                                    auto
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}
+                                    required
+                                    bordered
+                                    type={'text'}
+                                    labelPlaceholder="Dirección destino"
+                                    color="primary"
+                                    css={{ w: "45%", marginLeft: '5%' }} />
+                            </Grid>
+                            <Grid xs={12}>
+                                <Input
+                                    auto
+                                    value={postalCode}
+                                    onChange={(e) => setPostalCode(e.target.value)}
+                                    required
+                                    bordered
+                                    type={'text'}
+                                    labelPlaceholder="Código postal"
+                                    color="primary"
+                                    css={{ w: "100%" }} />
+                            </Grid>
+                            <Grid xs={12}>
+                                <Input
+                                    auto
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
+                                    required
+                                    bordered
+                                    type={'text'}
+                                    labelPlaceholder="Celular/WhatsApp"
                                     color="primary"
                                     css={{ w: "100%" }} />
                             </Grid>
