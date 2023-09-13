@@ -76,11 +76,18 @@ const ProductInfo = ({ data }) => {
                             }
                         </Text>
                     </Grid>
-                    <Grid xs={12}>
-                        <Button shadow className="levelHeader" size={'xs'} color={'gradient'}>
-                            Suma puntos <Icon css={{ ml: 5, color: '$white' }} id={'rocket_launch'}/>
-                        </Button>
-                    </Grid>
+                    <Grid.Container gap={1}>
+                        <Grid xs={3}>
+                            <Button shadow className="levelHeader" size={'xs'} color={'gradient'}>
+                                Suma puntos <Icon css={{ ml: 5, color: '$white' }} id={'rocket_launch'}/>
+                            </Button>
+                        </Grid>
+                        <Grid xs={3}>
+                            <Button shadow className="levelHeader" size={'xs'} color={'primary'}>
+                                Envío gratis<Icon css={{ ml: 5, color: '$white' }} id={'local_shipping'}/>
+                            </Button>
+                        </Grid>
+                    </Grid.Container>
                     <Grid xs={12}>
                         <CheckoutPro data={data}/>
                     </Grid>

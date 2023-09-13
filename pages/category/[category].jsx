@@ -11,9 +11,6 @@ const ProductsByCategory = ({ products, brands, website, category }) => {
             <Container xl css={{ mb: "$10" }}>
                 <CategoriesCarousel data={website.categories}/>
                 {
-                    brands?.length > 0 && <BrandCarousel noPadding={true} title={`${encodeURI(category)?.toLowerCase() !== 'popular' ? category : 'Tendencia'}`} data={brands} />
-                }
-                {
                     products?.length > 0 && <UnorderedList title={`Más Populares`} data={products} />
                 }
             </Container>
