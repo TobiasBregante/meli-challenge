@@ -1,18 +1,19 @@
 import { Fragment, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Modal, useModal, Button, Text, Input, Grid } from "@nextui-org/react";
+import { useRouter } from 'next/router';
 
 const CheckoutPro = ({ data }) => {
+    const router = useRouter()
     const [nombre, setNombre] = useState('');
     const [email, setEmail] = useState('');
-    
     const [city, setCity] = useState('');
     const [address, setAddress] = useState('');    
     const [postalCode, setPostalCode] = useState('');
     const [lastName, setLastName] = useState('');
     const [phone, setPhone] = useState('');
-    const [aditional, setAditional] = useState('');
     const { setVisible, bindings } = useModal();
+    const { ref } = router?.query
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -41,6 +42,7 @@ const CheckoutPro = ({ data }) => {
                     last_name: lastName,
                     country: 'Argentina',
                     zip_code: postalCode,
+                    ref: ref
                 }
             }), {
                 headers: {
