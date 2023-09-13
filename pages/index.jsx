@@ -75,9 +75,6 @@ export async function getServerSideProps(ctx) {
       Servicios: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${encodeURI('Servicios')}&limit=10`).then(r => r?.data).catch(() => []),
       Fitness: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Fitness')}`).then(r => r?.data).catch(() => []),
       website: await Get(`/${ctx?.locale}/website`).then(r => r.data).catch(() => ({})),
-      // Mascotas: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Accesorios para Mascotas')}`).then(r => r.data).catch(() => []),
-      // JoyasAccesorios: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Joyas y Accesorios')}`).then(r => []).catch(() => []),
-      // Electronica: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${encodeURI('Electrónica')}&limit=10`).then(r => r.data).catch(() => []),
     }, // will be passed to the page component as props
   }
 }
