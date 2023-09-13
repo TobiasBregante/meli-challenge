@@ -6,13 +6,7 @@ const Footer = () => {
     const categories = [
         { name: 'Hogar', url: '/category/Artículos para el Hogar' },
         { name: 'Productos Populares', url: "/category/popular" },
-        { name: 'Calzado', url: "/category/Calzado" },
-        { name: 'Indumentaria', url: "/category/Ropa Informal" },
-        { name: 'Electrónica', url: "/category/Electrónica" },
-        { name: 'Joyas y Accesorios', url: "/category/Joyas y Accesorios" },
-        { name: 'Mascotas', url: "/category/Accesorios para Mascotas" },
         { name: 'Celulares', url: "/category/Accesorios para Celulares" },
-        { name: 'Autos', url: "/category/Accesorios para Autos" },
     ]
     const router = useRouter()
     
