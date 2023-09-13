@@ -1006,11 +1006,6 @@ background: linear-gradient(to left, #49a09d, #5f2c82); /* W3C, IE 10+/ Edge, Fi
     cursor: pointer;
     margin-top: 1vh;
 }
-.banner-ads-home {
-    @media (max-width: $isMobile) {
-        display: none;
-    }
-}
 .banner-suscriber-ads-card {
     @media (max-width: $isMobile) {
         height: 15vh;
