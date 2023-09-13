@@ -10,8 +10,9 @@ import { useRouter } from 'next/router'
 import SelectCountry from '@/src/components/modules/selectCountry'
 import ViewedProducts from '@/src/utils/product/viewedProducts'
 import BannerSuscriber from '@/src/components/bannerSuscriber'
+import CategoriesCarousel from '@/src/components/modules/products/carouseles/categories'
 
-const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, RopaInformal, Estanterias, JoyasAccesorios, Mascotas, Electronica, Calzado, Jugueteria, Hogar }) => {
+const Index = ({ website, popularProducts, Celulares, Bazar, Electronica, Jugueteria, Camping, Servicios }) => {
   const router = useRouter()
   const [toCountryPage, setToCountryPage] = useState(false)
   const [viewed, setViewed] = useState([])
@@ -38,21 +39,23 @@ const Index = ({ website, popularProducts, popularBrands, Celulares, Autos, Ropa
   return (
     <Page categories={website?.categories}>
       <Container xl css={{ mb: "$10", ml: 0, mr: 0 }} className='container-fluid'>
-        <HighLightCarousel data={website.highlights} />
-        <ProductCarousel hiddeBannerSuscription={true} title="Para el hogar" data={Hogar} link="/category/Artículos para el Hogar"/>
-        <ProductCarousel hiddeBannerSuscription={true} title="Reciente" data={viewed} />
+        <HighLightCarousel data={website?.highlights} />
+
+        {/* Categorías más populares */}
+        <CategoriesCarousel data={website?.categories} />
         <ProductCarousel hiddeBannerSuscription={true} title="Tendencia" data={popularProducts} link="/category/popular" />
-        <ProductCarousel hiddeBannerSuscription={true} title="Entretenimiento" data={Jugueteria} link="/category/Juguetería" />
-        <ProductCarousel hiddeBannerSuscription={true} title="Estanterías" data={Estanterias} link="/category/Estanterías" />
         <ProductCarousel hiddeBannerSuscription={true} title="Celulares" data={Celulares} link="/category/Accesorios para Celulares" />
-        {/* <AdsModals img={website?.popup?.img} link={website?.popup?.link}/> */}
-        {/* <BannerSuscriber items={itemsSuscriber}/> */}
-        {/* <ProductCarousel hiddeBannerSuscription={true} title="Indumentaria" data={RopaInformal} link="/category/Ropa Informal" /> */}
-        {/* <ProductCarousel hiddeBannerSuscription={true} title="Electrónica" data={Electronica} link="/category/Electrónica" /> */}
-        {/* <BrandCarousel title="Marcas en tendencia" data={popularBrands} /> */}
-        {/* <ProductCarousel hiddeBannerSuscription={true} title={`Joyas & Accesorios`} data={JoyasAccesorios} link="/category/Joyas y Accesorios" /> */}
-        {/* <ProductCarousel hiddeBannerSuscription={true} title="Mascotas" data={Mascotas} link="/category/Accesorios para Mascotas" /> */}
-        {/* <ProductCarousel hiddeBannerSuscription={true} title="Autos" data={Autos} link="/category/Accesorios para Autos" /> */}
+
+        {/* Categorías menos populares */}
+        <ProductCarousel hiddeBannerSuscription={true} title="Bazar" data={Bazar} link="/category/Bazar" />
+        <ProductCarousel hiddeBannerSuscription={true} title="Juguetería" data={Jugueteria} link="/category/Juguetería" />
+        <ProductCarousel hiddeBannerSuscription={true} title="Camping" data={Camping} link="/category/Camping" />
+        <ProductCarousel hiddeBannerSuscription={true} title="Servicios" data={Servicios} link="/category/Servicios" />
+        <ProductCarousel hiddeBannerSuscription={true} title="Fitness" data={Electronica} link="/category/Fitness" />
+
+        {/* Otros */}
+        <ProductCarousel hiddeBannerSuscription={true} title="Reciente" data={viewed} />
+
       </Container>
     </Page>
   )
@@ -63,15 +66,15 @@ export default Index
 export async function getServerSideProps(ctx) {
   return {
     props: {
-      Hogar: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${encodeURI('Artículos para el Hogar')}&limit=10`).then(r => r.data).catch(() => []),
+      Camping: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${encodeURI('Camping')}&limit=10`).then(r => r.data).catch(() => []),
+      Bazar: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${encodeURI('Bazar')}&limit=10`).then(r => r.data).catch(() => []),
       Jugueteria: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Juguetería')}`).then(r => r.data).catch(() => []),
       Celulares: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Accesorios para Celulares')}`).then(r => r.data).catch(() => []),
-      Estanterias: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Estanterías')}`).then(r => r?.data).catch(() => []),
       popularProducts: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10`).then(r => r.data).catch(() => []),
       popularBrands: await Get(`/${ctx?.locale}/brands/find/query?popular=true&limit=10`).then(r => r.data).catch(() => []),
+      Servicios: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${encodeURI('Servicios')}&limit=10`).then(r => r?.data).catch(() => []),
+      Fitness: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Fitness')}`).then(r => r?.data).catch(() => []),
       website: await Get(`/${ctx?.locale}/website`).then(r => r.data).catch(() => ({})),
-      // RopaInformal: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${encodeURI('Ropa Informal')}&limit=10`).then(r => []).catch(() => []),
-      // Autos: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Accesorios para Autos')}`).then(r => []).catch(() => []),
       // Mascotas: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Accesorios para Mascotas')}`).then(r => r.data).catch(() => []),
       // JoyasAccesorios: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Joyas y Accesorios')}`).then(r => []).catch(() => []),
       // Electronica: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${encodeURI('Electrónica')}&limit=10`).then(r => r.data).catch(() => []),
