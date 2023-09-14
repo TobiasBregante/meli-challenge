@@ -14,7 +14,7 @@ export default async function handler(req, res) {
       }
     );
 
-    res.status(200).json({ init_point: response.data.init_point });
+    res.status(200).json(response.data);
   } catch (error) {
     console.error('Error al crear la preferencia de pago:', error);
     res.status(500).json({ error: 'Hubo un error al procesar el pago.' });

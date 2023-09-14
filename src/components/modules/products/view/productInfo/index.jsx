@@ -31,20 +31,7 @@ const ProductInfo = ({ data }) => {
     let rating = data.reviews?.map(a => a.rating)
     rating = rating == undefined ? 5 : Math.round(rating.reduce((a, b) => a + b, 0) / rating.length)
 
-    const contact = () => {
-        if(user?.email){
-            const productTitle = data?.title?.toUpperCase()
-            const msg = `Hola, te contacto desde la plataforma Iwarket! Me interesa el producto: "${productTitle}"`
-            window.open(`https://api.whatsapp.com/send?text=${msg}&phone=${parseInt(data?.brand?.phone)}`)
-            Get(`/${router?.locale}/products/product/${data._id}/whatsappClick`)
-    
-            if (!data.reviews?.find(r => r.user._id == user._id)) {
-                setWriteReview(true)
-            }
-        } else {
-            router?.push(`/./${router?.locale}/user/auth/signup`)
-        }
-    }
+    const contact = `https://api.whatsapp.com/send?text=Hola, desde Iwarket! Quiero seguir mi pedido!&phone=${parseInt(data?.brand?.phone)}`
 
     return (
         <Grid.Container direction="column" justify="space-between" css={{ m: 15 }}>
@@ -76,21 +63,21 @@ const ProductInfo = ({ data }) => {
                             }
                         </Text>
                     </Grid>
-                    <Grid.Container gap={1}>
-                        <Grid xs={3}>
+                    <Grid.Container gap={1} justify='flex-start'>
+                        <Grid>
                             <Button shadow className="levelHeader" size={'xs'} color={'gradient'}>
                                 Suma puntos <Icon css={{ ml: 5, color: '$white' }} id={'rocket_launch'}/>
                             </Button>
                         </Grid>
-                        <Grid xs={3}>
+                        <Grid>
                             <Button shadow className="levelHeader" size={'xs'} color={'primary'}>
                                 Envío gratis<Icon css={{ ml: 5, color: '$white' }} id={'local_shipping'}/>
                             </Button>
                         </Grid>
-                    </Grid.Container>
                     <Grid xs={12}>
-                        <CheckoutPro data={data}/>
+                        <CheckoutPro data={data} contact={contact}/>
                     </Grid>
+                    </Grid.Container>
                     <Grid>
                         <Share link={`product/${data?._id}`} />
                     </Grid>
