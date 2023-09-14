@@ -145,7 +145,7 @@ const ManageProduct = ({ website, data }) => {
                                         Numero: {data.brand.phone}
                                     </Text>
                                     <Text b h4>
-                                        Es premiun: {data.brand.isPremiun ? "Si" : "No"}
+                                        Es premium: {data.brand.isPremiun ? "Si" : "No"}
                                     </Text>
                                 </Card.Body>
                             </Card>

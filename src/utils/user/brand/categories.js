@@ -20,11 +20,21 @@ const categories = [
     img: "/cat/3.png"
   },
   {
-    name: "Accesorios para Celulares",
+    name: "Auriculares",
     img: "/cat/5.png"
+  }, 
+  {
+    name: "Celulares",
+    img: "/cat/4.png"
+  },
+  {
+    name: "Gomas",
+    img: "/cat/6.png"
+  },
+  {
+    name: "Cocina",
+    img: "/cat/7.png"
   }
 ]
-
-
 
 export default categories

@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper';
+import { Autoplay, Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import { Avatar, Card, Grid, Text } from '@nextui-org/react';
@@ -23,10 +23,10 @@ const CategoriesCarousel = ({ data }) => {
             },
             // when window width is >= 768px
             768: {
-              slidesPerView: 6,
+              slidesPerView: 7,
             },
             1280: {
-              slidesPerView: 6,
+              slidesPerView: 7,
             },
           }}
         >
@@ -36,7 +36,7 @@ const CategoriesCarousel = ({ data }) => {
                 <Link href={`/category/${category.name}`}>
                   <Avatar isBordered src={category?.img} size={'xl'} css={{ m: 'auto', cursor: 'pointer' }}/>
                   <Text css={{ m: 'auto', textAlign: 'center' }}>
-                    {category?.name?.length > 10 ? `${category?.name?.slice(0, 10)}...` : category?.name}
+                    {category?.name?.length > 12 ? `${category?.name?.slice(0, 12)}...` : category?.name}
                   </Text>
                 </Link>
               </SwiperSlide>

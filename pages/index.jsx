@@ -12,14 +12,10 @@ import ViewedProducts from '@/src/utils/product/viewedProducts'
 import BannerSuscriber from '@/src/components/bannerSuscriber'
 import CategoriesCarousel from '@/src/components/modules/products/carouseles/categories'
 
-const Index = ({ website, popularProducts, Celulares, Bazar, Electronica, Jugueteria, Camping, Servicios }) => {
+const Index = ({ website, popularProducts, Auriculares, Bazar, Electronica, Jugueteria, Camping, Servicios }) => {
   const router = useRouter()
   const [toCountryPage, setToCountryPage] = useState(false)
   const [viewed, setViewed] = useState([])
-  const itemsSuscriber = [
-    { content: <>Promocionate y llegá a tu audiencia <Badge className='badgePrice'>Registrate ahora</Badge></>, className: 'ads-card-audience adsBg1' },
-    { content: <>Creá tu marca y comenzá a publicar <Badge className='badgePrice'>Comencemos</Badge></>, className: 'ads-card-audience adsBg3' },
-  ]
 
   useEffect(() => {
     if (ViewedProducts()?.length > 0) {
@@ -44,7 +40,7 @@ const Index = ({ website, popularProducts, Celulares, Bazar, Electronica, Juguet
         {/* Categorías más populares */}
         <CategoriesCarousel data={website?.categories} />
         <ProductCarousel hiddeBannerSuscription={true} title="Tendencia" data={popularProducts} link="/category/popular" />
-        <ProductCarousel hiddeBannerSuscription={true} title="Celulares" data={Celulares} link="/category/Accesorios para Celulares" />
+        <ProductCarousel hiddeBannerSuscription={true} title="Auriculares" data={Auriculares} link="/category/Auriculares" />
 
         {/* Categorías menos populares */}
         <ProductCarousel hiddeBannerSuscription={true} title="Bazar" data={Bazar} link="/category/Bazar" />
@@ -69,7 +65,7 @@ export async function getServerSideProps(ctx) {
       Camping: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${encodeURI('Camping')}&limit=10`).then(r => r.data).catch(() => []),
       Bazar: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${encodeURI('Bazar')}&limit=10`).then(r => r.data).catch(() => []),
       Jugueteria: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Juguetería')}`).then(r => r.data).catch(() => []),
-      Celulares: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Accesorios para Celulares')}`).then(r => r.data).catch(() => []),
+      Auriculares: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Auriculares')}`).then(r => r.data).catch(() => []),
       popularProducts: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10`).then(r => r.data).catch(() => []),
       popularBrands: await Get(`/${ctx?.locale}/brands/find/query?popular=true&limit=10`).then(r => r.data).catch(() => []),
       Servicios: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${encodeURI('Servicios')}&limit=10`).then(r => r?.data).catch(() => []),

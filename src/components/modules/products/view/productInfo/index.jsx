@@ -71,7 +71,7 @@ const ProductInfo = ({ data }) => {
                         </Grid>
                         <Grid>
                             <Button shadow className="levelHeader" size={'xs'} color={'primary'}>
-                                Envío gratis<Icon css={{ ml: 5, color: '$white' }} id={'local_shipping'}/>
+                                Envíos a todos el país!<Icon css={{ ml: 5, color: '$white' }} id={'local_shipping'}/>
                             </Button>
                         </Grid>
                     <Grid xs={12}>
