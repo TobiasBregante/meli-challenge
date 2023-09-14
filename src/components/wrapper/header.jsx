@@ -21,22 +21,7 @@ const Header = ({ contentful }) => {
 
     const getCategories = async () => {
         await Get(`/${router?.locale}/website`).then(r => {
-            const categoriesAvailable = [
-                {
-                    name: "Juguetería"
-                },
-                {
-                    name: "Accesorios para Celulares"
-                },
-                {
-                    name: "Artículos para el Hogar"
-                },
-                {
-                    name: "Estanterías"
-                }
-            ]
-
-            setCategories(categoriesAvailable)
+            setCategories(r?.data?.categories)
         }).catch(() => {
             setCategories({})
         })
