@@ -54,28 +54,13 @@ const BrandProfileMinimal = ({ data, hideFullProfile }) => {
                     </div>
                 </Grid.Container>
                <Grid>
-                <Text h2>
-                    <span style={{
-                        color: '#000',
-                        fontSize: 14,
-                        letterSpacing: 1.4,
-                        padding: 9,
-                        borderRadius: 8,
-                        backgroundColor: 'rgba(255, 255, 255, .5)'
-                    }}>
-                        {data?.brandName}
-                    </span>
+                <Text h3>
+                    Envíos Protegidos en Iwarket
+                </Text>
+                <Text>
+                    ¡Compre con tranquilidad! Todos los envíos en Iwarket están completamente protegidos. Su satisfacción y seguridad son nuestra prioridad.
                 </Text>
                </Grid>
-                {
-                    (hideFullProfile == false || hideFullProfile == undefined) &&
-                    <Link href={`/brand/${data._id}`}>
-                        <Button shadow className='wppBtn' auto icon={<Icon id="open_in_new" color="white" />} css={{ mb: 10 }}>
-                            Catálogo
-                        </Button>
-                    </Link>
-                }
-                <Share link={`/brand/${data._id}`}/>
                 <div className="circle"/>
                 <div className="circle-2"/>
             </Card.Body>
