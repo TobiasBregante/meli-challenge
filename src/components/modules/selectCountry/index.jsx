@@ -23,7 +23,7 @@ const SelectCountry = () => {
                 </div>
                 <Text className='brandingTextSelectCountry' h4>
                   <span style={{ display: 'block', marginBottom: -15 }}>
-                    Salada App
+                    Iwarket
                   </span>
                 </Text>
                 <Text h5>

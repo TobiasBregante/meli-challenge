@@ -1,4 +1,4 @@
-const destinationHost = "https://www.saladaapp.com.ar"
+const destinationHost = "https://www.iwarket.com"
 
 const domains = {
   argentina: "ar",
@@ -62,7 +62,7 @@ module.exports = {
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'https://saladaapp.com.ar https://saladaapp.com https://www.saladaapp.com.ar https://www.saladaapp.com'
+            value: 'https://saladaapp.com https://www.saladaapp.com https://iwarket.com https://www.iwarket.com'
           }
         ]
       }
