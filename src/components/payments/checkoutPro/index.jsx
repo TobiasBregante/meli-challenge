@@ -3,12 +3,14 @@ import axios from 'axios';
 import { Modal, useModal, Button, Text, Input, Grid } from "@nextui-org/react";
 import { useRouter } from 'next/router';
 
-const CheckoutPro = ({ data }) => {
+const CheckoutPro = ({ data, contact }) => {
     const router = useRouter()
     const [nombre, setNombre] = useState('');
     const [email, setEmail] = useState('');
     const [city, setCity] = useState('');
-    const [address, setAddress] = useState('');    
+    const [stateName, setStateName] = useState('');
+    const [address, setAddress] = useState('');
+    const [addressNumber, setAddressNumber] = useState('');    
     const [postalCode, setPostalCode] = useState('');
     const [lastName, setLastName] = useState('');
     const [phone, setPhone] = useState('');
@@ -23,27 +25,51 @@ const CheckoutPro = ({ data }) => {
                 items: [
                     {
                         id: data?._id,
-                        title: data?.title,
+                        title: `${data?.title} - #${ref}`,
                         unit_price: parseFloat(data?.prices?.retail),
-                        quantity: 1
+                        currency_id: 'ARS',
+                        category_id: data?.category,
+                        description: data?.description,
+                        quantity: 1,
+                        picture_url: `https://res.cloudinary.com/saladapp/${data?.imgs[0]}`
                     },
                 ],
                 payer: {
                     name: nombre,
-                    email: email
+                    surname: lastName,
+                    email: email,
+                    address: {
+                        zip_code: postalCode,
+                        street_name: address,
+                        street_number: addressNumber
+                    },
+                    phone: {
+                        area_code: "",
+                        number: phone
+                    }
+                },
+                shipments: {
+                    receiver_address: {
+                        zip_code: postalCode,
+                        street_name: address,
+                        street_number: addressNumber,
+                        city_name: city,
+                        state_name: stateName,
+                        country_name: 'Argentina'
+                    }
                 },
                 additional_information: {
-                    city: city,
-                    address: address,    
-                    postalCode: postalCode,
-                    phone: phone,
+                    city: city,    
                     email: email,
                     name: nombre,
                     last_name: lastName,
                     country: 'Argentina',
-                    zip_code: postalCode,
                     ref: ref
-                }
+                },
+                back_urls: {
+                    success: contact
+                },
+                auto_return: "approved"
             }), {
                 headers: {
                     'Content-Type': 'application/json'
@@ -52,7 +78,7 @@ const CheckoutPro = ({ data }) => {
 
             window.location.href = response.data.init_point;
         } catch (error) {
-            console.error('Preference payment create failure:', error);
+            console.error('Preference payment create failure: ', error);
         }
     };
 
@@ -60,10 +86,10 @@ const CheckoutPro = ({ data }) => {
         <Fragment>
             <Button 
                 size={'md'}
-                className='contactBtnProduct'
                 auto
                 shadow
-                css={{ bg: "$whatsapp", w: "100%", mb: 10 }}
+                color={'gradient'}
+                css={{  w: "100%", mb: 10 }}
                 onPress={() => setVisible(true)}>
                 Comprar
             </Button>
@@ -77,7 +103,7 @@ const CheckoutPro = ({ data }) => {
             >
                 <Modal.Header>
                     <Text id="modal-title" size={18}>
-                        Pagá tu compra
+                        Terminá de Pagar tu compra - Completá los datos del envío.
                     </Text>
                 </Modal.Header>
                 <Modal.Body>
@@ -93,9 +119,7 @@ const CheckoutPro = ({ data }) => {
                                     type={'text'}
                                     labelPlaceholder="Nombre"
                                     color="primary"
-                                    css={{ w: "100%" }} />
-                            </Grid>
-                            <Grid xs={12}>
+                                    css={{ w: "45%", marginRight: '5%' }} />
                                 <Input
                                     auto
                                     value={lastName}
@@ -105,19 +129,7 @@ const CheckoutPro = ({ data }) => {
                                     type={'text'}
                                     labelPlaceholder="Apellido"
                                     color="primary"
-                                    css={{ w: "100%" }} />
-                            </Grid>
-                            <Grid xs={12}>
-                                <Input
-                                    auto
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    required
-                                    bordered
-                                    type={'email'}
-                                    labelPlaceholder="Email"
-                                    color="primary"
-                                    css={{ w: "100%" }} />
+                                    css={{ w: "45%", marginLeft: '5%' }} />
                             </Grid>
                             <Grid xs={12}>
                                 <Input
@@ -137,11 +149,21 @@ const CheckoutPro = ({ data }) => {
                                     required
                                     bordered
                                     type={'text'}
-                                    labelPlaceholder="Dirección destino"
+                                    labelPlaceholder="Calle"
                                     color="primary"
                                     css={{ w: "45%", marginLeft: '5%' }} />
                             </Grid>
                             <Grid xs={12}>
+                                <Input
+                                    auto
+                                    value={addressNumber}
+                                    onChange={(e) => setAddressNumber(e.target.value)}
+                                    required
+                                    bordered
+                                    type={'text'}
+                                    labelPlaceholder="Altura de calle"
+                                    color="primary"
+                                    css={{ w: "45%", marginRight: '5%' }} />
                                 <Input
                                     auto
                                     value={postalCode}
@@ -150,6 +172,30 @@ const CheckoutPro = ({ data }) => {
                                     bordered
                                     type={'text'}
                                     labelPlaceholder="Código postal"
+                                    color="primary"
+                                    css={{ w: "45%", marginLeft: '5%' }} />
+                            </Grid>
+                            <Grid xs={12}>
+                                <Input
+                                    auto
+                                    value={stateName}
+                                    onChange={(e) => setStateName(e.target.value)}
+                                    required
+                                    bordered
+                                    type={'text'}
+                                    labelPlaceholder="Provincia"
+                                    color="primary"
+                                    css={{ w: "100%" }} />
+                            </Grid>
+                            <Grid xs={12}>
+                                <Input
+                                    auto
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                    bordered
+                                    type={'email'}
+                                    labelPlaceholder="Email"
                                     color="primary"
                                     css={{ w: "100%" }} />
                             </Grid>
