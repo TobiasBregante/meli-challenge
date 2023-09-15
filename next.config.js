@@ -1,4 +1,4 @@
-const destinationHost = "https://www.iwarket.com"
+const destinationHost = "https://iwarket.com"
 
 const domains = {
   argentina: "ar",
@@ -62,7 +62,7 @@ module.exports = {
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'https://iwarket.com https://www.iwarket.com https://iwarket-back.vercel.app'
+            value: '*'
           }
         ]
       }
