@@ -62,7 +62,7 @@ module.exports = {
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'https://saladaapp.com https://www.saladaapp.com https://iwarket.com https://www.iwarket.com'
+            value: 'https://iwarket.com https://www.iwarket.com https://iwarket-back.vercel.app'
           }
         ]
       }
