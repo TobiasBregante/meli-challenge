@@ -13,20 +13,20 @@ const CategoriesCarousel = ({ data }) => {
       </Grid.Container>
       <Grid.Container justify='center'>
         <Swiper
-          spaceBetween={5}
+          spaceBetween={0}
           modules={[Autoplay]}
           autoplay
           breakpoints={{
             // when window width is >= 640px
             350: {
-              slidesPerView: 4,
+              slidesPerView: 3.4,
             },
             // when window width is >= 768px
             768: {
-              slidesPerView: 7,
+              slidesPerView: 5.5,
             },
             1280: {
-              slidesPerView: 7,
+              slidesPerView: 5.5,
             },
           }}
         >
@@ -36,7 +36,7 @@ const CategoriesCarousel = ({ data }) => {
                 <Link href={`/category/${category.name}`}>
                   <Avatar isBordered src={category?.img} size={'xl'} css={{ m: 'auto', cursor: 'pointer' }}/>
                   <Text css={{ m: 'auto', textAlign: 'center' }}>
-                    {category?.name?.length > 12 ? `${category?.name?.slice(0, 12)}...` : category?.name}
+                    {category?.name?.length > 20 ? `${category?.name?.slice(0, 20)}...` : category?.name}
                   </Text>
                 </Link>
               </SwiperSlide>
