@@ -49,20 +49,22 @@ const ManageProduct = ({ website, data }) => {
         }
     }
 
-
     if (!user) {
         return (
             <ShouldLogin />
         )
     }
+
     if (!user.isAdmin && !user.isSeller) {
         return (
             <ShouldBeSeller />
         )
     }
+
     if (!user.isAdmin && user.brand == undefined) {
         return <ShouldHaveBrand />
     }
+
     if (!user.isAdmin && data?.isOwnedBy != undefined && data?.isOwnedBy != user._id) {
         return <IsNotOwner />
     }
@@ -70,10 +72,10 @@ const ManageProduct = ({ website, data }) => {
     if (user.products == 5 && !user.status.isPremiun && data === undefined) {
         return <ShouldBePremiun />
     }
+
     if (user.products == 40 && user.status.isPremiun && user.status.premiunPlan == "feriante" && data === undefined) {
         return <HardLimit />
     }
-
 
     const handleGenericString = key => (e) => {
         setState({
@@ -84,6 +86,7 @@ const ManageProduct = ({ website, data }) => {
             }
         })
     }
+
     const handlePrices = key => (e) => {
         setState({
             ...state,
@@ -118,8 +121,6 @@ const ManageProduct = ({ website, data }) => {
             setDeleting(false)
         })
     }
-
-
 
     return (
         <Container xl>
@@ -156,8 +157,7 @@ const ManageProduct = ({ website, data }) => {
                                     <Grid>
                                         <Text h3 weight="bold">
                                             {
-                                                data !== undefined ?
-                                                    "Actualizar producto" : "Registra un producto"
+                                                data !== undefined ? "Actualizar producto" : "Registra un producto"
                                             }
                                         </Text>
                                     </Grid>
