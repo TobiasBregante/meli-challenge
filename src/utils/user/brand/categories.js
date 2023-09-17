@@ -18,14 +18,14 @@ const categories = [
   {
     name: "Camping",
     img: "/cat/1.png"
-  }, 
+  },
   {
     name: "Celulares",
     img: "/cat/4.png"
   },
   {
-    name: "Auriculares",
-    img: "/cat/5.png"
+    name: "Informática",
+    img: "/cat/13.png"
   },
   {
     name: "Gomas",
@@ -33,6 +33,34 @@ const categories = [
   },
   {
     name: "Servicios",
+    img: "/cat/8.png"
+  },
+  {
+    name: "Bebidas",
+    img: "/cat/10.png"
+  },
+  {
+    name: "Apple",
+    img: "/cat/11.png"
+  },
+  {
+    name: "Imágen y sonido",
+    img: "/cat/12.png"
+  },
+  {
+    "name": "Climatización",
+    "img": "/cat/14.png"
+  },
+  {
+    name: "Electrohogar",
+    img: "/cat/15.png"
+  },
+  {
+    name: "Cuidado personal",
+    img: "/cat/16.png"
+  },
+  {
+    name: "Electrodomésticos",
     img: "/cat/8.png"
   }
 ]
