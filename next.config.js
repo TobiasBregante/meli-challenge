@@ -58,11 +58,11 @@ module.exports = {
   async headers() {
     return [
       {
-        source: '/',
+        source: '/(.*)',
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: '*'
+            value: 'https://iwarket.com https://www.iwarket.com'
           }
         ]
       }
