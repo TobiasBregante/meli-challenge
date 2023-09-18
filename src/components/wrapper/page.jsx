@@ -9,6 +9,7 @@ import LocaleSwitcher from './localeSwitcher';
 import contentful from './content';
 import BentHeader from './bentHeader';
 import { useRouter } from 'next/router';
+import { Analytics } from '@vercel/analytics/react';
 
 const Page = ({ title, description, image, children, hiddeNavbar, hiddeFooter, bent, countryLocation }) => {
     const [content, setContent] = useState(null)
@@ -36,6 +37,7 @@ const Page = ({ title, description, image, children, hiddeNavbar, hiddeFooter, b
                 {!countryLocation && <BentHeader bent={bent}/>}
                 {!hiddeFooter && <Footer categories={categories} contentful={content}/>}
             </UserWrapper>
+            <Analytics/>
         </Fragment>
     )
 }
