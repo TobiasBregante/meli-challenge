@@ -22,7 +22,7 @@ const Submit = ({ state, setState, data, resetState }) => {
         const Schema = Joi.object({
             title: Joi.string().min(2).max(64).messages(stringMessages("Nombre de producto")),
             category: Joi.string().min(2).max(64).messages(stringMessages("Categoria")),
-            description: Joi.string().min(32).max(5000).messages(stringMessages("Descripción")),
+            description: Joi.string().min(4).max(5000).messages(stringMessages("Descripción")),
             prices: Joi.object({
                 retail: Joi.number().min(1).max(999999999999999999999).messages(numberMessages("Por menor")),
             }),
