@@ -3,7 +3,7 @@ import Icon from '@/src/components/ui/icons';
 import Stars from '@/src/components/ui/stars'
 import SaveBookmark from '@/components/modules/products/saveBookmark'
 import Share from '@/components/modules/common/share';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Grid, Text } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import Get from '@/src/utils/hooks/get';
@@ -15,6 +15,10 @@ const ProductInfo = ({ data }) => {
     const user = useUserContext()
     const [isWritingReview, setWriteReview] = useState(false)
     const router = useRouter()
+
+    useEffect(() => {
+        console.log(data)
+    }, [data])
 
     const lowestPriceSelect = () => {
         const {
