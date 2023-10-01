@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import axios from 'axios';
 import { Modal, useModal, Button, Text, Input, Grid } from "@nextui-org/react";
 import { useRouter } from 'next/router';
@@ -19,7 +19,7 @@ const CheckoutPro = ({ data, contact }) => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-
+        
         try {
             const response = await axios.post('/api/create-payment', JSON.stringify({
                 items: [
@@ -75,13 +75,13 @@ const CheckoutPro = ({ data, contact }) => {
                     'Content-Type': 'application/json'
                 }
             });
-
+            
             window.location.href = response.data.init_point;
         } catch (error) {
             console.error('Preference payment create failure: ', error);
         }
     };
-
+    
     return (
         <Fragment>
             <Button 
