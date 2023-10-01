@@ -12,7 +12,7 @@ import ViewedProducts from '@/src/utils/product/viewedProducts'
 import BannerSuscriber from '@/src/components/bannerSuscriber'
 import CategoriesCarousel from '@/src/components/modules/products/carouseles/categories'
 
-const Index = ({ website, popularProducts, Auriculares, Bazar, Electronica, Jugueteria, Camping, Servicios }) => {
+const Index = ({ website, popularProducts, Auriculares, Bazar, Electronica, Jugueteria, Camping, Servicios, Bebidas }) => {
   const router = useRouter()
   const [toCountryPage, setToCountryPage] = useState(false)
   const [viewed, setViewed] = useState([])
@@ -41,11 +41,12 @@ const Index = ({ website, popularProducts, Auriculares, Bazar, Electronica, Jugu
         <CategoriesCarousel data={website?.categories} />
         <ProductCarousel hiddeBannerSuscription={true} title="Tendencia" data={popularProducts} link="/category/popular" />
         <ProductCarousel hiddeBannerSuscription={true} title="Auriculares" data={Auriculares} link="/category/Auriculares" />
+        <ProductCarousel hiddeBannerSuscription={true} title="La previa es acá" data={Bebidas} link="/category/Bebidas" />
 
         {/* Categorías menos populares */}
         <ProductCarousel hiddeBannerSuscription={true} title="Bazar" data={Bazar} link="/category/Bazar" />
-        <ProductCarousel hiddeBannerSuscription={true} title="Juguetería" data={Jugueteria} link="/category/Juguetería" />
-        <ProductCarousel hiddeBannerSuscription={true} title="Camping" data={Camping} link="/category/Camping" />
+        <ProductCarousel hiddeBannerSuscription={true} title="Juguetes" data={Jugueteria} link="/category/Juguetería" />
+        <ProductCarousel hiddeBannerSuscription={true} title="Campamento" data={Camping} link="/category/Camping" />
         <ProductCarousel hiddeBannerSuscription={true} title="Servicios" data={Servicios} link="/category/Servicios" />
         <ProductCarousel hiddeBannerSuscription={true} title="Fitness" data={Electronica} link="/category/Fitness" />
 
@@ -62,6 +63,7 @@ export default Index
 export async function getServerSideProps(ctx) {
   return {
     props: {
+      Bebidas: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${encodeURI('Bebidas')}&limit=10`).then(r => r.data).catch(() => []),
       Camping: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${encodeURI('Camping')}&limit=10`).then(r => r.data).catch(() => []),
       Bazar: await Get(`/${ctx?.locale}/products/find/query?popular=true&category=${encodeURI('Bazar')}&limit=10`).then(r => r.data).catch(() => []),
       Jugueteria: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=10&product_category=${encodeURI('Juguetería')}`).then(r => r.data).catch(() => []),
