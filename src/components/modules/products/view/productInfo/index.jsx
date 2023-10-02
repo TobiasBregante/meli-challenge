@@ -12,13 +12,7 @@ import { useUserContext } from '@/src/utils/user/provider';
 import CheckoutPro from '@/src/components/payments/checkoutPro';
 
 const ProductInfo = ({ data }) => {
-    const user = useUserContext()
     const [isWritingReview, setWriteReview] = useState(false)
-    const router = useRouter()
-
-    useEffect(() => {
-        console.log(data)
-    }, [data])
 
     const lowestPriceSelect = () => {
         const {

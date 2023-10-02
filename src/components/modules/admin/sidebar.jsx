@@ -21,6 +21,7 @@ const SideBar = ({selected}) => {
                 <Item name="searchByEmail" icon="search" text="Buscar por email" href="/admin/search/byEmail"/>
                 <Item name="brand" icon="search" text="Marcas" href="/admin/search/brands"/>
                 <Item name="products" icon="search" text="Productos" href="/admin/search/products"/>
+                <Item name="transactions" icon="search" text="Transacciones" href="/admin/search/transactions"/>
                 <Item name="PopUp" icon="search" text="PopUp" href="/admin/website/popup"/>
                 <Item name="highlight" icon="search" text="Banner" href="/admin/website/highlight"/>
             </Grid.Container>
