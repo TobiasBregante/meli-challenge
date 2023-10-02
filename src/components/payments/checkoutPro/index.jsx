@@ -21,7 +21,7 @@ const CheckoutPro = ({ data, contact }) => {
         e.preventDefault();
         
         try {
-            const response = await axios.post('/api/create-payment', JSON.stringify({
+            const response = await axios.post(`/api/${router?.locale}/create-payment`, JSON.stringify({
                 items: [
                     {
                         id: data?._id,

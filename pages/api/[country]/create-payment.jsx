@@ -1,6 +1,9 @@
+import Post from '@/src/utils/hooks/post';
 import axios from 'axios';
 
 export default async function handler(req, res) {
+  const { country } = req?.query
+
   try {
     const accessToken = process.env.ACCESS_TOKEN_MP;
 
@@ -13,6 +16,8 @@ export default async function handler(req, res) {
         },
       }
     );
+
+    await Post(`/${country || 'ar'}/transactions/create`, { transaction: response?.data })
 
     res.status(200).json(response.data);
   } catch (error) {
