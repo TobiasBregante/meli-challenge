@@ -32,6 +32,9 @@ module.exports = {
   //     },
   //   ]
   // },
+  experimental: {
+    serverActions: true,
+  },
   async rewrites() {
     return [
       // All routes from the LP

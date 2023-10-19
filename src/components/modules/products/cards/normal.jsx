@@ -59,19 +59,15 @@ const ProductCard = ({ data, className }) => {
                 </div>
                 <Card.Body css={{ pb: 0, overflow: "hidden" }} className='productInfo'>
                     <Text>
-                        <p>
-                            {data?.title?.length > 95 ? `${data?.title?.slice(0, 95)}...` : data?.title}
-                        </p>
+
+                        {data?.title?.length > 95 ? `${data?.title?.slice(0, 95)}...` : data?.title}
+
                     </Text>
-                    <Text>
-                        <p className='priceNormal'>
-                            {lowestPriceSelect()}
-                        </p>
+                    <Text className='priceNormal'>
+                        {lowestPriceSelect()}
                     </Text>
-                    <Text>
-                        <p className='stock'>
-                            {data?.stock > 0 ? `${data?.stock} unidades` : 'Consultar disponibilidad'}
-                        </p>
+                    <Text className='stock'>                    
+                            {data?.stock > 0 ? `${data?.stock} unidades` : 'Consultar disponibilidad'}                      
                     </Text>
                 </Card.Body>
             </Link>
