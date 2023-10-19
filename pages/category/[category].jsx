@@ -69,14 +69,13 @@ const ProductsByCategory = ({ products, brands, website, category }) => {
                 {
                     products?.length > 0 &&
                     <InfiniteScroll
-
                         next={() => setSize(size + 1)}
                         hasMore={!isReachedEnd}
-                        loader={<div style={{ marginTop: '1rem' }}><span >Cargando</span></div>}
-                        endMessage={<p style={{ textAlign: 'center' }}><b>Llegaste al final</b></p>}
+                        css={{ m: 0 , p: 0, w: '100vw' }}
+                        loader={<div style={{ marginTop: '1rem', margin: 0, width: '100%' }}><span >Cargando</span></div>}
+                        endMessage={<p style={{ textAlign: 'center', margin: 0, width: '100%' }}><b>Llegaste al final</b></p>}
                         dataLength={paginatedProds?.length ?? 0}>
                         <UnorderedList title={`Más Populares`} data={paginatedProds} />
-
                     </InfiniteScroll>
 
                 }
