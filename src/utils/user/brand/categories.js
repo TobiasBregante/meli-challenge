@@ -62,6 +62,50 @@ const categories = [
   {
     name: "Electrodomésticos",
     img: "/cat/8.png"
+  },
+  {
+    name: "Ropa de mujer",
+    img: "/cat/17.png"
+  },
+  {
+    name: "Ropa de hombre",
+    img: "/cat/18.png"
+  },
+  {
+    name: "Ropa infantil",
+    img: "/cat/19.png"
+  },
+  {
+    name: "Ropa para bebés",
+    img: "/cat/20.png"
+  },
+  {
+    name: "Calzado",
+    img: "/cat/21.png"
+  },
+  {
+    name: "Accesorios",
+    img: "/cat/22.png"
+  },
+  {
+    name: "Frescos",
+    img: "/cat/23.png"
+  },
+  {
+    name: "Refrigerados",
+    img: "/cat/24.png"
+  },
+  {
+    name: "Congelados",
+    img: "/cat/25.png"
+  },
+  {
+    name: "Envasados",
+    img: "/cat/26.png"
+  },
+  {
+    name: "No perecederos",
+    img: "/cat/27.png"
   }
 ]
 
