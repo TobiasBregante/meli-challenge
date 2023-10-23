@@ -48,6 +48,18 @@ const Index = ({ website, popularProducts, ...categoryData }) => {
     { title: "Electrohogar", data: categoryData.Electrohogar, link: "/category/Electrohogar" },
     { title: "Cuidado personal", data: categoryData.CuidadoPersonal, link: "/category/Cuidado personal" },
     { title: "Electrodomésticos", data: categoryData.Electrodomesticos, link: "/category/Electrodomésticos" },
+    { title: "Ropa de mujer", data: categoryData.RopaDeMujer, link: "/category/Ropa de mujer" },
+    { title: "Ropa de hombre", data: categoryData.RopaDehombre, link: "/category/Ropa de hombre" },
+    { title: "Ropa infantil", data: categoryData.RopaInfantil, link: "/category/Ropa de mujer" },
+    { title: "Ropa para bebés", data: categoryData.RopaDeBebes, link: "/category/Ropa para bebés" },
+    { title: "Calzado", data: categoryData.Calzado, link: "/category/Calzado" },
+    { title: "Accesorios", data: categoryData.Accesorios, link: "/category/Accesorios" },
+    { title: "Frescos", data: categoryData.Frescos, link: "/category/Frescos" },
+    { title: "Refrigerados", data: categoryData.Refrigerados, link: "/category/Refrigerados" },
+    { title: "Congelados", data: categoryData.Congelados, link: "/category/Congelados" },
+    { title: "Envasados", data: categoryData.Envasados, link: "/category/Envasados" },
+    { title: "No Perecederos", data: categoryData.NoPerecederos, link: "/category/No perecederos" },
+
     { title: "Reciente", data: viewed }
   ]
 
@@ -94,6 +106,18 @@ export async function getServerSideProps(ctx) {
     'Electrohogar',
     'Cuidado personal',
     'Electrodomésticos',
+    'Ropa de mujer',
+    'Ropa de hombre',
+    'Ropa infantil',
+    'Ropa para bebés',
+    'Calzado',
+    'Accesorios',
+    'Frescos',
+    'Refrigerados',
+    'Congelados',
+    'Envasados',
+    'No perecederos',
+
   ];
 
   const locale = ctx?.locale;
@@ -118,6 +142,17 @@ export async function getServerSideProps(ctx) {
     Electrohogar,
     CuidadoPersonal,
     Electrodomesticos,
+    RopaDeMujer,
+    RopaDeHombre,
+    RopaInfantil,
+    RopaDeBebes,
+    Calzado,
+    Accesorios,
+    Frescos,
+    Refrigerados,
+    Congelados,
+    Envasados,
+    NoPerecederos,
   ] = await Promise.all(categoryDataPromises);
 
   const popularProducts = await getCategoryData('', locale); // Obtener productos populares de todas las categorías
@@ -146,6 +181,17 @@ export async function getServerSideProps(ctx) {
       popularProducts,
       popularBrands,
       website,
+      RopaDeMujer,
+      RopaDeHombre,
+      RopaInfantil,
+      RopaDeBebes,
+      Calzado,
+      Accesorios,
+      Frescos,
+      Refrigerados,
+      Congelados,
+      Envasados,
+      NoPerecederos,
     },
   };
 }
