@@ -25,50 +25,52 @@ const Index = ({ website, popularProducts, ...categoryData }) => {
     }
   }, [router])
 
-  if (toCountryPage) {
-    return <SelectCountry />
-  }
+
 
   const categoryList = [
     { title: "Tendencia", data: popularProducts, link: "/category/popular" },
-    { title: "Auriculares", data: categoryData.Auriculares, link: "/category/Auriculares" },
-    { title: "La previa es acá", data: categoryData.Bebidas, link: "/category/Bebidas" },
-    { title: "Bazar", data: categoryData.Bazar, link: "/category/Bazar" },
-    { title: "Juguetes", data: categoryData.Jugueteria, link: "/category/Juguetería" },
-    { title: "Campamento", data: categoryData.Camping, link: "/category/Camping" },
-    { title: "Servicios", data: categoryData.Servicios, link: "/category/Servicios" },
-    { title: "Fitness", data: categoryData.Electronica, link: "/category/Fitness" },
-    { title: "Cocina", data: categoryData.Cocina, link: "/category/Cocina" },
-    { title: "Celulares", data: categoryData.Celulares, link: "/category/Celulares" },
-    { title: "Gaming", data: categoryData.Informatica, link: "/category/Informática" },
-    { title: "Gomas", data: categoryData.Gomas, link: "/category/Gomas" },
-    { title: "Apple", data: categoryData.Apple, link: "/category/Apple" },
-    { title: "Imágen y sonido", data: categoryData.ImagenYSonido, link: "/category/Imágen y sonido" },
-    { title: "Climatización", data: categoryData.Climatizacion, link: "/category/Climatización" },
-    { title: "Electrohogar", data: categoryData.Electrohogar, link: "/category/Electrohogar" },
-    { title: "Cuidado personal", data: categoryData.CuidadoPersonal, link: "/category/Cuidado personal" },
-    { title: "Electrodomésticos", data: categoryData.Electrodomesticos, link: "/category/Electrodomésticos" },
-    { title: "Ropa de mujer", data: categoryData.RopaDeMujer, link: "/category/Ropa de mujer" },
-    { title: "Ropa de hombre", data: categoryData.RopaDehombre, link: "/category/Ropa de hombre" },
-    { title: "Ropa infantil", data: categoryData.RopaInfantil, link: "/category/Ropa de mujer" },
-    { title: "Ropa para bebés", data: categoryData.RopaDeBebes, link: "/category/Ropa para bebés" },
-    { title: "Calzado", data: categoryData.Calzado, link: "/category/Calzado" },
-    { title: "Accesorios", data: categoryData.Accesorios, link: "/category/Accesorios" },
-    { title: "Frescos", data: categoryData.Frescos, link: "/category/Frescos" },
-    { title: "Refrigerados", data: categoryData.Refrigerados, link: "/category/Refrigerados" },
-    { title: "Congelados", data: categoryData.Congelados, link: "/category/Congelados" },
-    { title: "Envasados", data: categoryData.Envasados, link: "/category/Envasados" },
-    { title: "No Perecederos", data: categoryData.NoPerecederos, link: "/category/No perecederos" },
-
+    { title: "Celulares", data: categoryData?.Celulares, link: "/category/Celulares" },
+    { title: "Ropa de mujer", data: categoryData?.RopaDeMujer, link: "/category/Ropa de mujer" },
+    { title: "Ropa de hombre", data: categoryData?.RopaDeHombre, link: "/category/Ropa de hombre" },
+    { title: "Electrodomésticos", data: categoryData?.Electrodomesticos, link: "/category/Electrodomésticos" },
+    { title: "Auriculares", data: categoryData?.Auriculares, link: "/category/Auriculares" },
+    { title: "Gaming", data: categoryData?.Informatica, link: "/category/Informática" },
+    { title: "Apple", data: categoryData?.Apple, link: "/category/Apple" },
+    { title: "Imágen y sonido", data: categoryData?.ImagenYSonido, link: "/category/Imágen y sonido" },
+    { title: "Cocina", data: categoryData?.Cocina, link: "/category/Cocina" },
+    { title: "Cuidado personal", data: categoryData?.CuidadoPersonal, link: "/category/Cuidado personal" },
+    { title: "Calzado", data: categoryData?.Calzado, link: "/category/Calzado" },
+    { title: "Accesorios", data: categoryData?.Accesorios, link: "/category/Accesorios" },
+    { title: "Frescos", data: categoryData?.Frescos, link: "/category/Frescos" },
+    { title: "Refrigerados", data: categoryData?.Refrigerados, link: "/category/Refrigerados" },
+    { title: "Congelados", data: categoryData?.Congelados, link: "/category/Congelados" },
+    { title: "Envasados", data: categoryData?.Envasados, link: "/category/Envasados" },
+    { title: "No Perecederos", data: categoryData?.NoPerecederos, link: "/category/No perecederos" },
+    { title: "La previa es acá", data: categoryData?.Bebidas, link: "/category/Bebidas" },
+    { title: "Bazar", data: categoryData?.Bazar, link: "/category/Bazar" },
+    { title: "Juguetes", data: categoryData?.Jugueteria, link: "/category/Juguetería" },
+    { title: "Campamento", data: categoryData?.Camping, link: "/category/Camping" },
+    { title: "Servicios", data: categoryData?.Servicios, link: "/category/Servicios" },
+    { title: "Fitness", data: categoryData?.Electronica, link: "/category/Fitness" },
+    { title: "Gomas", data: categoryData?.Gomas, link: "/category/Gomas" },
+    { title: "Imagen y sonido", data: categoryData?.ImagenYSonido, link: "/category/Imágen y sonido" },
+    { title: "Climatización", data: categoryData?.Climatizacion, link: "/category/Climatización" },
+    { title: "Electrohogar", data: categoryData?.Electrohogar, link: "/category/Electrohogar" },
+    { title: "Ropa infantil", data: categoryData?.RopaInfantil, link: "/category/Ropa de mujer" },
+    { title: "Ropa para bebés", data: categoryData?.RopaDeBebes, link: "/category/Ropa para bebés" },
     { title: "Reciente", data: viewed }
   ]
+
+  if (toCountryPage) {
+    return <SelectCountry />
+  }
 
   return (
     <Page categories={website?.categories}>
       <Container xl css={{ mb: "$10", ml: 0, mr: 0 }} className='container-fluid'>
         <HighLightCarousel data={website?.highlights} />
         <CategoriesCarousel data={website?.categories} />
-        {categoryList.map((category, index) => (
+        {Object.keys(categoryData)?.length > 0 && categoryList?.map((category, index) => (
           <ProductCarousel key={index} hiddeBannerSuscription={true} {...category} />
         ))}
       </Container>
@@ -117,7 +119,6 @@ export async function getServerSideProps(ctx) {
     'Congelados',
     'Envasados',
     'No perecederos',
-
   ];
 
   const locale = ctx?.locale;
@@ -156,7 +157,6 @@ export async function getServerSideProps(ctx) {
   ] = await Promise.all(categoryDataPromises);
 
   const popularProducts = await getCategoryData('', locale); // Obtener productos populares de todas las categorías
-  const popularBrands = await Get(`/${locale}/brands/find/query?popular=true&limit=10`).then(r => r.data).catch(() => []);
   const website = await Get(`/${locale}/website`).then(r => r.data).catch(() => ({}));
 
   return {
@@ -179,7 +179,6 @@ export async function getServerSideProps(ctx) {
       CuidadoPersonal,
       Electrodomesticos,
       popularProducts,
-      popularBrands,
       website,
       RopaDeMujer,
       RopaDeHombre,
