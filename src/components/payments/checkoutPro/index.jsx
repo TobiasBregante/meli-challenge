@@ -2,6 +2,7 @@ import { Fragment, useState } from 'react';
 import axios from 'axios';
 import { Modal, useModal, Button, Text, Input, Grid } from "@nextui-org/react";
 import { useRouter } from 'next/router';
+import Icon from '../../ui/icons';
 
 const CheckoutPro = ({ data, contact }) => {
     const router = useRouter()
@@ -16,6 +17,11 @@ const CheckoutPro = ({ data, contact }) => {
     const [phone, setPhone] = useState('');
     const { setVisible, bindings } = useModal();
     const { ref } = router?.query
+    const handlerQueryContact = () => {
+        if (typeof window !== 'undefined') {
+            window.open(`https://api.whatsapp.com/send?text=Hola, desde Iwarket! Me interesa este producto "${window.location}"&phone=${parseInt(data?.brand?.phone)}`)
+        }
+    } 
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -84,15 +90,27 @@ const CheckoutPro = ({ data, contact }) => {
     
     return (
         <Fragment>
-            <Button 
-                size={'md'}
-                auto
-                shadow
-                color={'gradient'}
-                css={{  w: "100%", mb: 10 }}
-                onPress={() => setVisible(true)}>
-                Comprar
-            </Button>
+            <Grid.Container>
+                <Button 
+                    size={'md'}
+                    auto
+                    shadow
+                    color={'gradient'}
+                    css={{  w: "100%", mb: 10 }}
+                    onPress={() => setVisible(true)}>
+                    Comprar
+                </Button>
+                <Button 
+                    size={'md'}
+                    auto
+                    shadow
+                    // color={'primary'}
+                    css={{  bg: "$whatsapp", w: "100%", mb: 10 }}
+                    onPress={handlerQueryContact}>
+                    Consultar
+                    <Icon id="/whatsappicon" />
+                </Button>
+            </Grid.Container>
             <Modal
                 scroll
                 fullScreen

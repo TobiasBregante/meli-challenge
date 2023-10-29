@@ -3,16 +3,19 @@ import Icon from '@/src/components/ui/icons';
 import Stars from '@/src/components/ui/stars'
 import SaveBookmark from '@/components/modules/products/saveBookmark'
 import Share from '@/components/modules/common/share';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Button, Grid, Text } from '@nextui-org/react';
 import { useRouter } from 'next/router';
 import Get from '@/src/utils/hooks/get';
 import WriteReview from '../review/write';
 import { useUserContext } from '@/src/utils/user/provider';
 import CheckoutPro from '@/src/components/payments/checkoutPro';
+import categories from '@/src/utils/user/brand/categories';
+import { SVGFlag } from 'use-flags';
 
 const ProductInfo = ({ data }) => {
     const [isWritingReview, setWriteReview] = useState(false)
+    const router = useRouter()
 
     const lowestPriceSelect = () => {
         const {
@@ -30,6 +33,15 @@ const ProductInfo = ({ data }) => {
     rating = rating == undefined ? 5 : Math.round(rating.reduce((a, b) => a + b, 0) / rating.length)
 
     const contact = `https://api.whatsapp.com/send?text=Hola, desde Iwarket! Quiero seguir mi pedido!&phone=${parseInt(data?.brand?.phone)}`
+    const wholeSaleCategories = []
+
+    categories?.forEach((cat, i) => {
+        if (cat?.wholesale) {
+            wholeSaleCategories.push(cat?.name)
+        }
+    })
+    
+    const isWholeSale = [data?.category]?.some(item => wholeSaleCategories?.includes(item))
 
     return (
         <Grid.Container direction="column" justify="space-between" css={{ m: 15 }}>
@@ -68,10 +80,28 @@ const ProductInfo = ({ data }) => {
                             </Button>
                         </Grid>
                         <Grid>
-                            <Button shadow className="levelHeader" size={'xs'} color={'primary'}>
+                            <Button shadow className="levelHeader" size={'xs'} color={'gradient'}>
                                 Envíos a todos el país!<Icon css={{ ml: 5, color: '$white' }} id={'local_shipping'}/>
                             </Button>
                         </Grid>
+                        {
+                            !isWholeSale && <Grid>
+                                <Button shadow className="levelHeader" size={'xs'} color={'gradient'}>
+                                    Disponible solo en <span style={{ marginLeft: 4 }}> <SVGFlag country={'ar'} fileType='webp' flagWidth={14} /></span>
+                                </Button>
+                            </Grid>
+                        }
+                        {
+                            isWholeSale && (
+                                <Fragment>
+                                    <Grid>
+                                        <Button shadow className="levelHeader" size={'xs'} color={'gradient'}>
+                                            Envíos internacionales!<Icon css={{ ml: 5, color: '$white' }} id={'flight_takeoff'}/>
+                                        </Button>
+                                    </Grid>
+                                </Fragment>
+                            )
+                        }
                     <Grid xs={12}>
                         <CheckoutPro data={data} contact={contact}/>
                     </Grid>
@@ -79,6 +109,18 @@ const ProductInfo = ({ data }) => {
                     <Grid>
                         <Share link={`product/${data?._id}`} />
                     </Grid>
+                    {
+                        isWholeSale && <Grid xs={12}>
+                            <Grid.Container gap={0.5}>
+                                <Grid xs={12}>
+                                    <Text h4>
+                                        Países disponibles comprando al por mayor
+                                    </Text>
+                                </Grid>
+                                {router?.locales?.length > 0 && router?.locales?.map((obj, i) => <Grid key={i}><SVGFlag country={obj} fileType='webp' flagWidth={20} /></Grid>)}
+                            </Grid.Container>
+                        </Grid>
+                    }
                 </Grid.Container>
             </Grid.Container>
         </Grid.Container>
