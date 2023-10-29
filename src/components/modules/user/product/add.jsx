@@ -10,7 +10,7 @@ import IsNotOwner from '@/components/modules/user/errors/isNotOwner';
 import ShouldBePremiun from '@/components/modules/user/errors/shouldBePremiun'
 import HardLimit from '@/components/modules/user/errors/hardLimit'
 
-import { Button, Card, Checkbox, Container, Grid, Input, Link, Loading, Text, Textarea } from "@nextui-org/react";
+import { Button, Card, Container, Grid, Input, Loading, Text, Textarea } from "@nextui-org/react";
 import Clasification from "./sections/clasification";
 import ImagesSection from "./sections/images";
 //Validation
@@ -36,7 +36,7 @@ const ManageProduct = ({ website, data }) => {
         description: { error: "", value: data?.description || "" },
         imgs: { error: "", value: data?.imgs || [] },
         prices: {
-            retail: { error: "", value: data?.prices.retail || 0 },
+            retail: { error: "", value: data?.prices?.withoutTaxes || 0 },
         }
     }
 
