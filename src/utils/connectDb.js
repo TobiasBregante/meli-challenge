@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
 
+mongoose.set('strictQuery', true)
+
 const MONGODB_KEY = process.env.MONGODB_KEY
 
 if (!MONGODB_KEY) {
