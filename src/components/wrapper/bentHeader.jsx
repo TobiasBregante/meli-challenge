@@ -105,7 +105,7 @@ const BentHeader = ({ bent }) => {
                             size={'sm'}
                             bordered
                             color={'gradient'}
-                            src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${user?.brand?.imgs?.principal || 'uO3wK0EqPoTvyU41rnxLTbuBYjy-k9bY'}`} />
+                            src={`https://res.cloudinary.com/edata/f_auto,c_limit,w_64,q_auto/${user?.brand?.imgs?.principal || 'uO3wK0EqPoTvyU41rnxLTbuBYjy-k9bY'}`} />
                             : <Icon id="person"
                             />
                     }

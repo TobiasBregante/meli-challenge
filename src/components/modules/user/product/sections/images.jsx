@@ -3,6 +3,7 @@ import Link from "@/src/utils/hooks/link"
 import { useUserContext } from "@/src/utils/user/provider"
 import { Card, Grid, Text, Image as UiImage } from "@nextui-org/react"
 import Image from "next/legacy/image"
+import { useEffect } from "react"
 import { FileUploader } from "react-drag-drop-files"
 import { toast } from "react-toastify"
 
@@ -21,6 +22,7 @@ const ImagesSection = ({ state, setState }) => {
             }
         }
 
+        
         setState({
             ...state,
             imgs: {
@@ -29,6 +31,7 @@ const ImagesSection = ({ state, setState }) => {
             }
         })
     }
+    useEffect(() => console.log(state), [state])
     const removeImg = (id) => () => {
         setState({
             ...state,

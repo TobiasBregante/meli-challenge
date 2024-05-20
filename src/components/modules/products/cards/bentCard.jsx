@@ -67,7 +67,7 @@ const BentCard = ({ data, className }) => {
                         onClick={goToBrand}
                         className="brandAvatar" 
                         size={'md'} 
-                        src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${data?.brand?.imgs?.principal || 'uO3wK0EqPoTvyU41rnxLTbuBYjy-k9bY'}`} 
+                        src={`https://res.cloudinary.com/edata/f_auto,c_limit,w_64,q_auto/${data?.brand?.imgs?.principal || 'uO3wK0EqPoTvyU41rnxLTbuBYjy-k9bY'}`} 
                     />
                 </Grid>
                 <Grid xs={7} className="bentCardDescription">

@@ -37,7 +37,7 @@ const CheckoutPro = ({ data, contact }) => {
                         category_id: data?.category,
                         description: data?.description,
                         quantity: 1,
-                        picture_url: `https://res.cloudinary.com/saladapp/${data?.imgs[0]}`
+                        picture_url: `https://res.cloudinary.com/edata/${data?.imgs[0]}`
                     },
                 ],
                 payer: {

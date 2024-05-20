@@ -105,7 +105,7 @@ const Header = ({ contentful }) => {
                                                 <Image
                                                     width={90}
                                                     height={50}
-                                                    src="/brand_qdbfjo.png"
+                                                    src="/janunnme7gl0kym8qqd0.png"
                                                     objectFit='contain'
                                                     alt="Iwarket-logo" />
                                             </div>

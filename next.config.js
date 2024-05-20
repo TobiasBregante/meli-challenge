@@ -77,7 +77,7 @@ module.exports = {
   },
   images: {
     loader: 'cloudinary',
-    path: 'https://res.cloudinary.com/saladapp/'
+    path: 'https://res.cloudinary.com/edata/'
   },
   i18n: {
     locales: [

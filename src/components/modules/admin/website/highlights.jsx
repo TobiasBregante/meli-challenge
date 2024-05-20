@@ -8,7 +8,7 @@ import { toast } from "react-toastify"
 import { useRouter } from "next/router"
 
 const HighLightForm = ({ website }) => {
-    const [state, setState] = useState(website.highlights || [])
+    const [state, setState] = useState(website?.highlights || [])
     const [isSubmiting, setSubmiting] = useState(false)
     const router = useRouter()
 

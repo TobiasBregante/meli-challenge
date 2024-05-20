@@ -169,7 +169,7 @@ const UpdateBrandModule = ({ website, data }) => {
                             <Text h3>
                                 Datos del vendedor
                             </Text>
-                            <Avatar css={{ marginLeft: '$10' }} squared src={`https://res.cloudinary.com/saladapp/f_auto,c_limit,w_64,q_auto/${data?.imgs?.principal || 'uO3wK0EqPoTvyU41rnxLTbuBYjy-k9bY'}`} />
+                            <Avatar css={{ marginLeft: '$10' }} squared src={`https://res.cloudinary.com/edata/f_auto,c_limit,w_64,q_auto/${data?.imgs?.principal || 'uO3wK0EqPoTvyU41rnxLTbuBYjy-k9bY'}`} />
                         </Card.Header>
                         <Card.Body>
                             <Text b h4>
