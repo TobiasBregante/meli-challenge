@@ -8,6 +8,10 @@
             "@/ui/*": ["src/components/ui/*"],
             "@/utils/*": ["src/utils/*"],   
             "@Page": ["src/components/wrapper/page.jsx"], 
+            "@/middlewares/*": ["src/middlewares/*"],   
+            "@/models/*": ["src/models/*"],
+            "@ConnectDb": ["src/utils/connectDb.js"], 
+            "@Cors": ["src/utils/cors.js"],
         }
     }
 }
