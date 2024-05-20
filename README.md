@@ -26,3 +26,4 @@ That's all 🎉
  - `@/ui/` has all ui components in isolation, in case of not passed, they have self managed state
 - `@/styles/` handled by build.scss that import all styles needed "including bootstrap" is where app styles live
 - `@/utils/`has hooks, and function that can be reuse in other files
+[![Netlify Status](https://api.netlify.com/api/v1/badges/34bfdb88-19b0-4570-bd9d-819a7116e234/deploy-status)](https://app.netlify.com/sites/iwarket/deploys)
