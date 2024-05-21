@@ -1,4 +1,5 @@
-const destinationHost = "https://www.iwarket.com"
+//const destinationHost = "https://www.iwarket.com"
+const destinationHost = 'https://iwarket.netlify.app'
 
 const domains = {
   argentina: "ar",
