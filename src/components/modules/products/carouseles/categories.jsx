@@ -34,7 +34,7 @@ const CategoriesCarousel = ({ data }) => {
             data?.length > 0 && data.sort((a, b) => b.views - a.views).map((category, i) => (
               <SwiperSlide key={i} className='carousellCategories'>
                 <Link href={`/category/${category.name}`}>
-                  <Avatar isBordered src={category?.img} size={'xl'} css={{ m: 'auto', cursor: 'pointer' }} />
+                  <Avatar isbordered={'true'} src={category?.img} size={'xl'} css={{ m: 'auto', cursor: 'pointer' }} />
                   <Text css={{ m: 'auto', textAlign: 'center' }}>
                     {category?.name?.length > 20 ? `${category?.name?.slice(0, 20)}...` : category?.name}
                   </Text>

@@ -36,10 +36,10 @@ const BentHeader = ({ bent }) => {
     return (
         <Fragment>
             <Grid.Container className="headerBottomContain" css={{ '@smMin': { display: bent ? '' : 'none' } }}>
-                <button className="bentHeader" onClick={goToHome} aria-label='To Home' >
+                <button className="bentHeader" onClick={goToHome} aria-labelledby='To Home' >
                     <Icon id={'home'} />
                 </button>
-                <button className="bentHeaderToBent" aria-label="To Bent" onClick={goToBent}>
+                <button className="bentHeaderToBent" aria-labelledby="To Bent" onClick={goToBent}>
                     B
                 </button>
                 {

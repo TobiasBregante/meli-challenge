@@ -34,7 +34,7 @@ const ProductImageCarrousel = ({ imgs }) => {
                         <div>
                             <Image
                                 src={`/${imgs[imgSelected]}`}
-                                aria-label={'Image Carousell'}
+                                aria-labelledby={'Image Carousell'}
                                 css={{ h: "auto", w: "50vw !important", "@mdMax": { w: "100vw !important" } }}
                                 width={100}
                                 height={100}

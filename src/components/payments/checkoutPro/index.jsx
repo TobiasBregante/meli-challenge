@@ -115,7 +115,7 @@ const CheckoutPro = ({ data, contact }) => {
                 scroll
                 fullScreen
                 closeButton
-                aria-labelledby="modal-title"
+                aria-labelledbyledby="modal-title"
                 aria-describedby="modal-description"
                 {...bindings}
             >

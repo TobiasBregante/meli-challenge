@@ -63,7 +63,7 @@ const Header = ({ contentful }) => {
                                 onChange={handleSearch}
                                 onKeyUp={handleEnter}
                                 id="headerSearch"
-                                aria-label={contentful?.header?.headerSearch?.ariaLabel}
+                                aria-labelledby={contentful?.header?.headerSearch?.ariaLabel}
                                 placeholder={contentful?.header?.headerSearch?.mobile}
                                 contentRight={<Icon id="search" className="text-dark" />}
                                 contentLeft={<Icon id="arrow_back" onClick={() => openSearchBar(false)} css={{ m: 10 }} />}
@@ -84,7 +84,7 @@ const Header = ({ contentful }) => {
                                                 alt="Iwarket-navbar"
                                             />
                                         </Dropdown.Button>
-                                        <Dropdown.Menu aria-label="Dynamic Actions" items={categories}>
+                                        <Dropdown.Menu aria-labelledby="Dynamic Actions" items={categories}>
                                             {(item) => (
                                                 <Dropdown.Item
                                                     key={uniqid()}
@@ -121,7 +121,7 @@ const Header = ({ contentful }) => {
                                     onChange={handleSearch}
                                     onKeyUp={handleEnter}
                                     id="headerSearch"
-                                    aria-label={contentful?.header?.headerSearch?.ariaLabel}
+                                    aria-labelledby={contentful?.header?.headerSearch?.ariaLabel}
                                     placeholder={contentful?.header?.headerSearch?.desktop}
                                     contentRight={<Icon id="search" className="iconSearch" />}
                                 />
