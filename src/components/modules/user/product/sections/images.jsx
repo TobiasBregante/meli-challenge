@@ -31,7 +31,7 @@ const ImagesSection = ({ state, setState }) => {
             }
         })
     }
-    useEffect(() => console.log(state), [state])
+
     const removeImg = (id) => () => {
         setState({
             ...state,
