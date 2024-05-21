@@ -38,7 +38,7 @@ module.exports = {
     //ACCESS_TOKEN_MP: 'TEST-4128705031394975-102715-1fcc9bea265dc1b7d8cb133ee1b1cf52-348846213',
     //NEXT_PUBLIC_API: 'http://localhost:3000/api',
     //NEXT_PUBLIC_API: 'https://www.iwarket.com/api',
-    NEXT_PUBLIC_API: 'https://iwarket.netlify.app',
+    NEXT_PUBLIC_API: 'https://iwarket.netlify.app/api',
     MONGODB_KEY: 'mongodb+srv://nezzed:SfMzJUMxpuGZUZ64@ecommerce.9mipi43.mongodb.net/?retryWrites=true&w=majority&appName=ecommerce',
     CLOUDINARY_API_SECRET: 'tC5yHp3VZH6VaLH4ObPo0AaijUM',
     CLOUDINARY_API_KEY: '279418967459214',
