@@ -80,7 +80,8 @@ module.exports = {
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'https://iwarket.com https://www.iwarket.com'
+            value: 'https://iwarket.netlify.app'
+            //value: 'https://iwarket.com https://www.iwarket.com'
           }
         ]
       }
