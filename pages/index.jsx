@@ -25,37 +25,12 @@ const Index = ({ website, popularProducts, ...categoryData }) => {
     }
   }, [router])
 
-
-
   const categoryList = [
     { title: "Tendencia", data: popularProducts, link: "/category/popular" },
-    { title: "Celulares", data: categoryData?.Celulares, link: "/category/Celulares" },
     { title: "Ropa de mujer", data: categoryData?.RopaDeMujer, link: "/category/Ropa de mujer" },
     { title: "Ropa de hombre", data: categoryData?.RopaDeHombre, link: "/category/Ropa de hombre" },
-    { title: "Electrodomésticos", data: categoryData?.Electrodomesticos, link: "/category/Electrodomésticos" },
-    { title: "Auriculares", data: categoryData?.Auriculares, link: "/category/Auriculares" },
-    { title: "Gaming", data: categoryData?.Informatica, link: "/category/Informática" },
-    { title: "Apple", data: categoryData?.Apple, link: "/category/Apple" },
-    { title: "Imágen y sonido", data: categoryData?.ImagenYSonido, link: "/category/Imágen y sonido" },
-    { title: "Cocina", data: categoryData?.Cocina, link: "/category/Cocina" },
-    { title: "Cuidado personal", data: categoryData?.CuidadoPersonal, link: "/category/Cuidado personal" },
     { title: "Calzado", data: categoryData?.Calzado, link: "/category/Calzado" },
     { title: "Accesorios", data: categoryData?.Accesorios, link: "/category/Accesorios" },
-    { title: "Frescos", data: categoryData?.Frescos, link: "/category/Frescos" },
-    { title: "Refrigerados", data: categoryData?.Refrigerados, link: "/category/Refrigerados" },
-    { title: "Congelados", data: categoryData?.Congelados, link: "/category/Congelados" },
-    { title: "Envasados", data: categoryData?.Envasados, link: "/category/Envasados" },
-    { title: "No Perecederos", data: categoryData?.NoPerecederos, link: "/category/No perecederos" },
-    { title: "La previa es acá", data: categoryData?.Bebidas, link: "/category/Bebidas" },
-    { title: "Bazar", data: categoryData?.Bazar, link: "/category/Bazar" },
-    { title: "Juguetes", data: categoryData?.Jugueteria, link: "/category/Juguetería" },
-    { title: "Campamento", data: categoryData?.Camping, link: "/category/Camping" },
-    { title: "Servicios", data: categoryData?.Servicios, link: "/category/Servicios" },
-    { title: "Fitness", data: categoryData?.Electronica, link: "/category/Fitness" },
-    { title: "Cubiertas", data: categoryData?.Cubiertas, link: "/category/Cubiertas" },
-    { title: "Imagen y sonido", data: categoryData?.ImagenYSonido, link: "/category/Imágen y sonido" },
-    { title: "Climatización", data: categoryData?.Climatizacion, link: "/category/Climatización" },
-    { title: "Electrohogar", data: categoryData?.Electrohogar, link: "/category/Electrohogar" },
     { title: "Ropa infantil", data: categoryData?.RopaInfantil, link: "/category/Ropa de mujer" },
     { title: "Ropa para bebés", data: categoryData?.RopaDeBebes, link: "/category/Ropa para bebés" },
     { title: "Reciente", data: viewed }
@@ -91,34 +66,12 @@ export async function getServerSideProps(ctx) {
   };
 
   const categories = [
-    'Bebidas',
-    'Camping',
-    'Bazar',
-    'Juguetería',
-    'Auriculares',
-    'Servicios',
-    'Fitness',
-    'Cocina',
-    'Celulares',
-    'Informática',
-    'Cubiertas',
-    'Apple',
-    'Imágen y sonido',
-    'Climatización',
-    'Electrohogar',
-    'Cuidado personal',
-    'Electrodomésticos',
     'Ropa de mujer',
     'Ropa de hombre',
     'Ropa infantil',
     'Ropa para bebés',
     'Calzado',
     'Accesorios',
-    'Frescos',
-    'Refrigerados',
-    'Congelados',
-    'Envasados',
-    'No perecederos',
   ];
 
   const locale = ctx?.locale;
@@ -126,34 +79,12 @@ export async function getServerSideProps(ctx) {
   const categoryDataPromises = categories.map((category) => getCategoryData(category, locale));
 
   const [
-    Bebidas,
-    Camping,
-    Bazar,
-    Jugueteria,
-    Auriculares,
-    Servicios,
-    Fitness,
-    Cocina,
-    Celulares,
-    Informatica,
-    Cubiertas,
-    Apple,
-    ImagenYSonido,
-    Climatizacion,
-    Electrohogar,
-    CuidadoPersonal,
-    Electrodomesticos,
     RopaDeMujer,
     RopaDeHombre,
     RopaInfantil,
     RopaDeBebes,
     Calzado,
     Accesorios,
-    Frescos,
-    Refrigerados,
-    Congelados,
-    Envasados,
-    NoPerecederos,
   ] = await Promise.all(categoryDataPromises);
 
   const popularProducts = await getCategoryData('', locale); // Obtener productos populares de todas las categorías
@@ -161,23 +92,6 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
-      Bebidas,
-      Camping,
-      Bazar,
-      Jugueteria,
-      Auriculares,
-      Servicios,
-      Fitness,
-      Cocina,
-      Celulares,
-      Informatica,
-      Cubiertas,
-      Apple,
-      ImagenYSonido,
-      Climatizacion,
-      Electrohogar,
-      CuidadoPersonal,
-      Electrodomesticos,
       popularProducts,
       website,
       RopaDeMujer,
@@ -186,11 +100,6 @@ export async function getServerSideProps(ctx) {
       RopaDeBebes,
       Calzado,
       Accesorios,
-      Frescos,
-      Refrigerados,
-      Congelados,
-      Envasados,
-      NoPerecederos,
     },
   };
 }
