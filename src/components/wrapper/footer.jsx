@@ -9,6 +9,7 @@ const Footer = () => {
         { name: 'Celulares', url: "/category/Accesorios para Celulares" },
     ]
     const router = useRouter()
+    const thisYear = (new Date())?.getFullYear()
 
     return (
         <Fragment>
@@ -42,8 +43,8 @@ const Footer = () => {
                     </Grid>
                     <Grid xs={12} sm={4} md={4} lg={4} xl={4}>
                         <Grid>
-                            <Text className="titleTextFooter">
-                                Categorías Más Populares
+                            <div className="titleTextFooter">
+                                <p>Categorías Más Populares</p>
                                 <hr />
                                 <ul>
                                     {categories?.length > 0 && categories?.map((obj, o) => (
@@ -52,12 +53,12 @@ const Footer = () => {
                                         </li>
                                     ))}
                                 </ul>
-                            </Text>
+                            </div>
                         </Grid>
                     </Grid>
                     <Grid xs={12} sm={4} md={4} lg={4} xl={4}>
-                        <Text className="titleTextFooter">
-                            Servicio Al Cliente
+                        <div className="titleTextFooter">
+                            <p>Servicio Al Cliente</p>
                             <hr />
                             <ul>
                                 <li key={'faqs'}>
@@ -66,11 +67,11 @@ const Footer = () => {
                                     </a>
                                 </li>
                             </ul>
-                        </Text>
+                        </div>
                     </Grid>
                     <Grid xs={12}>
                         <p className="copyRight">
-                            &copy; {(new Date())?.getFullYear()} Todos los derechos reservados. Iwarket.com
+                            &copy; {thisYear} Todos los derechos reservados. Iwarket.com
                         </p>
                     </Grid>
                 </Grid.Container>

@@ -33,6 +33,8 @@ const BentHeader = ({ bent }) => {
         setShowNavbarList(false)
     }, [router])
 
+    const toWpp = () => window.open(`https://api.whatsapp.com/send?text=Hola! Necesito soporte en Iwarket&phone=5491124767008`)
+
     return (
         <Fragment>
             <Grid.Container className="headerBottomContain" css={{ '@smMin': { display: bent ? '' : 'none' } }}>
@@ -87,9 +89,7 @@ const BentHeader = ({ bent }) => {
                                         <Link href={`/user/claimBrand`}>Crear marca</Link>
                                     </Button>
                                 }
-                                <Button onPress={() => {
-                                    window.open(`https://api.whatsapp.com/send?text=Hola! Necesito soporte en Iwarket&phone=5491124767008`)
-                                }} key="support" iconRight={<Icon id="support_agent" />}>Servicio al cliente</Button>
+                                <Button onPress={toWpp} key="support" iconRight={<Icon id="support_agent" />}>Servicio al cliente</Button>
                                 <Button key="faq" iconRight={<Icon id="quiz" />}>
                                     <Link href={`/docs/faq`}>Preguntas frecuentes</Link>
                                 </Button>

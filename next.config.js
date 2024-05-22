@@ -68,8 +68,10 @@ module.exports = {
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'https://iwarket-front.vercel.app https://iwarket.netlify.app http://localhost:3000 https://iwarket.com https://www.iwarket.com'
-            //value: 'https://iwarket.com https://www.iwarket.com'
+            //value: 'http://localhost:3000',
+            //value: 'https://iwarket.netlify.app',
+            value: 'https://iwarket-front.vercel.app'
+            //value: 'https://www.iwarket.com'
           }
         ]
       }

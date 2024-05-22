@@ -6,9 +6,11 @@ import Share from "../common/share"
 const BrandCard = ({ data }) => {
     const prom = input => input?.reduce((prev, user) => parseInt(prev) + parseInt(user), 0) / input.length
     const rating = prom(data?.stats?.stars)
+    const toBrand = () => window.location = `brand/${data._id}`
+
     return (
         <Grid xs={12}>
-            <Card variant="flat" className="brand-card" css={{ w: '100%', height: 207 }} onClick={() => window.location = `brand/${data._id}`} isHoverable isPressable>
+            <Card variant="flat" className="brand-card" css={{ w: '100%', height: 207 }} onClick={toBrand} isHoverable isPressable>
                 <Card.Body css={{ pb: 0 }}>
                     <Grid>
                         <Text css={{ pt: 9, pb: 9, mb: 12 }}>

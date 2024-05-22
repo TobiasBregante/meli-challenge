@@ -10,6 +10,8 @@ const TransactionsList = ({ data }) => {
         const user = data[Array.from(e)[0]]
         // router.push(`/./${router?.locale}/admin/user/${user._id}`)
     }
+
+    const toWpp = e => window.open(e)
     
     return (
         <Container className="tableUsers">
@@ -40,7 +42,7 @@ const TransactionsList = ({ data }) => {
                                 <Table.Cell>{user?.transaction?.payer?.name}</Table.Cell>
                                 <Table.Cell>{user?.transaction?.payer?.email}</Table.Cell>
                                 <Table.Cell>{user?.transaction?.payer?.phone?.number}</Table.Cell>
-                                <Table.Cell>{<Button size={'sm'} onClick={() => window.open(`https://wa.me/${arg.phone.clean(user?.transaction?.payer?.phone?.number)}`)} rounded iconRight={<Icon id="/whatsappicon"/>}>WhatsApp</Button>}</Table.Cell>
+                                <Table.Cell>{<Button size={'sm'} onClick={() => toWpp(`https://wa.me/${arg.phone.clean(user?.transaction?.payer?.phone?.number)}`)} rounded iconRight={<Icon id="/whatsappicon"/>}>WhatsApp</Button>}</Table.Cell>
                                 <Table.Cell>{user?.transaction?.shipments?.receiver_address?.street_name}</Table.Cell>
                                 <Table.Cell>{user?.transaction?.shipments?.receiver_address?.street_number}</Table.Cell>
                                 <Table.Cell>{user?.transaction?.shipments?.receiver_address?.city_name}</Table.Cell>
