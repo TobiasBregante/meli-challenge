@@ -1,7 +1,7 @@
 //const destinationHost = "https://www.iwarket.com"
-//const destinationHost = 'https://iwarket.netlify.app'
+const destinationHost = 'https://iwarket.netlify.app'
 //const destinationHost = 'http://localhost:3000'
-const destinationHost = 'https://iwarket-front.vercel.app'
+//const destinationHost = 'https://iwarket-front.vercel.app'
 
 const domains = {
   argentina: "ar",
@@ -69,8 +69,8 @@ module.exports = {
           {
             key: 'Access-Control-Allow-Origin',
             //value: 'http://localhost:3000',
-            //value: 'https://iwarket.netlify.app',
-            value: 'https://iwarket-front.vercel.app'
+            value: 'https://iwarket.netlify.app',
+            //value: 'https://iwarket-front.vercel.app'
             //value: 'https://www.iwarket.com'
           }
         ]
