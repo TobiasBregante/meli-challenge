@@ -17,7 +17,7 @@ const SelectCountry = () => {
                   <Image
                     width={50}
                     height={50}
-                    src="/brand_qdbfjo.png"
+                    src="/brand.png"
                     objectFit='contain'
                     alt="iwarket-app-logo" />
                 </div>
