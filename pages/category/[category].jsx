@@ -10,9 +10,6 @@ import { useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import categories from '@/src/utils/user/brand/categories'
 
-
-
-
 const ProductsByCategory = ({ products, brands, category }) => {
     const router = useRouter()
     const [uniqueProds, setUniqueProds] = useState([]);
