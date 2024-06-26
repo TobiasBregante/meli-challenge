@@ -2,16 +2,12 @@ import { Button, Card, Dropdown, Grid, Input, Text } from "@nextui-org/react"
 import { Fragment, useMemo, useState } from "react"
 import Icon from "@/ui/icons"
 import { useRouter } from "next/router"
-import Sheds from '@/utils/user/brand/sheds'
 
 const SearchFilters = ({ categories, params }) => {
     const [state, setState] = useState({
         orderBy: new Set(["Más popular"]),
-        isWholeSale: null,
         category: null,
         isStore: true,
-        zone: new Set([params.zone || "Todas las ubicaciones"]),
-        shed: new Set(["Todos los galpones"]),
     }),
         [isOpen, setOpen] = useState(true)
     const router = useRouter()
@@ -30,16 +26,6 @@ const SearchFilters = ({ categories, params }) => {
     const orderBy = useMemo(
         () => Array.from(state.orderBy),
         [state.orderBy]
-    );
-
-    const zone = useMemo(
-        () => Array.from(state.zone),
-        [state.zone]
-    );
-
-    const shed = useMemo(
-        () => Array.from(state.shed),
-        [state.shed]
     );
 
     const handleState = name => e => {

@@ -1,24 +1,18 @@
 import Page from '@Page';
 import ProductCarousel from '@/src/components/modules/products/carouseles/product';
-import HighLightCarousel from '@/src/components/modules/products/carouseles/highlight';
 import { Container } from '@nextui-org/react';
 import Get from '@/utils/hooks/get';
 import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import SelectCountry from '@/src/components/modules/selectCountry';
-import ViewedProducts from '@/src/utils/product/viewedProducts';
 import CategoriesCarousel from '@/src/components/modules/products/carouseles/categories';
+import categories from '@/src/utils/user/brand/categories';
 
-const Index = ({ website, popularProducts, ...categoryData }) => {
+const Index = ({ popularProducts, ...categoryData }) => {
   const router = useRouter();
   const [toCountryPage, setToCountryPage] = useState(false);
-  const [viewed, setViewed] = useState([]);
 
   useEffect(() => {
-    const viewedProducts = ViewedProducts();
-    if (viewedProducts?.length > 0) {
-      setViewed(viewedProducts);
-    }
     if (typeof window !== 'undefined' && window.location.pathname.replaceAll('/', '') !== router.locale) {
       setToCountryPage(true);
     } else {
@@ -34,20 +28,18 @@ const Index = ({ website, popularProducts, ...categoryData }) => {
     { title: "Accesorios", data: categoryData?.Accesorios, link: "/category/Accesorios" },
     { title: "Ropa infantil", data: categoryData?.RopaInfantil, link: "/category/Ropa de mujer" },
     { title: "Ropa para bebés", data: categoryData?.RopaDeBebes, link: "/category/Ropa para bebés" },
-    { title: "Reciente", data: viewed }
-  ], [popularProducts, categoryData, viewed]);
+  ], [popularProducts, categoryData]);
 
   if (toCountryPage) {
     return <SelectCountry />;
   }
 
   return (
-    <Page categories={website?.categories}>
+    <Page categories={categories}>
       <Container xl css={{ mb: "$10", ml: 0, mr: 0 }} className='container-fluid'>
-        <HighLightCarousel data={website?.highlights} />
-        <CategoriesCarousel data={website?.categories} />
+        <CategoriesCarousel data={categories} />
         {categoryList.map((category, index) => (
-          <ProductCarousel key={index} hiddeBannerSuscription={true} {...category} />
+          <ProductCarousel key={index} {...category} />
         ))}
       </Container>
     </Page>
@@ -85,12 +77,10 @@ export async function getServerSideProps(ctx) {
   ]);
 
   const [RopaDeMujer, RopaDeHombre, RopaInfantil, RopaDeBebes, Calzado, Accesorios] = categoryData;
-  const website = await Get(`/${locale}/website`).then(r => r.data).catch(() => ({}));
 
   return {
     props: {
       popularProducts,
-      website,
       RopaDeMujer,
       RopaDeHombre,
       RopaInfantil,

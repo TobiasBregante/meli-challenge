@@ -1,8 +1,8 @@
 import { Dropdown, Grid, Input, Text } from "@nextui-org/react"
 import { Fragment, useState } from "react";
+import categories from "@/src/utils/user/brand/categories";
 
-
-const Clasification = ({ state, onChange, website }) => {
+const Clasification = ({ state, onChange }) => {
     const [categoryState, setCategory] = useState("")
     const [payMethod, setPayMethod] = useState([])
 
@@ -33,7 +33,7 @@ const Clasification = ({ state, onChange, website }) => {
                     <Dropdown>
                         <Dropdown.Button flat color="$gray">
                             {
-                                state.category.value.length == 0 ? "Eligé una categoria" : state.category.value
+                                state.category.value.length == 0 ? "Elige una categoria" : state.category.value
                             }
                         </Dropdown.Button>
                         <Dropdown.Menu
@@ -42,7 +42,7 @@ const Clasification = ({ state, onChange, website }) => {
                             onSelectionChange={handleCategory}
                         >
                             {
-                                website?.categories?.length > 0 && website?.categories?.map(category => (
+                                categories?.length > 0 && categories?.map(category => (
                                     <Dropdown.Item key={category.name}>{category.name}</Dropdown.Item>
                                 ))
                             }

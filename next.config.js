@@ -1,7 +1,4 @@
-//const destinationHost = "https://www.iwarket.com"
-const destinationHost = 'https://iwarket.netlify.app'
-//const destinationHost = 'http://localhost:3000'
-//const destinationHost = 'https://iwarket-front.vercel.app'
+const destinationHost = 'http://localhost:3000'
 
 const domains = {
   argentina: "ar",
@@ -26,15 +23,6 @@ const domains = {
 const defaultDomain = domains.argentina;
 
 module.exports = {
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: '/',
-  //       destination: 'https://nezzed.com',
-  //       permanent: true,
-  //     },
-  //   ]
-  // },
   experimental: {
     serverActions: true,
   },
@@ -68,10 +56,7 @@ module.exports = {
         headers: [
           {
             key: 'Access-Control-Allow-Origin',
-            //value: 'http://localhost:3000',
-            value: 'https://iwarket.netlify.app',
-            //value: 'https://iwarket-front.vercel.app'
-            //value: 'https://www.iwarket.com'
+            value: 'http://localhost:3000'
           }
         ]
       }
@@ -80,10 +65,6 @@ module.exports = {
   reactStrictMode: true, //Will run twice useEffect, with that been said, userProvider is going to request twice user/me
   eslint: {
     ignoreDuringBuilds: true,
-  },
-  images: {
-    loader: 'cloudinary',
-    path: 'https://res.cloudinary.com/edata/'
   },
   i18n: {
     locales: [

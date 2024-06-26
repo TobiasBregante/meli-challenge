@@ -4,7 +4,6 @@ import {  stringMessages, booleanMessages } from '@/utils/joi/customMessages'
 const UserJoiSchema = () => {
     return {
         //NOTE, .Required() is not added due to not all are required in login form validation
-        location: Joi.object(),
         isSeller: Joi.boolean().messages(booleanMessages("es vendedor")),
         name:
             Joi

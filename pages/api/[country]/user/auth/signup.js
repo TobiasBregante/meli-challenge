@@ -19,7 +19,6 @@ const SignupEndpoint = async (req, res) => {
     if (method == 'PUT') {
         try {
             const schema = Joi.object({
-                location: JoiUser().location.required(),
                 isSeller: JoiUser().isSeller.required(),
                 name: JoiUser().name.required(),
                 lastName: JoiUser().lastName.required(),
@@ -33,11 +32,6 @@ const SignupEndpoint = async (req, res) => {
             if (error) {
                 //ON JOI VALIDATION ERROR
                 return badRequest(res, error.details[0].message)
-            }
-
-            value['status'] = {
-                isBanned: false,
-                isPremiun: false
             }
             const parsed = value
 

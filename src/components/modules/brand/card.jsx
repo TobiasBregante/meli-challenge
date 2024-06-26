@@ -1,11 +1,9 @@
 import { Button, Card, Grid, Text } from "@nextui-org/react"
 import Image from "next/legacy/image"
-import Stars from "../../ui/stars"
 import Share from "../common/share"
 
 const BrandCard = ({ data }) => {
     const prom = input => input?.reduce((prev, user) => parseInt(prev) + parseInt(user), 0) / input.length
-    const rating = prom(data?.stats?.stars)
     const toBrand = () => window.location = `brand/${data._id}`
 
     return (
@@ -29,14 +27,11 @@ const BrandCard = ({ data }) => {
                     </Grid>
                     <Grid>
                         <div>
-                            <Image src={`/${data.imgs && data?.imgs?.principal !== 'NI35_W3jmftQURiB_rR_LR0IUkjGXl77' ? data.imgs.principal : "blank-profile-picture-g227b26ec4_640_fwvqox"}`} width={62} height={62} alt={data.brandName} className="rounded-brand " />
+                            <Image src={`/img/avatars/1.png`} width={62} height={62} alt={data.brandName} className="rounded-brand " />
                         </div>
                     </Grid>
                     <div className="circle" />
                     <div className="circle-2" />
-                    {/* <Grid.Container>
-                    <Stars rating={rating}/>
-                </Grid.Container> */}
                 </Card.Body>
             </Card>
         </Grid>

@@ -21,7 +21,6 @@ const AddProductEndpoint = async (req, res) => {
                 category: JoiProduct().category.required(),
                 description: JoiProduct().description.required(),
                 prices: JoiProduct().prices.required(),
-                imgs: JoiProduct().imgs.required()
             });
 
             const { error, value } = schema.validate(body);
@@ -38,34 +37,12 @@ const AddProductEndpoint = async (req, res) => {
                 return badRequest(res, "No tienes una marca")
             }
 
-            value['status'] = {
-                isPremiun: true,
-                isPublic: true
-            }
             const parsed = value
 
             parsed.isOwnedBy = req.requestUser._id
             parsed.brand_id = finder._id
-            parsed.stats = {
-                whatsappClicks: 0
-            }
-            parsed.status = {
-                isPremiun: true,
-                isPublic: true
-            }
 
             const now = new Date();
-
-            if (finder.isActive) {
-                parsed.status.isPublic = true
-                parsed.status.publicUntil = new Date(now.getFullYear(), now.getMonth() + 3, now.getDate())
-            }
-
-            if (req.requestUser.status.isPremiun) {
-                parsed.status.isPremiun = true
-                parsed.status.isPublic = true
-                parsed.status.publicUntil = req.requestUser.status.isPremiunUntil
-            }
 
             const createProduct = await new MongoProduct(parsed)
             await createProduct.save()

@@ -9,11 +9,7 @@ const ProductTimeStamp = ({ data }) => {
                     Creado: {timeago(data?.createdAt)}
                 </Button>
             </Grid>
-            <Grid>
-                <Button color="gray" auto>
-                    Vence: {timeago(data?.status?.publicUntil)}
-                </Button>
-            </Grid>
+     
         </Grid.Container>
     )
 }

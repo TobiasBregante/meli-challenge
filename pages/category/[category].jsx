@@ -8,11 +8,12 @@ import useSWRInfinite from 'swr/infinite'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import categories from '@/src/utils/user/brand/categories'
 
 
 
 
-const ProductsByCategory = ({ products, brands, website, category }) => {
+const ProductsByCategory = ({ products, brands, category }) => {
     const router = useRouter()
     const [uniqueProds, setUniqueProds] = useState([]);
     const categoryParam = router.query.category;
@@ -63,9 +64,9 @@ const ProductsByCategory = ({ products, brands, website, category }) => {
 
 
     return (
-        <Page categories={website?.categories}>
+        <Page categories={categories}>
             <Container xl css={{ mb: "$10" }}>
-                <CategoriesCarousel data={website.categories} />
+                <CategoriesCarousel data={categories} />
                 {
                     products?.length > 0 &&
                     <InfiniteScroll
@@ -92,7 +93,6 @@ export async function getServerSideProps(ctx) {
         props: {
             brands: await Get(`/${ctx?.locale}/brands/find/query?popular=true&limit=20${encodeURI(ctx.params.category)?.toLowerCase() !== 'popular' ? `&category=${encodeURI(ctx.params.category)}` : ''}`).then(r => r.data).catch(() => []),
             products: await Get(`/${ctx?.locale}/products/find/query?popular=true&limit=21${encodeURI(ctx.params.category)?.toLowerCase() !== 'popular' ? `&category=${encodeURI(ctx.params.category)}` : ''}`).then(r => r.data).catch(() => []),
-            website: await Get(`/${ctx?.locale}/website`).then(r => r.data).catch(() => { }),
             category: ctx?.params?.category
         }, // will be passed to the page component as props
     }

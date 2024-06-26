@@ -1,7 +1,7 @@
 import Image from "next/legacy/image"
 import Icon from '@/ui/icons'
 import Share from '@/components/modules/common/share'
-import { Button, Card, Grid, Text } from '@nextui-org/react'
+import { Avatar, Button, Card, Grid, Text } from '@nextui-org/react'
 import Router, { useRouter } from 'next/router'
 import { useUserContext } from '@/src/utils/user/provider';
 import { useEffect, useState } from 'react'
@@ -42,13 +42,11 @@ const BrandProfileMinimal = ({ data, hideFullProfile }) => {
                 }
                 <Grid.Container justify="center">
                     <div>
-                        <Image
+                        <Avatar
                             className="bg-image rounded-circle pointer"
-                            src={data.imgs?.principal !== undefined && data?.imgs?.principal !== 'NI35_W3jmftQURiB_rR_LR0IUkjGXl77' ? data.imgs.principal : "blank-profile-picture-g227b26ec4_640_fwvqox"}
+                            src={'/img/avatars/1.png'}
                             width={100}
                             height={100}
-                            layout='intrinsic'
-                            objectFit='contain'
                             alt="als"
                         />
                     </div>

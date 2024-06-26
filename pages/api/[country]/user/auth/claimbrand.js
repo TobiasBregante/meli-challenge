@@ -20,10 +20,8 @@ const ClaimBrandEndpoint = async (req, res) => {
         try {
             const schema = Joi.object({
                 brandName: JoiBrand().brandName.required(),
-                imgs: JoiBrand().imgs.required(),
                 category: JoiBrand().category.required(),
                 payMethod: JoiBrand().payMethod.required(),
-                location: JoiBrand().location.required(),
             });
 
             const { error, value } = schema.validate(body);

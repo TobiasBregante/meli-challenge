@@ -7,7 +7,6 @@ import Icon from '@/ui/icons';
 import { Badge, Grid, Text } from '@nextui-org/react';
 import { Fragment, useEffect, useState } from 'react';
 import Link from '@/src/utils/hooks/link';
-import BannerSuscriber from '@/src/components/bannerSuscriber';
 
 const CarouselTitle = ({ title, link }) => {
 
@@ -31,7 +30,7 @@ const CarouselTitle = ({ title, link }) => {
 
 }
 
-const ProductCarousel = ({ title, data, link, categoryHidde, bent, hiddeBannerSuscription }) => {
+const ProductCarousel = ({ title, data, link, categoryHidde }) => {
   const [dataFilter, setDataFilter] = useState([])
 
   useEffect(() => {
@@ -46,8 +45,7 @@ const ProductCarousel = ({ title, data, link, categoryHidde, bent, hiddeBannerSu
   if (dataFilter?.length > 0 ) {
     return (
       <div className='carousell-product'>
-        <BannerSuscriber hidde={hiddeBannerSuscription}/>
-        <CarouselTitle title={title} link={link} bent={bent} />
+        <CarouselTitle title={title} link={link} />
         <Swiper
           spaceBetween={10}
           modules={[Navigation]}

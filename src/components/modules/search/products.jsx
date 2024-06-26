@@ -4,7 +4,6 @@ import ProductTable from '../products/list/table'
 import fuse from 'fuse.js'
 import { useState } from 'react'
 
-
 const SearchBrands = ({ data, isSeller }) => {
     const [value, setValue] = useState("")
     const [state, setState] = useState(data)
@@ -15,7 +14,7 @@ const SearchBrands = ({ data, isSeller }) => {
             return setState(data)
         }
         const searchEngine = new fuse(data, {
-            keys: ["title", "brand.brandName", "brand.location.zone"],
+            keys: ["title", "brand.brandName"],
             threshold:0.2
         })
         setState(searchEngine.search(e.target.value).map(p => p.item))

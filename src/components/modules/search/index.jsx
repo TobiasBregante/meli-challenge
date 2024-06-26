@@ -1,5 +1,4 @@
 import UnorderedList from '@/src/components/modules/products/list/unordered'
-import BrandsList from '../brand/lists'
 import { Button, Card, Grid, Text } from '@nextui-org/react'
 import Icon from '@/ui/icons'
 import SearchFilters from './filters'
@@ -43,11 +42,7 @@ const SearchModule = ({ products, brands, query, categories, params }) => {
                         <UnorderedList data={products} />
                     }
                     {
-                        brands &&
-                        <BrandsList data={brands} breakpoints={{ lg: 4, }} />
-                    }
-                    {
-                        ((brands && brands.length == 0) || (products && products.length == 0)) &&
+                        (products && products.length == 0) &&
                         <Text h2>
                             Sin resultados
                         </Text>

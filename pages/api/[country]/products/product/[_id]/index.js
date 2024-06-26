@@ -4,7 +4,6 @@ import cors from '@Cors'
 import Products from '@/src/models/products/mongoose'
 import Brands from '@/src/models/brand/mongoose'
 import DB from '@ConnectDb'
-import withTax from '@/src/utils/product/tax'
 
 const GetProduct = async (req, res) => {
     await cors(req, res)
@@ -17,7 +16,7 @@ const GetProduct = async (req, res) => {
     if (method == 'GET') {
         try {
             let finder = await Products.findById(query._id).lean()
-            finder = withTax(finder, true)
+            finder = finder
             
             if (finder == null) {
                 return res.status(404).json({msg:"No encontrado"})
@@ -26,9 +25,7 @@ const GetProduct = async (req, res) => {
                 finder.brand = await Brands.findById(finder.brand_id).lean()
                 const findPhone = await User.findById(finder.isOwnedBy).lean()
                 finder.brand.phone = findPhone.cellPhone
-            }
-            finder.comments = finder.comments.reverse()
-            
+            }            
 
             return res.json(finder)
 

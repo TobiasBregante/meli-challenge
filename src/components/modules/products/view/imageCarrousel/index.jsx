@@ -8,7 +8,7 @@ import Button from "@/src/components/ui/buttons";
 import Icon from "@/src/components/ui/icons";
 import { Grid, Modal } from "@nextui-org/react";
 
-const ProductImageCarrousel = ({ imgs }) => {
+const ProductImageCarrousel = ({ imgs=['/img/e5.webp'] }) => {
     const [imgSelected, setImgSelected] = useState(0),
         [swiper, setSwiper] = useState(null),
         [subSwiper, setSubSwiper] = useState(null),
@@ -33,7 +33,7 @@ const ProductImageCarrousel = ({ imgs }) => {
                     >
                         <div>
                             <Image
-                                src={`/${imgs[imgSelected]}`}
+                                src={`${imgs[imgSelected]}`}
                                 aria-labelledby={'Image Carousell'}
                                 css={{ h: "auto", w: "50vw !important", "@mdMax": { w: "100vw !important" } }}
                                 width={100}
@@ -63,7 +63,7 @@ const ProductImageCarrousel = ({ imgs }) => {
                                         <div className="productImageCardOpen">
                                             <Image
                                                 style={{ display: 'block', margin: 'auto' }}
-                                                src={`/${img}`}
+                                                src={`${img}`}
                                                 alt={`Ver ${imgI}`}
                                                 layout='fill'
                                                 objectFit='contain'
@@ -89,7 +89,7 @@ const ProductImageCarrousel = ({ imgs }) => {
                                 <SwiperSlide key={imgI}>
                                     <div>
                                         <Image
-                                            src={`/${img}`}
+                                            src={`${img}`}
                                             width={100}
                                             height={100}
                                             onClick={handleThumbnailClick(imgI)}
@@ -115,7 +115,7 @@ const ProductImageCarrousel = ({ imgs }) => {
                         <div className="my-2 ms-2" key={imgI}>
                             <Image
                                 className={`rounded-8 transition-25 pointer ${imgSelected == imgI ? "" : "opacity-25"}`}
-                                src={`/img/${img}`}
+                                src={`${img}`}
                                 width={100}
                                 height={100}
                                 layout="responsive"
@@ -151,7 +151,7 @@ const ProductImageCarrousel = ({ imgs }) => {
                                     <Image
                                         className={`${isZoomed ? "rounded-8" : "cursor-zoomIn rounded-top-8"}`}
                                         onClick={() => setIsZoomed(true)}
-                                        src={`/img/${img}`}
+                                        src={`${img}`}
                                         width={100}
                                         height={100}
                                         layout="responsive"
@@ -175,7 +175,7 @@ const ProductImageCarrousel = ({ imgs }) => {
                                     <SwiperSlide key={imgI}>
                                         <Image
                                             className={`rounded-8 transition-25 ${imgSelected == imgI ? "" : "opacity-50"}`}
-                                            src={`/img/${img}`}
+                                            src={`${img}`}
                                             width={100}
                                             height={100}
                                             layout="responsive"

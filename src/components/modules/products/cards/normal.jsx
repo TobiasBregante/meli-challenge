@@ -1,43 +1,24 @@
 import Image from "next/legacy/image"
 import currency from 'currency.js'
-import { Card, Text } from '@nextui-org/react'
+import { Button, Card, Text } from '@nextui-org/react'
 import Link from '@/src/utils/hooks/link'
+import { addToCart, getTotalCartValue } from "@/src/context/cartContext"
+import { useEffect } from "react"
 
 const ProductCard = ({ data, className }) => {
     if (!data) {
         return null
     }
 
+    const totalValue = getTotalCartValue()
+    useEffect(() => console.log(totalValue), [totalValue])
+
     const getRandomImg = max => Math.floor(Math.random() * max);
 
     const lowestPriceSelect = () => {
-        const {
-            minPerCurve,
-            minPerDozen,
-            minPerQuantity,
-            minPerTask,
-            minPerWholesale,
-            perCurve,
-            perDozen,
-            perQuantity,
-            perTask,
-            retail,
-            wholesale
-        } = data?.prices
+        const { retail } = data?.prices
 
-        let prices = [
-            retail
-            || minPerCurve
-            || minPerDozen
-            || minPerQuantity
-            || minPerTask
-            || minPerWholesale
-            || perCurve
-            || perDozen
-            || perQuantity
-            || perTask
-            || wholesale
-        ]
+        let prices = [retail]
         prices = prices.filter(price => price != 0 && price != undefined)
 
         return currency(Math.min(...prices), { decimal: ",", separator: "." }).format()
@@ -50,7 +31,7 @@ const ProductCard = ({ data, className }) => {
                     <div className='productImageCard'>
                         <Image
                             style={{ display: 'block', margin: 'auto' }}
-                            src={data?.imgs[getRandomImg(data?.imgs?.length - 1)]}
+                            src={'/img/e5.webp'}
                             alt={data?.title}
                             layout='fill'
                             objectFit='cover'
@@ -71,6 +52,7 @@ const ProductCard = ({ data, className }) => {
                     </Text>
                 </Card.Body>
             </Link>
+            <button type="button" className="addToCartBtnCard" onClick={() => addToCart(data)}>+</button>
         </Card>
     )
 }

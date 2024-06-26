@@ -1,5 +1,5 @@
 {
-  "name": "salada-app",
+  "name": "iwarket",
   "private": true,
   "scripts": {
     "dev": "next dev",

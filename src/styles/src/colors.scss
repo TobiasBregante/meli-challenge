@@ -64,14 +64,6 @@ html, body{
     }
     padding: 0;
 }
-.banner-img {
-    @media (max-width: $isMobile) {
-        // height: 178.344px; use when you have its ok the mobile image
-        height: 15vh;
-    }
-    height: 340px;
-    width: 100vw;
-}
 .carousell-product {
     * {  
         box-shadow: none !important;
@@ -176,7 +168,6 @@ html, body{
     // height: 352px !important;
     // width: 226px !important;
     .productCardLink {
-        background-color: #fff;
         position: absolute;
         border-radius: 8px;
         height: 100%;
@@ -245,178 +236,6 @@ html, body{
     margin: auto; 
     background-color: #f2f2f2; 
 }
-.container-bent {
-    overflow-y: hidden !important;
-    padding: 0;
-}
-.bentCard {
-    z-index: 900;
-    border-radius: 0;
-    width: 100vw;
-    margin: 0 !important;
-    background-color: #000;
-    @media (max-width: $isMobile) {
-        .bentProductCard {
-            width: 100vw !important; 
-            height: 100vh !important; 
-        }
-        .bentCardLink {
-            text-align: center;
-            position: relative;
-            width: 100vw !important; 
-            height: 100vh !important; 
-        }
-        .bentImageCard {
-            width: 100vw !important; 
-            height: 100vh !important; 
-            position: relative; 
-            display: block;
-            margin: auto !important;
-            text-align: center; 
-            z-index: 999;
-            padding: 0; 
-        }
-        .bentControls {
-            margin-right: 0 !important;
-        }
-        .bentBrandInfoFooter {
-            // background-color: red !important;
-            width: 100vw !important;
-            height: 26vh !important;
-            text-align: left;
-            display: flex;
-            margin: auto;
-            margin-left: 0 !important;
-            position: absolute !important;
-            bottom: 0 !important;
-            left: 0 !important;
-            padding: 10px 20px;
-            padding-bottom: 10vh !important;
-            padding-right: 15vw !important;
-            padding-top: 10vh;
-            z-index: 998 !important;
-            .bentCardDescription {
-                padding: 0 !important;
-                margin: auto !important;
-                margin-left: 2% !important;
-            }
-        }
-    }
-    .brandAvatar {
-        img {
-            width: 100% !important;
-            height: 100% !important;
-        }
-    }
-    .bentProductCard {
-        width: 45vw; 
-        height: 100vh; 
-    }
-    .bentCardLink {
-        text-align: center;
-        position: relative;
-        width: 45vw; 
-        height: 100vh; 
-    }
-    .bentImageCard {
-        width: 45vw; 
-        height: 100vh; 
-        position: relative; 
-        display: block;
-        margin: auto !important;
-        z-index: 1 !important;
-        text-align: center; 
-        padding: 0; 
-    }
-    .bentControls {
-        margin-right: 20vw;
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        width: 20vw;
-        height: 38vh;
-        z-index: 999 !important;
-        .bentLike {
-            color: $white;
-            font-size: 2rem;
-        }
-        .bentBoltBtn {
-            &:active {
-                color: $primary !important;
-            }
-        }
-    }
-    .bentComments {
-        position: absolute !important;
-        height: 80vh !important;
-        width: 100vw !important;
-        z-index: 9999 !important;
-        margin-bottom: 0 !important;
-        bottom: 0 !important;
-        right: 0 !important;
-        left: 0 !important;
-        .bentTextarea {
-            z-index: 99999;
-        }
-    }
-    .bentCommentBtn {
-        background: transparent;
-        margin: 25px auto;
-        display: flex;
-        height: 40px;
-        width: 25px;
-        padding: 0;
-        right: 0;
-        left: 0;
-        box-shadow: none;
-        border: 0;
-        .bentIconComment {
-            margin: 0;
-            padding: 0;
-            color: $white !important;
-            font-size: 2rem;
-        }
-    }
-    .bentCommentBtnClose {
-        background-color: $white;
-        border-radius: 50px;
-        position: absolute;
-        z-index: 9999;
-        margin: auto;
-        margin-top: 18vh;
-        border: 0;
-        width: 15vw;
-        right: 0;
-        left: 0;
-        top: 0;
-    }
-    .bentBrandInfoFooter {
-        background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, .6));
-        text-align: left;
-        width: 45vw;
-        height: 26vh;
-        display: flex;
-        margin: auto;
-        margin-left: 27.5vw;
-        position: absolute !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        padding: 10px 20px;
-        padding-top: 5vh;
-        padding-bottom: 12vh !important;
-        padding-right: 5vw !important;
-        z-index: 998;
-        .bentCardDescription {
-            padding: 0;
-            margin: 0;
-            padding-left: 20px;
-        }
-        button {
-            border-color: $white;
-            color: $white;
-        }
-    }
-}
 .btnNavbarListBottom {
     background: transparent;
     border-radius: 50px;
@@ -467,31 +286,6 @@ html, body{
         color: $white;
     }
 }
-.bentHeaderContainer{
-    @media (max-width: $isMobile) {
-        width: 100vw;
-    }
-    background: linear-gradient(rgba(0, 0, 0, .4), rgba(0, 0, 0, 0));
-    position: fixed !important;
-    right: 0 !important;
-    left: 0 !important;
-    top: 0 !important;
-    color: $white;
-    font-size: 20px;
-    z-index: 999;
-    height: 10vh;
-    margin: auto !important;
-    width: 45vw;
-}
-.bentHeaderTitle {
-    position: absolute !important;
-    margin: 10px 20px;
-    left: 0 !important;
-    top: 0 !important;
-    color: $white;
-    font-size: 20px;
-    z-index: 999;
-}
 .bookmark-true {
     color: $secondary !important;
 }
@@ -504,84 +298,6 @@ html, body{
     bottom: 0;
     right: 0;
     left: 0;
-}
-.bentHeaderToBent {
-    border: 2px solid $white !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    margin-top: 5px;
-    padding: 0 !important;
-    color: $white !important;
-    background: transparent;
-    width: 28px !important;
-    height: 28px !important;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 14px;
-}
-.bentHeaderProfile {
-    background: transparent;
-    cursor: pointer;
-    border: none;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    margin-top: 5px;
-    width: 20px !important;
-    height: 20px !important;
-    z-index: 999 !important;
-    border-radius: 50%;
-}
-.bentHeader {
-    background: transparent;
-    cursor: pointer;
-    position: relative;
-    border: none;
-    margin: auto !important;
-    margin-top: 0% !important;
-    width: 40px !important;
-    height: 40px !important;
-    span {
-        position: absolute;
-        bottom: 0;
-        width: 40px;
-        height: 26px;
-        right: 0;
-        left: 0;
-        top: 0;
-        padding: 0;
-        margin: auto;
-        color: $white !important;
-        display: block;
-    }
-    z-index: 999 !important;
-    bottom: 0 !important;
-    right: 0 !important;
-    left: 0 !important;
-    border-radius: 50%;
-    &:active {
-        background-color: $primary;
-    }
-}
-.bentSwiper {
-    .swiper {
-        width: 100vw;
-        height: 95vh;
-    }
-    
-    .swiper-slide {
-        text-align: center;
-        font-size: 18px;
-        background: #fff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .swiper-slide img {
-        display: block;
-        width: 100vw;
-        height: 100vh;
-        object-fit: cover;
-    }
 }
 .containProductImageCard { 
     width: 100%; 
@@ -839,10 +555,6 @@ background: linear-gradient(to left, #49a09d, #5f2c82); /* W3C, IE 10+/ Edge, Fi
     text-align: center !important;
     margin: auto;
 }
-.Salada-app-logo-SelectCountry {
-    display: block;
-    margin: auto;
-}
 .country-items-select a{
     background-color: rgba(0, 0, 0, .1);
     border-radius: 8px;
@@ -952,178 +664,6 @@ background: linear-gradient(to left, #49a09d, #5f2c82); /* W3C, IE 10+/ Edge, Fi
 .levelHeader {
     font-weight: 900;
 }
-.banner-suscriber-ads {
-    * {
-        overflow:unset
-    }
-    h2 {
-        text-align: center;
-        font-size: 1rem;  
-        color: $white;
-        margin: 0;
-    }
-    .badgePrice {
-        span {
-            font-size: 1.2rem;
-            border: 0;
-        }
-    }
-    .circle {
-        background: #A1FFCE;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to top, #FAFFD1, #A1FFCE);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to top, #FAFFD1, #A1FFCE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
-        animation: rotacion 4s infinite linear;
-        position: absolute;
-        border-radius: 50%;
-        height: 210px;
-        width: 220px;
-        margin: -80px -50px 0 0;
-        z-index: -1;
-        right: 0;
-        top: 0;
-    }
-    .circle-2 {
-        background: #83a4d4;  /* fallback for old browsers */
-        background: -webkit-linear-gradient(to top, #b6fbff, #83a4d4);  /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to top, #b6fbff, #83a4d4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
-        animation: rotacion 4s infinite linear;
-        position: absolute;
-        border-radius: 50%;
-        height: 170px;
-        width: 180px;
-        margin: 0 0 -80px -50px;
-        z-index: -1;
-        bottom: 0;
-        left: 0;
-    }
-    @keyframes rotacion {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-    cursor: pointer;
-    margin-top: 1vh;
-}
-.banner-suscriber-ads-card {
-    @media (max-width: $isMobile) {
-        height: 15vh;
-    }
-    height: 20vh;
-    text-shadow: 0px 0px 10px #000;
-}
-.adsBg0 {
-    background: #ec008c;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #fc6767, #ec008c);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #fc6767, #ec008c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    .badgePrice {
-        span {
-            background: #ec008c;  /* fallback for old browsers */
-            background: -webkit-linear-gradient(to left, #fc6767, #ec008c);  /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to left, #fc6767, #ec008c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */            
-        }
-    }    
-}
-.adsBg1 {
-    background: #8E2DE2;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #4A00E0, #8E2DE2);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #4A00E0, #8E2DE2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    .badgePrice {
-        span {
-            background: #8E2DE2;  /* fallback for old browsers */
-            background: -webkit-linear-gradient(to left, #4A00E0, #8E2DE2);  /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to left, #4A00E0, #8E2DE2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        }
-    }
-}
-.adsBg2 {
-    background: #00c3ff;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #ffff1c, #00c3ff);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #ffff1c, #00c3ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    .badgePrice {
-        span {
-            background: #00c3ff;  /* fallback for old browsers */
-            background: -webkit-linear-gradient(to left, #ffff1c, #00c3ff);  /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to left, #ffff1c, #00c3ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        }
-    }
-}
-.adsBg3 {
-    background: #FF5F6D;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #FFC371, #FF5F6D);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #FFC371, #FF5F6D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    .badgePrice {
-        span {
-            background: #FF5F6D;  /* fallback for old browsers */
-            background: -webkit-linear-gradient(to left, #FFC371, #FF5F6D);  /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to left, #FFC371, #FF5F6D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */            
-        }
-    }
-}
-.adsBg4 {
-    background: #00B4DB;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
-    .badgePrice {
-        span {
-            background: #00B4DB;  /* fallback for old browsers */
-            background: -webkit-linear-gradient(to left, #0083B0, #00B4DB);  /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to left, #0083B0, #00B4DB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        }
-    }
-}
-.adsBg5 {
-    background: #77A1D3;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #E684AE, #79CBCA, #77A1D3);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #E684AE, #79CBCA, #77A1D3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
-    .badgePrice {
-        span {
-            background: #77A1D3;  /* fallback for old browsers */
-            background: -webkit-linear-gradient(to left, #E684AE, #79CBCA, #77A1D3);  /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to left, #E684AE, #79CBCA, #77A1D3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        }
-    }
-}
-.adsBg6 {
-    background: #ef32d9;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #89fffd, #ef32d9);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #89fffd, #ef32d9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
-    .badgePrice {
-        span {
-            background: #ef32d9;  /* fallback for old browsers */
-            background: -webkit-linear-gradient(to left, #89fffd, #ef32d9);  /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to left, #89fffd, #ef32d9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */                        
-        }
-    }
-}
-.adsBg7 {
-    background: #833ab4;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #fcb045, #fd1d1d, #833ab4);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #fcb045, #fd1d1d, #833ab4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
-    .badgePrice {
-        span {
-            background: #833ab4;  /* fallback for old browsers */
-            background: -webkit-linear-gradient(to left, #fcb045, #fd1d1d, #833ab4);  /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to left, #fcb045, #fd1d1d, #833ab4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */            
-        }
-    }
-}
-.adsBg8 {
-    background: #00bf8f;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #001510, #00bf8f);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #001510, #00bf8f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
-    .badgePrice {
-        span {
-            background: #00bf8f;  /* fallback for old browsers */
-            background: -webkit-linear-gradient(to left, #001510, #00bf8f);  /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to left, #001510, #00bf8f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */               
-        }
-    }   
-}
 .m-auto {
     margin: auto;
 }
@@ -1137,4 +677,60 @@ background: linear-gradient(to left, #49a09d, #5f2c82); /* W3C, IE 10+/ Edge, Fi
 .infinite-scroll-component {
     max-width: 100% !important;
     overflow-x: hidden !important;
+}
+.addToCartBtnCard {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, .8) !important;
+    background-color: #0072f5;
+    color: #fff;
+    border-radius: 50px;
+    border: none;
+    z-index: 999;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    position: absolute;
+    margin: 3%;
+    right: 0;
+    top: 0;
+    &:active {
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, .1) !important;
+        margin: 6%;
+        width: 40px;
+        height: 40px;
+    }
+}
+.cart-box {
+    padding: 2%;
+    li {
+        text-transform: capitalize;
+    }
+    .btn-quantity-cart {
+        margin: .5%;
+        width: max-content;
+        height: max-content;
+        &:hover {
+            background-color: rgba(0, 0, 0, .1);
+        }
+    }
+    .quantity-item {
+        background-color: rgba(0, 0, 0, .1);
+        border-radius: 50px;
+        padding:  0 3%;
+    }
+    h2 {
+        padding: 3%;
+        font-size: 1.3rem;
+        margin: auto;
+    }
+    .totalPayContainer {
+        padding: 3%;
+    }
+    .finishPayBtn {
+        margin-top: 4%;
+    }
+    .item-amount {
+        padding: 1%;
+        font-weight: 600;
+    }
 }

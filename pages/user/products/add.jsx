@@ -1,29 +1,17 @@
 import Page from "@Page";
 import AddProduct from "@/src/components/modules/user/product/add";
-import Get from "@/src/utils/hooks/get";
 import { Grid } from "@nextui-org/react";
 
-const AddProductPage = ({ website }) => {
+const AddProductPage = () => {
     return (
         <Page title="Iwarket - Añadir producto" >
             <Grid.Container justify="center">
                 <Grid xs={12} sm={6}>
-                    <AddProduct website={website} />
+                    <AddProduct />
                 </Grid>
             </Grid.Container>
         </Page>
     )
-}
-
-
-//CACHE PAGE
-export async function getStaticProps(ctx) {
-
-    return {
-        props: {
-            website: await Get(`/${ctx?.locale}/website`).then(r => r.data).catch(() => ({}))
-        }
-    }
 }
 
 export default AddProductPage

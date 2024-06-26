@@ -6,7 +6,6 @@ const BrandProfile = ({ data }) => {
     const content = data?.products?.map(e => ({
         ...e,
         brand: {
-            location: data.location,
             brandName: data.brandName
         }
     }))

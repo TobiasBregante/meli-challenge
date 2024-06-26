@@ -14,16 +14,8 @@ import Link from "@/src/utils/hooks/link";
 
 const SignUpModule = () => {
     const router = useRouter()
-    const [location, setLocation] = useState(null)
-    
-    useEffect(() => {
-        axios.get(`https://ipapi.co/json`)
-        .then(response => setLocation(response?.data || {}))
-        .catch(err => console.error(err))
-    }, [])
 
     const [state, setState] = useState({
-        location: location,
         isSeller: true,
         //personal data
         name: {
@@ -55,7 +47,6 @@ const SignUpModule = () => {
 
     const submit = () => {
         const Schema = Joi.object({
-            location: Joi.object(),
             isSeller: Joi.boolean(),
             name: Joi.string().min(3).max(32).messages(stringMessages("Nombre")),
             lastName: Joi.string().min(3).max(32).messages(stringMessages("Apellido")),
@@ -66,7 +57,6 @@ const SignUpModule = () => {
         })
 
         const { error } = Schema.validate({
-            location: location,
             isSeller: true,
             name: state.name.value,
             lastName: state.lastName.value,
@@ -115,7 +105,6 @@ const SignUpModule = () => {
 
         if (!error) {
             Put(`/${router?.locale}/user/auth/signup`, {
-                location: location,
                 isSeller: true,
                 name: state.name.value,
                 lastName: state.lastName.value,
@@ -165,13 +154,7 @@ const SignUpModule = () => {
                             </Text>
                             <Checkbox label={
                                 <Text>
-                                    Acepto los&nbsp;
-                                    <Link
-                                        href="/docs/terms"
-                                        target="_blank">
-                                        terminos y condiciones
-                                        <Icon id="open_in_new" />
-                                    </Link>
+                                    Acepto los términos y condiciones
 
                                 </Text>
                             }

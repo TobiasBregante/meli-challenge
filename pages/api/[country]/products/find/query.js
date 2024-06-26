@@ -3,9 +3,6 @@ import cors from '@Cors'
 import Products from '@/src/models/products/mongoose'
 import Brand from '@/src/models/brand/mongoose'
 import DB from '@ConnectDb'
-import Website from '@/models/website/mongoose'
-import withTax from '@/src/utils/product/tax'
-
 
 const FindProducts = async (req, res) => {
     await cors(req, res)
@@ -13,7 +10,7 @@ const FindProducts = async (req, res) => {
     const {
         method,
         query: {
-            text, popular, premiunOnly, brand_id, isPublic, category, page, limit, product_category, country, level
+            text, popular, brand_id, category, page, limit, product_category, country
         }
     } = req
 
@@ -26,11 +23,6 @@ const FindProducts = async (req, res) => {
                     ...dbQuery,
                 }
             }
-            if (isPublic) {
-                dbQuery = {
-                    "status.isPublic": isPublic == "true",
-                }
-            }
             if (text) {
                 dbQuery.title = new RegExp(`${text}`, 'i')
             }
@@ -38,7 +30,6 @@ const FindProducts = async (req, res) => {
             if (category) {
                 dbQuery.category = category
 
-                const finder = await Website.find({}).lean()
 
                 finder[0].categories = finder[0].categories.map(c => {
                     if (c?.name == category) {
@@ -46,16 +37,6 @@ const FindProducts = async (req, res) => {
                     }
                     return c
                 })
-
-                await Website.findByIdAndUpdate(finder[0]._id, {
-                    ...finder[0]
-                }).exec()
-            }
-            if (premiunOnly) {
-                dbQuery = {
-                    ...dbQuery,
-                    "status.isPremiun": premiunOnly == "true"
-                }
             }
 
             if (brand_id) {
@@ -66,7 +47,6 @@ const FindProducts = async (req, res) => {
 
             if (popular) {
                 sorting = {
-                    "stats.views": -1,
                     "createdAt": -1
                 }
             }
@@ -90,11 +70,9 @@ const FindProducts = async (req, res) => {
 
             let finder = await Products.find(dbQuery, {
                 title: 1,
-                imgs: 1,
                 category: 1,
                 brand_id: 1,
                 description: 1,
-                comments: 1,
                 prices: 1,
                 stock: 1,
             })
@@ -104,7 +82,7 @@ const FindProducts = async (req, res) => {
                 .limit(hardLimit)
                 .lean()
 
-            finder = withTax(finder, false)
+            finder = finder
 
             if (finder.length == 0) {
                 return res.status(404).json({ msg: "Sin resultados" })
@@ -116,10 +94,6 @@ const FindProducts = async (req, res) => {
                     ...product,
                     brand: brands[i]
                 }))
-
-                if (level) {
-                    return res?.json({ count: finder?.length })
-                }
 
                 return res?.json(finder)
             })

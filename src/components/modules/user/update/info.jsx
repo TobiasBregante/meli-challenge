@@ -7,7 +7,6 @@ import jsCookie from 'js-cookie'
 import { Button, Card, Grid, Input, Text } from '@nextui-org/react';
 import stringMessages from "@/src/utils/joi/customMessages";
 import Post from "@/src/utils/hooks/post";
-import UpdatePremiunPlan from "./premiun";
 import timeago from "@/src/utils/timeago";
 import { useRouter } from "next/router";
 
@@ -195,27 +194,6 @@ const UpdateUserInfoModule = ({ data }) => {
                                     <Icon css={{ color: "$white" }} id="edit" />
                                 </Button>
                             </Grid.Container>
-
-                            <Text h2>
-                                Administrar premiun
-                            </Text>
-
-                            <Grid.Container>
-                                <Button auto color={data.status.isPremiun ? "success" : "error"} css={{ mr: 10 }}>
-                                    {data.status.isPremiun ? "Es premiun" : "No es premiun"}
-                                </Button>
-                                <Button auto color="gray">
-                                    {data.status.isPremiunUntil ? `Vence: ${timeago(data.status.isPremiunUntil)}` : "Aun no fue premiun"}
-                                </Button>
-                                {
-                                    data.status.premiunPlan &&
-                                    <Button auto color="success" css={{ ml: 10 }}>
-                                        Plan: {data.status.premiunPlan}
-                                    </Button>
-                                }
-                            </Grid.Container>
-
-                            <UpdatePremiunPlan data={data} />
                         </Grid.Container>
                     </Card.Body>
                 </Card>

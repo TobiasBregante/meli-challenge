@@ -26,14 +26,12 @@ const Submit = ({ state, setState, data, resetState }) => {
             prices: Joi.object({
                 retail: Joi.number().min(1).max(999999999999999999999).messages(numberMessages("Por menor")),
             }),
-            imgs: Joi.array(),
         })
 
         const { error, value } = Schema.validate({
             title: state.title.value,
             category: state.category.value,
             description: state.description.value,
-            imgs: state.imgs.value,
             prices: {
                 retail: state.prices.retail.value,
             }
@@ -52,12 +50,7 @@ const Submit = ({ state, setState, data, resetState }) => {
                         ...state[error.details[0].path[0]],
                         //second level like "retail"
                         [error.details[0].path[1]]: {
-                            ...state[error.details[0].path[0]][error.details[0].path[1]],
-                            //third level like "isPerUnit"
-                            [error.details[0].path[2]]: {
-                                value: state[error.details[0].path[0]][error.details[0].path[1]][error.details[0].path[2]].value,
-                                error: error.details[0].message
-                            }
+                            ...state[error.details[0].path[0]][error.details[0].path[1]]
                         }
                     }
                 })
@@ -84,31 +77,8 @@ const Submit = ({ state, setState, data, resetState }) => {
             })
         }
 
-        if (state.imgs.value.length === 0) {
-            setSubmiting(false)
-            return toast("Añade al menos una imagen")
-        }
-
         if (!error) {
-            const uploadImages = value.imgs.filter(x => typeof x === "object").map(async img => {
-                let formImage = new FormData();
-                formImage.append("file", img)
-
-                return Post(`/${router?.locale}/products/addImage`, formImage, {
-                    headers: {
-                        sldtoken: jsCookie.get("sldtoken"),
-                        "Content-Type": "multipart/form-data"
-                    }
-                }).then(res => {
-                    return res.data.img_id || 'uO3wK0EqPoTvyU41rnxLTbuBYjy-k9bY'
-                })
-                    .catch(err => {
-                        console.error(err);
-                        setSubmiting(false)
-                        toast("Ocurrio un error de nuestro lado al subir las imagenes")
-                        return false
-                    })
-            })
+  
             const updateOrAdd = (body) => {
                 if (data) {
                     Post(`/${router?.locale}/products/product/${data._id}/update`, body, {
@@ -147,12 +117,7 @@ const Submit = ({ state, setState, data, resetState }) => {
                 }
             }
 
-            Promise.all(uploadImages).then(imgs => {
-                const finalImgs = [...value.imgs.filter(x => typeof x !== "object"), ...imgs]
-                updateOrAdd({ ...value, imgs: finalImgs })
-            })
-
-
+            updateOrAdd({ ...value })
         }
 
     }

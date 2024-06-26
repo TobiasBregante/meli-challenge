@@ -8,8 +8,7 @@ const ProductJoiSchema = () => {
         description: Joi.string().min(4).max(5000).messages(stringMessages("Descripción")),
         prices: Joi.object({
             retail: Joi.number().min(0).max(999999999999999999999).messages(numberMessages("Por menor"))
-        }),
-        imgs: Joi.array().items(Joi.string().min(1).max(128).messages(stringMessages("Imagenes"))),
+        })
     }
 }
 

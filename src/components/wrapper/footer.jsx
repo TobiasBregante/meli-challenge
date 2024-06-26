@@ -56,19 +56,6 @@ const Footer = () => {
                             </div>
                         </Grid>
                     </Grid>
-                    <Grid xs={12} sm={4} md={4} lg={4} xl={4}>
-                        <div className="titleTextFooter">
-                            <p>Servicio Al Cliente</p>
-                            <hr />
-                            <ul>
-                                <li key={'faqs'}>
-                                    <a href={`/./${router?.locale}/docs/faq`}>
-                                        Preguntas frecuentes
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </Grid>
                     <Grid xs={12}>
                         <p className="copyRight">
                             &copy; {thisYear} Todos los derechos reservados. Iwarket.com

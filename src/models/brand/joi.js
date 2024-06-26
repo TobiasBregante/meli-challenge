@@ -8,13 +8,6 @@ const UserJoiSchema = () => {
         category: Joi.string().min(1).max(128).messages(stringMessages("Categoria")),
         payMethod: Joi.array().items(Joi.string().min(1).max(128).messages(stringMessages("Metodo de pago"))),
         phoneNumbers: Joi.array().items(Joi.string().min(4).max(14).messages(stringMessages("Numero de telefono"))),
-        imgs: Joi.object({
-            principal: Joi.string().min(1).max(128),
-            background: Joi.string().min(1).max(128),
-        }),
-        location: Joi.object({
-            zone: Joi.string().valid("online").messages(stringMessages("Zona")),
-        }),
     }
 }
 

@@ -7,12 +7,9 @@ import ShouldLogin from '@/components/modules/user/errors/shouldLogin';
 import ShouldBeSeller from '@/components/modules/user/errors/shouldBeSeller';
 import ShouldHaveBrand from '@/components/modules/user/errors/shouldHaveBrand';
 import IsNotOwner from '@/components/modules/user/errors/isNotOwner';
-import ShouldBePremiun from '@/components/modules/user/errors/shouldBePremiun'
-import HardLimit from '@/components/modules/user/errors/hardLimit'
 
 import { Button, Card, Container, Grid, Input, Loading, Text, Textarea } from "@nextui-org/react";
 import Clasification from "./sections/clasification";
-import ImagesSection from "./sections/images";
 //Validation
 import { toast } from "react-toastify";
 import Submit from "./sections/submit";
@@ -26,7 +23,7 @@ const PricesManager = ({ state, handlePrices, data }) => {
     return <BasePrices state={state} handlePrices={handlePrices} data={data} />
 }
 
-const ManageProduct = ({ website, data }) => {
+const ManageProduct = ({ data }) => {
     const router = useRouter()
     const user = useUserContext()
 
@@ -34,9 +31,8 @@ const ManageProduct = ({ website, data }) => {
         title: { error: "", value: data?.title || "" },
         category: { error: "", value: data?.category || "" },
         description: { error: "", value: data?.description || "" },
-        imgs: { error: "", value: data?.imgs || [] },
         prices: {
-            retail: { error: "", value: data?.prices?.withoutTaxes || 0 },
+            retail: { error: "", value: data?.prices?.retail || 0 },
         }
     }
 
@@ -67,14 +63,6 @@ const ManageProduct = ({ website, data }) => {
 
     if (!user.isAdmin && data?.isOwnedBy != undefined && data?.isOwnedBy != user._id) {
         return <IsNotOwner />
-    }
-
-    if (user.products == 5 && !user.status.isPremiun && data === undefined) {
-        return <ShouldBePremiun />
-    }
-
-    if (user.products == 40 && user.status.isPremiun && user.status.premiunPlan == "feriante" && data === undefined) {
-        return <HardLimit />
     }
 
     const handleGenericString = key => (e) => {
@@ -109,9 +97,6 @@ const ManageProduct = ({ website, data }) => {
         }).then(res => {
             toast(res.data.msg)
             setDeleting(false)
-            if (user.isAdmin) {
-                return router.push(`/./${router?.locale}/admin/search/products`)
-            }
             router.push(`/./${router?.locale}/user/products`)
         }).catch(err => {
             if (err.response.data) {
@@ -140,13 +125,7 @@ const ManageProduct = ({ website, data }) => {
                                         Nombre: {data.brand.brandName}
                                     </Text>
                                     <Text b h4>
-                                        Ubicación: {data.brand.location.zone}
-                                    </Text>
-                                    <Text b h4>
                                         Numero: {data.brand.phone}
-                                    </Text>
-                                    <Text b h4>
-                                        Es premium: {data.brand.isPremiun ? "Si" : "No"}
                                     </Text>
                                 </Card.Body>
                             </Card>
@@ -189,7 +168,7 @@ const ManageProduct = ({ website, data }) => {
                                     </Grid>
                                     <Grid>
                                         <Grid.Container>
-                                            <Clasification state={state} onChange={handleGenericString} website={website} />
+                                            <Clasification state={state} onChange={handleGenericString} />
                                         </Grid.Container>
                                     </Grid>
                                     <Grid>
@@ -209,9 +188,6 @@ const ManageProduct = ({ website, data }) => {
 
                                     <Grid>
                                         <PricesManager state={state} handlePrices={handlePrices} data={data} />
-                                    </Grid>
-                                    <Grid>
-                                        <ImagesSection state={state} setState={setState} />
                                     </Grid>
                                 </Grid.Container>
                                 <Grid.Container justify={data ? "space-between" : "flex-end"}>

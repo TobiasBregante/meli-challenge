@@ -1,6 +1,5 @@
 import Page from '@Page'
 import { Container, Grid } from '@nextui-org/react'
-import SideBar from '@/src/components/modules/admin/sidebar'
 import SearchProductModule from '@/src/components/modules/search/products'
 import Get from '@/src/utils/hooks/get'
 

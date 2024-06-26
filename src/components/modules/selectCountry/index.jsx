@@ -19,7 +19,7 @@ const SelectCountry = () => {
                     height={50}
                     src="/brand_qdbfjo.png"
                     objectFit='contain'
-                    alt="Salada-app-logo" />
+                    alt="iwarket-app-logo" />
                 </div>
                 <Text className='brandingTextSelectCountry' h4>
                   <span style={{ display: 'block', marginBottom: -15 }}>

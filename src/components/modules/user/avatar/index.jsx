@@ -33,11 +33,8 @@ const UserAvatar = () => {
                     <Dropdown.Item key="home" icon={<Icon id="home" />}>
                         <Link href={`/`}>Inicio</Link>
                     </Dropdown.Item>
-                    <Dropdown.Item key="bent">
-                        <Link href={`/bent`}>Bent</Link>
-                    </Dropdown.Item>
                     {
-                        user?.isAdmin &&
+                        (user?.isSeller || user?.isAdmin) &&
                         <Dropdown.Item key="panel" withDivider icon={<Icon id="person" />}>
                             <Link href={"/admin"}>Panel</Link>
                         </Dropdown.Item>
@@ -66,12 +63,7 @@ const UserAvatar = () => {
                             <Link href={`/user/claimBrand`}>Crear marca</Link>
                         </Dropdown.Item>
                     }
-                    <Dropdown.Item key="support" withDivider icon={<Icon id="support_agent" />}>Servicio al cliente</Dropdown.Item>
-                    <Dropdown.Item key="faq" icon={<Icon id="quiz" />}>
-                        <Link href={`/docs/faq`}>Preguntas frecuentes</Link>
-                    </Dropdown.Item>
-                    {/* <Dropdown.Item key="blog" withDivider icon={<Icon id="rss_feed" />}>Blog</Dropdown.Item> */}
-                    <Dropdown.Item key="logout" icon={<Icon id="logout" />} >Cerrar sesión</Dropdown.Item>
+                    <Dropdown.Item withDivider key="logout" icon={<Icon id="logout" />} >Cerrar sesión</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
         </Fragment>

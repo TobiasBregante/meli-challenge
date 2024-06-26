@@ -38,7 +38,6 @@ const FindUser = async (req, res) => {
 
             dbQuery = {
                 ...dbQuery,
-                "location.country_code": country?.toUpperCase()
             }
 
             let finder = await User.find(dbQuery, {
@@ -46,7 +45,6 @@ const FindUser = async (req, res) => {
             })
                 .limit(hardLimit)
                 .lean()
-                .sort({ 'status.isPremiun': -1})
 
             if (finder.length == 0) {
                 return res.status(404).json({ msg: "Sin resultados" })

@@ -12,16 +12,13 @@ import Post from "@/src/utils/hooks/post";
 import timeago from "@/src/utils/timeago";
 import Get from "@/utils/hooks/get";
 
-const UpdateBrandModule = ({ website, data }) => {
+const UpdateBrandModule = ({ data }) => {
     const router = useRouter()
     const user = useUserContext()
     const [state, setState] = useState({
         brandName: { error: "", value: data.brandName },
         category: { error: "", value: data.category },
         payMethod: { error: "", value: data.payMethod },
-        location: {
-            zone: { error: "", value: "online" },
-        },
     })
 
     const [isSubmiting, setSubmiting] = useState(false)
@@ -147,9 +144,6 @@ const UpdateBrandModule = ({ website, data }) => {
         }).then(res => {
             toast(res.data.msg)
             setSubmiting(false)
-            if (user.isAdmin) {
-                return router.push(`/./${router?.locale}/admin/search/brands`)
-            }
             router.push(`/./${router?.locale}/`)
         }).catch(err => {
             if (err.response.data) {
@@ -169,7 +163,7 @@ const UpdateBrandModule = ({ website, data }) => {
                             <Text h3>
                                 Datos del vendedor
                             </Text>
-                            <Avatar css={{ marginLeft: '$10' }} squared src={`https://res.cloudinary.com/edata/f_auto,c_limit,w_64,q_auto/${data?.imgs?.principal || 'uO3wK0EqPoTvyU41rnxLTbuBYjy-k9bY'}`} />
+                            <Avatar css={{ marginLeft: '$10' }} squared src={`/img/avatars/1.png`} />
                         </Card.Header>
                         <Card.Body>
                             <Text b h4>
@@ -215,7 +209,7 @@ const UpdateBrandModule = ({ website, data }) => {
                                         css={{ w: "100%" }} />
                                 </Grid>
                                 <Grid>
-                                    <Clasification state={state} onChange={handleGenericString} website={website} />
+                                    <Clasification state={state} onChange={handleGenericString}/>
                                 </Grid>
                                 {
                                     user?.isAdmin &&

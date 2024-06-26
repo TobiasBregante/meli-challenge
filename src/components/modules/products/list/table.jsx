@@ -21,7 +21,6 @@ const ProductsTable = ({ data, isSeller }) => {
             <Table.Header>
                 <Table.Column>Titulo</Table.Column>
                 <Table.Column>Marca</Table.Column>
-                <Table.Column>Ubicación</Table.Column>
             </Table.Header>
             <Table.Body>
                 {
@@ -29,7 +28,6 @@ const ProductsTable = ({ data, isSeller }) => {
                         <Table.Row key={i}>
                             <Table.Cell>{product?.title}</Table.Cell>
                             <Table.Cell>{product?.brand?.brandName}</Table.Cell>
-                            <Table.Cell>{product?.brand?.location?.zone}</Table.Cell>
                         </Table.Row>
                     ))
                 }

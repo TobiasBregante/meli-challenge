@@ -3,7 +3,6 @@ import cors from '@Cors'
 import Products from '@/src/models/products/mongoose'
 import userAuth from '@/src/middlewares/userAuth';
 import JoiProduct from '@/models/products/joi'
-import ManagePublic from '@/utils/product/managePublic'
 import DB from '@ConnectDb'
 import Joi from 'joi';
 
@@ -13,7 +12,7 @@ const UpdateProduct = async (req, res) => {
     const {
         method,
         query: {
-            handlePublic, _id
+            _id
         },
         body
     } = req
@@ -26,17 +25,11 @@ const UpdateProduct = async (req, res) => {
                 return res.status(404).json({ msg: "No encontrado" })
             }
 
-            if (handlePublic) {
-                ManagePublic(handlePublic,_id)
-                return res.json({msg:"Actualizado"})
-            }
-
             const schema = Joi.object({
                 title: JoiProduct().title,
                 category: JoiProduct().category,
                 description: JoiProduct().description,
                 prices:JoiProduct().prices,
-                imgs: JoiProduct().imgs
             })
 
             const { error, value } = schema.validate(body);

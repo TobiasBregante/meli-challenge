@@ -7,10 +7,10 @@ import UserWrapper from '@/utils/user/provider';
 import categories from '@/src/utils/user/brand/categories';
 import LocaleSwitcher from './localeSwitcher';
 import contentful from './content';
-import BentHeader from './bentHeader';
 import { Analytics } from '@vercel/analytics/react';
+import { CartProvider } from '@/src/context/cartContext';
 
-const Page = ({ title, description, image, children, hiddeNavbar, hiddeFooter, bent, countryLocation }) => {
+const Page = ({ title, description, image, children, hiddeNavbar, hiddeFooter }) => {
     const [content, setContent] = useState(null)
 
     useEffect(() => {
@@ -24,19 +24,18 @@ const Page = ({ title, description, image, children, hiddeNavbar, hiddeFooter, b
             }
         }
     }, [children])
-    
+
     return (
         <Fragment>
             <ToastContainer />
             <UserWrapper>
                 <Head title={title} description={description} image={image} />
-                {!hiddeNavbar && <Header contentful={content} categories={categories}/>}
+                {!hiddeNavbar && <Header contentful={content} categories={categories} />}
                 {children || null}
-                {!bent && <LocaleSwitcher contentful={content} fixed={true}/>}
-                {!countryLocation && <BentHeader bent={bent}/>}
-                {!hiddeFooter && <Footer categories={categories} contentful={content}/>}
+                <LocaleSwitcher contentful={content} fixed={true} />
+                {!hiddeFooter && <Footer categories={categories} contentful={content} />}
             </UserWrapper>
-            <Analytics/>
+            <Analytics />
         </Fragment>
     )
 }

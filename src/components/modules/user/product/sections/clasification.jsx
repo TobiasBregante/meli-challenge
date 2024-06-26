@@ -2,7 +2,7 @@ import categories from "@/src/utils/user/brand/categories"
 import { Dropdown, Grid, Text } from "@nextui-org/react"
 import { Fragment, useState } from "react"
 
-const Clasification = ({state,onChange, website}) => {
+const Clasification = ({state,onChange}) => {
     const [categoryState, setCategory] = useState("")
 
     const handleCategory = e => {
